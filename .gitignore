@@ -1,0 +1,26 @@
+# Git ignore file used to maintain a clean repo
+###############################################
+
+###################
+# Eclipse files
+###################
+.classpath
+.project
+.settings/
+
+###################
+# Gedit files
+###################
+*.*~
+
+###################
+# Maven files
+###################
+target/
+
+###################
+# Vim files
+###################
+*.swp
+.vim
+

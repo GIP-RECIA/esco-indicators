@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean 	id="ldapUserService"
+			class="org.esupportail.commons.services.ldap.SearchableLdapUserServiceImpl"
+			lazy-init="true">
+		<property name="i18nService" ref="i18nService"/>
+		<property name="ldapTemplate" ref="ldapTemplate"/>
+		<property name="dnSubPath" value="${ldap.dnSubPath}"/>
+		<property name="idAttribute" value="${ldap.uidAttribute}"/>
+		<property name="attributesAsString" value="${ldap.attributes}"/>
+		<property name="searchAttribute" value="${ldap.searchAttribute}"/>
+		<property name="searchDisplayedAttributesAsString" value="${ldap.searchDisplayedAttributes}"/>
+		<property name="cacheManager" ref="cacheManager"/>
+		<property name="cacheName" value=""/>
+		<property name="testFilter" value="${ldap.testFilter}"/>
+	</bean>
+
+	<bean	id="ldapTemplate"
+			class="org.springframework.ldap.core.LdapTemplate"
+			lazy-init="true">
+		<property name="contextSource" ref="contextSource"/>
+	</bean>
+	
+	<bean 	id="contextSource"
+			class="org.esupportail.commons.services.ldap.MultiUrlLdapContextSource"
+			lazy-init="true">
+		<property name="url" value="${ldap.url}"/>
+		<property name="userDn" value="${ldap.userDn}"/>
+		<property name="password" value="${ldap.password}"/>
+		<property name="base" value="${ldap.base}"/>
+		<property name="baseEnvironmentProperties">
+			<map>
+				<entry 	key="com.sun.jndi.ldap.connect.timeout"
+						value="${ldap.connectTimeout}"/>
+			</map>
+		</property>		
+	</bean>
+	
+    <bean  id="ldapEstablishmentService"
+           class="org.esco.indicators.services.ldap.LdapEstablishmentServiceImpl">
+        <property name="ldapTemplate" ref="ldapTemplate"/>
+        <property name="dnSubPath" value="${ldap.structureDnSubPath}"/>
+        <property name="idAttribute" value="${ldap.structureUidAttribute}"/>
+        <property name="attributes" value="${ldap.structureAttributes}"/>
+        <property name="testFilter" value="${ldap.structureTestFilter}"/>
+        <property name="objectClass" value="${ldap.structureObjectClass}"/>
+    </bean>
+
+</beans>

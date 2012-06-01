@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+    
+    
+        
+    <!-- ////////////////////////// -->
+    <!-- BEANS -->
+    <!-- ////////////////////////// -->
+    <bean id="app_context" class="org.esupportail.commons.context.ApplicationContextHolder"/>
+    
+    <bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:/properties/defaults.properties</value>
+                <value>classpath:/properties/config.properties</value>
+            </list>
+        </property>
+        <property name = "ignoreResourceNotFound" value="true" />
+    </bean>
+    
+    <!-- ////////////////////////// -->
+    <!-- IMPORTS -->
+    <!-- ////////////////////////// -->
+    <import resource="classpath:META-INF/indicators-domain-services-domain.xml"/>    
+    <import resource="classpath:META-INF/indicators-domain-services-ldap.xml"/>
+    <import resource="classpath:META-INF/indicators-domain-services-establishment.xml"/>
+    <import resource="classpath:META-INF/indicators-domain-services-statistic.xml"/>
+    
+    <import resource="classpath*:META-INF/indicators-dao-dao.xml"/>
+
+
+    
+</beans>
