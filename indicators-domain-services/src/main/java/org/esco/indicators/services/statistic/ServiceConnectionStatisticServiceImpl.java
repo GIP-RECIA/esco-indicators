@@ -12,7 +12,7 @@ import org.esco.indicators.domain.beans.statistic.ServiceConnectionStatistic;
 /**
  * Implementation of the {@link ServiceConnectionStatisticService} interface.
  * 
- * @since : 2012/06/04
+ * @since 2012/06/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionStatisticService {

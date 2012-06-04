@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * @since : 
+ * @since 
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class GroupTest {

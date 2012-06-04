@@ -21,7 +21,7 @@ import org.esupportail.commons.dao.AbstractGenericJPADaoService;
 /**
  * Implementation of the EstablishmentDao interface.
  * 
- * @since : 2012/05/25
+ * @since 2012/05/25
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class EstablishmentDaoImpl extends AbstractGenericJPADaoService implements EstablishmentDao {

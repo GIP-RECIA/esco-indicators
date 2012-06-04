@@ -17,7 +17,7 @@ import org.junit.Test;
  * Tests of the EstablishmentService interface. <br/>
  * These tests are realized using mock objects in order to simulate classes/interfaces behaviors.
  * 
- * @since : 26/05/2012 
+ * @since 2012/05/26
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class EstablishmentServiceImplMockTest extends EstablishmentServiceBaseTest {

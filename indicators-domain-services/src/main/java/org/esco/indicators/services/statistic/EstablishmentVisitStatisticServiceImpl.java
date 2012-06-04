@@ -13,7 +13,7 @@ import org.esco.indicators.utils.constants.StatisticConstants;
 /**
  * Implementation of the {@link EstablishmentVisitStatisticService} interface.
  * 
- * @since : 01/06/2012
+ * @since 2012/06/01
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class EstablishmentVisitStatisticServiceImpl implements EstablishmentVisitStatisticService {

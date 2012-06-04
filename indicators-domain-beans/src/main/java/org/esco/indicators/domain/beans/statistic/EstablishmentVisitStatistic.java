@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
 /**
  * Class representing the statistics on the visits / visitors of an establishment.
  * 
- * @since : 31/05/2012
+ * @since 2012/05/31
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 @Entity

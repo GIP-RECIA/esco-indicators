@@ -21,7 +21,7 @@ import org.hibernate.annotations.NaturalId;
 /**
  * Class representing statistics on services usage of a user.<br/>
  * 
- * @since : 04/06/2012
+ * @since 2012/06/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 @Entity

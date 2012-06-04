@@ -6,7 +6,7 @@ package org.esco.indicators.utils.constants;
 /**
  * Enumeration providing all the constants used in the statistical database.
  * 
- * @since : 01/06/2012 
+ * @since 2012/06/01
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class StatisticConstants {

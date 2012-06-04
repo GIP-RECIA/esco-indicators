@@ -18,7 +18,7 @@ import org.esco.indicators.domain.beans.structure.Establishment;
 /**
  * Implementation of the {@link EstablishmentVisitStatisticDao} interface.
  * 
- * @since : 31/05/2012
+ * @since 2012/05/31
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class EstablishmentVisitStatisticDaoImpl implements EstablishmentVisitStatisticDao {

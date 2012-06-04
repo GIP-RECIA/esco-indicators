@@ -15,7 +15,7 @@ import org.junit.Test;
  * Class used to centralize the initialization of the data for the tests on 
  * the {@link EstablishmentService}.
  * 
- * @since : 31/05/2012
+ * @since 2012/05/31
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class EstablishmentServiceBaseTest {

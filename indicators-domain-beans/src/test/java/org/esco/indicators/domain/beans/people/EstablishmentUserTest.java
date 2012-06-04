@@ -9,7 +9,7 @@ import org.esco.indicators.domain.beans.structure.Establishment;
 import org.junit.Test;
 
 /**
- * @since : 
+ * @since
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class EstablishmentUserTest {

@@ -13,7 +13,7 @@ import org.esco.indicators.services.ldap.LdapEstablishmentService;
 /**
  * Implementation of the {@link EstablishmentService} interface.
  * 
- * @since : 26/05/2012
+ * @since 2012/05/26
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class EstablishmentServiceImpl implements EstablishmentService {

@@ -8,7 +8,7 @@ import org.esupportail.commons.services.ldap.LdapEntityService;
 /**
  * Interface providing functions to access LDAP data of an establishment.
  * 
- * @since : 31/05/2012
+ * @since 2012/05/31
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public interface LdapEstablishmentService extends LdapEntityService {

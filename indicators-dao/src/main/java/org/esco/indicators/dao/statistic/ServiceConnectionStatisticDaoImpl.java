@@ -19,7 +19,7 @@ import org.springframework.util.NumberUtils;
 /**
  * Implementation of the {@link ServiceConnectionStatistic} interface.
  * 
- * @since : 2012/06/04
+ * @since 2012/06/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStatisticDao {

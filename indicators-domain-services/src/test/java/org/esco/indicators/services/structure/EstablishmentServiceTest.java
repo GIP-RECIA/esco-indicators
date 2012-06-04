@@ -23,7 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * This database is (re)created for each test.
  * The data injected in this database are described in the file : src/test/resources/import.sql
  * 
- * @since : 26/05/2012
+ * @since 2012/05/26
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 @RunWith(SpringJUnit4ClassRunner.class)

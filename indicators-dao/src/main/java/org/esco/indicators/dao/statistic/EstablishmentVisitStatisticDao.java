@@ -11,7 +11,7 @@ import org.esco.indicators.domain.beans.statistic.EstablishmentVisitStatistic;
  * Interface providing functions to access statistical data on visits and visitors 
  * of an establishment.
  * 
- * @since : 31/05/2012
+ * @since 2012/05/31
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public interface EstablishmentVisitStatisticDao extends StatisticDao {

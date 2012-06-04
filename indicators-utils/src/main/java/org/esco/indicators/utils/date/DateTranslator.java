@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 /**
  * Class providing date translation functions between different formats.
  * 
- * @since : 2012/06/04
+ * @since 2012/06/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class DateTranslator {

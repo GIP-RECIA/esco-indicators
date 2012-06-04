@@ -10,7 +10,7 @@ import org.esco.indicators.domain.beans.structure.Establishment;
 /**
  * Interface providing functions to access establishments.
  * 
- * @since : 2012/05/25
+ * @since 2012/05/25
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public interface EstablishmentDao {

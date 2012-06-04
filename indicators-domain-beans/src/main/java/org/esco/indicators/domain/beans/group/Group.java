@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * 
  * Class representing a user group.
  * 
- * @since : 2012/05/25
+ * @since 2012/05/25
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class Group {

@@ -11,7 +11,7 @@ import org.esco.indicators.domain.beans.statistic.ServiceConnectionStatistic;
 /**
  * Interface providing access to statistical data on the services connections.
  * 
- * @since : 2012/06/04
+ * @since 2012/06/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public interface ServiceConnectionStatisticService {
