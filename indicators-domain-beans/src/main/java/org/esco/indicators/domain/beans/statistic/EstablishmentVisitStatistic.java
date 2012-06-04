@@ -8,6 +8,7 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -43,6 +44,11 @@ public class EstablishmentVisitStatistic implements Serializable {
     @Transient
     private static final long serialVersionUID = 6340400790820657070L;
     
+    /** Generated identifier */
+    @Id
+    @GeneratedValue
+    private long id;
+    
     /** Day of the statistic */
     @Column(name = "jour", nullable = false)
     private Date day;
@@ -52,7 +58,6 @@ public class EstablishmentVisitStatistic implements Serializable {
     private String establishmentType;
     
     /** UAI of the establishment */
-    @Id
     @Column(name = "uai", nullable = false)
     private String establishmentUai;
     
