@@ -20,7 +20,7 @@ public interface ServiceConnectionStatisticService {
     // DAILY STATISTICS
     ///////////////////////////////////////////////////////
     /**
-     * Retrieves the number of connections to the service <code>serviceName</code> for the given <code>day</code>.<br/>
+     * Retrieves the number of connections made on the service <code>serviceName</code> for the given <code>day</code>.<br/>
      * The statistic has to be associated to the specified <code>establishmentUai</code> and the user profile <code>userProfile</code>
      * 
      * @param day
@@ -32,7 +32,7 @@ public interface ServiceConnectionStatisticService {
      * @param userProfile
      * 			The profile of the user associated to the statistic.
      * @return
-     * 	the number of connections found through the statistics.<br/>
+     * 	the number of connectionsmade on the service.<br/>
      * 	<code>null</code> if no statistic has been retrieved.
      */
     public Integer findDailyNumConnectionsByProfile(Date day, String establishmentUai, String serviceName, String userProfile);

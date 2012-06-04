@@ -1,24 +1,26 @@
 /**
  * 
  */
-package org.esco.indicators.dao.statistic;
+package org.esco.indicators.services.statistic;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
- * Interface providing functions to access statistical data on the connections to the portal.
+ * Interface providing functions to access statistical data on the portal connections.
  * 
- * @since 2012/05/31
+ * @since  2012/06/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public interface PortalConnectionStatisticDao extends StatisticDao {
+public interface PortalConnectionStatisticService {
+
     ///////////////////////////////////////////////////////
     // DAILY STATISTICS
     ///////////////////////////////////////////////////////
-
+    
     ///////////////////////////////////////////////////////
     // WEEKLY STATISTICS
     ///////////////////////////////////////////////////////
+
     /**
      * Retrieves the number of connections made on the portal for the specified user profile
      * <code>userprofile</code> and the specified establishment UAI <code>establishmentUai</code>.<br/>
@@ -35,7 +37,6 @@ public interface PortalConnectionStatisticDao extends StatisticDao {
      * 	<code>null</code> if no statistic has been retrieved. 
      */
     public Integer findWeeklyNumConnectionsByProfile(String establishmentUai, Date firstWeekDay, String userProfile);
-    
     
     ///////////////////////////////////////////////////////
     // MONTHLY STATISTICS

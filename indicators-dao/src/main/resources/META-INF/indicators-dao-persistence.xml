@@ -6,5 +6,6 @@
         <class>org.esco.indicators.domain.beans.structure.Establishment</class>
         <class>org.esco.indicators.domain.beans.statistic.EstablishmentVisitStatistic</class>
         <class>org.esco.indicators.domain.beans.statistic.ServiceConnectionStatistic</class>
+        <class>org.esco.indicators.domain.beans.statistic.WeeklyPortalConnectionStatistic</class>
    </persistence-unit>
 </persistence>

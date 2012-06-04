@@ -10,5 +10,4 @@ package org.esco.indicators.dao.statistic;
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public interface AccountActivationStatisticDao extends StatisticDao {
-
 }
