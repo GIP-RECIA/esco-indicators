@@ -12,5 +12,10 @@
             class="org.esco.indicators.services.statistic.EstablishmentVisitStatisticServiceImpl">
             <property name="establishmentVisitStatisticDao" ref="establishmentVisitStatisticDao"/>
     </bean>
+    
+    <bean   id="serviceConnectionStatisticService" 
+            class="org.esco.indicators.services.statistic.ServiceConnectionStatisticServiceImpl">
+            <property name="serviceConnectionStatisticDao" ref="serviceConnectionStatisticDao"/>
+    </bean>
 
 </beans>

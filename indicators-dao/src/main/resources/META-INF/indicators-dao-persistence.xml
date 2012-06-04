@@ -5,5 +5,6 @@
    <persistence-unit name="manager1" transaction-type="RESOURCE_LOCAL">
         <class>org.esco.indicators.domain.beans.structure.Establishment</class>
         <class>org.esco.indicators.domain.beans.statistic.EstablishmentVisitStatistic</class>
+        <class>org.esco.indicators.domain.beans.statistic.ServiceConnectionStatistic</class>
    </persistence-unit>
 </persistence>

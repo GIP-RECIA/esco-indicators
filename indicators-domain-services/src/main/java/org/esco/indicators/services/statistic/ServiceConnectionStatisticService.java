@@ -1,17 +1,20 @@
 /**
  * 
  */
-package org.esco.indicators.dao.statistic;
+package org.esco.indicators.services.statistic;
 
 import java.util.Date;
 
+import org.esco.indicators.domain.beans.statistic.EstablishmentVisitStatistic;
+import org.esco.indicators.domain.beans.statistic.ServiceConnectionStatistic;
+
 /**
- * Interface providing functions to access statistical data on the services connections.
+ * Interface providing access to statistical data on the services connections.
  * 
- * @since : 2012/05/31
+ * @since : 2012/06/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public interface ServiceConnectionStatisticDao extends StatisticDao {
+public interface ServiceConnectionStatisticService {
 
     ///////////////////////////////////////////////////////
     // DAILY STATISTICS

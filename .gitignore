@@ -1,5 +1,6 @@
-# Git ignore file used to maintain a clean repo
-###############################################
+#################################################
+# .gitignore file used to maintain a clean repo #
+#################################################
 
 ###################
 # Eclipse files

@@ -20,8 +20,10 @@ public interface EstablishmentVisitStatisticDao extends StatisticDao {
     // DAILY STATISTICS
     ///////////////////////////////////////////////////////
     /**
-     * Retrieves a daily statistic associated to the specified <code>establishmentUai</code>
-     * and for the given <code>day</code>
+     * Retrieves a daily statistic associated to the specified <code>establishmentUai</code>,
+     * <code>establishmentType</code> and for the given <code>day</code>.
+     * Moreover, the statistic has to have the specified type <code>typeStat</code>.
+     * 
      * @param day
      * 			The day of the statistic.
      * @param establishmentType
