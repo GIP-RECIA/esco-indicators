@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
 @Entity
 @NamedQueries({
     @NamedQuery(
-	    name = "findDailyVisitStatistic",
+	    name = "EstablishmentVisitStatistic.Daily.findVisitStatistic",
 	    query = "SELECT evs FROM EstablishmentVisitStatistic evs"
 	    		+ " WHERE evs.establishmentUai = :establishmentUai" 
 	    		+ " AND evs.day = :day AND evs.establishmentType = :establishmentType"

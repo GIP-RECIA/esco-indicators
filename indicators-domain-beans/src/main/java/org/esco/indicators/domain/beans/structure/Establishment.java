@@ -25,15 +25,15 @@ import org.apache.log4j.Logger;
 @Entity
 @NamedQueries({
     	@NamedQuery(
-	    	name = "findEstablishmentByUai",
+	    	name = "Establishment.findByUai",
 	    	query = "SELECT e FROM Establishment e WHERE e.uai = :uai"
 	    	),
 	@NamedQuery(
-		name="findEstablishmentsByCountyNumber",
+		name="Establishment.findByCountyNumber",
 		query="SELECT e FROM Establishment e WHERE e.countyNumber = :countyNumber "
 		),
 	@NamedQuery(
-		name="findEstablishmentsByType",
+		name="Establishment.findByType",
 		query="SELECT e FROM Establishment e WHERE e.type = :type"
 		)
 })

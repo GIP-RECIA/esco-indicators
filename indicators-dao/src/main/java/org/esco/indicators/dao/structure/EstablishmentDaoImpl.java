@@ -69,7 +69,7 @@ public class EstablishmentDaoImpl extends AbstractGenericJPADaoService implement
     @Override
     public Establishment findEstablishmentByUai(String uai) {
 	// Create the query and sets the parameters
-	Query query = entityManager.createNamedQuery("findEstablishmentByUai");
+	Query query = entityManager.createNamedQuery("Establishment.findByUai");
 	query.setParameter("uai", uai);
 	
 	// Try to retrieve the establishment associated to the uai
@@ -94,7 +94,7 @@ public class EstablishmentDaoImpl extends AbstractGenericJPADaoService implement
     @SuppressWarnings("unchecked")
     public Set<Establishment> findEstablishmentsByCountyNumber(Integer countyNumber) {
 	// Create the query and sets the parameters
-	Query query = entityManager.createNamedQuery("findEstablishmentsByCountyNumber");
+	Query query = entityManager.createNamedQuery("Establishment.findByCountyNumber");
 	query.setParameter("countyNumber", countyNumber);
 	
 	// Try to retrieve the establishments associated to the county number
@@ -116,7 +116,7 @@ public class EstablishmentDaoImpl extends AbstractGenericJPADaoService implement
     @SuppressWarnings("unchecked")
     public Set<Establishment> findEstablishmentsByType(String type) {
 	// Create the query and sets the parameters
-	Query query = entityManager.createNamedQuery("findEstablishmentsByType");
+	Query query = entityManager.createNamedQuery("Establishment.findByType");
 	query.setParameter("type", type);
 	
 	// Try to retrieve the establishments associated to the type

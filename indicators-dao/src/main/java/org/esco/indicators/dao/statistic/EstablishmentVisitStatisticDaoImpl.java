@@ -52,7 +52,7 @@ public class EstablishmentVisitStatisticDaoImpl implements EstablishmentVisitSta
     @Override
     public EstablishmentVisitStatistic findDailyStatistic(Date day, String establishmentType, String establishmentUai, String typeStat) {
 	// Creation of the query and setting of the parameters
-	Query query = entityManager.createNamedQuery("findDailyVisitStatistic");
+	Query query = entityManager.createNamedQuery("EstablishmentVisitStatistic.Daily.findVisitStatistic");
 	query.setParameter("day", day);
 	query.setParameter("establishmentType", establishmentType);
 	query.setParameter("establishmentUai", establishmentUai);
