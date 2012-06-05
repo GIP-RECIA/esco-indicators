@@ -57,6 +57,30 @@ public class PortalConnectionStatisticServiceTest {
 	
 	Assert.assertEquals(expected, actual);
     }
+    
+    /**
+     * Test method for {@link org.esco.indicators.services.statistic.PortalConnectionStatisticService#findMonthlyNumConnectionsByProfile(String, Date, String)}.<br/>
+     *
+     * Tests the number of connections on the portal for a specified :
+     * <ul>
+     * 	<li>establishment UAI</li>
+     * 	<li>month (determined by the first day of the month)</li>
+     * 	<li>user profile</li>
+     * </ul>
+     */
+    @Test
+    public void testFindMonthlyNumConnectionsByProfile(){
+	// Expected monthly number of connections
+	Integer expected = 362;
+	
+	// Actual result
+	String establishmentUai = "0453456A";
+	Date firstMonthDay = DateTranslator.toSqlDate("2012-05-01");
+	String userProfile = "Teacher";
+	Integer actual = portalConnectionStatisticService.findMonthlyNumConnectionsByProfile(establishmentUai, firstMonthDay, userProfile);
+	
+	Assert.assertEquals(expected, actual);
+    }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
 

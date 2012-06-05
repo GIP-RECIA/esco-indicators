@@ -74,8 +74,8 @@
     <bean   id="establishmentVisitStatisticDao"
             class="org.esco.indicators.dao.statistic.EstablishmentVisitStatisticDaoImpl" />
         
-    <bean   id="portalConnectionStatisticDao"
-            class="org.esco.indicators.dao.statistic.PortalConnectionStatisticDaoImpl" />  
+    <bean   id="especialPortalConnectionStatisticDao"
+            class="org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDaoImpl" />  
                 
     <bean   id="serviceConnectionStatisticDao"
             class="org.esco.indicators.dao.statistic.ServiceConnectionStatisticDaoImpl" />  

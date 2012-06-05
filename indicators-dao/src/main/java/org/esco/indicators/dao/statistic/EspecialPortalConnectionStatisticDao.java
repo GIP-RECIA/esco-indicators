@@ -7,14 +7,28 @@ import java.util.Date;
 
 /**
  * Interface providing functions to access statistical data on the connections to the portal.<br/>
- * These data represent non-especial data which have been aggregated at the end of a past week / month.<br/>
- * All the data concerning the current week / month are accessible through the {@link EspecialPortalConnectionStatisticDao} interface.<br/>
- * Moreover, all the past especial data are accessible through the {@link EspecialPortalConnectionStatisticDao} interface.
+ * These data can have two kind of significations.<br/>
+ * <ul>
+ * <li>
+ * 	If the data are associated to the current week / month : <br/>
+ * 		Then no aggregation / sum has already been made on the data (aggregation represented by the beans
+ * 		<code>AggregatedPortalConnectionStatistic</code>).<br/>
+ * 		In this case, these data can be used to calculate statistics on the connections for the current week / month.
+ * </li>
+ * <li>
+ * 	If the data are associated to a past week / month :<br/>
+ * 		Then an aggregation / sum has already been made on the data  (aggregation represented by the beans
+ * 		<code>AggregatedPortalConnectionStatistic</code>).<br/>
+ * 		In this case, these data only represent the connections of the users that are especial (i.e. users having different profiles,...).<br/>
+ * 		Moreover, these data has to be used to complete the aggregated data which not consider the especial data.
+ * </li>
+ * </ul>
+ * All the non-especial data (for the past weeks / months) are accessible through the {@link PortalConnectionStatisticDao} interface.
  * 
- * @since 2012/06/05
+ * @since 2012/05/31
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public interface PortalConnectionStatisticDao extends StatisticDao {
+public interface EspecialPortalConnectionStatisticDao extends StatisticDao {
     // /////////////////////////////////////////////////////
     // DAILY STATISTICS
     // /////////////////////////////////////////////////////

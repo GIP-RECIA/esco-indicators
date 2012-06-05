@@ -13,15 +13,15 @@ import org.esco.indicators.utils.dao.Parameters;
 import org.esco.indicators.utils.dao.QueryManager;
 
 /**
- * Implementation of the {@link PortalConnectionStatisticDao} interface.
+ * Implementation of the {@link EspecialPortalConnectionStatisticDao} interface.
  * 
- * @since 2012/06/05
+ * @since 2012/06/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public class PortalConnectionStatisticDaoImpl implements EspecialPortalConnectionStatisticDao {
+public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalConnectionStatisticDao {
     // ---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
-    private static final Logger LOGGER = Logger.getLogger(PortalConnectionStatisticDaoImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(EspecialPortalConnectionStatisticDaoImpl.class);
 
     
     /** JPA Entity manager */
@@ -30,9 +30,9 @@ public class PortalConnectionStatisticDaoImpl implements EspecialPortalConnectio
 
     // -------------------------------------------------------------------------------- CONSTRUCTORS
     /**
-     * Default constructor of the {@link PortalConnectionStatisticDaoImpl} class.
+     * Default constructor of the {@link EspecialPortalConnectionStatisticDaoImpl} class.
      */
-    public PortalConnectionStatisticDaoImpl() {
+    public EspecialPortalConnectionStatisticDaoImpl() {
 	super();
     }
 
@@ -58,7 +58,7 @@ public class PortalConnectionStatisticDaoImpl implements EspecialPortalConnectio
     public Integer findWeeklyNumConnectionsByProfile(String establishmentUai, Date firstWeekDay,
 	    String userProfile) {
 	// Name of the query to execute
-	String namedQuery = "WeeklyPortalConnectionStatistic.findNumConnectionsByProfile";
+	String namedQuery = "EspecialWeeklyPortalConnectionStatistic.findNumConnectionsByProfile";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
@@ -85,7 +85,7 @@ public class PortalConnectionStatisticDaoImpl implements EspecialPortalConnectio
     public Integer findMonthlyNumConnectionsByProfile(String establishmentUai, Date firstMonthDay,
 	    String userProfile) {
 	// Name of the query to execute
-	String namedQuery = "MonthlyPortalConnectionStatistic.findNumConnectionsByProfile";
+	String namedQuery = "EspecialMonthlyPortalConnectionStatistic.findNumConnectionsByProfile";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();

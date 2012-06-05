@@ -6,7 +6,7 @@ package org.esco.indicators.services.statistic;
 import java.sql.Date;
 
 import org.apache.log4j.Logger;
-import org.esco.indicators.dao.statistic.PortalConnectionStatisticDao;
+import org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao;
 
 /**
  * Implementation of the {@link PortalConnectionStatisticService} interface.
@@ -24,7 +24,7 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
     private static final Logger LOGGER = Logger.getLogger(PortalConnectionStatisticServiceImpl.class);
 
     /** DAO providing access to statistical data on the portal connections */
-    private PortalConnectionStatisticDao portalConnectionStatisticDao;
+    private EspecialPortalConnectionStatisticDao especialPortalConnectionStatisticDao;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
@@ -42,29 +42,48 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
      * @return 
      * 	the DAO providing access to statistical data on the portal connections.
      */
-    public PortalConnectionStatisticDao getPortalConnectionStatisticDao() {
-        return portalConnectionStatisticDao;
+    public EspecialPortalConnectionStatisticDao getEspecialPortalConnectionStatisticDao() {
+        return especialPortalConnectionStatisticDao;
     }
 
     /**
      * Sets the DAO providing access to statistical data on the portal connections.
      * 
-     * @param portalConnectionStatisticDao 
+     * @param especialPortalConnectionStatisticDao 
      * 			The DAO to set.
      */
-    public void setPortalConnectionStatisticDao(PortalConnectionStatisticDao portalConnectionStatisticDao) {
-        this.portalConnectionStatisticDao = portalConnectionStatisticDao;
+    public void setEspecialPortalConnectionStatisticDao(EspecialPortalConnectionStatisticDao especialPortalConnectionStatisticDao) {
+        this.especialPortalConnectionStatisticDao = especialPortalConnectionStatisticDao;
     }
 
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
+    ///////////////////////////////////////////////////////
+    // DAILY STATISTICS
+    ///////////////////////////////////////////////////////
+    
+    ///////////////////////////////////////////////////////
+    // WEEKLY STATISTICS
+    ///////////////////////////////////////////////////////
     /* (non-Javadoc)
      * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumConnectionsByProfile(java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
     public Integer findWeeklyNumConnectionsByProfile(String establishmentUai, Date firstWeekDay,
 	    String userProfile) {
-	return portalConnectionStatisticDao.findWeeklyNumConnectionsByProfile(establishmentUai, firstWeekDay, userProfile);
+	return especialPortalConnectionStatisticDao.findWeeklyNumConnectionsByProfile(establishmentUai, firstWeekDay, userProfile);
+    }
+
+    ///////////////////////////////////////////////////////
+    // MONTHLY STATISTICS
+    ///////////////////////////////////////////////////////
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findMonthlyNumConnectionsByProfile(java.lang.String, java.sql.Date, java.lang.String)
+     */
+    @Override
+    public Integer findMonthlyNumConnectionsByProfile(String establishmentUai, Date firstMonthDay,
+	    String userProfile) {
+	return especialPortalConnectionStatisticDao.findMonthlyNumConnectionsByProfile(establishmentUai, firstMonthDay, userProfile);
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
