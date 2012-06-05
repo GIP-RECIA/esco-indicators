@@ -12,9 +12,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
-import org.esco.indicators.domain.beans.statistic.EstablishmentVisitStatistic;
 import org.esco.indicators.domain.beans.statistic.ServiceConnectionStatistic;
-import org.springframework.util.NumberUtils;
+import org.esco.indicators.utils.dao.Parameters;
+import org.esco.indicators.utils.dao.QueryManager;
 
 /**
  * Implementation of the {@link ServiceConnectionStatistic} interface.
@@ -52,38 +52,24 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
     @Override
     public Integer findDailyNumConnectionsByProfile(Date day, String establishmentUai,
 	    String serviceName, String userProfile) {
-	// Creation of the query and setting of the parameters
-	Query query = entityManager
-		.createNamedQuery("ServiceConnectionStatistic.Daily.findNumConnectionsByProfile");
-	query.setParameter("day", day);
-	query.setParameter("establishmentUai", establishmentUai);
-	query.setParameter("serviceName", serviceName);
-	query.setParameter("userProfile", userProfile);
+	// Name of the query to execute
+	String namedQuery = "ServiceConnectionStatistic.Daily.findNumConnectionsByProfile";
+	
+	// Parameters
+	Parameters parameters = new Parameters();
+	parameters.put("day", day);
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("serviceName", serviceName);
+	parameters.put("userProfile", userProfile);
 
 	// Retrieval of the daily statistic
-	Integer numConnections = null;
-	try {
-	    Long result = (Long) query.getSingleResult();
-	    numConnections = (result != null ? result.intValue() : null);
-	} catch (NoResultException e) {
-	    LOGGER.debug("No daily statistic of has been found for the day : [" + day.toString()
-		    + "] for the establishment UAI : [" + establishmentUai + "] for the service name : ["
-		    + serviceName + "] for the user profile [" + userProfile + "]");
-	} catch (NonUniqueResultException e) {
-	    LOGGER.warn("More than one daily statistic has been found for the day : [" + day.toString()
-		    + "] for the establishment UAI : [" + establishmentUai + "] for the service name : ["
-		    + serviceName + "] for the user profile [" + userProfile + "]");
-	} catch (IllegalStateException e) {
-	    LOGGER.error("An error occured during the retrieval of the daily statistic for the day : ["
-		    + day.toString() + "] for the establishment UAI : [" + establishmentUai
-		    + "] for the service name : [" + serviceName + "] for the user profile [" + userProfile
-		    + "]");
-	}
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Integer numConnections = (result != null ? result.intValue() : null);
 
 	return numConnections;
     }
 
     // ----------------------------------------------------------------------------- PRIVATE METHODS
-
+    
     // ------------------------------------------------------------------------------ STATIC METHODS
 }

@@ -6,12 +6,11 @@ package org.esco.indicators.dao.statistic;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
+import org.esco.indicators.utils.dao.Parameters;
+import org.esco.indicators.utils.dao.QueryManager;
 
 /**
  * Implementation of the {@link PortalConnectionStatisticDao} interface.
@@ -24,6 +23,7 @@ public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatist
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(PortalConnectionStatisticDaoImpl.class);
 
+    
     /** JPA Entity manager */
     @PersistenceContext
     private EntityManager entityManager;
@@ -39,6 +39,14 @@ public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatist
     // --------------------------------------------------------------------------- GETTERS / SETTERS
 
     // ------------------------------------------------------------------------------ PUBLIC METHODS
+    ///////////////////////////////////////////////////////
+    // DAILY STATISTICS
+    ///////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////
+    // WEEKLY STATISTICS
+    ///////////////////////////////////////////////////////
+    
     /*
      * (non-Javadoc)
      * 
@@ -49,38 +57,39 @@ public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatist
     @Override
     public Integer findWeeklyNumConnectionsByProfile(String establishmentUai, Date firstWeekDay,
 	    String userProfile) {
-	// Creation of the query and setting of the parameter
-	Query query = entityManager
-		.createNamedQuery("WeeklyPortalConnectionStatistic.findNumConnectionsByProfile");
-	query.setParameter("establishmentUai", establishmentUai);
-	query.setParameter("firstWeekDay", firstWeekDay);
-	query.setParameter("userProfile", userProfile);
-
-	// Retrieval of the daily statistic
-	Integer numConnections = null;
-	try {
-	    Long result = (Long) query.getSingleResult();
-	    numConnections = (result != null ? result.intValue() : null);
-	} catch (NoResultException e) {
-	    LOGGER.debug("No daily statistic of has been found for the week beggining with day : ["
-		    + firstWeekDay.toString() + "] for the establishment UAI : [" + establishmentUai
-		    + "] for the user profile [" + userProfile + "]");
-	} catch (NonUniqueResultException e) {
-	    LOGGER.warn("More than one daily statistic has been found for the week beggining with day : ["
-		    + firstWeekDay.toString() + "] for the establishment UAI : [" + establishmentUai
-		    + "] for the user profile [" + userProfile + "]");
-	} catch (IllegalStateException e) {
-	    LOGGER.error("An error occured during the retrieval of the daily statistic for the week beggining with day : ["
-		    + firstWeekDay.toString()
-		    + "] for the establishment UAI : ["
-		    + establishmentUai
-		    + "] for the user profile [" + userProfile + "]");
-	}
-
+	// Name of the query to execute
+	String namedQuery = "WeeklyPortalConnectionStatistic.findNumConnectionsByProfile";
+	
+	// Setting of the parameters
+	Parameters parameters = new Parameters();
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("firstWeekDay", firstWeekDay);
+	parameters.put("userProfile", userProfile);
+	
+	// Retrieval of the result
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Integer numConnections = (result != null ? result.intValue() : null);
+	
 	return numConnections;
     }
 
+   
+
+    ///////////////////////////////////////////////////////
+    // MONTHLY STATISTICS
+    ///////////////////////////////////////////////////////
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findMonthlyNumConnectionsByProfile(java.lang.String, java.util.Date, java.lang.String)
+     */
+    @Override
+    public Integer findMonthlyNumConnectionsByProfile(String establishmentUai, Date firstMonthDay,
+	    String userProfile) {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
     // ----------------------------------------------------------------------------- PRIVATE METHODS
+
 
     // ------------------------------------------------------------------------------ STATIC METHODS
 }

@@ -14,6 +14,8 @@ import javax.persistence.Query;
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.statistic.EstablishmentVisitStatistic;
 import org.esco.indicators.domain.beans.structure.Establishment;
+import org.esco.indicators.utils.dao.Parameters;
+import org.esco.indicators.utils.dao.QueryManager;
 
 /**
  * Implementation of the {@link EstablishmentVisitStatisticDao} interface.
@@ -51,32 +53,20 @@ public class EstablishmentVisitStatisticDaoImpl implements EstablishmentVisitSta
      */
     @Override
     public EstablishmentVisitStatistic findDailyStatistic(Date day, String establishmentType, String establishmentUai, String typeStat) {
-	// Creation of the query and setting of the parameters
-	Query query = entityManager.createNamedQuery("EstablishmentVisitStatistic.Daily.findVisitStatistic");
-	query.setParameter("day", day);
-	query.setParameter("establishmentType", establishmentType);
-	query.setParameter("establishmentUai", establishmentUai);
-	query.setParameter("typeStat", typeStat);
+	// Name of the query to execute
+	String namedQuery = "EstablishmentVisitStatistic.Daily.findVisitStatistic";
+
+	// Parameters of the query
+	Parameters parameters = new Parameters();
+	parameters.put("day", day);
+	parameters.put("establishmentType", establishmentType);
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("typeStat", typeStat);
 
 	
 	// Try to retrieve the daily statistic
-	EstablishmentVisitStatistic establishmentVisitStatistic = null;
-	try {
-	    establishmentVisitStatistic = (EstablishmentVisitStatistic) query.getSingleResult();
-	} catch (NoResultException e) {
-	    LOGGER.debug("No daily statistic of the type : [" + typeStat + "] has been found for the day : ["
-		    + day.toString() + "] for the establishment UAI : [" + establishmentUai
-		    + "] with the establishment type : [" + establishmentType + "]");
-	} catch (NonUniqueResultException e) {
-	    LOGGER.warn("More than one daily statistic of the type : [" + typeStat + "] has been found for the day : ["
-		    + day.toString() + "] for the establishment UAI : [" + establishmentUai
-		    + "] with the establishment type : [" + establishmentType + "]");
-	} catch (IllegalStateException e) {
-	    LOGGER.error("An error occured during the retrieval of the daily statistic of the type : ["
-		    + typeStat + "] has been found for the day : [" + day.toString()
-		    + "] for the establishment UAI : [" + establishmentUai
-		    + "] with the establishment type : [" + establishmentType + "]");
-	}
+	EstablishmentVisitStatistic establishmentVisitStatistic = (EstablishmentVisitStatistic) QueryManager
+		.getSingleResult(entityManager, namedQuery, parameters);	
 	
 	return establishmentVisitStatistic;
     }
