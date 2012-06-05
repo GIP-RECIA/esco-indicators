@@ -8,5 +8,6 @@
         <class>org.esco.indicators.domain.beans.statistic.EspecialMonthlyPortalConnectionStatistic</class>
         <class>org.esco.indicators.domain.beans.statistic.EspecialWeeklyPortalConnectionStatistic</class>
         <class>org.esco.indicators.domain.beans.statistic.ServiceConnectionStatistic</class>
+        <class>org.esco.indicators.domain.beans.statistic.WeeklyPortalConnectionStatistic</class>
    </persistence-unit>
 </persistence>

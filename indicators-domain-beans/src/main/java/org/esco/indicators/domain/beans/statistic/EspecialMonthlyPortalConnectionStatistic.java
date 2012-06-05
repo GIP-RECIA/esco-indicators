@@ -19,7 +19,8 @@ import org.apache.log4j.Logger;
 
 /**
  * Class representing the connections of a user on a portal.<br/>
- * These connections are aggregated by month.
+ * These connections are aggregated by month.<br/>
+ * An especial user is a user having, for instance, multiple profiles.
  * 
  * @since  2012/06/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>

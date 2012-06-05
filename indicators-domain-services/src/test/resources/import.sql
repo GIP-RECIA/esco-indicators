@@ -7,11 +7,15 @@ INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0376543
 -- NOMBRE DE VISITEURS
 INSERT INTO nombredevisiteurs (jour, typeetab, typestat, uai, nbvisites, nbvisiteurs) VALUES ('2012-05-28', 'CFA', 'Etablissement', '0453456A', '450', '60');
 
--- CONNEXIONS AU PORTAIL HEBDOMADAIRES
+-- CONNEXIONS PROFILS AU PORTAIL (HEBDOMADAIRE)
+INSERT INTO connexionprofilsemaine (premierjoursemaine, uai, nomprofil, nbconnexionsemaine, nbpersonnesemaine, moyenneconnexionsemaine) VALUES ('2012-05-28', '0453456A', 'Teacher', '3', '25', '16.43');
+INSERT INTO connexionprofilsemaine (premierjoursemaine, uai, nomprofil, nbconnexionsemaine, nbpersonnesemaine, moyenneconnexionsemaine) VALUES ('2012-05-28', '0453456A', 'Teacher', '4', '13', '36.07');
+
+-- CONNEXIONS UTILISATEURS AU PORTAIL (HEBDOMADAIRE)
 INSERT INTO seconnectesemaine (premierjoursemaine, uai, uid, nomprofil, nbconnexionsemaine, moyennesemaine) VALUES ('2012-05-28', '0453456A', 'F1234567X', 'Teacher', '12', '26.33');
 INSERT INTO seconnectesemaine (premierjoursemaine, uai, uid, nomprofil, nbconnexionsemaine, moyennesemaine) VALUES ('2012-05-28', '0453456A', 'F8912345R', 'Teacher', '8', '40.37');
 
--- CONNEXIONS AU PORTAIL MENSUELLES
+-- CONNEXIONS UTILISATEURS AU PORTAIL (MENSUEL)
 INSERT INTO seconnectemois (mois, uai, uid, nomprofil, nbconnexionmois, moyennemois) VALUES ('2012-05-01', '0453456A', 'F1234567X', 'Teacher', '128', '34.76');
 INSERT INTO seconnectemois (mois, uai, uid, nomprofil, nbconnexionmois, moyennemois) VALUES ('2012-05-01', '0453456A', 'F8912345R', 'Teacher', '234', '49.32');
 

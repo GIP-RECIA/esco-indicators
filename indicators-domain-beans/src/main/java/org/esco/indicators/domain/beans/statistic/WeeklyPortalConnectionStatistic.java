@@ -18,22 +18,22 @@ import javax.persistence.Transient;
 import org.apache.log4j.Logger;
 
 /**
- * Class representing the connections of a user to a portal.<br/>
- * These connections are aggregated by week.
+ * Class representing the connections of a particular profile to a portal.<br/>
+ * These connections are aggregated by week / month and only concern non-especial user.<br/>
  * 
- * @since  2012/06/04
+ * @since  2012/06/05
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 @Entity
 @NamedQueries({
     @NamedQuery(
-	    name = "WeeklyPortalConnectionStatistic.findNumConnectionsByProfile",
-	    query = "SELECT SUM(wpcs.numConnections) FROM WeeklyPortalConnectionStatistic wpcs"
+	    name = "WeeklyPortalConnectionStatistic.findStatisticsByProfile",
+	    query = "SELECT wpcs FROM WeeklyPortalConnectionStatistic wpcs"
 	    	+ " WHERE wpcs.establishmentUai = :establishmentUai"
 		+ " AND wpcs.firstWeekDay = :firstWeekDay AND wpcs.userProfile = :userProfile"
 	    )
 })
-@Table(name = "seconnectesemaine")
+@Table(name = "connexionprofilsemaine")
 public class WeeklyPortalConnectionStatistic implements Serializable {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
@@ -42,15 +42,15 @@ public class WeeklyPortalConnectionStatistic implements Serializable {
 
     /** Serial version uid of the class */
     @Transient
-    private static final long serialVersionUID = -1188441169916035945L;
+    private static final long serialVersionUID = -5803893681792340970L;
     
     /** Generated identifier */
     @Id
     @GeneratedValue
     private long id;
     
-    /** Average duration of the user session on the portal */
-    @Column(name = "moyennesemaine")
+    /** Average duration of the profile session on the portal */
+    @Column(name = "moyenneconnexionsemaine")
     private Double averageDuration;
     
     /** UAI of the establishment */
@@ -61,17 +61,18 @@ public class WeeklyPortalConnectionStatistic implements Serializable {
     @Column(name = "premierjoursemaine", nullable = false)
     private Date firstWeekDay;
     
-    /** Number of connections of the user to the portal */
+    /** Number of connections of the profile to the portal */
     @Column(name = "nbconnexionsemaine")
     private Integer numConnections;
+    
+    /** Number of users */
+    @Column(name = "nbpersonnesemaine")
+    private Integer numUsers;
     
     /** Profile of the user */
     @Column(name = "nomprofil", nullable = false)
     private String userProfile;
 
-    /** Uid of the user */
-    @Column(name = "uid", nullable = false)
-    private String userUid;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
@@ -94,12 +95,11 @@ public class WeeklyPortalConnectionStatistic implements Serializable {
      * 			The user uid concerned by the statistic.
      */
     public WeeklyPortalConnectionStatistic(String establishmentUai, Date firstWeekDay,
-	    String userProfile, String userUid) {
+	    String userProfile) {
 	super();
 	this.establishmentUai = establishmentUai;
 	this.firstWeekDay = firstWeekDay;
 	this.userProfile = userProfile;
-	this.userUid = userUid;
     }
 
     
@@ -171,7 +171,7 @@ public class WeeklyPortalConnectionStatistic implements Serializable {
      * 	the number of connections  of the user to the portal.
      */
     public Integer getNumConnections() {
-        return numConnections;
+        return (numConnections != null ? numConnections : 0);
     }
 
     /**
@@ -204,24 +204,24 @@ public class WeeklyPortalConnectionStatistic implements Serializable {
         this.userProfile = userProfile;
     }
 
-    /**
-     * Gets the UID of the user concerned by the statistic.
+
+    /** Gets the number of users associated to the statistic.
      * 
      * @return 
-     * 	the UID of the user concerned by the statistic.
+     * 	the number of users associated to the statistics.
      */
-    public String getUserUid() {
-        return userUid;
+    public Integer getNumUsers() {
+        return (numUsers != null ? numUsers : 0);
     }
 
     /**
-     * Sets the UID of the user concerned by the statistic.
-     * 
-     * @param userUid 
-     * 			The UID of the user to set.
+     *  Sets the number of users associated to the statistic.
+     *  
+     * @param numUsers 
+     * 			The number of users associated to the statistic.
      */
-    public void setUserUid(String userUid) {
-        this.userUid = userUid;
+    public void setNumUsers(Integer numUsers) {
+        this.numUsers = numUsers;
     }
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
@@ -237,8 +237,8 @@ public class WeeklyPortalConnectionStatistic implements Serializable {
 	result = prime * result + ((firstWeekDay == null) ? 0 : firstWeekDay.hashCode());
 	result = prime * result + (int) (id ^ (id >>> 32));
 	result = prime * result + ((numConnections == null) ? 0 : numConnections.hashCode());
+	result = prime * result + ((numUsers == null) ? 0 : numUsers.hashCode());
 	result = prime * result + ((userProfile == null) ? 0 : userProfile.hashCode());
-	result = prime * result + ((userUid == null) ? 0 : userUid.hashCode());
 	return result;
     }
 
@@ -276,15 +276,15 @@ public class WeeklyPortalConnectionStatistic implements Serializable {
 		return false;
 	} else if (!numConnections.equals(other.numConnections))
 	    return false;
+	if (numUsers == null) {
+	    if (other.numUsers != null)
+		return false;
+	} else if (!numUsers.equals(other.numUsers))
+	    return false;
 	if (userProfile == null) {
 	    if (other.userProfile != null)
 		return false;
 	} else if (!userProfile.equals(other.userProfile))
-	    return false;
-	if (userUid == null) {
-	    if (other.userUid != null)
-		return false;
-	} else if (!userUid.equals(other.userUid))
 	    return false;
 	return true;
     }

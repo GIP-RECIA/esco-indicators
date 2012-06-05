@@ -67,16 +67,19 @@
         <prop key="hibernate.show_sql">${jpa.properties.show_sql}</prop>
         <prop key="hibernate.hbm2ddl.auto">${jpa.properties.hbm2ddl.auto}</prop>
     </util:properties>
+
+    <bean   id="especialPortalConnectionStatisticDao"
+            class="org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDaoImpl" />  
     
     <bean   id="establishmentDao"
             class="org.esco.indicators.dao.structure.EstablishmentDaoImpl" />
             
     <bean   id="establishmentVisitStatisticDao"
             class="org.esco.indicators.dao.statistic.EstablishmentVisitStatisticDaoImpl" />
+            
+    <bean   id="portalConnectionStatisticDao"
+            class="org.esco.indicators.dao.statistic.PortalConnectionStatisticDaoImpl" />              
         
-    <bean   id="especialPortalConnectionStatisticDao"
-            class="org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDaoImpl" />  
-                
     <bean   id="serviceConnectionStatisticDao"
             class="org.esco.indicators.dao.statistic.ServiceConnectionStatisticDaoImpl" />  
     

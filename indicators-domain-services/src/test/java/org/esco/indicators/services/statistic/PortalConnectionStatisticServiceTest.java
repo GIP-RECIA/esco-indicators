@@ -46,8 +46,13 @@ public class PortalConnectionStatisticServiceTest {
      */
     @Test
     public void testFindWeeklyNumConnectionsByProfile() {
+	///////////////////////////////////////////////////
 	// Expected weekly number of connections
-	Integer expected = 20;
+	///////////////////////////////////////////////////
+	// Especial users : 12 + 8 connections
+	// Normal users : (3x25) + (4x13) connections
+	///////////////////////////////////////////////////
+	Integer expected = 147;
 	
 	// Actual result
 	String establishmentUai = "0453456A";

@@ -16,6 +16,7 @@
     <bean   id="portalConnectionStatisticService" 
             class="org.esco.indicators.services.statistic.PortalConnectionStatisticServiceImpl">
             <property name="especialPortalConnectionStatisticDao" ref="especialPortalConnectionStatisticDao"/>
+            <property name="portalConnectionStatisticDao" ref="portalConnectionStatisticDao"/>
     </bean>
     
     <bean   id="serviceConnectionStatisticService" 

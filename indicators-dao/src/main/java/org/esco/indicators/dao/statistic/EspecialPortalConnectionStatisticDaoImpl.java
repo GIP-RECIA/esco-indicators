@@ -51,7 +51,7 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
      * (non-Javadoc)
      * 
      * @see
-     * org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findWeeklyNumConnectionsByProfile(java
+     * org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findWeeklyNumConnectionsByProfile(java
      * .lang.String, java.util.Date, java.lang.String)
      */
     @Override
@@ -68,7 +68,7 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
 	
 	// Retrieval of the result
 	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
-	Integer numConnections = (result != null ? result.intValue() : null);
+	Integer numConnections = (result != null ? result.intValue() : 0);
 	
 	return numConnections;
     }
@@ -79,7 +79,7 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
     // MONTHLY STATISTICS
     ///////////////////////////////////////////////////////
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findMonthlyNumConnectionsByProfile(java.lang.String, java.util.Date, java.lang.String)
+     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findMonthlyNumConnectionsByProfile(java.lang.String, java.util.Date, java.lang.String)
      */
     @Override
     public Integer findMonthlyNumConnectionsByProfile(String establishmentUai, Date firstMonthDay,
@@ -95,7 +95,7 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
 	
 	// Retrieval of the result
 	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
-	Integer numConnections = (result != null ? result.intValue() : null);
+	Integer numConnections = (result != null ? result.intValue() : 0);
 	
 	return numConnections;
     }

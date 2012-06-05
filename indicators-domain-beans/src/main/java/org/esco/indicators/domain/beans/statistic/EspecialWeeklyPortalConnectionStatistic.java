@@ -18,8 +18,9 @@ import javax.persistence.Transient;
 import org.apache.log4j.Logger;
 
 /**
- * Class representing the connections of a user to a portal.<br/>
- * These connections are aggregated by week.
+ * Class representing the connections of an especial user to a portal.<br/>
+ * These connections are aggregated by week.<br/>
+ * An especial user is a user having, for instance, multiple profiles.
  * 
  * @since  2012/06/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>

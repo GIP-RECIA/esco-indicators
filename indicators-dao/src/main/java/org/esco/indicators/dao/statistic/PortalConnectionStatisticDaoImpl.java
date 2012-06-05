@@ -3,12 +3,15 @@
  */
 package org.esco.indicators.dao.statistic;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.apache.log4j.Logger;
+import org.esco.indicators.domain.beans.statistic.WeeklyPortalConnectionStatistic;
 import org.esco.indicators.utils.dao.Parameters;
 import org.esco.indicators.utils.dao.QueryManager;
 
@@ -18,7 +21,7 @@ import org.esco.indicators.utils.dao.QueryManager;
  * @since 2012/06/05
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public class PortalConnectionStatisticDaoImpl implements EspecialPortalConnectionStatisticDao {
+public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatisticDao {
     // ---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(PortalConnectionStatisticDaoImpl.class);
@@ -57,8 +60,32 @@ public class PortalConnectionStatisticDaoImpl implements EspecialPortalConnectio
     @Override
     public Integer findWeeklyNumConnectionsByProfile(String establishmentUai, Date firstWeekDay,
 	    String userProfile) {
+	// Final result : number of connections
+	Integer numConnections = 0;
+	
+	// Computation of the number of connections
+	List<WeeklyPortalConnectionStatistic> statistics = findWeeklyStatisticsByProfile(establishmentUai, firstWeekDay, userProfile);
+	for (WeeklyPortalConnectionStatistic statistic : statistics) {
+	    Integer numUsers = statistic.getNumUsers();
+	    Integer numConn = statistic.getNumConnections();
+	    numConnections += numConn * numUsers;
+	}
+	
+	return numConnections;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findWeeklyNumConnectionsByProfile(java
+     * .lang.String, java.util.Date, java.lang.String)
+     */
+    @Override
+    public List<WeeklyPortalConnectionStatistic> findWeeklyStatisticsByProfile(String establishmentUai, Date firstWeekDay,
+	    String userProfile) {
 	// Name of the query to execute
-	String namedQuery = "WeeklyPortalConnectionStatistic.findNumConnectionsByProfile";
+	String namedQuery = "WeeklyPortalConnectionStatistic.findStatisticsByProfile";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
@@ -67,10 +94,13 @@ public class PortalConnectionStatisticDaoImpl implements EspecialPortalConnectio
 	parameters.put("userProfile", userProfile);
 	
 	// Retrieval of the result
-	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
-	Integer numConnections = (result != null ? result.intValue() : null);
+	List<WeeklyPortalConnectionStatistic> result = new ArrayList<WeeklyPortalConnectionStatistic>();
+	List<Object> queryResult = QueryManager.getResultList(entityManager, namedQuery, parameters);
+	for (Object object : queryResult) {
+	    result.add( (WeeklyPortalConnectionStatistic) object );
+	}
 	
-	return numConnections;
+	return result;
     }
 
    
@@ -95,7 +125,7 @@ public class PortalConnectionStatisticDaoImpl implements EspecialPortalConnectio
 	
 	// Retrieval of the result
 	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
-	Integer numConnections = (result != null ? result.intValue() : null);
+	Integer numConnections = (result != null ? result.intValue() : 0);
 	
 	return numConnections;
     }

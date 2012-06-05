@@ -3,6 +3,9 @@
  */
 package org.esco.indicators.utils.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
@@ -32,7 +35,8 @@ public class QueryManager {
 
     /**
      * Makes and executes the named query <code>namedQuery</code> using the provided entity manager
-     * <code>entityManager</code>.
+     * <code>entityManager</code>.<br/>
+     * The query must return a list of results.<br/>
      * Moreover, this function sets the query parameters using the provided <code>parameters</code>
      * 
      * @param entityManager
@@ -42,8 +46,47 @@ public class QueryManager {
      * @param parameters
      * 			The parameters, and their values, of the named query to set.
      * @return
-     * 	the result of the query.<br/>
-     * 	<code>null</code> if no data has been retrieved.
+     * 	the result list of the query.<br/>
+     * 	an empty <code>List</code> if no result have been retrieved.
+     */
+    @SuppressWarnings("unchecked")
+    public static List<Object> getResultList(EntityManager entityManager, String namedQuery, Parameters parameters) {
+	// Creation of the query
+	Query query = entityManager.createNamedQuery(namedQuery);
+
+	// Setting of the parameters
+	for (String parameter : parameters.keySet()) {
+	    Object value = parameters.get(parameter);
+	    query.setParameter(parameter, value);
+	}
+
+	// Retrieval of the result list
+	// Catching and logging the possible thrown exceptions
+	List<Object> result = new ArrayList<Object>();
+	try {
+	    result.addAll(query.getResultList());
+	} catch (IllegalStateException e) {
+	    logIllegalStateException(namedQuery, parameters);
+	}
+	
+	return result;
+    }
+    
+    /**
+     * Makes and executes the named query <code>namedQuery</code> using the provided entity manager
+     * <code>entityManager</code>.<br/>
+     * The query must return a single result.<br/>
+     * Moreover, this function sets the query parameters using the provided <code>parameters</code>
+     * 
+     * @param entityManager
+     * 			The entity manager used to make and execute the query.
+     * @param namedQuery
+     * 			The named query to execute.
+     * @param parameters
+     * 			The parameters, and their values, of the named query to set.
+     * @return
+     * 	the result of the query if only one result has been retrieved.<br/>
+     * 	<code>null</code> in other cases.
      */
     public static Object getSingleResult(EntityManager entityManager, String namedQuery, Parameters parameters) {
 	// Creation of the query

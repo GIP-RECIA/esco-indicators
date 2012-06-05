@@ -4,6 +4,9 @@
 package org.esco.indicators.dao.statistic;
 
 import java.util.Date;
+import java.util.List;
+
+import org.esco.indicators.domain.beans.statistic.WeeklyPortalConnectionStatistic;
 
 /**
  * Interface providing functions to access statistical data on the connections to the portal.<br/>
@@ -33,10 +36,29 @@ public interface PortalConnectionStatisticDao extends StatisticDao {
      *            The first day of the week associated to the statistic.
      * @param userProfile
      *            The user profile concerned by the statistic.
-     * @return the number of connections made on the portal.<br/>
-     *         <code>null</code> if no statistic has been retrieved.
+     * @return 
+     * 	the number of connections made on the portal.<br/>
+     *         the number 0 if no statistic has been retrieved.
      */
     public Integer findWeeklyNumConnectionsByProfile(String establishmentUai, Date firstWeekDay,
+	    String userProfile);
+    
+    /**
+     * Retrieves the statistics on connections made on the portal for the specified user profile
+     * <code>userprofile</code> and the specified establishment UAI <code>establishmentUai</code>.<br/>
+     * This statistics only concerns the week beggining with the day <code>firstWeekDay</code>.<br/>
+     * 
+     * @param establishmentUai
+     *            The UAI of the establishment concerned by the statistics.
+     * @param firstWeekDay
+     *            The first day of the week associated to the statistics.
+     * @param userProfile
+     *            The user profile concerned by the statistics.
+     * @return 
+     * 	the list of statistics on the connections made on the portal.<br/>
+     *         an empty list if no statistic has been retrieved.
+     */
+    public List<WeeklyPortalConnectionStatistic> findWeeklyStatisticsByProfile(String establishmentUai, Date firstWeekDay,
 	    String userProfile);
 
     // /////////////////////////////////////////////////////
@@ -53,8 +75,9 @@ public interface PortalConnectionStatisticDao extends StatisticDao {
      *            The first day of the month associated to the statistic.
      * @param userProfile
      *            The user profile concerned by the statistic.
-     * @return the number of connections made on the portal.<br/>
-     *         <code>null</code> if no statistic has been retrieved.
+     * @return 
+     * 	the number of connections made on the portal.<br/>
+     *         the number 0 if no statistic has been retrieved.
      */
     public Integer findMonthlyNumConnectionsByProfile(String establishmentUai, Date firstMonthDay,
 	    String userProfile);
