@@ -3,7 +3,6 @@
  */
 package org.esco.indicators.services.statistic;
 
-import java.sql.Date;
 
 /**
  * Interface providing functions to access statistical data on the portal connections.
@@ -23,19 +22,21 @@ public interface PortalConnectionStatisticService {
     /**
      * Retrieves the number of connections made on the portal for the specified user profile
      * <code>userprofile</code> and the specified establishment UAI <code>establishmentUai</code>.<br/>
-     * This number of connections only concerns the week beggining with the day <code>firstWeekDay</code>.
+     * This number of connections only concerns the week having the number <code>week</code> in the year <code>year</code>.
      * 
      * @param establishmentUai
-     * 			The UAI of the establishment concerned by the statistic.
-     * @param firstWeekDay
-     * 			The first day of the week associated to the statistic.
+     * 			The UAI of the establishment associated to the statistic to retrieve.
      * @param userProfile
-     * 			The user profile concerned by the statistic.
+     * 			The user profile of the statistic to retrieve.
+     * @param week
+     * 			The week number of the statistic to retrieve.
+     * @param year
+     * 			The year of the statistic to retrieve.
      * @return
      * 	the number of connections made on the portal.<br/>
      * 	<code>null</code> if no statistic has been retrieved. 
      */
-    public Integer findWeeklyNumConnectionsByProfile(String establishmentUai, Date firstWeekDay, String userProfile);
+    public Integer findWeeklyNumConnectionsByProfile(String establishmentUai, String userProfile, Integer week, Integer year);
     
     
     ///////////////////////////////////////////////////////
@@ -44,17 +45,19 @@ public interface PortalConnectionStatisticService {
     /**
      * Retrieves the number of connections made on the portal for the specified user profile
      * <code>userprofile</code> and the specified establishment UAI <code>establishmentUai</code>.<br/>
-     * This number of connections only concerns the month beggining with the day <code>firstMonthDay</code>.
+     * This number of connections only concerns the month having the number <code>month</code> of the year <code>year</code>.
      * 
      * @param establishmentUai
-     * 			The UAI of the establishment concerned by the statistic.
-     * @param firstMonthDay
-     * 			The first day of the month associated to the statistic.
+     * 			The UAI of the establishment associated to the statistic to retrieve.
      * @param userProfile
-     * 			The user profile concerned by the statistic.
+     * 			The user profile of the statistic to retrieve.
+     * @param month
+     * 			The month number of the statistic to retrieve.
+     * @param year
+     * 			The year of the statistic to retrieve.
      * @return
      * 	the number of connections made on the portal.<br/>
      * 	<code>null</code> if no statistic has been retrieved. 
      */
-    public Integer findMonthlyNumConnectionsByProfile(String establishmentUai, Date firstMonthDay, String userProfile);
+    public Integer findMonthlyNumConnectionsByProfile(String establishmentUai, String userProfile, Integer month, Integer year);
 }

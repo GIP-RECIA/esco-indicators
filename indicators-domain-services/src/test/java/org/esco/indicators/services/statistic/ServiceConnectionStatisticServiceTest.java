@@ -8,7 +8,7 @@ import java.sql.Date;
 import junit.framework.Assert;
 
 import org.esco.indicators.domain.beans.statistic.ServiceConnectionStatistic;
-import org.esco.indicators.utils.date.DateTranslator;
+import org.esco.indicators.utils.date.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +52,7 @@ public class ServiceConnectionStatisticServiceTest {
 	String establishmentUai = "0453456A";
 	String serviceName = "Teacher service";
 	String userProfile = "Teacher";
-	Date day = DateTranslator.toSqlDate("2012-05-28");
+	Date day = DateUtils.toSqlDate("2012-05-28");
 	Integer actual = serviceConnectionStatisticService.findDailyNumConnectionsByProfile(day,
 		establishmentUai, serviceName, userProfile);
 	

@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao;
 import org.esco.indicators.dao.statistic.PortalConnectionStatisticDao;
 import org.esco.indicators.domain.beans.statistic.WeeklyPortalConnectionStatistic;
+import org.esco.indicators.utils.date.DateUtils;
 
 /**
  * Implementation of the {@link PortalConnectionStatisticService} interface.
@@ -108,8 +109,11 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
      * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumConnectionsByProfile(java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public Integer findWeeklyNumConnectionsByProfile(String establishmentUai, Date firstWeekDay,
-	    String userProfile) {
+    public Integer findWeeklyNumConnectionsByProfile(String establishmentUai, String userProfile,
+	    Integer week, Integer year) {
+	// Get the SQL date corresponding to the first day of the week for the year
+	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
+	
 	// Number of connections for the especial users
 	Integer especialNumConnections = especialPortalConnectionStatisticDao
 		.findWeeklyNumConnectionsByProfile(establishmentUai, firstWeekDay, userProfile);
@@ -131,8 +135,11 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
      * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findMonthlyNumConnectionsByProfile(java.lang.String, java.sql.Date, java.lang.String)
      */
     @Override
-    public Integer findMonthlyNumConnectionsByProfile(String establishmentUai, Date firstMonthDay,
-	    String userProfile) {
+    public Integer findMonthlyNumConnectionsByProfile(String establishmentUai, String userProfile,
+	    Integer month, Integer year) {
+	// Get the SQL date corresponding to the first day of the month for the year
+	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
+	
 	// Number of connections for the especial users
 	Integer especialNumConnections = especialPortalConnectionStatisticDao
 		.findMonthlyNumConnectionsByProfile(establishmentUai, firstMonthDay, userProfile);

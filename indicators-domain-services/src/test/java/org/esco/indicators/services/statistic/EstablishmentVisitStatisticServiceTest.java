@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.statistic.EstablishmentVisitStatistic;
 import org.esco.indicators.utils.constants.EstablishmentConstants;
 import org.esco.indicators.utils.constants.StatisticConstants;
-import org.esco.indicators.utils.date.DateTranslator;
+import org.esco.indicators.utils.date.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +53,7 @@ public class EstablishmentVisitStatisticServiceTest  {
     @Test
     public void testFindDailyStatistic1() {
 	// Expected result
-	Date day = DateTranslator.toSqlDate("2012-05-28");
+	Date day = DateUtils.toSqlDate("2012-05-28");
 	String establishmentUai = "0453456A";
 	String establishmentType = EstablishmentConstants.ESTABLISHMENT_TYPE_CFA;
 	String typeStat = StatisticConstants.TYPE_STAT_ESTABLISHMENT;
@@ -75,7 +75,7 @@ public class EstablishmentVisitStatisticServiceTest  {
      */
     @Test
     public void testFindDailyStatistic2() {
-	Date day = DateTranslator.toSqlDate("2999-12-31");
+	Date day = DateUtils.toSqlDate("2999-12-31");
 	String establishmentUai = "0453456A";
 	String establishmentType = EstablishmentConstants.ESTABLISHMENT_TYPE_CFA;
 	
