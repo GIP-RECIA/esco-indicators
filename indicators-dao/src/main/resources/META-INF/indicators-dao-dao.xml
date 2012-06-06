@@ -67,6 +67,9 @@
         <prop key="hibernate.show_sql">${jpa.properties.show_sql}</prop>
         <prop key="hibernate.hbm2ddl.auto">${jpa.properties.hbm2ddl.auto}</prop>
     </util:properties>
+    
+    <bean   id="accountActivationDao"
+            class="org.esco.indicators.dao.account.AccountActivationDaoImpl" />  
 
     <bean   id="especialPortalConnectionStatisticDao"
             class="org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDaoImpl" />  

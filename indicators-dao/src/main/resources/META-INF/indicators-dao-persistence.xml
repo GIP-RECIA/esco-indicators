@@ -3,7 +3,10 @@
    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
    version="1.0">
    <persistence-unit name="manager1" transaction-type="RESOURCE_LOCAL">
+        <class>org.esco.indicators.domain.beans.account.AccountActivation</class>
+   
         <class>org.esco.indicators.domain.beans.structure.Establishment</class>
+        
         <class>org.esco.indicators.domain.beans.statistic.EstablishmentVisitStatistic</class>
         <class>org.esco.indicators.domain.beans.statistic.EspecialMonthlyPortalConnectionStatistic</class>
         <class>org.esco.indicators.domain.beans.statistic.EspecialWeeklyPortalConnectionStatistic</class>

@@ -14,7 +14,9 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 
 /**
- * @since  
+ * Tests of the {@link DateUtils} class.
+ * 
+ * @since  2012/06/06
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class DateUtilsTest {
