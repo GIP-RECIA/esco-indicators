@@ -18,8 +18,8 @@ import javax.persistence.Transient;
 import org.apache.log4j.Logger;
 
 /**
- * Class representing the connections of a user on a portal.<br/>
- * These connections are aggregated by month.
+ * Class representing the connections of a particular profile to a portal.<br/>
+ * These connections are aggregated by  month and only concern non-especial user.<br/>
  * 
  * @since  2012/06/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
@@ -27,13 +27,13 @@ import org.apache.log4j.Logger;
 @Entity
 @NamedQueries({
     @NamedQuery(
-	    name = "MonthlyPortalConnectionStatistic.findNumConnectionsByProfile",
-	    query = "SELECT SUM(mpcs.numConnections) FROM MonthlyPortalConnectionStatistic mpcs"
+	    name = "MonthlyPortalConnectionStatistic.findStatisticsByProfile",
+	    query = "SELECT mpcs FROM MonthlyPortalConnectionStatistic mpcs"
 	    	+ " WHERE mpcs.establishmentUai = :establishmentUai"
 		+ " AND mpcs.firstMonthDay = :firstMonthDay AND mpcs.userProfile = :userProfile"
 	    )
 })
-@Table(name = "seconnectemois")
+@Table(name = "connexionprofilmois")
 public class MonthlyPortalConnectionStatistic implements Serializable {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
@@ -42,15 +42,15 @@ public class MonthlyPortalConnectionStatistic implements Serializable {
 
     /** Serial version uid of the class */
     @Transient
-    private static final long serialVersionUID = 578843231991338150L;
+    private static final long serialVersionUID = -6504311334614725517L;
     
     /** Generated identifier */
     @Id
     @GeneratedValue
     private long id;
     
-    /** Average duration of the user session on the portal */
-    @Column(name = "moyennemois")
+    /** Average duration of the p session on the portal */
+    @Column(name = "moyenneconnexionmois")
     private Double averageDuration;
     
     /** UAI of the establishment */
@@ -61,18 +61,19 @@ public class MonthlyPortalConnectionStatistic implements Serializable {
     @Column(name = "mois", nullable = false)
     private Date firstMonthDay;
     
-    /** Number of connections of the user on the portal */
+    /** Number of connections of the profile on the portal */
     @Column(name = "nbconnexionmois")
     private Integer numConnections;
+    
+        /** Number of users */
+    @Column(name = "nbpersonnemois")
+    private Integer numUsers;
     
     /** Profile of the user */
     @Column(name = "nomprofil", nullable = false)
     private String userProfile;
 
-    /** Uid of the user */
-    @Column(name = "uid", nullable = false)
-    private String userUid;
-
+    
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
      * Default constructor of the {@link MonthlyPortalConnectionStatistic} class.
@@ -99,7 +100,6 @@ public class MonthlyPortalConnectionStatistic implements Serializable {
 	this.establishmentUai = establishmentUai;
 	this.firstMonthDay = firstMonthDay;
 	this.userProfile = userProfile;
-	this.userUid = userUid;
     }
 
     
@@ -171,7 +171,7 @@ public class MonthlyPortalConnectionStatistic implements Serializable {
      * 	the number of connections  of the user to the portal.
      */
     public Integer getNumConnections() {
-        return numConnections;
+        return (numConnections != null ? numConnections : 0);
     }
 
     /**
@@ -204,25 +204,25 @@ public class MonthlyPortalConnectionStatistic implements Serializable {
         this.userProfile = userProfile;
     }
 
-    /**
-     * Gets the UID of the user concerned by the statistic.
+    /** Gets the number of users associated to the statistic.
      * 
      * @return 
-     * 	the UID of the user concerned by the statistic.
+     * 	the number of users associated to the statistic.
      */
-    public String getUserUid() {
-        return userUid;
+    public Integer getNumUsers() {
+        return (numUsers != null ? numUsers : 0);
     }
 
     /**
-     * Sets the UID of the user concerned by the statistic.
-     * 
-     * @param userUid 
-     * 			The UID of the user to set.
+     *  Sets the number of users associated to the statistic.
+     *  
+     * @param numUsers 
+     * 			The number of users associated to the statistic.
      */
-    public void setUserUid(String userUid) {
-        this.userUid = userUid;
+    public void setNumUsers(Integer numUsers) {
+        this.numUsers = numUsers;
     }
+
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /* (non-Javadoc)
@@ -235,10 +235,9 @@ public class MonthlyPortalConnectionStatistic implements Serializable {
 	result = prime * result + ((averageDuration == null) ? 0 : averageDuration.hashCode());
 	result = prime * result + ((establishmentUai == null) ? 0 : establishmentUai.hashCode());
 	result = prime * result + ((firstMonthDay == null) ? 0 : firstMonthDay.hashCode());
-	result = prime * result + (int) (id ^ (id >>> 32));
 	result = prime * result + ((numConnections == null) ? 0 : numConnections.hashCode());
+	result = prime * result + ((numUsers == null) ? 0 : numUsers.hashCode());
 	result = prime * result + ((userProfile == null) ? 0 : userProfile.hashCode());
-	result = prime * result + ((userUid == null) ? 0 : userUid.hashCode());
 	return result;
     }
 
@@ -269,26 +268,23 @@ public class MonthlyPortalConnectionStatistic implements Serializable {
 		return false;
 	} else if (!firstMonthDay.equals(other.firstMonthDay))
 	    return false;
-	if (id != other.id)
-	    return false;
 	if (numConnections == null) {
 	    if (other.numConnections != null)
 		return false;
 	} else if (!numConnections.equals(other.numConnections))
+	    return false;
+	if (numUsers == null) {
+	    if (other.numUsers != null)
+		return false;
+	} else if (!numUsers.equals(other.numUsers))
 	    return false;
 	if (userProfile == null) {
 	    if (other.userProfile != null)
 		return false;
 	} else if (!userProfile.equals(other.userProfile))
 	    return false;
-	if (userUid == null) {
-	    if (other.userUid != null)
-		return false;
-	} else if (!userUid.equals(other.userUid))
-	    return false;
 	return true;
     }
-    
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
 

@@ -43,24 +43,6 @@ public interface PortalConnectionStatisticDao extends StatisticDao {
     public Integer findWeeklyNumConnectionsByProfile(String establishmentUai, Date firstWeekDay,
 	    String userProfile);
     
-    /**
-     * Retrieves the statistics on connections made on the portal for the specified user profile
-     * <code>userprofile</code> and the specified establishment UAI <code>establishmentUai</code>.<br/>
-     * This statistics only concerns the week beggining with the day <code>firstWeekDay</code>.<br/>
-     * 
-     * @param establishmentUai
-     *            The UAI of the establishment concerned by the statistics.
-     * @param firstWeekDay
-     *            The first day of the week associated to the statistics.
-     * @param userProfile
-     *            The user profile concerned by the statistics.
-     * @return 
-     * 	the list of statistics on the connections made on the portal.<br/>
-     *         an empty list if no statistic has been retrieved.
-     */
-    public List<WeeklyPortalConnectionStatistic> findWeeklyStatisticsByProfile(String establishmentUai, Date firstWeekDay,
-	    String userProfile);
-
     // /////////////////////////////////////////////////////
     // MONTHLY STATISTICS
     // /////////////////////////////////////////////////////

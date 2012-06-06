@@ -133,7 +133,18 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
     @Override
     public Integer findMonthlyNumConnectionsByProfile(String establishmentUai, Date firstMonthDay,
 	    String userProfile) {
-	return especialPortalConnectionStatisticDao.findMonthlyNumConnectionsByProfile(establishmentUai, firstMonthDay, userProfile);
+	// Number of connections for the especial users
+	Integer especialNumConnections = especialPortalConnectionStatisticDao
+		.findMonthlyNumConnectionsByProfile(establishmentUai, firstMonthDay, userProfile);
+	
+	// Number of connections for the normal users
+	Integer normalNumConnections = portalConnectionStatisticDao
+		.findMonthlyNumConnectionsByProfile(establishmentUai, firstMonthDay, userProfile);
+	
+	// Final number of connections
+	Integer numConnections = especialNumConnections + normalNumConnections;
+	
+	return numConnections;
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS

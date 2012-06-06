@@ -51,6 +51,8 @@ public class PortalConnectionStatisticServiceTest {
 	///////////////////////////////////////////////////
 	// Especial users : 12 + 8 connections
 	// Normal users : (3x25) + (4x13) connections
+	//-------------------------------------------------------------
+	// TOTAL : 147 expected connections
 	///////////////////////////////////////////////////
 	Integer expected = 147;
 	
@@ -75,8 +77,15 @@ public class PortalConnectionStatisticServiceTest {
      */
     @Test
     public void testFindMonthlyNumConnectionsByProfile(){
-	// Expected monthly number of connections
-	Integer expected = 362;
+	///////////////////////////////////////////////////
+	// Expected mothly number of connections
+	///////////////////////////////////////////////////
+	// Especial users : 128 + 234 connections
+	// Normal users : (7x115) + (9x13) connections
+	//-------------------------------------------------------------
+	// TOTAL : 1284 expected connections
+	///////////////////////////////////////////////////
+	Integer expected = 1284;
 	
 	// Actual result
 	String establishmentUai = "0453456A";

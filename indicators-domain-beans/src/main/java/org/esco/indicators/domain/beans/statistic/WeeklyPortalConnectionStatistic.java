@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
 
 /**
  * Class representing the connections of a particular profile to a portal.<br/>
- * These connections are aggregated by week / month and only concern non-especial user.<br/>
+ * These connections are aggregated by week and only concern non-especial user.<br/>
  * 
  * @since  2012/06/05
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
@@ -208,7 +208,7 @@ public class WeeklyPortalConnectionStatistic implements Serializable {
     /** Gets the number of users associated to the statistic.
      * 
      * @return 
-     * 	the number of users associated to the statistics.
+     * 	the number of users associated to the statistic.
      */
     public Integer getNumUsers() {
         return (numUsers != null ? numUsers : 0);
