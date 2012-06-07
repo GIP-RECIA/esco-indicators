@@ -8,6 +8,7 @@
                         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
                         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
 
+  
     <bean   id="accountActivationStatisticService" 
             class="org.esco.indicators.services.statistic.AccountActivationStatisticServiceImpl">
             <property name="accountActivationDao" ref="accountActivationDao"/>
@@ -28,5 +29,6 @@
             class="org.esco.indicators.services.statistic.ServiceConnectionStatisticServiceImpl">
             <property name="serviceConnectionStatisticDao" ref="serviceConnectionStatisticDao"/>
     </bean>
+
 
 </beans>

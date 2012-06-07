@@ -83,6 +83,9 @@
     <bean   id="portalConnectionStatisticDao"
             class="org.esco.indicators.dao.statistic.PortalConnectionStatisticDaoImpl" />              
         
+    <bean   id="profileLinkDao"
+            class="org.esco.indicators.dao.profile.ProfileLinkDaoImpl" />         
+            
     <bean   id="serviceConnectionStatisticDao"
             class="org.esco.indicators.dao.statistic.ServiceConnectionStatisticDaoImpl" />  
     

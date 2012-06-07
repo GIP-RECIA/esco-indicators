@@ -4,6 +4,8 @@
    version="1.0">
    <persistence-unit name="manager1" transaction-type="RESOURCE_LOCAL">
         <class>org.esco.indicators.domain.beans.account.AccountActivation</class>
+        
+        <class>org.esco.indicators.domain.beans.profile.ProfileLink</class>
    
         <class>org.esco.indicators.domain.beans.structure.Establishment</class>
         

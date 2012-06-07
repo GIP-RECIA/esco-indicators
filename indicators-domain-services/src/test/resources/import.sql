@@ -7,12 +7,16 @@ INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0376543
 
 -- ACTIVATION DE COMPTE
 INSERT INTO estactivee (uid, datedebutactivation, datefinactivation) VALUES ('F1234567X', '2011-03-19', '2012-06-04');
-INSERT INTO estactivee (uid, datedebutactivation, datefinactivation) VALUES ('F1234567X', '2012-02-01', NULL);
+INSERT INTO estactivee (uid, datedebutactivation, datefinactivation) VALUES ('F8912345R', '2012-02-01', NULL);
 INSERT INTO estactivee (uid, datedebutactivation, datefinactivation) VALUES ('F8654397U', '2012-01-19', '2012-02-04');
 
 -- NOMBRE DE VISITEURS
 INSERT INTO nombredevisiteurs (jour, typeetab, typestat, uai, nbvisites, nbvisiteurs) VALUES ('2012-05-28', 'CFA', 'Etablissement', '0453456A', '450', '60');
 
+-- PROFILS UTILISATEURS
+INSERT INTO acommeprofil (uai, uid, nomprofil, datedebut, datefinprofil) VALUES ('0453456A', 'F1234567X', 'Teacher', '2011-03-18', '2012-07-13');
+INSERT INTO acommeprofil (uai, uid, nomprofil, datedebut, datefinprofil) VALUES ('0453456A', 'F8912345R', 'Teacher', '2011-09-17', NULL);
+INSERT INTO acommeprofil (uai, uid, nomprofil, datedebut, datefinprofil) VALUES ('0453456A', 'F8654397U', 'Teacher', '2012-02-01', NULL);
 
 
 -- CONNEXIONS PROFILS AU PORTAIL (HEBDOMADAIRE)
