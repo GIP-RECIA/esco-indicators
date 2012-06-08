@@ -3,7 +3,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>indicators-web-springmvc-servlet</title>	
+  <title><spring:message code="header.title"/></title>	
   
   <!-- JQUERY -->
   <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
@@ -12,6 +12,7 @@
   <!-- Framework CSS -->
   <link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection">
   <link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print">
+  <link rel="stylesheet" href="css/indicators.css" type="text/css" media="screen, projection">
   <link rel="stylesheet" href="css/blank.css" type="text/css" media="screen, projection">
 
 </head>
@@ -20,11 +21,6 @@
 
   <div class="container">
   
-  
-	<ul id="menu">
-		<li><a href="/"><spring:message code="menu.home"/></a></li>
-		<li><a href="/about"><spring:message code="menu.about"/></a></li>
-		<li><a href="/exception"><spring:message code="menu.exception"/></a></li>
-	</ul> 
+
 
 

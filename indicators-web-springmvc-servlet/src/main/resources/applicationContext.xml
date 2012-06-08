@@ -6,30 +6,42 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
 >
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>classpath:defaults.properties</value>
-				<value>classpath:config.properties</value>
-			</list>
-		</property>
-	</bean>
 
-    <!--
-     | Message source for this context, loaded from localized "messages_xx" files
-     +-->
-    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basenames">
+    <bean   id="requiredAnnotationBeanPostProcessor" 
+            class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
+
+
+    <!-- ////////////////////////// -->
+    <!-- IMPORTS -->
+    <!-- ////////////////////////// -->
+    
+    <!-- web-springmvc-servlet -->
+    <import resource="classpath:properties/cache/cache.xml" />
+    <import resource="classpath:properties/i18n/i18n.xml" />
+    
+    <!-- domain-services -->
+    <import resource="classpath*:META-INF/indicators-domain-services-auth.xml"/>        
+    <import resource="classpath*:META-INF/indicators-domain-services-domain.xml"/>    
+    <import resource="classpath*:META-INF/indicators-domain-services-ldap.xml"/>
+    <import resource="classpath*:META-INF/indicators-domain-services-establishment.xml"/>
+    <import resource="classpath*:META-INF/indicators-domain-services-profile.xml"/>
+    <import resource="classpath*:META-INF/indicators-domain-services-statistic.xml"/>
+    
+    <!-- dao -->
+    <import resource="classpath*:META-INF/indicators-dao-dao.xml"/>
+    
+    
+    <!-- ////////////////////////// -->
+    <!-- PROPERTIES -->
+    <!-- ////////////////////////// -->
+    <bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
             <list>
-                <value>messages</value>
+               <value>classpath:defaults.properties</value>
+               <value>classpath:config.properties</value>
             </list>
-        </property>                                     
+        </property>
     </bean>
-
-    <bean id="requiredAnnotationBeanPostProcessor" class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
-
-	<import resource="classpath*:META-INF/indicators-domain-services-auth.xml" />
-<!-- 	<import resource="classpath*:META-INF/indicators-domain-services-ldap.xml" /> -->
 
 </beans>

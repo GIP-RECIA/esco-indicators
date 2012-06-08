@@ -1,0 +1,20 @@
+/**********************************************************
+* CSS made for the indicators application
+***********************************************************
+*
+* File organization :
+* -------------------
+*   1. Welcome page
+*   2. Accounts activations page
+*   3. Services page
+*   4. Services usage page
+*
+**********************************************************/
+
+/****************************
+* 1. WELCOME PAGE
+****************************/
+
+div.welcome {
+  width: 100%;
+}
