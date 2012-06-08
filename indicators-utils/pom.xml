@@ -23,6 +23,12 @@
             <version>${esupcommons.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.esco</groupId>
+            <artifactId>indicators-domain-beans</artifactId>
+            <version>1.0.0-0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
 		    <groupId>joda-time</groupId>
 		    <artifactId>joda-time</artifactId>
 		    <version>2.1</version>
