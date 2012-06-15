@@ -24,28 +24,57 @@ public class PermissionProvider {
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(PermissionProvider.class);
 
-    /** Boolean indicatinf if the provider has already initialized the permissions */
-    private static boolean permissionsInitialized = false;
-    
     /** URL of the file containing the groups permissions */
     private static String groupsPermissionsFileUrl;
     
     /** URL of the file containing the permissions */
     private static String permissionsFileUrl;
     
+    /** Singleton of the class */
+    private static PermissionProvider instance;
+    
     /** Permissions container */
-    private static PermissionsContainer permissionsContainer;
+    private PermissionsContainer permissionsContainer;
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
-
-    //-------------------------------------------------------------------- STATIC GETTERS / SETTERS
+    /**
+     * Default constructor of the {@link PermissionProvider} class.
+     */
+    private PermissionProvider() {
+	super();
+	permissionsContainer = PermissionsContainer.getInstance();
+	feedContainer();
+    }
+    
+    //----------------------------------------------------------------------------------  PUBLIC METHODS
+    /**
+     * Reloads the content of the XML permissions files.
+     */
+    public void reloadPermissions(){
+	    feedContainer();
+    }
+    
+    //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
      * Gets the permissions loaded from the permissions file.
      * 
      * @return
      * 	the permissions loaded from the permissions file.
      */
-    public static Permissions getPermissions() {
+    public static PermissionProvider getInstance() {
+	if(instance == null) {
+	    instance = new PermissionProvider();
+	}
+	return instance;
+    }
+    
+    /**
+     * Gets the permissions loaded from the permissions file.
+     * 
+     * @return
+     * 	the permissions loaded from the permissions file.
+     */
+    public Permissions getPermissions() {
 	return (permissionsContainer != null ? permissionsContainer.getPermissions() : null);
     }
     
@@ -55,10 +84,12 @@ public class PermissionProvider {
      * @return
      * 	the groups permissions loaded from the permissions file.
      */
-    public static GroupsPermissions getGroupsPermissions() {
+    public GroupsPermissions getGroupsPermissions() {
 	return (permissionsContainer != null ? permissionsContainer.getGroupsPermissions() : null);
     }
     
+    
+    //-------------------------------------------------------------------- STATIC GETTERS / SETTERS
     /**
      * Sets the URL of the XML groups permissions file.<br/>
      * 
@@ -79,35 +110,11 @@ public class PermissionProvider {
         PermissionProvider.permissionsFileUrl = permissionsFileUrl;
     }
     
-    //------------------------------------------------------------------------------ STATIC PUBLIC METHODS
-    
-    /**
-     * Initializes everything in order to get access to the permissions and groups permissions.
-     */
-    public static void initializePermissions() {
-	if(!permissionsInitialized) {
-        	// Retrieval of the container and feeding
-        	permissionsContainer = PermissionsContainer.getInstance();
-        	feedContainer();
-        	permissionsInitialized = true;
-	}
-    }
-    
-    /**
-     * Reloads the content of the XML permissions files.
-     */
-    public static void reloadPermissions(){
-	if(permissionsInitialized) {
-	    feedContainer();
-	}
-    }
-    
-    
-    //---------------------------------------------------------------------- STATIC PRIVATE METHODS
+    //----------------------------------------------------------------------------- PRIVATE METHODS
     /**
      * Feeds the container with the data present into the XML permissions files.
      */
-    private static void feedContainer() {
+    private void feedContainer() {
 	try {
         	// Construction of the context with the "root" classes
         	JAXBContext jaxbContext = JAXBContext.newInstance(GroupsPermissions.class, Permissions.class);

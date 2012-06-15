@@ -31,6 +31,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations="classpath*:META-INF/testApplicationContext.xml")
 public class PermissionUtilsTest {
     //---------------------------------------------------------------------------------- ATTRIBUTES
+    /** {@link PermissionProvider} under tests */
+    private PermissionProvider permissionProvider;
+    
+    //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
      * Initializes the permissions before access.
      * 
@@ -38,9 +42,12 @@ public class PermissionUtilsTest {
      */
     @Before
     public void setUp() throws Exception {
-	PermissionProvider.initializePermissions();
+	permissionProvider = PermissionProvider.getInstance();
     }
 
+    //--------------------------------------------------------------------------- GETTERS / SETTERS
+
+    //------------------------------------------------------------------------------ PUBLIC METHODS
     /**
      * Test method for {@link org.esco.indicators.utils.permission.PermissionProvider#getPermissions()}.
      * 
@@ -52,7 +59,7 @@ public class PermissionUtilsTest {
 	Integer expected = 3;
 	
 	// Actual result
-	Integer actual = PermissionProvider.getPermissions().getPermissions().size();
+	Integer actual = permissionProvider.getPermissions().getPermissions().size();
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -74,7 +81,7 @@ public class PermissionUtilsTest {
 	
 	// Actual result
 	Set<String> actual = new HashSet<String>();
-	List<Permission> permissionList = PermissionProvider.getPermissions().getPermissions();
+	List<Permission> permissionList = permissionProvider.getPermissions().getPermissions();
 	for (Permission permission : permissionList) {
 	    actual.add(permission.getName());
 	}
@@ -98,7 +105,7 @@ public class PermissionUtilsTest {
 	
 	// Actual result
 	Set<String> actual = new HashSet<String>();
-	List<Permission> permissionList = PermissionProvider.getPermissions().getPermissions();
+	List<Permission> permissionList = permissionProvider.getPermissions().getPermissions();
 	for (Permission permission : permissionList) {
 	    actual.add(permission.getEstablishmentType());
 	}
@@ -131,7 +138,7 @@ public class PermissionUtilsTest {
 	
 	// Actual result
 	Set< List<Integer> > actual = new HashSet< List<Integer> >();
-	List<Permission> permissionList = PermissionProvider.getPermissions().getPermissions();
+	List<Permission> permissionList = permissionProvider.getPermissions().getPermissions();
 	for (Permission permission : permissionList) {
 	    Counties counties = permission.getCounties();
 	    if(counties != null) {
@@ -154,7 +161,7 @@ public class PermissionUtilsTest {
 	Integer expected = 2;
 	
 	// Actual result
-	Integer actual = PermissionProvider.getGroupsPermissions().getGroupsPermissions().size();
+	Integer actual = permissionProvider.getGroupsPermissions().getGroupsPermissions().size();
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -174,7 +181,7 @@ public class PermissionUtilsTest {
 	
 	// Actual result
 	Set<String> actual = new HashSet<String>();
-	List<GroupPermission> groups = PermissionProvider.getGroupsPermissions().getGroupsPermissions();
+	List<GroupPermission> groups = permissionProvider.getGroupsPermissions().getGroupsPermissions();
 	for (GroupPermission groupPermission : groups) {
 	    actual.add(groupPermission.getMatchPattern());
 	}
@@ -197,7 +204,7 @@ public class PermissionUtilsTest {
 	
 	// Actual result
 	Set<String> actual = new HashSet<String>();
-	List<GroupPermission> groups = PermissionProvider.getGroupsPermissions().getGroupsPermissions();
+	List<GroupPermission> groups = permissionProvider.getGroupsPermissions().getGroupsPermissions();
 	for (GroupPermission groupPermission : groups) {
 	    actual.add(groupPermission.getPermissionName());
 	}
@@ -205,12 +212,6 @@ public class PermissionUtilsTest {
 	// Test
 	Assert.assertEquals(expected, actual);
     }
-
-    //-------------------------------------------------------------------------------- CONSTRUCTORS
-
-    //--------------------------------------------------------------------------- GETTERS / SETTERS
-
-    //------------------------------------------------------------------------------ PUBLIC METHODS
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
