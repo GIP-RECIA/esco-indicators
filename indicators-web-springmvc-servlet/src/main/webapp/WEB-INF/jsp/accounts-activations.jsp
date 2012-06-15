@@ -10,6 +10,10 @@
   
 </div>
 
+<form:form method="POST" commandName="accountActivationForm">
+    <form:radiobuttons path="monitoringType" items="${monitoringTypeItems}"  /> 
+</form:form>
+
 <div>
     <ul id="menu">
         <li><a href="/accounts-activations"><spring:message code="menu.accounts-activations"/></a></li>
@@ -17,5 +21,8 @@
         <li><a href="/services-usages"><spring:message code="menu.services-usage"/></a></li>
     </ul> 
 </div>
+
+<!-- SCRIPTS -->
+<script type="text/javascript" src="js/accounts-activations.js"></script>
 
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>
