@@ -25,3 +25,7 @@ target/
 *.swp
 .vim
 
+###################
+# Config files
+###################
+*.prod.xml
