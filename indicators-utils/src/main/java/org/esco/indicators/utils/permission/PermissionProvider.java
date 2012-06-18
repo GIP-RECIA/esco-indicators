@@ -10,8 +10,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.log4j.Logger;
-import org.esco.indicators.domain.beans.permission.GroupsPermissions;
-import org.esco.indicators.domain.beans.permission.Permissions;
+import org.esco.indicators.domain.beans.xml.permission.GroupsPermissions;
+import org.esco.indicators.domain.beans.xml.permission.Permissions;
 
 /**
  * Utils class providing functions to access the permissions defined into XML files.<br/>
@@ -61,19 +61,6 @@ public class PermissionProvider {
      * @return
      * 	the permissions loaded from the permissions file.
      */
-    public static PermissionProvider getInstance() {
-	if(instance == null) {
-	    instance = new PermissionProvider();
-	}
-	return instance;
-    }
-    
-    /**
-     * Gets the permissions loaded from the permissions file.
-     * 
-     * @return
-     * 	the permissions loaded from the permissions file.
-     */
     public Permissions getPermissions() {
 	return (permissionsContainer != null ? permissionsContainer.getPermissions() : null);
     }
@@ -90,6 +77,19 @@ public class PermissionProvider {
     
     
     //-------------------------------------------------------------------- STATIC GETTERS / SETTERS
+    /**
+     * Gets the permissions loaded from the permissions file.
+     * 
+     * @return
+     * 	the permissions loaded from the permissions file.
+     */
+    public static PermissionProvider getInstance() {
+	if(instance == null) {
+	    instance = new PermissionProvider();
+	}
+	return instance;
+    }
+    
     /**
      * Sets the URL of the XML groups permissions file.<br/>
      * 

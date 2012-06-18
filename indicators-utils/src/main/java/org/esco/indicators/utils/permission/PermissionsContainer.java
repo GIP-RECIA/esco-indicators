@@ -4,8 +4,8 @@
 package org.esco.indicators.utils.permission;
 
 import org.apache.log4j.Logger;
-import org.esco.indicators.domain.beans.permission.GroupsPermissions;
-import org.esco.indicators.domain.beans.permission.Permissions;
+import org.esco.indicators.domain.beans.xml.permission.GroupsPermissions;
+import org.esco.indicators.domain.beans.xml.permission.Permissions;
 
 /**
  * Class containing the groups permissions on the statistics.

@@ -25,6 +25,6 @@
     <!-- ////////////////////////// -->
     <!-- IMPORTS -->
     <!-- ////////////////////////// -->
-    <import resource="classpath:META-INF/indicators-utils-permissions.xml"/>    
+    <import resource="classpath:META-INF/indicators-utils.xml"/>    
     
 </beans>

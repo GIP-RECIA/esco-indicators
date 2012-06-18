@@ -14,6 +14,9 @@ import javax.xml.bind.Unmarshaller;
 
 import junit.framework.Assert;
 
+import org.esco.indicators.domain.beans.xml.permission.Counties;
+import org.esco.indicators.domain.beans.xml.permission.Permission;
+import org.esco.indicators.domain.beans.xml.permission.Permissions;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -60,7 +63,7 @@ public class PermissionsTest {
     
     //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
-     * Test method for {@link org.esco.indicators.domain.beans.permission.Permissions#getPermissions()}.
+     * Test method for {@link org.esco.indicators.domain.beans.xml.permission.Permissions#getPermissions()}.
      * 
      * Tests if there is the expected number of permissions.
      */
@@ -77,7 +80,7 @@ public class PermissionsTest {
     }
     
     /**
-     * Test method for {@link org.esco.indicators.domain.beans.permission.Permissions#getPermissions()}.
+     * Test method for {@link org.esco.indicators.domain.beans.xml.permission.Permissions#getPermissions()}.
      * 
      * Tests the permissions names.
      */
@@ -102,7 +105,7 @@ public class PermissionsTest {
     }
     
     /**
-     * Test method for {@link org.esco.indicators.domain.beans.permission.Permissions#getPermissions()}.
+     * Test method for {@link org.esco.indicators.domain.beans.xml.permission.Permissions#getPermissions()}.
      * 
      * Tests the establishments types associated to the permissions.
      */
@@ -126,7 +129,7 @@ public class PermissionsTest {
     }
     
     /**
-     * Test method for {@link org.esco.indicators.domain.beans.permission.Permissions#getPermissions()}.
+     * Test method for {@link org.esco.indicators.domain.beans.xml.permission.Permissions#getPermissions()}.
      * 
      * Tests if the counties are the expected ones.
      */

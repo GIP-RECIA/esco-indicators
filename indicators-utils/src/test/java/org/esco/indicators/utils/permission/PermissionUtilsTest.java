@@ -12,9 +12,9 @@ import java.util.Set;
 
 import junit.framework.Assert;
 
-import org.esco.indicators.domain.beans.permission.Counties;
-import org.esco.indicators.domain.beans.permission.GroupPermission;
-import org.esco.indicators.domain.beans.permission.Permission;
+import org.esco.indicators.domain.beans.xml.permission.Counties;
+import org.esco.indicators.domain.beans.xml.permission.GroupPermission;
+import org.esco.indicators.domain.beans.xml.permission.Permission;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

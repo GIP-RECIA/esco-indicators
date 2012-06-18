@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans 
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <!-- Setting of the URL of the XML files used for the permissions -->
+    <bean   id="staticPermissionsInitializer"
+            class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"> 
+        
+        <property   name="staticMethod" 
+                    value="org.esco.indicators.utils.permission.PermissionProvider.setPermissionsFileUrl"/>
+        
+        <property name="arguments">
+            <list>
+                <value>${permissions.url}</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean   id="staticGroupsPermissionsInitializer"
+            class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"> 
+        
+        <property   name="staticMethod" 
+                    value="org.esco.indicators.utils.permission.PermissionProvider.setGroupsPermissionsFileUrl"/>
+        
+        <property name="arguments">
+            <list>
+                <value>${permissions.groups.url}</value>
+            </list>
+        </property>
+    </bean>
+    
+    <!-- Setting of the URL of the XML file used for the data form -->
+    <bean   id="staticDataFormInitializer"
+            class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"> 
+        
+        <property   name="staticMethod" 
+                    value="org.esco.indicators.utils.web.DataFormProvider.setDataFormFileUrl"/>
+        
+        <property name="arguments">
+            <list>
+                <value>${dataForm.url}</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>

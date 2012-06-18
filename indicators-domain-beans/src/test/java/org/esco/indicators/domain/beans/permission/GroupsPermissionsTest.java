@@ -13,6 +13,8 @@ import javax.xml.bind.Unmarshaller;
 
 import junit.framework.Assert;
 
+import org.esco.indicators.domain.beans.xml.permission.GroupPermission;
+import org.esco.indicators.domain.beans.xml.permission.GroupsPermissions;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -59,7 +61,7 @@ public class GroupsPermissionsTest {
     
     //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
-     * Test method for {@link org.esco.indicators.domain.beans.permission.GroupsPermissions#getGroupsPermissions()}.
+     * Test method for {@link org.esco.indicators.domain.beans.xml.permission.GroupsPermissions#getGroupsPermissions()}.
      * 
      * Tests if there is the correct number of group permissions.
      * 
@@ -77,7 +79,7 @@ public class GroupsPermissionsTest {
     }
     
     /**
-     * Test method for {@link org.esco.indicators.domain.beans.permission.GroupsPermissions#getGroupsPermissions()}.
+     * Test method for {@link org.esco.indicators.domain.beans.xml.permission.GroupsPermissions#getGroupsPermissions()}.
      * 
      * Tests if the group permission patterns are the expected ones.
      * 
@@ -101,7 +103,7 @@ public class GroupsPermissionsTest {
     }
     
     /**
-     * Test method for {@link org.esco.indicators.domain.beans.permission.GroupsPermissions#getGroupsPermissions()}.
+     * Test method for {@link org.esco.indicators.domain.beans.xml.permission.GroupsPermissions#getGroupsPermissions()}.
      * 
      * Tests if the permissions names are the expected ones.
      * 
