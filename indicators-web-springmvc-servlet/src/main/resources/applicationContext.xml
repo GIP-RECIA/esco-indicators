@@ -20,10 +20,12 @@
     <import resource="classpath:properties/i18n/i18n.xml" />
     
     <!-- domain-services -->
-    <import resource="classpath*:META-INF/indicators-domain-services-auth.xml"/>        
+    <import resource="classpath*:META-INF/indicators-domain-services-auth.xml"/>     
+    <import resource="classpath*:META-INF/indicators-domain-services-data-form.xml" />   
     <import resource="classpath*:META-INF/indicators-domain-services-domain.xml"/>    
     <import resource="classpath*:META-INF/indicators-domain-services-ldap.xml"/>
     <import resource="classpath*:META-INF/indicators-domain-services-establishment.xml"/>
+    <import resource="classpath*:META-INF/indicators-domain-services-permissions.xml"/>
     <import resource="classpath*:META-INF/indicators-domain-services-profile.xml"/>
     <import resource="classpath*:META-INF/indicators-domain-services-statistic.xml"/>
     
@@ -38,8 +40,8 @@
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-               <value>classpath:defaults.properties</value>
-               <value>classpath:config.properties</value>
+               <value>classpath:properties/defaults.prod.properties</value>
+               <value>classpath:properties/config.prod.properties</value>
             </list>
         </property>
     </bean>

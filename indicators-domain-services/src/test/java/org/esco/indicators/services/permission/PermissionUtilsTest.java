@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.esco.indicators.utils.permission;
+package org.esco.indicators.services.permission;
 
 import static org.junit.Assert.*;
 
@@ -15,6 +15,7 @@ import junit.framework.Assert;
 import org.esco.indicators.domain.beans.xml.permission.Counties;
 import org.esco.indicators.domain.beans.xml.permission.GroupPermission;
 import org.esco.indicators.domain.beans.xml.permission.Permission;
+import org.esco.indicators.services.permission.PermissionProvider;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,7 +50,7 @@ public class PermissionUtilsTest {
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**
-     * Test method for {@link org.esco.indicators.utils.permission.PermissionProvider#getPermissions()}.
+     * Test method for {@link org.esco.indicators.services.permission.PermissionProvider#getPermissions()}.
      * 
      * Tests if the number of permissions is the expected one.
      */
@@ -66,7 +67,7 @@ public class PermissionUtilsTest {
     }
     
     /**
-     * Test method for {@link org.esco.indicators.utils.permission.PermissionProvider#getPermissions()}.
+     * Test method for {@link org.esco.indicators.services.permission.PermissionProvider#getPermissions()}.
      * 
      * Tests the permissions names.
      */
@@ -91,7 +92,7 @@ public class PermissionUtilsTest {
     }
     
     /**
-     * Test method for {@link org.esco.indicators.utils.permission.PermissionProvider#getPermissions()}.
+     * Test method for {@link org.esco.indicators.services.permission.PermissionProvider#getPermissions()}.
      * 
      * Tests the establishment types associated to the permissions.
      */
@@ -115,7 +116,7 @@ public class PermissionUtilsTest {
     }
     
     /**
-     * Test method for {@link org.esco.indicators.utils.permission.PermissionProvider#getPermissions()}.
+     * Test method for {@link org.esco.indicators.services.permission.PermissionProvider#getPermissions()}.
      * 
      * Tests the counties number associated to the permissions.
      */
@@ -151,7 +152,7 @@ public class PermissionUtilsTest {
     }
 
     /**
-     * Test method for {@link org.esco.indicators.utils.permission.PermissionProvider#getGroupsPermissions()}.
+     * Test method for {@link org.esco.indicators.services.permission.PermissionProvider#getGroupsPermissions()}.
      * 
      * Tests if the number of groups permissions is the expected one.
      */
@@ -168,7 +169,7 @@ public class PermissionUtilsTest {
     }
     
     /**
-     * Test method for {@link org.esco.indicators.utils.permission.PermissionProvider#getGroupsPermissions()}.
+     * Test method for {@link org.esco.indicators.services.permission.PermissionProvider#getGroupsPermissions()}.
      * 
      * Tests if the group permission patterns are the expected ones.
      */
@@ -191,7 +192,7 @@ public class PermissionUtilsTest {
     }
     
     /**
-     * Test method for {@link org.esco.indicators.utils.permission.PermissionProvider#getGroupsPermissions()}.
+     * Test method for {@link org.esco.indicators.services.permission.PermissionProvider#getGroupsPermissions()}.
      * 
      * Tests if the permissions names are the expected ones.
      */

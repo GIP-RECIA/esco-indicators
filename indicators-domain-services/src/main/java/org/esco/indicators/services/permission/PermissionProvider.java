@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.esco.indicators.utils.permission;
+package org.esco.indicators.services.permission;
 
 import java.io.File;
 

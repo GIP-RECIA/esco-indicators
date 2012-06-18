@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.esco.indicators.utils.permission;
+package org.esco.indicators.services.permission;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.xml.permission.GroupsPermissions;
