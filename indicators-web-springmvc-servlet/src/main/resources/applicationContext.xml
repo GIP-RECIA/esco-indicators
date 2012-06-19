@@ -7,10 +7,12 @@
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
 >
 
+    <!-- ////////////////////////// -->
+    <!-- ANNOTATIONS PROCESSING -->
+    <!-- ////////////////////////// -->
     <bean   id="requiredAnnotationBeanPostProcessor" 
             class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
-
-
+            
     <!-- ////////////////////////// -->
     <!-- IMPORTS -->
     <!-- ////////////////////////// -->
@@ -32,7 +34,6 @@
     <!-- dao -->
     <import resource="classpath*:META-INF/indicators-dao-dao.xml"/>
     
-    
     <!-- ////////////////////////// -->
     <!-- PROPERTIES -->
     <!-- ////////////////////////// -->
@@ -45,5 +46,6 @@
             </list>
         </property>
     </bean>
+    
 
 </beans>

@@ -5,9 +5,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-	<!-- /properties/i18n/i18n.xml The configuration file for i18n services. 
-		This file is referenced by /properties/applicationContext.xml. -->
-
     <!-- Setting of the URL of the XML file used for the data form -->
     <bean   id="staticDataFormInitializer"
             class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"> 
@@ -21,5 +18,6 @@
             </list>
         </property>
     </bean>
-
+    
+    <bean id="dataFormService" class="org.esco.indicators.services.form.DataFormServiceImpl" />
 </beans>

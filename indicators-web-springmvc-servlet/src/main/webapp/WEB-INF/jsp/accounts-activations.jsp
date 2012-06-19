@@ -11,7 +11,51 @@
 </div>
 
 <form:form method="POST" commandName="accountActivationForm">
-    <form:radiobuttons path="monitoringType" items="${monitoringTypeItems}"  /> 
+
+    <p><spring:message code="filter.title.monitoringType" /></p>
+    <p>
+        <form:radiobuttons itemValue="value" itemLabel="label" path="monitoringType" items="${monitoringTypeItems}"  />
+    </p>
+    
+    <p><spring:message code="filter.title.establishmentType" /></p>
+    <p>
+        <form:checkboxes itemValue="value" itemLabel="label" path="establishmentsTypes" items="${estbalishmentsTypesItems}"  /> 
+    </p>
+    
+    <p><spring:message code="filter.title.period" /></p>
+    <p>
+        <form:input path="startDate" />   <form:input path="endDate" />
+    </p>
+    
+    <p><spring:message code="filter.title.filter" /></p>
+    <div>
+    
+        <p><spring:message code="filter.title.userProfile" /></p>
+        <p>
+            <form:checkboxes itemValue="value" itemLabel="label" path="usersProfiles" items="${usersProfilesItems}"  /> 
+        </p>
+        
+        <p><spring:message code="filter.title.county" /></p>
+        <p>
+            <form:select path="county">
+                <form:options itemValue="value" itemLabel="label" items="${countyItems}"  />
+            </form:select> 
+        
+            <form:checkbox path="sumOnCounties" />
+        </p>
+        
+        <p><spring:message code="filter.title.lyceeType" /></p>
+        <p>
+            <form:checkboxes itemValue="value" itemLabel="label" path="lyceesTypes" items="${lyceesTypesItems}"  /> 
+        </p>
+        
+        <p><spring:message code="filter.title.laType" /></p>
+        <p>
+            <form:checkboxes itemValue="value" itemLabel="label" path="laTypes" items="${laTypesItems}"  /> 
+        </p>
+        
+        
+    </div>
 </form:form>
 
 <div>

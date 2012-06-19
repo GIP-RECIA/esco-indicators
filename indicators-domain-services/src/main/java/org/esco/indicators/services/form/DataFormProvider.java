@@ -17,7 +17,8 @@ import org.esco.indicators.domain.beans.xml.form.EntryForm;
 import org.esco.indicators.domain.beans.xml.form.EntryValue;
 
 /**
- * Class providing functions to access the data that have to be displayed in the forms of the application.
+ * Class providing functions to access the data that have to be displayed in the forms of the application.<br/>
+ * These data are loaded from the file located at the URL : <code>dataFormFileUrl</code>.
  * 
  * @since  2012/06/18
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
@@ -119,6 +120,16 @@ public class DataFormProvider {
 
 
     /**
+     * Gets the URL of the file containing the data form.
+     * 
+     * @return 
+     * 	the URL of the file containing the data form.
+     */
+    public static String getDataFormFileUrl() {
+        return dataFormFileUrl;
+    }
+    
+    /**
      * Sets the URL of the file containing the data form.
      * 
      * @param dataFormFileUrl 
@@ -127,6 +138,8 @@ public class DataFormProvider {
     public static void setDataFormFileUrl(String dataFormFileUrl) {
         DataFormProvider.dataFormFileUrl = dataFormFileUrl;
     }
+    
+    
     
     
     
