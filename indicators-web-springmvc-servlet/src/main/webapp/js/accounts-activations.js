@@ -21,10 +21,21 @@ $.ajaxSetup({"error":function(XMLHttpRequest,textStatus, errorThrown) {
 }});
 
 $(document).ready(function() {
-    // Get the message to display when a monitoring type is selected
+    // //////////////////////////////////////////////////////////////
+    // When an element having the class 'submit' is changed
+    // the entire form is submitted in order to refresh the 
+    // establishments list 
+    // //////////////////////////////////////////////////////////////
+    $('.submit').change(function(e) {
+        var select = e.target;
+        alert('Change on : ' + select.value);
+    });
+
+    // Ajax call
     $('#monitoringType1').blur(function() {
         getMonitoringTypeMessage();
     });
+
 });
  
 function getMonitoringTypeMessage() {
