@@ -41,5 +41,99 @@ public class DataFormConstants {
 
     /** Users profiles */
     public static final  String USERS_PROFILES = "usersProfiles"; 
+    
+    
+    ///////////////////////////////////////////////////////
+    // Values of the XML  <jsp-key> tags
+    ///////////////////////////////////////////////////////
+    
+    ///////////////////////////////////
+    // Monitoring type
+    ///////////////////////////////////
+    /** Attendance */
+    public static final  String JSP_KEY_ATTENDANCE = "monitoringType.ATTENDANCE";
+    
+    /** Monitoring attendance */
+    public static final  String JSP_KEY_MONITORING_ATTENDANCE = "monitoringType.MONITORING_ATTENDANCE";
+    
+    ///////////////////////////////////
+    // Establishments types
+    ///////////////////////////////////
+    /** College */
+    public static final  String JSP_KEY_COLLEGE = "establishmentType.COLLEGE";
+    
+    /** CFA */
+    public static final  String JSP_KEY_CFA = "establishmentType.CFA";
+    
+    /** LA */
+    public static final  String JSP_KEY_LA = "establishmentType.LA";
+    
+    /** LEN */
+    public static final  String JSP_KEY_LEN = "establishmentType.LEN";
+    
+    ///////////////////////////////////
+    // Users profiles
+    ///////////////////////////////////
+    /** Employers */
+    public static final  String JSP_KEY_EMPLOYERS = "usersProfiles.EMPLOYERS";
+    
+    /** Relatives */
+    public static final  String JSP_KEY_RELATIVES = "usersProfiles.RELATIVES";
+    
+    /** Students */
+    public static final  String JSP_KEY_STUDENTS = "usersProfiles.STUDENTS";
+    
+    /** Teachers */
+    public static final  String JSP_KEY_TEACHERS = "usersProfiles.TEACHERS";
+    
+    /** Staff */
+    public static final  String JSP_KEY_STAFF  = "usersProfiles.STAFF";
+    
+    /** Staff collectivity */
+    public static final  String JSP_KEY_STAFF_COLLECTIVITY = "usersProfiles.STAFF_COLLECTIVITY";
+    
+    ///////////////////////////////////
+    // Counties
+    ///////////////////////////////////
+    /** All counties */
+    public static final  String JSP_KEY_COUNTY_ALL = "county.COUNTY_ALL";
+    
+    /** County 28 */
+    public static final  String JSP_KEY_COUNTY_28 = "county.COUNTY_28";
+    
+    /** County 36 */
+    public static final  String JSP_KEY_COUNTY_36 = "county.COUNTY_36";
+    
+    /** County 37 */
+    public static final  String JSP_KEY_COUNTY_37 = "county.COUNTY_37";
+    
+    /** County 41 */
+    public static final  String JSP_KEY_COUNTY_41 = "county.COUNTY_41";
+    
+    /** County 45 */
+    public static final  String JSP_KEY_COUNTY_45 = "county.COUNTY_45";
 
+    
+    ///////////////////////////////////
+    // Lycees types
+    ///////////////////////////////////
+    /** EREA */
+    public static final  String JSP_KEY_EREA = "lyceesTypes.EREA";
+    
+    /** LEGT */
+    public static final  String JSP_KEY_LEGT = "lyceesTypes.LEGT";
+    
+    /** EREA */
+    public static final  String JSP_KEY_LP  = "lyceesTypes.LP";
+    
+    
+    ///////////////////////////////////
+    // LA types
+    ///////////////////////////////////
+    /** LEGTA */
+    public static final  String JSP_KEY_LEGTA = "laTypes.LEGTA";
+    
+    /** LPA */
+    public static final  String JSP_KEY_LPA = "laTypes.LPA";
+    
 }

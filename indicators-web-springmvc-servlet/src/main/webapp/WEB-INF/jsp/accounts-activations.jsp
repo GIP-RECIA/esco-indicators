@@ -15,16 +15,22 @@
     <p><spring:message code="filter.title.monitoringType" /></p>
     <p>
         <form:radiobuttons itemValue="value" itemLabel="label" path="monitoringType" items="${monitoringTypeItems}"  />
+        <form:errors path="monitoringType" cssClass="error" />
     </p>
     
     <p><spring:message code="filter.title.establishmentType" /></p>
     <p>
-        <form:checkboxes cssClass="submit" itemValue="value" itemLabel="label" path="establishmentsTypes" items="${estbalishmentsTypesItems}"  /> 
+        <form:checkboxes cssClass="submit" itemValue="value" itemLabel="label" path="establishmentsTypes" items="${estbalishmentsTypesItems}"  />
+        <form:errors path="establishmentsTypes" cssClass="error" />
     </p>
     
     <p><spring:message code="filter.title.period" /></p>
     <p>
-        <form:input path="startDate" />   <form:input path="endDate" />
+        <form:input path="startDate" />   
+        <form:errors path="startDate" cssClass="error" />
+        
+        <form:input path="endDate" />
+        <form:errors path="endDate" cssClass="error" />
     </p>
     
     <p><spring:message code="filter.title.filter" /></p>
@@ -33,6 +39,7 @@
         <p><spring:message code="filter.title.userProfile" /></p>
         <p>
             <form:checkboxes itemValue="value" itemLabel="label" path="usersProfiles" items="${usersProfilesItems}"  /> 
+            <form:errors path="usersProfiles" cssClass="error" />
         </p>
         
         <p><spring:message code="filter.title.county" /></p>
@@ -40,6 +47,7 @@
             <form:select cssClass="submit" path="county">
                 <form:options itemValue="value" itemLabel="label" items="${countyItems}"  />
             </form:select> 
+            <form:errors path="county" cssClass="error" />
             
             <form:checkbox cssClass="submit" path="sumOnCounties" /><spring:message code="form.sumOnCounties.DEFAULT" />
         </p>
@@ -47,11 +55,13 @@
         <p><spring:message code="filter.title.lyceeType" /></p>
         <p>
             <form:checkboxes cssClass="submit" itemValue="value" itemLabel="label" path="lyceesTypes" items="${lyceesTypesItems}"  /> 
+            <form:errors path="lyceesTypes" cssClass="error" />
         </p>
         
         <p><spring:message code="filter.title.laType" /></p>
         <p>
             <form:checkboxes cssClass="submit" itemValue="value" itemLabel="label" path="laTypes" items="${laTypesItems}"  /> 
+            <form:errors path="laTypes" cssClass="error" />
         </p>
     </div>
     

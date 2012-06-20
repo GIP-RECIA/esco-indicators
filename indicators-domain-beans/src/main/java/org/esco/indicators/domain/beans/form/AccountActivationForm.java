@@ -4,9 +4,9 @@
 package org.esco.indicators.domain.beans.form;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
-import org.esco.indicators.domain.beans.structure.Establishment;
 
 /**
  * Class representing the account activation form displayed on the accounts activations web page.
@@ -29,13 +29,13 @@ public class AccountActivationForm {
      * Date : Beginning of the period
      * Format : yyyy-DD-mm
      */
-    String startDate;
+    Date startDate;
 
     /** 
      * Date : End of the period
      * Format : yyyy-DD-mm
      */
-    String endDate;
+    Date endDate;
     
     /** Checkboxes : users profiles */
     String [] usersProfiles;
@@ -99,7 +99,7 @@ public class AccountActivationForm {
      * 
      * @return the startDate
      */
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
@@ -108,7 +108,7 @@ public class AccountActivationForm {
      * 
      * @param startDate the startDate to set
      */
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
@@ -117,7 +117,7 @@ public class AccountActivationForm {
      * 
      * @return the endDate
      */
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
@@ -126,7 +126,7 @@ public class AccountActivationForm {
      * 
      * @param endDate the endDate to set
      */
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 

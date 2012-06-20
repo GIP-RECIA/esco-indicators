@@ -47,5 +47,12 @@
         </property>
     </bean>
     
-
+    
+    
+    <!-- ////////////////////////// -->
+    <!-- BEANS -->
+    <!-- ////////////////////////// -->
+    <bean   id="accountActivationValidator" 
+            class="org.esco.indicators.web.springmvc.validator.AccountActivationValidator" />
+            
 </beans>
