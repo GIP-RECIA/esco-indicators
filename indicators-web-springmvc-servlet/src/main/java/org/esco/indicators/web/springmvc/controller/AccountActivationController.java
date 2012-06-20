@@ -64,14 +64,13 @@ public class AccountActivationController  {
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
-     * 
+     * Default construcotr of the {@link AccountActivationController} class.
      */
     public AccountActivationController() {
     }
     
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-   
     /**
      * Sets the validator for the {@link AccountActivationForm}.
      * 
@@ -104,13 +103,29 @@ public class AccountActivationController  {
     
     
     //------------------------------------------------------------------------------ PUBLIC METHODS
+    /**
+     * Initializes the binder in order to convert inputs.
+     * 
+     * @param binder
+     * 			Binder providing register functions.
+     */
     @InitBinder
-    public void initBinder(WebDataBinder binder, Locale locale) {
+    public void initBinder(WebDataBinder binder) {
 	// Register a date editor that handles date conversions
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
     
+    /**
+     * Initializes the account activation form.
+     * 
+     * @param model
+     * 			Model data.
+     * @param request
+     * 			Request made by the user.
+     * @return
+     * 	the JSP view name.
+     */
     @RequestMapping(method = RequestMethod.GET)
     public String initForm(ModelMap model, HttpServletRequest request){
 	// Binding of the form
@@ -121,11 +136,27 @@ public class AccountActivationController  {
 	return "accounts-activations";
     }
     
-     @ModelAttribute("countyItems")
+     /**
+      * Populates the county field.
+      * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the available values for the county field.
+     */
+    @ModelAttribute("countyItems")
     public List<LabelValue> populateCounty(HttpServletRequest request) {
 	return getEntryLabelValues(request, DataFormConstants.COUNTY);
     }
         
+    /**
+     * Populate the establishments field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the available values for the establishments field.
+     */
     @ModelAttribute("establishmentsItems")
     public List<LabelValue> populateEstablishments(HttpServletRequest request) {
 	Establishment estab = new Establishment(45, "0458751U", "CFA");
@@ -138,32 +169,86 @@ public class AccountActivationController  {
 	return labels;
     }
     
+    /**
+     * Populate the establishments types field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the available values for the establishments types field.
+     */
     @ModelAttribute("estbalishmentsTypesItems")
     public List<LabelValue> populateEstablishmentsTypes(HttpServletRequest request) {
 	return getEntryLabelValues(request, DataFormConstants.ESTABLISHMENTS_TYPES);
     }
         
+    /**
+     * Populate the "lycees"  types field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the available values for the "lycees"  types field.
+     */
     @ModelAttribute("laTypesItems")
     public List<LabelValue> populateLaTypes(HttpServletRequest request) {
 	return getEntryLabelValues(request, DataFormConstants.LA_TYPES);
     }    
     
+    /**
+     * Populate the "lycees agricoles"  types field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the available values for the "lycees agricoles"  types field.
+     */
     @ModelAttribute("lyceesTypesItems")
     public List<LabelValue> populateLyceesTypes(HttpServletRequest request) {
 	return getEntryLabelValues(request, DataFormConstants.LYCEES_TYPES);
     }
         
+    /**
+     * Populate the monitoring  type field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the available values for the monitoring  type  field.
+     */
     @ModelAttribute("monitoringTypeItems")
     public List<LabelValue> populateMonitoringType(HttpServletRequest request) {
 	return getEntryLabelValues(request, DataFormConstants.MONITORING_TYPE);
     }
     
+    /**
+     * Populate the users profiles field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the available values for the  users profiles field.
+     */
     @ModelAttribute("usersProfilesItems")
     public List<LabelValue> populateUsersProfiles(HttpServletRequest request) {
 	return getEntryLabelValues(request, DataFormConstants.USERS_PROFILES);
     }
     
     
+    /**
+     * Validates and processes the submitted form.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @param aaForm
+     * 			The submitted form.
+     * @param result
+     * 			The result of the binding (containing fields values).
+     * @param status
+     * 			The session status.
+     * @return
+     * 	the JSP view name.
+     */
     @RequestMapping(method = RequestMethod.POST)
     public String processSubmit(HttpServletRequest request, @ModelAttribute("accountactivationform") AccountActivationForm aaForm, BindingResult result, SessionStatus status) {
 	// Log of the submitted form
@@ -184,6 +269,11 @@ public class AccountActivationController  {
     
 
     //------------------------------------------------------------------------- PUBLIC AJAX METHODS
+    /**
+     * TEST METHOD
+     * 
+     * Handles an Ajax request.
+     */
     @RequestMapping(value="/monitoring-type", method=RequestMethod.GET)
     public @ResponseBody Map<String, String> getMonitoringTypeMessage(@RequestParam String monitoringType) {
 	Map<String,String> monitoring = new HashMap<String, String>();
