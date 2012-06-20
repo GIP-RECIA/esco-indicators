@@ -13,8 +13,8 @@ import junit.framework.Assert;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.statistic.EstablishmentVisitStatistic;
-import org.esco.indicators.utils.constants.EstablishmentConstants;
-import org.esco.indicators.utils.constants.StatisticConstants;
+import org.esco.indicators.utils.constants.db.EstablishmentConstants;
+import org.esco.indicators.utils.constants.db.StatisticConstants;
 import org.esco.indicators.utils.date.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;

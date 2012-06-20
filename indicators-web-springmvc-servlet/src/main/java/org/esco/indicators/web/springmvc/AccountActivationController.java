@@ -3,7 +3,6 @@
  */
 package org.esco.indicators.web.springmvc;
 
-import java.awt.Label;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,17 +14,21 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
 import org.esco.indicators.domain.beans.form.LabelValue;
+import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.domain.beans.xml.form.EntryValue;
 import org.esco.indicators.services.form.DataFormService;
+import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esupportail.commons.services.i18n.I18nService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.support.RequestContext;
 
 /**
@@ -58,46 +61,64 @@ public class AccountActivationController  {
     
     @RequestMapping(method = RequestMethod.GET)
     public String initForm(ModelMap model, HttpServletRequest request){
-	///////////////////////////////////////// 
 	// Binding of the form
-	/////////////////////////////////////////
 	AccountActivationForm aaForm = new AccountActivationForm();
-	aaForm.setMonitoringType("Frequentation");
-	model.addAttribute("accountActivationForm", aaForm);
+	model.addAttribute("accountactivationform", aaForm);
 
-	///////////////////////////////////////// 
-	// Retrieval of the user locale
-	///////////////////////////////////////// 
-	Locale locale = getLocale(request);
-	
-	///////////////////////////////////////// 
-	// Population of the entries
-	/////////////////////////////////////////
-	// Monitoring type
-	initEntryLabelValues(model, "monitoringTypeItems", "monitoringType", locale);
-	
-	// Establishments types
-	initEntryLabelValues(model, "estbalishmentsTypesItems", "establishmentsTypes", locale);
-	
-	// Users profiles  types
-	initEntryLabelValues(model, "usersProfilesItems", "usersProfiles", locale);
-	
-	// County items
-	initEntryLabelValues(model, "countyItems", "county", locale);
-	
-	// "Lycee"  types
-	initEntryLabelValues(model, "lyceesTypesItems", "lyceesTypes", locale);
-	
-	// "Lycee Agricole"  types
-	initEntryLabelValues(model, "laTypesItems", "laTypes", locale);
-	
-        ///////////////////////////////////////// 
         // Return to the web page
-        /////////////////////////////////////////
 	return "accounts-activations";
     }
-
-
+    
+     @ModelAttribute("countyItems")
+    public List<LabelValue> populateCounty(HttpServletRequest request) {
+	return getEntryLabelValues(request, DataFormConstants.COUNTY);
+    }
+        
+    @ModelAttribute("establishmentsItems")
+    public List<LabelValue> populateEstablishments(HttpServletRequest request) {
+	Establishment estab = new Establishment(45, "0458751U", "CFA");
+	estab.setName("CFA des Sports");
+	estab.setSiren("4515452");
+	
+	List<LabelValue> labels = new ArrayList<LabelValue>();
+	labels.add(new LabelValue(estab.getName(), estab.getUai()));
+	
+	return labels;
+    }
+    
+    @ModelAttribute("estbalishmentsTypesItems")
+    public List<LabelValue> populateEstablishmentsTypes(HttpServletRequest request) {
+	return getEntryLabelValues(request, DataFormConstants.ESTABLISHMENTS_TYPES);
+    }
+        
+    @ModelAttribute("laTypesItems")
+    public List<LabelValue> populateLaTypes(HttpServletRequest request) {
+	return getEntryLabelValues(request, DataFormConstants.LA_TYPES);
+    }    
+    
+    @ModelAttribute("lyceesTypesItems")
+    public List<LabelValue> populateLyceesTypes(HttpServletRequest request) {
+	return getEntryLabelValues(request, DataFormConstants.LYCEES_TYPES);
+    }
+        
+    @ModelAttribute("monitoringTypeItems")
+    public List<LabelValue> populateMonitoringType(HttpServletRequest request) {
+	return getEntryLabelValues(request, DataFormConstants.MONITORING_TYPE);
+    }
+    
+    @ModelAttribute("usersProfilesItems")
+    public List<LabelValue> populateUsersProfiles(HttpServletRequest request) {
+	return getEntryLabelValues(request, DataFormConstants.USERS_PROFILES);
+    }
+    
+    
+    @RequestMapping(method = RequestMethod.POST)
+    public String processSubmit(@ModelAttribute("accountactivationform") AccountActivationForm aaForm, BindingResult result, SessionStatus status) {
+	if(LOGGER.isDebugEnabled()) {
+	    LOGGER.debug("Submitted form : " + aaForm.toString());
+	}
+	return "accounts-activations";
+    }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
@@ -148,34 +169,19 @@ public class AccountActivationController  {
     }
     
     /**
-     * Initializes the <code>jspAttribute</code> of the <code>model</code> with the available items (labels and values)
-     * of the <code>entry</code> using the specified <code>locale</code>.
+     * Gets the items (labels and values) available for the specified entry.
      * 
-     * @param model
-     * 			The model containing the JSP attribute.
-     * @param jspAttribute
-     * 			The JSP attribute to initialize.
-     * @param entry
-     * 			The entry name associated to the items (labels and values) that are put into the JSP attribute.
-     * @param locale
-     * 			The locale used to internationalize the labels strings.
-     */
-    private void initEntryLabelValues(ModelMap model, String jspAttribute, String entry, Locale locale) {
-	List<LabelValue> items = getEntryLabelValues(entry, locale);
-	model.addAttribute(jspAttribute, items);
-    }
-
-    /**
-     * Gets the items (labels and values) available of the specified entry.
-     * 
+     * @param request
+     * 			The request of the user.
      * @param entryName
      * 			The name of the entry associated to the items (labels and values).
-     * @param locale
-     * 			The locale used to internationalize the labels strings.
      * @return
-     * 	the available items (labels and values) of the entry.
+     * 	the available items (labels and values) for the entry.
      */
-    private List<LabelValue> getEntryLabelValues(String entryName, Locale locale) {
+    private List<LabelValue> getEntryLabelValues(HttpServletRequest request, String entryName) {
+	// Retrival of the locale
+	Locale locale = getLocale(request);
+	
 	// Retrieval of the entry values
 	List<EntryValue> entries = dataFormService.getEntryValues(entryName);
 	

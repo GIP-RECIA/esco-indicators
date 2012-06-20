@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.esco.indicators.domain.beans.structure.Establishment;
-import org.esco.indicators.utils.constants.EstablishmentConstants;
+import org.esco.indicators.utils.constants.db.EstablishmentConstants;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

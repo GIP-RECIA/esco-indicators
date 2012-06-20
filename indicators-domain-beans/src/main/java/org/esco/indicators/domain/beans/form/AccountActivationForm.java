@@ -3,7 +3,10 @@
  */
 package org.esco.indicators.domain.beans.form;
 
+import java.util.Arrays;
+
 import org.apache.log4j.Logger;
+import org.esco.indicators.domain.beans.structure.Establishment;
 
 /**
  * Class representing the account activation form displayed on the accounts activations web page.
@@ -19,7 +22,7 @@ public class AccountActivationForm {
     /** Radio button : type of the monitoring */
     String monitoringType;
     
-    /** Checkbox : establishments type */
+    /** Checkboxes : establishments type */
     String [ ] establishmentsTypes;
     
     /** 
@@ -34,20 +37,23 @@ public class AccountActivationForm {
      */
     String endDate;
     
-    /** Checkbox : users profiles */
+    /** Checkboxes : users profiles */
     String [] usersProfiles;
     
     /** Dropdown box : county */
-    Integer county;
+    String county;
     
     /** Checkbox : sum on counties */
     boolean sumOnCounties;
     
-    /** Checkbox : "lycees" types */
+    /** Checkboxes : "lycees" types */
     String [] lyceesTypes;
     
-    /** Checkbox : "lycees agricoles" types */
+    /** Checkboxes: "lycees agricoles" types */
     String [] laTypes;
+    
+    /** Checkboxes : establishments list */
+    String [] establishments;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -147,7 +153,7 @@ public class AccountActivationForm {
      * 
      * @return the county
      */
-    public Integer getCounty() {
+    public String getCounty() {
         return county;
     }
 
@@ -156,7 +162,7 @@ public class AccountActivationForm {
      * 
      * @param county the county to set
      */
-    public void setCounty(Integer county) {
+    public void setCounty(String county) {
         this.county = county;
     }
 
@@ -214,7 +220,101 @@ public class AccountActivationForm {
         this.laTypes = laTypes;
     }
 
+    /**
+     * @return the establishments
+     */
+    public String[] getEstablishments() {
+        return establishments;
+    }
+
+    /**
+     * @param establishments the establishments to set
+     */
+    public void setEstablishments(String[] establishments) {
+        this.establishments = establishments;
+    }
+
+    
     //------------------------------------------------------------------------------ PUBLIC METHODS
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((county == null) ? 0 : county.hashCode());
+	result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
+	result = prime * result + Arrays.hashCode(establishments);
+	result = prime * result + Arrays.hashCode(establishmentsTypes);
+	result = prime * result + Arrays.hashCode(laTypes);
+	result = prime * result + Arrays.hashCode(lyceesTypes);
+	result = prime * result + ((monitoringType == null) ? 0 : monitoringType.hashCode());
+	result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
+	result = prime * result + (sumOnCounties ? 1231 : 1237);
+	result = prime * result + Arrays.hashCode(usersProfiles);
+	return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	AccountActivationForm other = (AccountActivationForm) obj;
+	if (county == null) {
+	    if (other.county != null)
+		return false;
+	} else if (!county.equals(other.county))
+	    return false;
+	if (endDate == null) {
+	    if (other.endDate != null)
+		return false;
+	} else if (!endDate.equals(other.endDate))
+	    return false;
+	if (!Arrays.equals(establishments, other.establishments))
+	    return false;
+	if (!Arrays.equals(establishmentsTypes, other.establishmentsTypes))
+	    return false;
+	if (!Arrays.equals(laTypes, other.laTypes))
+	    return false;
+	if (!Arrays.equals(lyceesTypes, other.lyceesTypes))
+	    return false;
+	if (monitoringType == null) {
+	    if (other.monitoringType != null)
+		return false;
+	} else if (!monitoringType.equals(other.monitoringType))
+	    return false;
+	if (startDate == null) {
+	    if (other.startDate != null)
+		return false;
+	} else if (!startDate.equals(other.startDate))
+	    return false;
+	if (sumOnCounties != other.sumOnCounties)
+	    return false;
+	if (!Arrays.equals(usersProfiles, other.usersProfiles))
+	    return false;
+	return true;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "AccountActivationForm [monitoringType=" + monitoringType + ", establishmentsTypes="
+        	+ Arrays.toString(establishmentsTypes) + ", startDate=" + startDate + ", endDate=" + endDate
+        	+ ", usersProfiles=" + Arrays.toString(usersProfiles) + ", county=" + county
+        	+ ", sumOnCounties=" + sumOnCounties + ", lyceesTypes=" + Arrays.toString(lyceesTypes)
+        	+ ", laTypes=" + Arrays.toString(laTypes) + ", establishments="
+        	+ Arrays.toString(establishments) + "]";
+    }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
 

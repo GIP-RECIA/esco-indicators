@@ -8,7 +8,7 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 import org.esco.indicators.dao.statistic.EstablishmentVisitStatisticDao;
 import org.esco.indicators.domain.beans.statistic.EstablishmentVisitStatistic;
-import org.esco.indicators.utils.constants.StatisticConstants;
+import org.esco.indicators.utils.constants.db.StatisticConstants;
 
 /**
  * Implementation of the {@link EstablishmentVisitStatisticService} interface.

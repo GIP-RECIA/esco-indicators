@@ -10,7 +10,7 @@
   
 </div>
 
-<form:form method="POST" commandName="accountActivationForm">
+<form:form method="POST" commandName="accountactivationform">
 
     <p><spring:message code="filter.title.monitoringType" /></p>
     <p>
@@ -53,9 +53,20 @@
         <p>
             <form:checkboxes cssClass="submit" itemValue="value" itemLabel="label" path="laTypes" items="${laTypesItems}"  /> 
         </p>
-        
-        
     </div>
+    
+    <div>
+        <table>
+            <c:forEach var="establishment" items="${establishmentsItems}">
+                <tr>
+                   <td><form:checkbox path="establishments" value="${establishment.value}" /></td>
+                   <td>${establishment.label}</td>
+                <tr>
+            </c:forEach>
+        </table>
+    </div>
+    
+    <input type="submit">
 </form:form>
 
 <div>
