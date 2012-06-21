@@ -29,3 +29,8 @@ target/
 # Config files
 ###################
 *.prod.xml
+
+###################
+# Others
+###################
+${cache.path}/
