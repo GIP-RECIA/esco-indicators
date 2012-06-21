@@ -56,6 +56,7 @@ public class DataForm {
     public void setEntriesForm(List<EntryForm> entriesForm) {
         this.entriesForm = entriesForm;
     }
+    
 
     /* (non-Javadoc)
      * @see java.lang.Object#hashCode()

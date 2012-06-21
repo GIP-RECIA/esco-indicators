@@ -32,16 +32,16 @@ $(document).ready(function() {
     });
 
     // Ajax call
-    $('#monitoringType1').blur(function() {
-        getMonitoringTypeMessage();
+    jQuery('.submit').change(function() {
+        getMonitoringTypeMessage($(this));
     });
 
 });
  
-function getMonitoringTypeMessage() {
+function getMonitoringTypeMessage(eventObject) {
     $.getJSON(  "accounts-activations-ajax/monitoring-type", 
                 { 
-                    monitoringType: $('#monitoringType1').val() 
+                    monitoringType: eventObject.val() 
                 }, 
                 function(data) {
                     alert(data.unselected);

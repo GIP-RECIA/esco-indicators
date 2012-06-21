@@ -5,6 +5,7 @@ package org.esco.indicators.domain.beans.xml.form;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.log4j.Logger;
@@ -30,6 +31,12 @@ public class EntryValue {
     /** Key of the value for the i18n translation */
     private String i18nKey;
     
+    /** Boolean indicating if the entry value is disable by default in the user view */
+    private boolean disabledByDefault;
+    
+    /** Entry values to enable/disable when this entry value is selected in the suer view */
+    private OnSelectionEvent onSelectionEvent;
+    
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
      * Default constructor of the {@link EntryValue} class.
@@ -46,6 +53,7 @@ public class EntryValue {
      * 	the name of the value.
      */
     @XmlAttribute(name = "name")
+    @XmlID
     public String getName() {
         return name;
     }
@@ -53,7 +61,7 @@ public class EntryValue {
     /**
      * Sets the name of the value.
      * 
-     * @param id 
+     * @param name 
      * 			The name to set.
      */
     public void setName(String name) {
@@ -100,9 +108,50 @@ public class EntryValue {
     public void setI18nKey(String i18nKey) {
         this.i18nKey = i18nKey;
     }
+    
+    /**
+     * Indicates if the entry value is disable by default in the user view.
+     * 
+     * @return 
+     * 	the disable state of the entry value in the user view.
+     */
+    @XmlElement(name = "disable-by-default")
+    public boolean isDisabledByDefault() {
+        return disabledByDefault;
+    }
+
+    /**
+     * Sets the disable state of the entry value in the user view.
+     * 
+     * @param disabled 
+     * 			The disable state to set.
+     */
+    public void setDisabledByDefault(boolean disabled) {
+        this.disabledByDefault = disabled;
+    }
+    
+    /**
+     * Gets the entry values to enable / disable when this entry value is selected in the user view.
+     * 
+     * @return 
+     * 	the entry values to enable / disable when this entry value is selected in the user view.
+     */
+    @XmlElement(name = "on-selection-event")
+    public OnSelectionEvent getOnSelectionEvent() {
+        return onSelectionEvent;
+    }
+
+    /**
+     * Sets the entry values to enable / disable when this entry value is selected in the user view.
+     * 
+     * @param onSelectionEvent 
+     * 			the onSelectionEvent to set
+     */
+    public void setOnSelectionEvent(OnSelectionEvent onSelectionEvent) {
+        this.onSelectionEvent = onSelectionEvent;
+    }
 
     
-    //------------------------------------------------------------------------------ PUBLIC METHODS
     /* (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */
@@ -110,9 +159,11 @@ public class EntryValue {
     public int hashCode() {
 	final int prime = 31;
 	int result = 1;
+	result = prime * result + (disabledByDefault ? 1231 : 1237);
 	result = prime * result + ((i18nKey == null) ? 0 : i18nKey.hashCode());
 	result = prime * result + ((jspKey == null) ? 0 : jspKey.hashCode());
 	result = prime * result + ((name == null) ? 0 : name.hashCode());
+	result = prime * result + ((onSelectionEvent == null) ? 0 : onSelectionEvent.hashCode());
 	return result;
     }
 
@@ -128,6 +179,8 @@ public class EntryValue {
 	if (getClass() != obj.getClass())
 	    return false;
 	EntryValue other = (EntryValue) obj;
+	if (disabledByDefault != other.disabledByDefault)
+	    return false;
 	if (i18nKey == null) {
 	    if (other.i18nKey != null)
 		return false;
@@ -142,6 +195,11 @@ public class EntryValue {
 	    if (other.name != null)
 		return false;
 	} else if (!name.equals(other.name))
+	    return false;
+	if (onSelectionEvent == null) {
+	    if (other.onSelectionEvent != null)
+		return false;
+	} else if (!onSelectionEvent.equals(other.onSelectionEvent))
 	    return false;
 	return true;
     }

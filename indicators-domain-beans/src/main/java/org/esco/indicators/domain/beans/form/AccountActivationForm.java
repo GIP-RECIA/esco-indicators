@@ -54,7 +54,10 @@ public class AccountActivationForm {
     
     /** Checkboxes : establishments list */
     String [] establishments;
-
+    
+    /** Hidden values : the input fields to disable in the user view */
+    String [] disabledInputs;
+    
     //-------------------------------------------------------------------------------- CONSTRUCTORS
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
@@ -235,7 +238,27 @@ public class AccountActivationForm {
     }
 
     
-    //------------------------------------------------------------------------------ PUBLIC METHODS
+    
+    /**
+     * Gets the disabled inputs in the user view
+     * 
+     * @return 
+     * 	the disabled inputs in the user view
+     */
+    public String[] getDisabledInputs() {
+        return disabledInputs;
+    }
+
+    /**
+     * Sets the disabled inputs in the user view
+     * 
+     * @param disabledInputs 
+     * 			The disabled inputs to set
+     */
+    public void setDisabledInputs(String[] disabledInputs) {
+        this.disabledInputs = disabledInputs;
+    }
+
     /* (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */
@@ -244,6 +267,7 @@ public class AccountActivationForm {
 	final int prime = 31;
 	int result = 1;
 	result = prime * result + ((county == null) ? 0 : county.hashCode());
+	result = prime * result + Arrays.hashCode(disabledInputs);
 	result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
 	result = prime * result + Arrays.hashCode(establishments);
 	result = prime * result + Arrays.hashCode(establishmentsTypes);
@@ -272,6 +296,8 @@ public class AccountActivationForm {
 	    if (other.county != null)
 		return false;
 	} else if (!county.equals(other.county))
+	    return false;
+	if (!Arrays.equals(disabledInputs, other.disabledInputs))
 	    return false;
 	if (endDate == null) {
 	    if (other.endDate != null)
@@ -308,12 +334,13 @@ public class AccountActivationForm {
      */
     @Override
     public String toString() {
-        return "AccountActivationForm [monitoringType=" + monitoringType + ", establishmentsTypes="
-        	+ Arrays.toString(establishmentsTypes) + ", startDate=" + startDate + ", endDate=" + endDate
-        	+ ", usersProfiles=" + Arrays.toString(usersProfiles) + ", county=" + county
-        	+ ", sumOnCounties=" + sumOnCounties + ", lyceesTypes=" + Arrays.toString(lyceesTypes)
-        	+ ", laTypes=" + Arrays.toString(laTypes) + ", establishments="
-        	+ Arrays.toString(establishments) + "]";
+	return "AccountActivationForm [monitoringType=" + monitoringType + ", establishmentsTypes="
+		+ Arrays.toString(establishmentsTypes) + ", startDate=" + startDate + ", endDate=" + endDate
+		+ ", usersProfiles=" + Arrays.toString(usersProfiles) + ", county=" + county
+		+ ", sumOnCounties=" + sumOnCounties + ", lyceesTypes=" + Arrays.toString(lyceesTypes)
+		+ ", laTypes=" + Arrays.toString(laTypes) + ", establishments="
+		+ Arrays.toString(establishments) + ", disabledInputs=" + Arrays.toString(disabledInputs)
+		+ "]";
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
