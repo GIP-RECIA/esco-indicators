@@ -39,7 +39,7 @@ $(document).ready(function() {
 });
  
 function getMonitoringTypeMessage() {
-    $.getJSON(  "accounts-activations/monitoring-type", 
+    $.getJSON(  "accounts-activations-ajax/monitoring-type", 
                 { 
                     monitoringType: $('#monitoringType1').val() 
                 }, 

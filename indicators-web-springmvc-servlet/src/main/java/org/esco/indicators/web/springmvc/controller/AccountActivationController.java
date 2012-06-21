@@ -38,7 +38,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.support.RequestContext;
 
 /**
- * Ajax controller handling the requests and controls the form of the accounts activations web page.
+ * Controller handling the requests and controls the form of the accounts activations web page.
  * 
  * @since  2012/06/15
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
@@ -267,19 +267,6 @@ public class AccountActivationController  {
 	return "accounts-activations-success";
     }
     
-
-    //------------------------------------------------------------------------- PUBLIC AJAX METHODS
-    /**
-     * TEST METHOD
-     * 
-     * Handles an Ajax request.
-     */
-    @RequestMapping(value="/monitoring-type", method=RequestMethod.GET)
-    public @ResponseBody Map<String, String> getMonitoringTypeMessage(@RequestParam String monitoringType) {
-	Map<String,String> monitoring = new HashMap<String, String>();
-	monitoring.put("unselected", "The unselected monitoring type is : " + monitoringType);
-        return monitoring;
-    }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
     /**
