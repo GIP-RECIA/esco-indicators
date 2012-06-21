@@ -41,15 +41,6 @@ public class OnSelectionEvent {
      */
     @XmlElement(name = "disable-entry-value")
     public List<DisableEntryValue> getEntryValuesToDisable() {
-	// Retrieval of the entryValues referenced by the disableEntryValues
-	List<EntryValue> entryValues = new ArrayList<EntryValue>();
-	
-	if(entryValuesToEnable != null) {
-        	for (DisableEntryValue disableEntryValue : entryValuesToDisable) {
-        	    entryValues.add(disableEntryValue.getEntryValue());
-        	}
-	}
-	
         return entryValuesToDisable;
     }
 
@@ -65,15 +56,6 @@ public class OnSelectionEvent {
      */
     @XmlElement(name = "enable-entry-value")
     public List<EnableEntryValue> getEntryValuesToEnable() {
-	// Retrieval of the entryValues referenced by the enableEntryValues
-	List<EntryValue> entryValues = new ArrayList<EntryValue>();
-	
-	if(entryValuesToEnable != null) {
-    		for (EnableEntryValue enableEntryValue : entryValuesToEnable) {
-    		    entryValues.add(enableEntryValue.getEntryValue());
-    		}
-	}
-	
         return entryValuesToEnable;
     }
 

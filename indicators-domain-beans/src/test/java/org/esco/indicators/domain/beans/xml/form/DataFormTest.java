@@ -116,9 +116,7 @@ public class DataFormTest {
      */
     @Test
     public void testGetEntriesForm4() {
-	///////////////////////////////
 	// Expected result
-	///////////////////////////////
 	List<String> expected =  new ArrayList<String>();
 	expected.add("attendance");
 	expected.add("monitoringAttendance");
@@ -126,22 +124,13 @@ public class DataFormTest {
 	expected.add("LA");
 	expected.add("LEGT");
 	
-	///////////////////////////////
 	// Actual result
-	///////////////////////////////
 	List<String> actual = new ArrayList<String>();
-	
-	// Iteration on the entry form
-	for (EntryForm entryForm : dataForm.getEntriesForm()) {
-	    // Iteration on the entry value of the entry form
-	    for(EntryValue entryValue : entryForm.getEntryValues()) {
+	for (EntryValue entryValue : dataForm.getAllEntryValues()) {
 		actual.add(entryValue.getName());
-	    }
 	}
 	
-	///////////////////////////////
 	// Test
-	///////////////////////////////
 	Assert.assertEquals(expected, actual);
     }
     
@@ -152,24 +141,19 @@ public class DataFormTest {
      */
     @Test
     public void testGetEntriesForm5() {
-	// Iteration on the entry form
-	for (EntryForm entryForm : dataForm.getEntriesForm()) {
-	    // Iteration on the entry value of the entry form
-	    for(EntryValue entryValue : entryForm.getEntryValues()) {
-		
-		// Test
+	for (EntryValue entryValue : dataForm.getAllEntryValues()) {
 		if(
 			entryValue.getName().equals("attendance")
 			|| entryValue.getName().equals("monitoringAttendance")
 			|| entryValue.getName().equals("CFA")
 			|| entryValue.getName().equals("LA")
 		) {
+		 // Test
 		    Assert.assertFalse(entryValue.isDisabledByDefault());
 		} else {
+		 // Test
 		    Assert.assertTrue(entryValue.isDisabledByDefault());
 		}
-		
-	    }
 	}
     }
     
@@ -180,30 +164,20 @@ public class DataFormTest {
      */
     @Test
     public void testGetEntriesForm6() {
-	///////////////////////////////
 	// Expected result
-	///////////////////////////////
 	Integer expected = 3;
 	
-	///////////////////////////////
 	// Actual result
-	///////////////////////////////
 	Integer actual = 0;
 	
-	// Iteration on the entry form
-	for (EntryForm entryForm : dataForm.getEntriesForm()) {
-	    // Iteration on the entry value of the entry form
-	    for(EntryValue entryValue : entryForm.getEntryValues()) {
+	for (EntryValue entryValue : dataForm.getAllEntryValues()) {
 		List<DisableEntryValue> refsToDisable = entryValue.getOnSelectionEvent().getEntryValuesToDisable();
 		List<EnableEntryValue> refsToEnable = entryValue.getOnSelectionEvent().getEntryValuesToEnable();
 		actual += (refsToDisable == null ? 0 : refsToDisable.size());
 		actual += (refsToEnable == null ? 0 : refsToEnable.size());
-	    }
 	}
 	
-	///////////////////////////////
 	// Test
-	///////////////////////////////
 	Assert.assertEquals(expected, actual);
     }
     
@@ -228,15 +202,12 @@ public class DataFormTest {
 	List<DisableEntryValue> refsToDisable = new ArrayList<DisableEntryValue>();
 	
 	// Iteration on the entry form
-	for (EntryForm entryForm : dataForm.getEntriesForm()) {
-	    // Iteration on the entry value of the entry form
-	    for(EntryValue entryValue : entryForm.getEntryValues()) {
+	    for(EntryValue entryValue :dataForm.getAllEntryValues()) {
 		List<DisableEntryValue> disableEV = entryValue.getOnSelectionEvent().getEntryValuesToDisable();
 		 if (disableEV != null) {
 		     refsToDisable.addAll(disableEV);
 		 }
 	    }
-	}
 	
 	// Get the names of the entry values to disable
 	for (DisableEntryValue disableEntryValue : refsToDisable) {
@@ -269,13 +240,10 @@ public class DataFormTest {
 	List<EnableEntryValue> refsToEnable = new ArrayList<EnableEntryValue>();
 	
 	// Iteration on the entry form
-	for (EntryForm entryForm : dataForm.getEntriesForm()) {
-	    // Iteration on the entry value of the entry form
-	    for(EntryValue entryValue : entryForm.getEntryValues()) {
-		List<EnableEntryValue> enableEV = entryValue.getOnSelectionEvent().getEntryValuesToEnable();
-		 if (enableEV != null) {
-		     refsToEnable.addAll(enableEV);
-		 }
+	for (EntryValue entryValue : dataForm.getAllEntryValues()) {
+	    List<EnableEntryValue> enableEV = entryValue.getOnSelectionEvent().getEntryValuesToEnable();
+	    if (enableEV != null) {
+		refsToEnable.addAll(enableEV);
 	    }
 	}
 	
