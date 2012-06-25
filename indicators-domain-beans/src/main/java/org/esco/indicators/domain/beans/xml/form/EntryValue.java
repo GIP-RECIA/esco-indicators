@@ -3,6 +3,9 @@
  */
 package org.esco.indicators.domain.beans.xml.form;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlID;
@@ -151,7 +154,54 @@ public class EntryValue {
         this.onSelectionEvent = onSelectionEvent;
     }
 
+    /**
+     * Gets the entry values to disable when this entry value is selected.
+     * 
+     * @return
+     * 	the entry values to disable when this entry value is selected.<br/>
+     * 	an empty list if there is no entry values to disable.
+     */
+    public List<EntryValue> getEntryValuesToDisable() {
+	// Gets the disable entry values
+	List<DisableEntryValue> disableEntryValues = getOnSelectionEvent().getEntryValuesToDisable();
+	
+	// If no disableEntryValues has been retrieved
+	List<EntryValue> entryValues = new ArrayList<EntryValue>();
+	if(disableEntryValues == null) {
+	    return entryValues;
+	}
+	
+	// If some disableEntryValues has been retrieved, gets the corresponding entryValues
+	for (DisableEntryValue disableEntryValue : disableEntryValues) {
+	    entryValues.add(disableEntryValue.getEntryValue());
+	}
+	
+	return entryValues;
+    }
     
+    /**
+     * Gets the entry values to enable when this entry value is selected.
+     * 
+     * @return
+     * 	the entry values to enable when this entry value is selected.<br/>
+     * 	an empty list if there is no entry values to enable.
+     */
+    public List<EntryValue> getEntryValuesToEnable() {
+	// Gets the enable entry values
+	List<EnableEntryValue> enableEntryValues = getOnSelectionEvent().getEntryValuesToEnable();
+	
+	// Gets the corresponding entry values
+	List<EntryValue> entryValues = new ArrayList<EntryValue>();
+	for (EnableEntryValue enableEntryValue : enableEntryValues) {
+	    entryValues.add(enableEntryValue.getEntryValue());
+	}
+	
+	return entryValues;
+    }
+    
+ 
+
+    //----------------------------------------------------------------------------- PRIVATE METHODS
     /* (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */
@@ -203,8 +253,6 @@ public class EntryValue {
 	    return false;
 	return true;
     }
-
-    //----------------------------------------------------------------------------- PRIVATE METHODS
 
     //------------------------------------------------------------------------------ STATIC METHODS
 }

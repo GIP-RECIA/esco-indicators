@@ -13,7 +13,14 @@
  * **********************************************
  */
 
+///////////////////////////////////////////////////////////
+// CONSTANTS
+///////////////////////////////////////////////////////////
+var SEPARATOR = ";";
 
+///////////////////////////////////////////////////////////
+// FUNCTIONS
+///////////////////////////////////////////////////////////
 $.ajaxSetup({"error":function(XMLHttpRequest,textStatus, errorThrown) {   
     alert(textStatus);
     alert(errorThrown);
@@ -22,29 +29,36 @@ $.ajaxSetup({"error":function(XMLHttpRequest,textStatus, errorThrown) {
 
 $(document).ready(function() {
     // //////////////////////////////////////////////////////////////
-    // When an element having the class 'submit' is changed
-    // the entire form is submitted in order to refresh the 
-    // establishments list 
+    // When an input is checked, the values of the checked inputs are 
+    // send to the server in order to know what inputs have to be 
+    // disabled into the form.
     // //////////////////////////////////////////////////////////////
-    $('.submit').change(function(e) {
-        var select = e.target;
-        alert('Change on : ' + select.value);
-    });
-
-    // Ajax call
     jQuery('.submit').change(function() {
-        getMonitoringTypeMessage($(this));
+        updateForm();
     });
 
 });
  
-function getMonitoringTypeMessage(eventObject) {
-    $.getJSON(  "accounts-activations-ajax/monitoring-type", 
+///////////////////////////////////////////////////////////
+// AJAX FUNCTIONS
+///////////////////////////////////////////////////////////
+function updateForm() {
+    var checkedElements = $("#accountactivationform input:checked");
+    var checked = new String( );
+
+    // Retrieval of the values of the checked elements
+    for(var i=0; i < checkedElements.length ; i++) {
+        checked += checkedElements[i].value + SEPARATOR; 
+    }
+
+    // Data for the request
+    request = { 'checkedValues[]': checked }
+    $.post(  "accounts-activations-ajax/update-form", 
                 { 
-                    monitoringType: eventObject.val() 
+                    checkedJspKeys : checked
                 }, 
-                function(data) {
-                    alert(data.unselected);
+                function(elementNamesToDisable) {
+                    alert("elementsName to disable : " + elementNamesToDisable);
                 }
              );
 }

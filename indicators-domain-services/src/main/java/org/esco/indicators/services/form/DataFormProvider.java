@@ -85,6 +85,37 @@ public class DataFormProvider {
     }
     
     /**
+     * Gets the entry value associated with the specified JSP key.
+     * 
+     * @param jspKey
+     * 			The JSP key of the entry value.
+     * @return
+     * 	The first entry value found having the specified JSP Key.<br/>
+     * 	<code>null</code> if no entry value has been retrieved.
+     */
+    public EntryValue getEntryValueByJspKey(String jspKey) {
+	// Retrieval of all the entries
+	List<EntryValue> allEntryValues = dataForm.getAllEntryValues();
+	
+	// Retrieval of the entries having this JSP key
+	List<EntryValue> foundEntries = new ArrayList<EntryValue>();
+	for (EntryValue entryValue : allEntryValues) {
+	    if(entryValue.getJspKey().equals(jspKey)) {
+		foundEntries.add(entryValue);
+	    }
+	}
+	
+	// Test if there is no more than one entry with this JSP key
+	if(foundEntries.isEmpty()) {
+	    LOGGER.warn("No entry has the JSP key : [" + jspKey + "]");
+	    return null;
+	} else if (foundEntries.size() > 1) {
+	    LOGGER.warn("More than one entry have the JSP key : [" + jspKey + "]");
+	}
+	 return foundEntries.get(0);
+    }
+    
+    /**
      * Gets the possible values for the entry having the specified <code>name</code>.
      * 
      * @param entryName
@@ -102,6 +133,16 @@ public class DataFormProvider {
 	    }
 	}
 	return values;
+    }
+    
+    /**
+     * Gets the entry values that are disabled by default in the user view.
+     * 
+     * @return
+     * 	the entry values that are disabled by default in the user view.
+     */
+    public List<EntryValue> getEntryValuesDisabledByDefault() {
+	return dataForm.getEntryValuesDisabledByDefault();
     }
     
     //-------------------------------------------------------------------- STATIC GETTERS / SETTERS

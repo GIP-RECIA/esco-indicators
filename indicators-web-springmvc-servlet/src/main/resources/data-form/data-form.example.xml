@@ -12,6 +12,8 @@
             <jsp-key>monitoringType.attendance</jsp-key>
             <i18n-key>form.monitoringType.attendance</i18n-key>
             <disable-by-default>false</disable-by-default>
+            <on-selection-event>
+            </on-selection-event>
         </entry-value>
         
         <entry-value name="monitoringAttendance">
@@ -36,20 +38,27 @@
             <jsp-key>establishmentType.CFA</jsp-key>
             <i18n-key>form.establishmentType.CFA</i18n-key>
             <disable-by-default>false</disable-by-default>
+            <on-selection-event>
+            </on-selection-event>
         </entry-value>
         
         <entry-value name="LA">
             <jsp-key>establishmentType.LA</jsp-key>
             <i18n-key>form.establishmentType.LA</i18n-key>
             <disable-by-default>false</disable-by-default>
+            <on-selection-event>
+            </on-selection-event>
         </entry-value>
         
         <entry-value name="LEGT">
             <jsp-key>establishmentType.LEGT</jsp-key>
             <i18n-key>form.establishmentType.LEGT</i18n-key>
             <disable-by-default>true</disable-by-default>
+            <on-selection-event>
+            </on-selection-event>
         </entry-value>
         
     </entry-form>
     
 </data-form>
+

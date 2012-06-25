@@ -14,13 +14,17 @@
 
     <p><spring:message code="filter.title.monitoringType" /></p>
     <p>
-        <form:radiobuttons itemValue="value" itemLabel="label" path="monitoringType" items="${monitoringTypeItems}"  />
+        <c:forEach var="item" items="${monitoringTypeItems}">
+            <form:radiobutton value="${item.value}" label="${item.label}" disabled="${item.disabled}" path="monitoringType" /> 
+        </c:forEach>         
         <form:errors path="monitoringType" cssClass="error" />
     </p>
     
     <p><spring:message code="filter.title.establishmentType" /></p>
     <p>
-        <form:checkboxes cssClass="submit" itemValue="value" itemLabel="label" path="establishmentsTypes" items="${estbalishmentsTypesItems}"  />
+        <c:forEach var="item" items="${estbalishmentsTypesItems}">
+            <form:checkbox cssClass="submit" value="${item.value}" label="${item.label}" disabled="${item.disabled}" path="establishmentsTypes" /> 
+        </c:forEach>     
         <form:errors path="establishmentsTypes" cssClass="error" />
     </p>
     
@@ -38,14 +42,18 @@
     
         <p><spring:message code="filter.title.userProfile" /></p>
         <p>
-            <form:checkboxes itemValue="value" itemLabel="label" path="usersProfiles" items="${usersProfilesItems}"  /> 
+            <c:forEach var="item" items="${usersProfilesItems}">
+                <form:checkbox value="${item.value}" label="${item.label}" disabled="${item.disabled}" path="usersProfiles" /> 
+            </c:forEach> 
             <form:errors path="usersProfiles" cssClass="error" />
         </p>
         
         <p><spring:message code="filter.title.county" /></p>
         <p>
             <form:select cssClass="submit" path="county">
-                <form:options itemValue="value" itemLabel="label" items="${countyItems}"  />
+                <c:forEach var="item" items="${countyItems}">
+                   <form:option cssClass="submit" value="${item.value}" label="${item.label}" disabled="${item.disabled}" path="county" /> 
+                </c:forEach>
             </form:select> 
             <form:errors path="county" cssClass="error" />
             
@@ -54,13 +62,17 @@
         
         <p><spring:message code="filter.title.lyceeType" /></p>
         <p>
-            <form:checkboxes cssClass="submit" itemValue="value" itemLabel="label" path="lyceesTypes" items="${lyceesTypesItems}"  /> 
+            <c:forEach var="item" items="${lyceesTypesItems}">
+                   <form:checkbox cssClass="submit" value="${item.value}" label="${item.label}" disabled="${item.disabled}" path="lyceesTypes" /> 
+            </c:forEach>
             <form:errors path="lyceesTypes" cssClass="error" />
         </p>
         
         <p><spring:message code="filter.title.laType" /></p>
         <p>
-            <form:checkboxes cssClass="submit" itemValue="value" itemLabel="label" path="laTypes" items="${laTypesItems}"  /> 
+            <c:forEach var="item" items="${laTypesItems}">
+                   <form:checkbox cssClass="submit" value="${item.value}" label="${item.label}" disabled="${item.disabled}" path="laTypes" /> 
+            </c:forEach>
             <form:errors path="laTypes" cssClass="error" />
         </p>
     </div>

@@ -9,6 +9,8 @@ import java.util.List;
 import junit.framework.Assert;
 
 import org.esco.indicators.domain.beans.xml.form.EntryValue;
+import org.esco.indicators.domain.beans.xml.form.OnSelectionEvent;
+import org.hibernate.mapping.Array;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -79,27 +81,21 @@ public class DataFormProviderTest {
     /**
      * Test method for {@link org.esco.indicators.utils.web.DataFormProvider#getEntryValues(java.lang.String)}.
      * 
-     * Tests if the possible values of an entry are the expected ones.
+     * Tests if the possible values names of an entry are the expected ones.
      */
     @Test
     public void testGetEntryValues() {
 	// Expected result
-	List<EntryValue> expected = new ArrayList<EntryValue>();
-	
-	EntryValue attendance = new EntryValue();
-	attendance.setName("attendance");
-	attendance.setJspKey("monitoringType.attendance");
-	attendance.setI18nKey("form.monitoringType.attendance");
-	expected.add(attendance);
-	
-	EntryValue monitoring = new EntryValue();
-	monitoring.setName("monitoringAttendance");
-	monitoring.setJspKey("monitoringType.monitoringAttendance");
-	monitoring.setI18nKey("form.monitoringType.monitoringAttendance");
-	expected.add(monitoring);
+	List<String> expected = new ArrayList<String>();
+	expected.add("attendance");
+	expected.add("monitoringAttendance");
 	
 	// Actual result
-	List<EntryValue> actual = dataFormProvider.getEntryValues("monitoringType");
+	List<String> actual = new ArrayList<String>();
+	List<EntryValue> entryValues = dataFormProvider.getEntryValues("monitoringType");
+	for (EntryValue entryValue : entryValues) {
+	    actual.add(entryValue.getName());
+	}
 	
 	// Test
 	Assert.assertEquals(expected, actual);
