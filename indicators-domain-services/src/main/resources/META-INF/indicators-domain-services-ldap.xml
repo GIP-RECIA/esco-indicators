@@ -45,7 +45,11 @@
         <property name="ldapTemplate" ref="ldapTemplate"/>
         <property name="dnSubPath" value="${ldap.structureDnSubPath}"/>
         <property name="idAttribute" value="${ldap.structureUidAttribute}"/>
-        <property name="attributes" value="${ldap.structureAttributes}"/>
+        <property name="attributes">
+            <list>
+                <value>${ldap.structureNameAttribute}</value>
+            </list>
+        </property>
         <property name="testFilter" value="${ldap.structureTestFilter}"/>
         <property name="objectClass" value="${ldap.structureObjectClass}"/>
     </bean>

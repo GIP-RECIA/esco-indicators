@@ -32,6 +32,9 @@ public class EstablishmentConstants {
     /** Establishment type for : "Lycee Professionnel" */
     public static final  String ESTABLISHMENT_TYPE_LP = "LP";
     
+    /** Establishment type for : "Lycee Professionnel Agricole" */
+    public static final  String ESTABLISHMENT_TYPE_LPA = "LPA"; 
+    
     /** Establishment type for : "Lycee Polyvalent" */
     public static final  String ESTABLISHMENT_TYPE_LPO = "LPO"; 
 

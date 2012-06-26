@@ -39,7 +39,8 @@ $(document).ready(function() {
     // //////////////////////////////////////////////////////////////
     jQuery('.submit').change(function() {
         clearForm($(this));
-        updateForm();
+        //updateForm();
+				updateEstablishments();
     });
 
 });
@@ -119,6 +120,27 @@ function updateForm() {
                     alert("elementsValues to enable : " + formState.to_enable);
                     enableElementsByValues(formState.to_enable);
                     disableElementsByValues(formState.to_disable);
+                }
+             );
+}
+
+function updateEstablishments() {
+    var checkedElements = $("#accountactivationform input:checked");
+    var checked = new String( );
+
+    // Retrieval of the values of the checked elements
+    for(var i=0; i < checkedElements.length ; i++) {
+        checked += checkedElements[i].value + SEPARATOR; 
+    }
+
+    // Data for the request
+    request = { 'checkedValues[]': checked }
+    $.post(  "accounts-activations-ajax/update-establishments", 
+                { 
+                    checkedJspKeys : checked
+                }, 
+                function(formState) {
+                    alert("establishments : " + formState.establishments);
                 }
              );
 }

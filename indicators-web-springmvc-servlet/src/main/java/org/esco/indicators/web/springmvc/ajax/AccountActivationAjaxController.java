@@ -8,12 +8,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.esco.indicators.domain.beans.form.FormField;
 import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.services.form.DataFormService;
+import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.constants.ajax.JsonConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,6 +41,10 @@ public class AccountActivationAjaxController  {
     @Autowired
     private DataFormService dataFormService;
     
+    /** Establishment service providing access to establishments data */
+    @Autowired
+    private EstablishmentService establishmentService;
+    
     /** Object mapper used to deserialize the JSON strings */
     private ObjectMapper objectMapper;
     
@@ -59,8 +65,16 @@ public class AccountActivationAjaxController  {
     
     @RequestMapping(value="/update-establishments", method=RequestMethod.POST)
     public @ResponseBody Map<String,List<FormField>> updateEstablishmentsOnSelection(@RequestParam String checkedJspKeys) {
-	// TODO : Implement !
-	return null;
+	// Explosion of the Json string into a list of parameters
+	List<String> parameters = explodeJsonParams(checkedJspKeys);
+	
+	// Retrieval of the form fields containing the etablishments list to update in the user view
+	List<FormField> establishmentsFields = getEstablishmentsFields(parameters);
+	
+	Map<String,List<FormField>> response = new HashMap<String, List<FormField>>();
+	response.put("establishments", establishmentsFields);
+	
+	return response;
     }
     
     /**
@@ -169,6 +183,12 @@ public class AccountActivationAjaxController  {
 	String [] values = parameters.split(JsonConstants.SEPARATOR);
 	return Arrays.asList(values);
     }
+    
+    private List<FormField> getEstablishmentsFields(List<String> checkedJspKeys) {
+	// TODO : Inmplement !
+	return null;
+    }
+    
     /**
      * Remove the unknown JSP keys from the list.<br/>
      * Return a copy of the specified keys only containing known keys.

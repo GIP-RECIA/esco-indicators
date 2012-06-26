@@ -6,6 +6,7 @@ package org.esco.indicators.services.ldap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.esco.indicators.utils.constants.ldap.LdapConstants;
 import org.esupportail.commons.services.ldap.LdapEntity;
 import org.esupportail.commons.services.ldap.LdapException;
 import org.esupportail.commons.services.ldap.SimpleLdapEntityServiceImpl;
@@ -36,14 +37,18 @@ public class LdapEstablishmentServiceImpl extends SimpleLdapEntityServiceImpl  i
     // TODO : Use a configurable UAI filter ?
     public String findEstablishmentName(String uai) {
 	// Make the filter
-	String filter = "(ESCOUAI=" + uai + ")";
+	String filter = "(" + LdapConstants.STRUCTURE_ATTRIBUTE_TO_FILTER + "=" + uai + ")";
 	String establishmentName = "";
 	
 	// Try to retrieve the name of the establishment
 	try {
 	    List<LdapEntity> ldapEntities =  getLdapEntitiesFromFilter(filter);	
-	    if(ldapEntities != null && ldapEntities.size() == 1) {
-		    establishmentName = ldapEntities.get(0).getAttribute("ENTStructureNomCourant");
+	    if(ldapEntities == null || ldapEntities.isEmpty()) {
+		LOGGER.warn("No LDAP entity has been found with the filter : [" + filter + "]");
+	    } else if (ldapEntities.size() > 1) {
+		LOGGER.warn("More than one LDAP entity has been found with the filter : [" + filter + "]");
+	    } else {
+		establishmentName = ldapEntities.get(0).getAttribute(LdapConstants.STRUCTURE_NAME_ATTRIBUTE);
 	    }
 	} catch(LdapException e) {
 	    LOGGER.error("A LDAP exception has been thrown : " + e.getMessage());

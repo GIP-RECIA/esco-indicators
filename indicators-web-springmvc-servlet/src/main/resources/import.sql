@@ -1,9 +1,21 @@
 -- ETABLISSEMENT
-INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0453456A', '45', 'CFA');
 INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0362903S', '36', 'CFA');
+INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0453456A', '45', 'CFA');
+
+INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0371258Q', '37', 'COLL');
+
+INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0374597U', '28', 'EREA');
+INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0410124K', '41', 'EREA');
+
 INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0456782B', '45', 'LEGT');
-INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0376543R', '37', 'LA');
-INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0376543R', '28', 'LA');
+
+INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0285221Z', '28', 'LEGTA');
+
+INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0187534J', '18', 'LP');
+
+INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0376543R', '37', 'LPA');
+INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0180653G', '18', 'LPA');
+
 
 -- ACTIVATION DE COMPTE
 INSERT INTO estactivee (uid, datedebutactivation, datefinactivation) VALUES ('F1234567X', '2011-03-19', '2012-06-04');
