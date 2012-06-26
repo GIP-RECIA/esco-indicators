@@ -3,7 +3,7 @@ INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0453456
 INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0362903S', '36', 'CFA');
 INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0456782B', '45', 'LEGT');
 INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0376543R', '37', 'LA');
-
+INSERT INTO etablissement (uai, departement, typeetablissement) VALUES ('0376543R', '28', 'LA');
 
 -- ACTIVATION DE COMPTE
 INSERT INTO estactivee (uid, datedebutactivation, datefinactivation) VALUES ('F1234567X', '2011-03-19', '2012-06-04');
