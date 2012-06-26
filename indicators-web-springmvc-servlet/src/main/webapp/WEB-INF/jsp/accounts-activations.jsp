@@ -56,8 +56,10 @@
                 </c:forEach>
             </form:select> 
             <form:errors path="county" cssClass="error" />
-            
-            <form:checkbox cssClass="submit" path="sumOnCounties" /><spring:message code="form.sumOnCounties.DEFAULT" />
+                        
+            <c:forEach var="item" items="${sumOnCountiesItems}">
+                <form:checkbox cssClass="submit" value="${item.value}" label="${item.label}" disabled="${item.disabled}" path="sumOnCounties" /> 
+            </c:forEach> 
         </p>
         
         <p><spring:message code="filter.title.lyceeType" /></p>

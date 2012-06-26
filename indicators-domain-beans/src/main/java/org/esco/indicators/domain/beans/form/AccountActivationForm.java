@@ -20,40 +20,40 @@ public class AccountActivationForm {
     private static final Logger LOGGER = Logger.getLogger(AccountActivationForm.class);
     
     /** Radio button : type of the monitoring */
-    String monitoringType;
+    private String monitoringType;
     
     /** Checkboxes : establishments type */
-    String [ ] establishmentsTypes;
+    private String [ ] establishmentsTypes;
     
     /** 
      * Date : Beginning of the period
      * Format : yyyy-DD-mm
      */
-    Date startDate;
+    private Date startDate;
 
     /** 
      * Date : End of the period
      * Format : yyyy-DD-mm
      */
-    Date endDate;
+    private Date endDate;
     
     /** Checkboxes : users profiles */
-    String [] usersProfiles;
+    private String [] usersProfiles;
     
     /** Dropdown box : county */
-    String county;
+    private String county;
     
     /** Checkbox : sum on counties */
-    boolean sumOnCounties;
+    private String sumOnCounties;
     
     /** Checkboxes : "lycees" types */
-    String [] lyceesTypes;
+    private String [] lyceesTypes;
     
     /** Checkboxes: "lycees agricoles" types */
-    String [] laTypes;
+    private String [] laTypes;
     
     /** Checkboxes : establishments list */
-    String [] establishments;
+    private String [] establishments;
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -167,20 +167,22 @@ public class AccountActivationForm {
     }
 
     /**
-     * Gets the boolean indicating if a sum by counties is done.
+     * Gets the sum on counties field.
      * 
-     * @return the sumOnCounties
+     * @return 
+     * 	the sum on counties
      */
-    public boolean isSumOnCounties() {
+    public String getSumOnCounties() {
         return sumOnCounties;
     }
 
     /**
-     * Gets the boolean indicating if a sum by counties is done.
+     * Sets the sum on counties field.
      * 
-     * @param sumOnCounties the sumOnCounties to set
+     * @param sumOnCounties 
+     * 			The sum on counties to set
      */
-    public void setSumOnCounties(boolean sumOnCounties) {
+    public void setSumOnCounties(String sumOnCounties) {
         this.sumOnCounties = sumOnCounties;
     }
 
@@ -235,7 +237,7 @@ public class AccountActivationForm {
     }
 
     
-    
+    //------------------------------------------------------------------------------ PUBLIC METHODS
     /* (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */
@@ -251,7 +253,7 @@ public class AccountActivationForm {
 	result = prime * result + Arrays.hashCode(lyceesTypes);
 	result = prime * result + ((monitoringType == null) ? 0 : monitoringType.hashCode());
 	result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
-	result = prime * result + (sumOnCounties ? 1231 : 1237);
+	result = prime * result + ((sumOnCounties == null) ? 0 : sumOnCounties.hashCode());
 	result = prime * result + Arrays.hashCode(usersProfiles);
 	return result;
     }
@@ -296,7 +298,10 @@ public class AccountActivationForm {
 		return false;
 	} else if (!startDate.equals(other.startDate))
 	    return false;
-	if (sumOnCounties != other.sumOnCounties)
+	if (sumOnCounties == null) {
+	    if (other.sumOnCounties != null)
+		return false;
+	} else if (!sumOnCounties.equals(other.sumOnCounties))
 	    return false;
 	if (!Arrays.equals(usersProfiles, other.usersProfiles))
 	    return false;

@@ -222,6 +222,20 @@ public class AccountActivationController  {
     }
     
     /**
+     * Populate the sum on counties field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the available values for the  sum on counties field.<br/>
+     * 	<b>NOTE :</b> normaly, only one available value should be present in this returned list.
+     */
+    @ModelAttribute("sumOnCountiesItems")
+    public List<FormField> populateSumOnCounties(HttpServletRequest request) {
+	return getEntryFormFields(request, DataFormConstants.SUM_ON_COUNTIES);
+    }
+    
+    /**
      * Populate the users profiles field.
      * 
      * @param request

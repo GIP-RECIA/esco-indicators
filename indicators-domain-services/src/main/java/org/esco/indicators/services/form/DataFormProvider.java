@@ -107,10 +107,10 @@ public class DataFormProvider {
 	
 	// Test if there is no more than one entry with this JSP key
 	if(foundEntries.isEmpty()) {
-	    LOGGER.warn("No entry has the JSP key : [" + jspKey + "]");
+	    LOGGER.warn("No entry value associated to the JSP key : [" + jspKey + "]");
 	    return null;
 	} else if (foundEntries.size() > 1) {
-	    LOGGER.warn("More than one entry have the JSP key : [" + jspKey + "]");
+	    LOGGER.warn("More than one entry value associated to the JSP key : [" + jspKey + "]");
 	}
 	 return foundEntries.get(0);
     }

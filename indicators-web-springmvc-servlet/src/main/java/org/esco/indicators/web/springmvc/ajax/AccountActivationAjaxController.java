@@ -11,6 +11,8 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.esco.indicators.domain.beans.form.FormField;
+import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.utils.constants.ajax.JsonConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,13 @@ public class AccountActivationAjaxController  {
     
     
     //------------------------------------------------------------------------------ PUBLIC METHODS
+
+    
+    @RequestMapping(value="/update-establishments", method=RequestMethod.POST)
+    public @ResponseBody Map<String,List<FormField>> updateEstablishmentsOnSelection(@RequestParam String checkedJspKeys) {
+	// TODO : Implement !
+	return null;
+    }
     
     /**
      * Ajax method used to provide the state of the inputs of the form regarding to the JSP keys already checked in the user view.
@@ -72,14 +81,9 @@ public class AccountActivationAjaxController  {
      */
     @RequestMapping(value="/update-form", method=RequestMethod.POST)
     public @ResponseBody Map<String,List<String>> updateFormOnSelection(@RequestParam String checkedJspKeys) {
-	// Extraction of the JSP keys of the checked elements
-	String [] values = checkedJspKeys.split(JsonConstants.SEPARATOR);
-	
 	// Remove the keys thtat are not known by the application
-	List<String> checkedKeys = Arrays.asList(values);
-	System.out.println("CheckedKeys before : " + checkedKeys);
+	List<String> checkedKeys = explodeJsonParams(checkedJspKeys);
 	checkedKeys = removeUnknownJspKeys(checkedKeys);
-	System.out.println("CheckedKeys after : " + checkedKeys);
 
 	// Creation of the new form state
 	// This form state indicates which elements has to be enable / disable in the user view
@@ -151,6 +155,20 @@ public class AccountActivationAjaxController  {
 	return formState;
     }
     
+    /**
+     * Explodes the Json parameters string into a list of params.
+     * 
+     * @param parameters
+     * 			The Json parameters string.
+     * 
+     * @return
+     * 	a list containing the paramaters present into the specified string.
+     */
+    private List<String> explodeJsonParams(String parameters) {
+	// Extraction of the json params into an array
+	String [] values = parameters.split(JsonConstants.SEPARATOR);
+	return Arrays.asList(values);
+    }
     /**
      * Remove the unknown JSP keys from the list.<br/>
      * Return a copy of the specified keys only containing known keys.
