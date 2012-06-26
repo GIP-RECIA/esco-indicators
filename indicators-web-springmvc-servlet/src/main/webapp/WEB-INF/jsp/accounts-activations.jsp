@@ -15,7 +15,7 @@
     <p><spring:message code="filter.title.monitoringType" /></p>
     <p>
         <c:forEach var="item" items="${monitoringTypeItems}">
-            <form:radiobutton value="${item.value}" label="${item.label}" disabled="${item.disabled}" path="monitoringType" /> 
+            <form:radiobutton cssClass="submit" value="${item.value}" label="${item.label}" disabled="${item.disabled}" path="monitoringType" /> 
         </c:forEach>         
         <form:errors path="monitoringType" cssClass="error" />
     </p>

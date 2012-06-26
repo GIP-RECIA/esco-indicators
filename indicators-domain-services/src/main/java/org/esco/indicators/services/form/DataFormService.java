@@ -25,6 +25,14 @@ public interface DataFormService {
     public List<String> getJspKeysDisabledByDefault();
     
     /**
+     * Gets the JSP keys of the entry values that are enabled by default in the user view.
+     * 
+     * @return
+     * 	the JSP keys of the entry values that are enabled by default in the user view.
+     */
+    public List<String> getJspKeysEnabledByDefault();
+    
+    /**
      * Gets the JSP keys of the entry values that have to be disabled regarding to the JSP keys
      * of the elements already checked.
      * 
@@ -35,6 +43,18 @@ public interface DataFormService {
      * 	The JSP keys of the entry values that have to be disabled.
      */
     public List<String> getJspKeysToDisable(List<String> checkedJspKeys);
+    
+    /**
+     * Gets the JSP keys of the entry values that have to be enabled regarding to the JSP keys
+     * of the elements already checked.
+     * 
+     * @param checkedJspKeys
+     * 			The JSP keys of the elements already checked.
+     * 
+     * @return
+     * 	The JSP keys of the entry values that have to be enabled.
+     */
+    public List<String> getJspKeysToEnable(List<String> checkedJspKeys);
     
     /**
      * Gets the possible values (see {@link EntryValue}) of the data form entry having the name <code>entryName</code>.

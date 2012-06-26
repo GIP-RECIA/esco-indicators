@@ -52,6 +52,27 @@ public class DataFormServiceTest {
 	 // Test
 	 Assert.assertEquals(expected, actual);
     }
+    
+    /**
+     * Test method for {@link org.esco.indicators.services.form.DataFormService#getJspKeysEnabledByDefault()}.
+     * 
+     * Tests if the JSP keys enabled by default are the expected ones.
+     */
+    @Test
+    public void testGetJspKeysEnabledByDefault() {
+	// Expected result
+	List<String> expected = new ArrayList<String>();
+	 expected.add("monitoringType.attendance");
+	 expected.add("monitoringType.monitoringAttendance");
+	 expected.add("establishmentType.CFA");
+	 expected.add("establishmentType.LA");
+	 
+	 // Actual result
+	 List<String> actual = dataFormService.getJspKeysEnabledByDefault();
+	 
+	 // Test
+	 Assert.assertEquals(expected, actual);
+    }
 
     /**
      * Test method for {@link org.esco.indicators.services.form.DataFormService#getJspKeysToDisable(java.util.List)}.

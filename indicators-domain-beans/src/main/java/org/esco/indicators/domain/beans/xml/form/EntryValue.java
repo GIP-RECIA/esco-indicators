@@ -192,6 +192,11 @@ public class EntryValue {
 	
 	// Gets the corresponding entry values
 	List<EntryValue> entryValues = new ArrayList<EntryValue>();
+	if(enableEntryValues == null) {
+	    return entryValues;
+	}
+	
+	// If some enableEntryValues has been retrieved, gets the corresponding entryValues
 	for (EnableEntryValue enableEntryValue : enableEntryValues) {
 	    entryValues.add(enableEntryValue.getEntryValue());
 	}

@@ -55,39 +55,101 @@ public class AccountActivationAjaxController  {
     //------------------------------------------------------------------------------ PUBLIC METHODS
     
     /**
-     * TEST METHOD
+     * Ajax method used to provide the state of the inputs of the form regarding to the JSP keys already checked in the user view.
      * 
-     * Handles an Ajax request.
-     */
-    @RequestMapping(value="/monitoring-type", method=RequestMethod.GET)
-    public @ResponseBody Map<String, String> getMonitoringTypeMessage(@RequestParam String monitoringType) {
-	Map<String,String> monitoring = new HashMap<String, String>();
-	monitoring.put("unselected", "The unselected monitoring type is : " + monitoringType);
-        return monitoring;
-    }
-
-    /**
-     * TEST METHOD
-     * 
-     * Handles an Ajax request.
+     * @param checkedJspKeys
+     * 			JSP keys already checked in the user view.<br/>
+     * 			This string has to respect this pattern : {JSP_KEY1}{SEPARATOR}{JSP_KEY2}{...}<br/>
+     * 			The SEPARATOR corresponds to the {@link JsonConstants#SEPARATOR}.
+     * @return
+     * 	A map containing the new states of the form inputs<br/>
+     *		This map contains two strings as keys, an list as values :
+     * 	<ul>
+     * 		<li> <b>Key :</b> {@link JsonConstants#KEYS_TO_ENABLE} => <b>Value :</b> The list of JSP keys to enable in the user view.</li>
+     * 		<li> <b>Key :</b> {@link JsonConstants#KEYS_TO_DISABLE} => <b>Value :</b> The list of JSP keys to disable in the user view.</li>
+     * 	</ul>
+     * 	These two lists are totally disjoint and do not contain same elements.<br/>
      */
     @RequestMapping(value="/update-form", method=RequestMethod.POST)
-    public @ResponseBody String updateFormOnSelection(@RequestParam String checkedJspKeys) {
+    public @ResponseBody Map<String,List<String>> updateFormOnSelection(@RequestParam String checkedJspKeys) {
 	// Extraction of the JSP keys of the checked elements
 	String [] values = checkedJspKeys.split(JsonConstants.SEPARATOR);
 	
 	// Remove the keys thtat are not known by the application
 	List<String> checkedKeys = Arrays.asList(values);
+	System.out.println("CheckedKeys before : " + checkedKeys);
 	checkedKeys = removeUnknownJspKeys(checkedKeys);
-	
-	// Retrieval of the JSP keys of the elements to disable in the user view
-	List<String> jspKeysToDisable = dataFormService.getJspKeysToDisable(checkedKeys);
-	System.out.println(jspKeysToDisable);
-	
-        return jspKeysToDisable.toString();
+	System.out.println("CheckedKeys after : " + checkedKeys);
+
+	// Creation of the new form state
+	// This form state indicates which elements has to be enable / disable in the user view
+	Map<String,List<String>> formState = createNewFormState(checkedKeys);
+
+        return formState;
     }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
+ 
+    
+    /**
+     * Creates a map describing the new state of the form in the user view regarding to the already JSP keys already checked in the user view.<br/>
+     * This map contains two strings as keys, an list as values :
+     * <ul>
+     * 	<li> <b>Key :</b> {@link JsonConstants#KEYS_TO_ENABLE} => <b>Value :</b> The list of JSP keys to enable in the user view.</li>
+     * 	<li> <b>Key :</b> {@link JsonConstants#KEYS_TO_DISABLE} => <b>Value :</b> The list of JSP keys to disable in the user view.</li>
+     * </ul>
+     * 
+     * These two lists are totally disjoint and do not contain same elements.<br/>
+     * If some rules indicate taht a JSP should be enabled and disabled at the same time, the priority is given to the disabling rule.
+     * 
+     * @param checkedKeys
+     * 			The JSP keys checked in the user view.
+     * 
+     * @return
+     * 	the map containing the new state of the form.
+     */
+    private Map<String,List<String>> createNewFormState(List<String> checkedKeys) {
+	///////////////////////////////////////////////////////////////////////
+	// Retrieval of the elements to enable / disable
+	///////////////////////////////////////////////////////////////////////
+	
+	// Gets the JSP keys enabled / disabled by default
+	List<String> jspKeysDisabledByDefault = dataFormService.getJspKeysDisabledByDefault();
+	List<String> jspKeysEnabledByDefault = dataFormService.getJspKeysEnabledByDefault();
+	
+	// Gets the JSP keys to enable / disable regarding to the checked ones
+	List<String> jspKeysToDisable = dataFormService.getJspKeysToDisable(checkedKeys);
+	List<String> jspKeysToEnable = dataFormService.getJspKeysToEnable(checkedKeys);
+
+	///////////////////////////////////////////////////////////////////////
+	// Creation of the lists of the elements to enable / disable
+	///////////////////////////////////////////////////////////////////////
+	// Priority to disabling actions
+	// ( ToEnable = ToEnable - ToDisable )
+	jspKeysToEnable.removeAll(jspKeysToDisable);
+
+	
+	// Activation of the disabled JSP keys by default
+	// ( DisabledByDefault = DisabledByDefault - ToEnable )
+	jspKeysDisabledByDefault.removeAll(jspKeysToEnable);
+	
+	// Desactivation of the enabled JSP keys by default
+	// ( EnabledByDefault = EnabledByDefault - To Disable );
+	jspKeysEnabledByDefault.removeAll(jspKeysToDisable);
+	
+	// Final elements to enable / disable
+	jspKeysToEnable.addAll(jspKeysEnabledByDefault);
+	jspKeysToDisable.addAll(jspKeysDisabledByDefault);
+	
+	///////////////////////////////////////////////////////////////////////
+	// Creation of map containing the JSP keys to enable / disable
+	///////////////////////////////////////////////////////////////////////
+	Map<String,List<String>> formState = new HashMap<String, List<String>>();
+	formState.put(JsonConstants.KEYS_TO_DISABLE, jspKeysToDisable);
+	formState.put(JsonConstants.KEYS_TO_ENABLE, jspKeysToEnable);
+	
+	return formState;
+    }
     
     /**
      * Remove the unknown JSP keys from the list.<br/>

@@ -145,6 +145,16 @@ public class DataFormProvider {
 	return dataForm.getEntryValuesDisabledByDefault();
     }
     
+    /**
+     * Gets the entry values that are enabled by default in the user view.
+     * 
+     * @return
+     * 	the entry values that are enabled by default in the user view.
+     */
+    public List<EntryValue> getEntryValuesEnabledByDefault() {
+	return dataForm.getEntryValuesEnabledByDefault();
+    }
+    
     //-------------------------------------------------------------------- STATIC GETTERS / SETTERS
     /**
      * Gets the data forms loaded from the file containing the data descriptions.

@@ -58,6 +58,24 @@ public class DataFormServiceImpl implements DataFormService {
     }
     
     /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.DataFormService#getJspKeysEnabledByDefault()
+     */
+    @Override
+    public List<String> getJspKeysEnabledByDefault() {
+	init();
+	// Final result
+	List<String> jspKeys = new ArrayList<String>();
+	
+	// Gets the disabled entry values
+	List<EntryValue> entries = dataFormProvider.getEntryValuesEnabledByDefault();
+	for (EntryValue entryValue : entries) {
+	    jspKeys.add(entryValue.getJspKey());
+	}
+	
+	return jspKeys;
+    }
+
+    /* (non-Javadoc)
      * @see org.esco.indicators.services.form.DataFormService#getJspKeysToDisable(java.util.List)
      */
     @Override
@@ -65,13 +83,7 @@ public class DataFormServiceImpl implements DataFormService {
 	init();
 	
 	// Retrieval of the checked entry values
-	List<EntryValue> checkedEntries = new ArrayList<EntryValue>();
-	for (String jspKey : checkedJspKeys) {
-	    EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
-	    if(entryValue != null) {
-		checkedEntries.add(entryValue);
-	    }
-	}
+	List<EntryValue> checkedEntries = getEntryValuesByJspKeys(checkedJspKeys);
 	
 	// Retrieval of the JSP keys to disable
 	List<String> jspKeysToDisable = new ArrayList<String>();
@@ -82,7 +94,27 @@ public class DataFormServiceImpl implements DataFormService {
 	
 	return jspKeysToDisable;
     }
-    
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.DataFormService#getJspKeysToEnable(java.util.List)
+     */
+    @Override
+    public List<String> getJspKeysToEnable(List<String> checkedJspKeys) {
+	init();
+	
+	// Retrieval of the checked entry values
+	List<EntryValue> checkedEntries = getEntryValuesByJspKeys(checkedJspKeys);
+	
+	// Retrieval of the JSP keys to enable
+	List<String> jspKeysToEnable = new ArrayList<String>();
+	for (EntryValue checkedEntry : checkedEntries) {
+	    List<EntryValue> entriesToEnable = checkedEntry.getEntryValuesToEnable();
+	    jspKeysToEnable.addAll(getJspKeys(entriesToEnable));
+	}
+		
+        return jspKeysToEnable;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -124,6 +156,26 @@ public class DataFormServiceImpl implements DataFormService {
 	if (dataFormProvider == null) {
 	    dataFormProvider = DataFormProvider.getInstance();
 	}
+    }
+    
+    /**
+     * Gets the entry values associated to the JSP keys.
+     * 
+     * @param jspKeys
+     * 			The JSP keys associated to entry values.
+     * 
+     * @return
+     * 	the list of entry values associated to the JSP keys.
+     */
+    private List<EntryValue> getEntryValuesByJspKeys(List<String> jspKeys) {
+	List<EntryValue> entryValues = new ArrayList<EntryValue>();
+	for (String jspKey : jspKeys) {
+	    EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
+	    if(entryValue != null) {
+		entryValues.add(entryValue);
+	    }
+	}
+	return entryValues;
     }
     
     /**
