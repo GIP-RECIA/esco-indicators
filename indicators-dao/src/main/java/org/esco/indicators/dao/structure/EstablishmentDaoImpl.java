@@ -3,6 +3,7 @@
  */
 package org.esco.indicators.dao.structure;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -18,6 +19,7 @@ import javax.persistence.Query;
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esupportail.commons.dao.AbstractGenericJPADaoService;
+
 /**
  * Implementation of the EstablishmentDao interface.
  * 
@@ -25,45 +27,49 @@ import org.esupportail.commons.dao.AbstractGenericJPADaoService;
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class EstablishmentDaoImpl extends AbstractGenericJPADaoService implements EstablishmentDao {
-    //---------------------------------------------------------------------------------- ATTRIBUTES
+    // ---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(EstablishmentDaoImpl.class);
 
     /** JPA Entity manager */
     @PersistenceContext
     private EntityManager entityManager;
-    
-    //-------------------------------------------------------------------------------- CONSTRUCTORS
+
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
     /**
      * Constructor of the EstablishmentDaoImpl class
      */
     public EstablishmentDaoImpl() {
 	super();
     }
-    
-    //--------------------------------------------------------------------------- GETTERS / SETTERS
+
+    // --------------------------------------------------------------------------- GETTERS / SETTERS
     /**
      * Sets the entity manager used by the EstablishmentDaoImpl.
      * 
      * @param entityManager
-     * 			The entity manager to set.
+     *            The entity manager to set.
      */
     @PersistenceContext
     public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
+	this.entityManager = entityManager;
     }
-    
-    //------------------------------------------------------------------------------ PUBLIC METHODS
-    /* (non-Javadoc)
+
+    // ------------------------------------------------------------------------------ PUBLIC METHODS
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
     @Override
     public void afterPropertiesSet() throws Exception {
 	// TODO Auto-generated method stub
-	
+
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.esco.indicators.dao.structure.EstablishmentDao#getEstablishmentByUai(java.lang.String)
      */
     @Override
@@ -71,75 +77,137 @@ public class EstablishmentDaoImpl extends AbstractGenericJPADaoService implement
 	// Create the query and sets the parameters
 	Query query = entityManager.createNamedQuery("Establishment.findByUai");
 	query.setParameter("uai", uai);
-	
+
 	// Try to retrieve the establishment associated to the uai
 	Establishment establishment = null;
 	try {
 	    establishment = (Establishment) query.getSingleResult();
 	} catch (NoResultException e) {
-	    LOGGER.debug("No establishment has been found with the UAI : " + uai);
+	    LOGGER.warn("No establishment has been found with the UAI : " + uai);
 	} catch (NonUniqueResultException e) {
 	    LOGGER.warn("More than one establishment has been found with the UAI : " + uai);
 	} catch (IllegalStateException e) {
 	    LOGGER.error("An error occured during the retrieval of the establishment with the UAI : " + uai);
 	}
-	
+
 	return establishment;
     }
 
-    /* (non-Javadoc)
-     * @see org.esco.indicators.dao.structure.EstablishmentDao#getEstablishmentsByCountyNumber(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.esco.indicators.dao.structure.EstablishmentDao#getEstablishmentsByCountyNumber(java.lang.String)
      */
     @Override
-    @SuppressWarnings("unchecked")
     public Set<Establishment> findEstablishmentsByCountyNumber(Integer countyNumber) {
-	// Create the query and sets the parameters
-	Query query = entityManager.createNamedQuery("Establishment.findByCountyNumber");
-	query.setParameter("countyNumber", countyNumber);
+	// Creation of the list of county numbers
+	List<Integer> countyNumbers = new ArrayList<Integer>();
+	countyNumbers.add(countyNumber);
 	
-	// Try to retrieve the establishments associated to the county number
-	Set<Establishment> establishments = new HashSet<Establishment>();
-	try {
-	    List<Establishment> result =query.getResultList();
-	    establishments.addAll(result);
-	} catch (IllegalStateException e) {
-	    LOGGER.error("An error occured during the retrieval of the establishments with the county number : " + countyNumber);
-	}
-	
-	return establishments;
+	return findEstablishmentsByCountyNumbers(countyNumbers);
     }
 
     /* (non-Javadoc)
+     * @see org.esco.indicators.dao.structure.EstablishmentDao#findEstablishmentsByCountyNumbers(java.util.List)
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public Set<Establishment> findEstablishmentsByCountyNumbers(List<Integer> countyNumbers) {
+	// Create the query and sets the parameters
+	Query query = entityManager.createNamedQuery("Establishment.findByCountyNumbers");
+	query.setParameter("countyNumberList", countyNumbers);
+
+	// Try to retrieve the establishments associated to the county numbers
+	Set<Establishment> establishments = new HashSet<Establishment>();
+	try {
+	    List<Establishment> result = query.getResultList();
+	    establishments.addAll(result);
+	} catch (IllegalStateException e) {
+	    LOGGER.error("An error occured during the retrieval of the establishments with the county numbers : "
+		    + countyNumbers);
+	}
+
+	return establishments;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.esco.indicators.dao.structure.EstablishmentDao#findEstablishmentsByCountyNumbersAndTypes(java.util
+     * .List, java.util.List)
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public Set<Establishment> findEstablishmentsByCountyNumbersAndTypes(List<Integer> countyNumbers,
+	    List<String> types) {
+	// Create the query and sets the parameters
+	Query query = entityManager.createNamedQuery("Establishment.findByCountyNumbersAndTypes");
+	query.setParameter("countyNumberList", countyNumbers);
+	query.setParameter("typeList", types);
+
+	// Try to retrieve the establishments
+	Set<Establishment> establishments = new HashSet<Establishment>();
+	try {
+	    List<Establishment> result = query.getResultList();
+	    establishments.addAll(result);
+	} catch (IllegalStateException e) {
+	    LOGGER.error("An error occured during the retrieval of the establishments with the county numbers : "
+		    + countyNumbers + " and the types : " + types);
+	}
+
+	return establishments;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.esco.indicators.dao.structure.EstablishmentDao#getEstablishmentsByType(java.lang.String)
      */
     @Override
-    @SuppressWarnings("unchecked")
     public Set<Establishment> findEstablishmentsByType(String type) {
-	// Create the query and sets the parameters
-	Query query = entityManager.createNamedQuery("Establishment.findByType");
-	query.setParameter("type", type);
+	// Creation of the list of the establishments types
+	List<String> types = new ArrayList<String>();
+	types.add(type);
 	
+	return findEstablishmentsByTypes(types);
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.structure.EstablishmentDao#findEstablishmentsByTypes(java.util.List)
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public Set<Establishment> findEstablishmentsByTypes(List<String> types) {
+	// Create the query and sets the parameters
+	Query query = entityManager.createNamedQuery("Establishment.findByTypes");
+	query.setParameter("typeList", types);
+
 	// Try to retrieve the establishments associated to the type
 	Set<Establishment> establishments = new HashSet<Establishment>();
 	try {
-	    List<Establishment> result =query.getResultList();
+	    List<Establishment> result = query.getResultList();
 	    establishments.addAll(result);
 	} catch (IllegalStateException e) {
-	    LOGGER.error("An error occured during the retrieval of the establishments with the type : " + type);
+	    LOGGER.error("An error occured during the retrieval of the establishments with the types : "
+		    + types);
 	}
-	
+
 	return establishments;
     }
 
-    //--------------------------------------------------------------------------- PROTECTED METHODS
-    /* (non-Javadoc)
+    // --------------------------------------------------------------------------- PROTECTED METHODS
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.esupportail.commons.dao.AbstractGenericJPADaoService#getEntityManager()
      */
     @Override
     protected EntityManager getEntityManager() {
 	return entityManager;
     }
-    //----------------------------------------------------------------------------- PRIVATE METHODS
+    // ----------------------------------------------------------------------------- PRIVATE METHODS
 
-    //------------------------------------------------------------------------------ STATIC METHODS
+    // ------------------------------------------------------------------------------ STATIC METHODS
 }

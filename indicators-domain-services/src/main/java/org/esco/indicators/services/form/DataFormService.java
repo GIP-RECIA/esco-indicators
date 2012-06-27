@@ -67,6 +67,40 @@ public interface DataFormService {
      */
     public List<EntryValue> getEntryValues(String entryName);
     
+    /**
+     * Gets the county number to filter when the specified JSP key is checked in the user view.
+     * 
+     * @param jspKey
+     * 			The JSP key to test.
+     * @return
+     * 	the county number to filter.<br/>
+     * 	<code>null</code> if no county number has to be filtered.
+     */
+    public Integer getCountyNumberToFilter(String jspKey);
+    
+    /**
+     * Gets the establishment type to filter when the specified JSP key is checked in the iser view.
+     * 
+     * @param jspKey
+     * 			The JSP key to test.
+     * @return
+     * 	the establishement type to filter.<br/>
+     * 	<code>null</code> if no establishment type has to be filtered.
+     */
+    public String getEstablishmentTypeToFilter(String jspKey);
+    
+    /**
+     * Indicates if a JSP key has an influence on the establishments list when its state changes in the user view.<br/>
+     * When a JSP key (having an influence on the establishements list) changes in the user view, the establishements list has to be updated.
+     * 
+     * @param jspKey
+     * 			The JSP key to test.
+     * 
+     * @return
+     * 	<code>true</code> if the JSP key has an influence on the establishements list.<br/>
+     * 	<code>false</code> in other cases.
+     */
+    public boolean hasInfluenceOnEstablishmentsList(String jspKey);
     
     /**
      * Indicates if a JSP key is known, or not, in the application.

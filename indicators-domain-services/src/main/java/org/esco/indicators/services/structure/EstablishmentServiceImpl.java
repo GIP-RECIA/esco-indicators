@@ -3,6 +3,8 @@
  */
 package org.esco.indicators.services.structure;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -93,6 +95,43 @@ public class EstablishmentServiceImpl implements EstablishmentService {
     }
 
     /* (non-Javadoc)
+     * @see org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsByCountyNumbersAndTypes(java.util.List, java.util.List)
+     */
+    @Override
+    public Set<Establishment> findEstablishmentsByCountyNumbersAndTypes(List<Integer> countyNumbers,
+	    List<String> types) {
+	// Final result
+	Set<Establishment> establishments = new HashSet<Establishment>();
+	
+	// If at least one county number, and one type are provided
+	if(!countyNumbers.isEmpty() && !types.isEmpty()) {
+	    LOGGER.debug("At least one country number, and one establishment type, have been provided..");
+	    establishments = establishmentDao.findEstablishmentsByCountyNumbersAndTypes(countyNumbers, types);
+	} 
+	// If no county number is provided, and at least one type is provided
+	else if (countyNumbers.isEmpty() && !types.isEmpty()) {
+	    LOGGER.debug("No county number has been given for filtering establishments. Establishments will only be filtered by types.");
+	    establishments = establishmentDao.findEstablishmentsByTypes(types);
+	}
+	// If at least one county number is provided, and no type is provided
+	else if (!countyNumbers.isEmpty() && types.isEmpty()) {
+	    LOGGER.debug("No establishment type has been given for filtering establishments. Establishments will only be filtered by county numbers.");
+	    establishments = establishmentDao.findEstablishmentsByCountyNumbers(countyNumbers);
+	}
+	// If no country number, and no type are provided
+	else {
+	    LOGGER.warn("Neither country number nor establishment type has been provided.");
+	}
+
+	// Filling the names of the establishments
+	for (Establishment establishment : establishments) {
+	    fillEstablishmentName(establishment);
+	}
+	
+	return establishments;
+    }
+    
+    /* (non-Javadoc)
      * @see org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsByType(java.lang.String)
      */
     @Override
@@ -103,8 +142,11 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	}
 	return establishments;
     }
+    
+    
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
+
 
     /**
      * Retrieves the name of an establishment by its UAI.

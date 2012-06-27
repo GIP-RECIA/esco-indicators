@@ -25,6 +25,9 @@ public class EntryValue {
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(EntryValue.class);
 
+    /** Parent of the entry value */
+    private EntryForm parentEntryForm;
+    
     /** Identifier of the value */
     private String name;
     
@@ -49,6 +52,27 @@ public class EntryValue {
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
+    
+    /**
+     * Gets the entry form which is the parent of this entry value.
+     * 
+     * @return 
+     * 	the parent of this entry value
+     */
+    public EntryForm getParentEntryForm() {
+        return parentEntryForm;
+    }
+
+    /**
+     * Sets the parent entry form of this entry value.
+     * 
+     * @param parentEntryForm
+     * 			The parent entry form of this entry value.
+     */
+    public void setParentEntryForm(EntryForm parentEntryForm) {
+        this.parentEntryForm = parentEntryForm;
+    }
+    
     /**
      * Gets the name of the value.
      * 
@@ -202,6 +226,26 @@ public class EntryValue {
 	}
 	
 	return entryValues;
+    }
+    
+    /**
+     * Gets the county number to filter when this entry value is selected.
+     * 
+     * @return 
+     * 	the county number to filter.
+     */
+    public Integer getCountyNumberToFilter() {
+	return getOnSelectionEvent().getFilterCountyNumber();
+    }
+    
+    /**
+     * Gets the establishment type to filter when this entry value is selected.
+     * 
+     * @return 
+     * 	the establishment type to filter.
+     */
+    public String getEstablishmentTypeToFilter() {
+	return getOnSelectionEvent().getFilterEstablishmentType();
     }
     
  

@@ -17,9 +17,6 @@
 // CONSTANTS
 ///////////////////////////////////////////////////////////
 var SEPARATOR               = ";";
-var MONITORING_TYPE         = "monitoringType";
-var ESTABLISHMENTS_TYPES    = "establishmentsTypes";
-var USERS_PROFILES          = "usersProfiles";
 
 
 ///////////////////////////////////////////////////////////
@@ -125,22 +122,31 @@ function updateForm() {
 }
 
 function updateEstablishments() {
+    // Retrieval of the values of the checked elements
     var checkedElements = $("#accountactivationform input:checked");
     var checked = new String( );
 
-    // Retrieval of the values of the checked elements
     for(var i=0; i < checkedElements.length ; i++) {
         checked += checkedElements[i].value + SEPARATOR; 
+    }
+
+    // Retrieval of the values of the selected elements
+    var selectedElements = $("#accountactivationform option:selected");
+    var selected = new String( );
+
+    for(var i=0; i < selectedElements.length ; i++) {
+        selected += selectedElements[i].value + SEPARATOR; 
     }
 
     // Data for the request
     request = { 'checkedValues[]': checked }
     $.post(  "accounts-activations-ajax/update-establishments", 
                 { 
-                    checkedJspKeys : checked
+                    checkedJspKeys : checked,
+                    selectedJspKeys: selected
                 }, 
                 function(formState) {
-                    alert("establishments : " + formState.establishments);
+                    alert("establishments : " + formState.establishments_list);
                 }
              );
 }

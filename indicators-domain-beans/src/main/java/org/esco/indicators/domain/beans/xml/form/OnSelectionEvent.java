@@ -28,15 +28,23 @@ public class OnSelectionEvent {
     private static final Logger LOGGER = Logger.getLogger(OnSelectionEvent.class);
     
     /** The list of entry values that must be disabled when the entry value is selected */
-    List<DisableEntryValue> entryValuesToDisable;
+    private List<DisableEntryValue> entryValuesToDisable;
     
     /** The list of entry values that must be enabled when the entry value is selected */
-    List<EnableEntryValue> entryValuesToEnable;
+    private List<EnableEntryValue> entryValuesToEnable;
+    
+    /** The county number to filter */
+    private Integer filterCountyNumber;
+    
+    /** The establishment type to filter */
+    private String filterEstablishmentType;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
+     * Gets the entry values to disable.
+     * 
      * @return the entryValuesToDisable
      */
     @XmlElement(name = "disable-entry-value")
@@ -45,6 +53,8 @@ public class OnSelectionEvent {
     }
 
     /**
+     * Sets the entry value to disable.
+     * 
      * @param entryValuesToDisable the entryValuesToDisable to set
      */
     public void setEntryValuesToDisable(List<DisableEntryValue> entryValuesToDisable) {
@@ -52,6 +62,8 @@ public class OnSelectionEvent {
     }
 
     /**
+     * Gets the entry values to enable.
+     * 
      * @return the entryValuesToEnable
      */
     @XmlElement(name = "enable-entry-value")
@@ -60,12 +72,58 @@ public class OnSelectionEvent {
     }
 
     /**
+     * Sets the entry values to enable.
+     * 
      * @param entryValuesToEnable the entryValuesToEnable to set
      */
     public void setEntryValuesToEnable(List<EnableEntryValue> entryValuesToEnable) {
         this.entryValuesToEnable = entryValuesToEnable;
     }
 
+    /**
+     * Gets the county number to filter.
+     * 
+     * @return 
+     * 	the county number to filter.
+     */
+    @XmlElement(name = "filter-county-number")
+    public Integer getFilterCountyNumber() {
+        return filterCountyNumber;
+    }
+
+    /**
+     * Sets the county number to filter.
+     * 
+     * @param filterCountyNumber 
+     * 			The county number (to filter) to set.
+     */
+    public void setFilterCountyNumber(Integer filterCountyNumber) {
+        this.filterCountyNumber = filterCountyNumber;
+    }
+
+    /**
+     * Gets the establishment type to filter.
+     * 
+     * @return 
+     * 	the establishment type to filter
+     */
+    @XmlElement(name = "filter-establishment-type")
+    public String getFilterEstablishmentType() {
+        return filterEstablishmentType;
+    }
+
+    /**
+     * Sets the establishment type to filter.
+     * 
+     * @param filterEstablishmentType 
+     * 			The establishment type (to filter) to set.
+     */
+    public void setFilterEstablishmentType(String filterEstablishmentType) {
+        this.filterEstablishmentType = filterEstablishmentType;
+    }
+
+    
+    
     //------------------------------------------------------------------------------ PUBLIC METHODS
 
     //----------------------------------------------------------------------------- PRIVATE METHODS

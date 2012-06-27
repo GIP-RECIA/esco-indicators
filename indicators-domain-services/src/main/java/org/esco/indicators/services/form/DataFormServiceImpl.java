@@ -137,6 +137,49 @@ public class DataFormServiceImpl implements DataFormService {
     }
 
     /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.DataFormService#getCountyNumberToFilter(java.lang.String)
+     */
+    @Override
+    public Integer getCountyNumberToFilter(String jspKey) {
+	       init();
+	       
+	       // Retrieval of the entry value
+	       EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
+	       
+	        return entryValue.getCountyNumberToFilter();
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.DataFormService#getEstablishmentTypeToFilter(java.lang.String)
+     */
+    @Override
+    public String getEstablishmentTypeToFilter(String jspKey) {
+       init();
+       
+       // Retrieval of the entry value
+       EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
+       
+        return entryValue.getEstablishmentTypeToFilter();
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.DataFormService#hasInfluenceOnEstablishmentsList(java.lang.String)
+     */
+    @Override
+    public boolean hasInfluenceOnEstablishmentsList(String jspKey) {
+        init();
+        
+        // Retrieval of the entry value
+        EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
+        
+        // Retrieval of the possible filters to apply when the entry value is selected
+        Integer countyNumberToFilter = entryValue.getCountyNumberToFilter();
+        String establishmentTypeToFilter = entryValue.getEstablishmentTypeToFilter();
+        
+        return (countyNumberToFilter != null || establishmentTypeToFilter != null);
+    }
+
+    /* (non-Javadoc)
      * @see org.esco.indicators.services.form.DataFormService#isKnown(java.lang.String)
      */
     @Override

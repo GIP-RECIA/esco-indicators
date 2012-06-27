@@ -14,9 +14,11 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.esco.indicators.domain.beans.form.FormField;
 import org.esco.indicators.domain.beans.structure.Establishment;
+import org.esco.indicators.domain.beans.xml.form.EntryValue;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.constants.ajax.JsonConstants;
+import org.hibernate.annotations.Check;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,17 +64,46 @@ public class AccountActivationAjaxController  {
     
     //------------------------------------------------------------------------------ PUBLIC METHODS
 
-    
+    /**
+     * Creates a map describing the new establishments list to put into the form regarding to the checked JSP keys in the user view.<br/>
+     * This map contains only one key : {@link JsonConstants#ESTABLISHMENTS_LIST}.<br/>
+     * This key is associated to a list of form fields (see {@link FormField}) containing informations on the establishments.<br/>
+     * So, for each form field present into the list :
+     * <ul>
+     * 	<li> The label of the form field contains the name of the establishement</li>
+     * 	<li> The value of the form field contains the UAI of the establishement</li>
+     *  <ul>
+     *  
+     * @param checkedJspKeys
+     * 			The JSP keys that are checked in the user view.
+     * @param selectedJspKeys
+     * 			The JSP keys that are selected in the user view.
+     * 
+     * @return
+     * 	the map containing the new establishments list.
+     */
     @RequestMapping(value="/update-establishments", method=RequestMethod.POST)
-    public @ResponseBody Map<String,List<FormField>> updateEstablishmentsOnSelection(@RequestParam String checkedJspKeys) {
+    public @ResponseBody Map<String,List<FormField>> updateEstablishmentsOnSelection(@RequestParam String checkedJspKeys, @RequestParam String selectedJspKeys ) {
+	// Debug infos
+	LOGGER.debug("Parameter (checkedJspKeys) : [" + checkedJspKeys + "]" );
+	LOGGER.debug("Parameter (selectedJspKeys) : [" + selectedJspKeys + "]" );
+	
 	// Explosion of the Json string into a list of parameters
 	List<String> parameters = explodeJsonParams(checkedJspKeys);
+	parameters.addAll(explodeJsonParams(selectedJspKeys));
+
+	// Cleaning of the list of parameters
+	parameters = removeUnknownJspKeys(parameters);
 	
-	// Retrieval of the form fields containing the etablishments list to update in the user view
-	List<FormField> establishmentsFields = getEstablishmentsFields(parameters);
+	// Keeping the parameters that have influence on the establishments list
+	parameters = keepInfluentialJspKeys(parameters);
 	
+	// Creation of the new establisments list
+	List<FormField> establishmentsFields = createNewEstablishmentsList(parameters);
+	
+	// Creation of the map returned to the Ajax caller
 	Map<String,List<FormField>> response = new HashMap<String, List<FormField>>();
-	response.put("establishments", establishmentsFields);
+	response.put(JsonConstants.ESTABLISHMENTS_LIST, establishmentsFields);
 	
 	return response;
     }
@@ -96,12 +127,14 @@ public class AccountActivationAjaxController  {
     @RequestMapping(value="/update-form", method=RequestMethod.POST)
     public @ResponseBody Map<String,List<String>> updateFormOnSelection(@RequestParam String checkedJspKeys) {
 	// Remove the keys thtat are not known by the application
-	List<String> checkedKeys = explodeJsonParams(checkedJspKeys);
-	checkedKeys = removeUnknownJspKeys(checkedKeys);
-
+	List<String> parameters = explodeJsonParams(checkedJspKeys);
+	
+	// Cleaning of the list of parameters
+	parameters = removeUnknownJspKeys(parameters);
+	
 	// Creation of the new form state
 	// This form state indicates which elements has to be enable / disable in the user view
-	Map<String,List<String>> formState = createNewFormState(checkedKeys);
+	Map<String,List<String>> formState = createNewFormState(parameters);
 
         return formState;
     }
@@ -169,6 +202,118 @@ public class AccountActivationAjaxController  {
 	return formState;
     }
     
+    
+
+    /**
+     * Creates a list of form fields containing establishments informations.<br/>
+     * The establishments are the ones corresponding to the filters forced by the checked JSP keys.<br/>
+     * Indeed, when some JSP keys are checked, they forced the establishments list to be update and they forced
+     * to be filtered.<br/>
+     * Each form field contains :
+     * <ul>
+     * 	<li> The name of the establishment as label</li>
+     * 	<li>The UAI of the establishment as value</br>
+     * </ul>
+     * 
+     * @param checkedJspKeys
+     * 			The JSP keys forcing establishments list update and filters.
+     * 
+     * @return
+     * 	the list of new form fields containing informations of the establishments
+     */
+    private  List<FormField> createNewEstablishmentsList(List<String> checkedJspKeys) {
+	// Retrieval of the authorized establishments type for the establishments list
+	List<String> establishmentsTypes = getEstablishmentsTypesToFilter(checkedJspKeys);
+	
+	// Retrieval of the authorized county numbers
+	List<Integer> countyNumbers = getCountyNumbersToFilter(checkedJspKeys);
+	
+	// Retrieval of the establishements form fields by type and county
+	List<FormField> establishments = getEstablishmentsByCountyNumbersAndTypes(countyNumbers, establishmentsTypes);
+	
+	return establishments;
+    }
+    
+    /**
+     * Gets the establishments list (in a FormField format) regarding to the authorized county numbers and establishments types.
+     * 
+     * @param countyNumbers
+     * 			The authorized county numbers of the establishements.
+     * @param establishmentsTypes
+     * 			The authorized establishements types of the establishments.
+     * 
+     * @return
+     * 	the list of form fields containing the establishments informations.<br/>
+     * 	an empty list if no establishments has been retrieved.
+     */
+    private List<FormField> getEstablishmentsByCountyNumbersAndTypes(List<Integer> countyNumbers,
+	    List<String> establishmentsTypes) {
+	// Retrieval of the establishments with the specified filters
+	Set<Establishment> establishments = establishmentService.findEstablishmentsByCountyNumbersAndTypes(countyNumbers, establishmentsTypes);
+	
+	// Translate the establishments into form fields
+	List<FormField> formFields = new ArrayList<FormField>();
+	for (Establishment establishment : establishments) {
+	    FormField formField = new FormField(establishment.getName(), establishment.getUai());
+	    formFields.add(formField);
+	}
+	
+	return formFields;
+    }
+
+
+    /**
+     * Gets the county numbers to filter when the specified JSP keys are checked in the user view.
+     * 
+     * @param checkedJspKeys
+     * 			The JSP keys that are checked in the user view.
+     * 
+     * @return
+     * 	the list of the county numbers to filter.<br/>
+     * 	an empty list if no county number has to be filtered.
+     */
+    private List<Integer> getCountyNumbersToFilter(List<String> checkedJspKeys) {
+	// Final result
+	List<Integer> countyNumbers = new ArrayList<Integer>();
+	
+	// Retrieval of the county numbers to filter
+	for (String jspKey : checkedJspKeys) {
+	    Integer countyNumber = dataFormService.getCountyNumberToFilter(jspKey);
+	    if(countyNumber != null) {
+		countyNumbers.add(countyNumber);
+	    }
+	}
+	
+	return countyNumbers;
+    }
+
+
+    /**
+     * Gets the establishments types to filter when the specified JSP keys are checked in the user view.
+     * 
+     * @param checkedJspKeys
+     * 			The JSP keys that are checked in the user view.
+     * 
+     * @return
+     * 	the list of the establishment types to filter.<br/>
+     * 	an empty list if no establishment type has to be filtered.
+     */
+    private List<String> getEstablishmentsTypesToFilter(List<String> checkedJspKeys) {
+	// Final result
+	List<String> establishmentsTypes = new ArrayList<String>();
+	
+	// Retrieval of the establishments types to filter
+	for (String jspKey : checkedJspKeys) {
+	    String establishmentType = dataFormService.getEstablishmentTypeToFilter(jspKey);
+	    if(establishmentType != null) {
+		establishmentsTypes.add(establishmentType);
+	    }
+	}
+	
+	return establishmentsTypes;
+    }
+
+
     /**
      * Explodes the Json parameters string into a list of params.
      * 
@@ -181,12 +326,34 @@ public class AccountActivationAjaxController  {
     private List<String> explodeJsonParams(String parameters) {
 	// Extraction of the json params into an array
 	String [] values = parameters.split(JsonConstants.SEPARATOR);
-	return Arrays.asList(values);
+	List<String> result = new ArrayList<String>();
+	result.addAll(Arrays.asList(values));
+	
+	return  result;
     }
     
-    private List<FormField> getEstablishmentsFields(List<String> checkedJspKeys) {
-	// TODO : Inmplement !
-	return null;
+
+    /**
+     * Keeps the JSP keys that have an influence on the establishments list.
+     * 
+     * @param jspKeys
+     * 			The JSP keys to test.
+     * @return
+     * 	the list of JSP keys having an influence on the establishments list.<br/>
+     * 	an empty list if no JSP key has an influence on the establishments list.
+     */
+    private List<String> keepInfluentialJspKeys(List<String> jspKeys) {
+	// Final result
+	List<String> influentialJspKeys = new ArrayList<String>();
+	
+	// Keep the influential JSP keys
+	for (String jspKey : jspKeys) {
+	    if(dataFormService.hasInfluenceOnEstablishmentsList(jspKey)) {
+		influentialJspKeys.add(jspKey);
+	    }
+	}
+	
+	return influentialJspKeys;
     }
     
     /**

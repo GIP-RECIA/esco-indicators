@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.log4j.Logger;
@@ -69,6 +70,7 @@ public class EntryForm {
      * 	the entry name.
      */
     @XmlAttribute(name = "name")
+    @XmlID
     public String getName() {
         return name;
     }

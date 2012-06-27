@@ -29,12 +29,18 @@ import org.apache.log4j.Logger;
 	    	query = "SELECT e FROM Establishment e WHERE e.uai = :uai"
 	    	),
 	@NamedQuery(
-		name="Establishment.findByCountyNumber",
-		query="SELECT e FROM Establishment e WHERE e.countyNumber = :countyNumber "
+		name="Establishment.findByCountyNumbers",
+		query="SELECT e FROM Establishment e WHERE e.countyNumber IN ( :countyNumberList ) "
 		),
 	@NamedQuery(
-		name="Establishment.findByType",
-		query="SELECT e FROM Establishment e WHERE e.type = :type"
+		name="Establishment.findByTypes",
+		query="SELECT e FROM Establishment e WHERE e.type IN ( :typeList )"
+		),
+	@NamedQuery(
+		name="Establishment.findByCountyNumbersAndTypes",
+		query=	"SELECT e FROM Establishment e"
+				+ " WHERE e.countyNumber IN ( :countyNumberList )" 
+				+ " AND e.type IN ( :typeList )"
 		)
 })
 @Table(name = "etablissement")
