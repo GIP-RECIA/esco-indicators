@@ -29,6 +29,12 @@
                                
                 <on-selection-event> : Tag used to indicate what happened when the parent <entry-value> is checked / selected.
                 
+                    <filter-county-number> : Tag used to indicate the county number used to filter the establishments list.
+                                             The content of this tag is {INTEGER}.
+                                             
+                    <filter-establishment-type> : Tag used to indicate the establishment type used to filter the establishements list in the user view.
+                                                  The content of this tag is {STRING}.
+                                                                 
                     <activate-entry-value entry-value="{STRING}"> : Tag used to indicate that the <entry-value> with the name put into the 'entry-value' attribute must be checked / selected in the user view.
                 
                     <desactivate-entry-value entry-value="{STRING}"> : Tag used to indicate that the <entry-value> with the name put into the 'entry-value' attribute must be unchecked / unselected in the user view.
@@ -45,7 +51,7 @@
     <data-form> :: <entry-form>*
     <entry-form> :: <entry-value>+
     <entry-value> :: <jsp-key> <i18n-key> <disable-by-default> <activate-by-default>? <on-selection-event>
-    <on-selection-event> :: ( <activate-entry-value> | <desactivate-entry-value> | <disable-entry-value> | <enable-entry-value> )*
+    <on-selection-event> :: ( <filter-county-number> | <filter-establishment-type> | <activate-entry-value> | <desactivate-entry-value> | <disable-entry-value> | <enable-entry-value> )*
     
  -->
 <data-form>
