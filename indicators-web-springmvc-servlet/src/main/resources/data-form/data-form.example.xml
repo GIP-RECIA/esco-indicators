@@ -44,7 +44,7 @@
     
     <data-form> :: <entry-form>*
     <entry-form> :: <entry-value>+
-    <entry-value> :: <jsp-key> <i18n-key> <disable-by-default> <activate-by-default> <on-selection-event>
+    <entry-value> :: <jsp-key> <i18n-key> <disable-by-default> <activate-by-default>? <on-selection-event>
     <on-selection-event> :: ( <activate-entry-value> | <desactivate-entry-value> | <disable-entry-value> | <enable-entry-value> )*
     
  -->
