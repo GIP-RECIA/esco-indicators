@@ -190,7 +190,8 @@ public class EntryValue {
 	List<EntryValueRef> entryValueRefs = getWhenActivatedEvent().getEntryValuesToDisable();
 	
 	// Retrieval of the entry values by references
-	List<EntryValue> entryValues = getEntryValuesByRefs(entryValueRefs);
+	List<EntryValue> entryValues = new ArrayList<EntryValue>();
+	entryValues.addAll(getEntryValuesByRefs(entryValueRefs));
 	
 	return entryValues;
     }
@@ -204,10 +205,11 @@ public class EntryValue {
      */
     public List<EntryValue> getEntryValuesToEnable() {
 	// Retrieval of the entry values references to enable
-	List<EntryValueRef> entryValuesRefs = getWhenActivatedEvent().getEntryValuesToEnable();
+	List<EntryValueRef> entryValueRefs = getWhenActivatedEvent().getEntryValuesToEnable();
 	
 	// Retrieval of the entry values by references
-	List<EntryValue> entryValues = getEntryValuesByRefs(entryValuesRefs);
+	List<EntryValue> entryValues = new ArrayList<EntryValue>();
+	entryValues.addAll(getEntryValuesByRefs(entryValueRefs));
 	
 	return entryValues;
     }
