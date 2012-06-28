@@ -37,7 +37,7 @@ SUM_ON_COUNTIES_INPUT.dependency    = "county.COUNTY_ALL";
 ///////////////////////////////////////////////////////////
 // FUNCTIONS
 ///////////////////////////////////////////////////////////
-$.ajaxSetup({"error":function(XMLHttpRequest,textStatus, errorThrown) {   
+$.ajaxSetup({"error":function(XMLHttpRequest,textStatus, errorThrown) {
     alert(textStatus);
     alert(errorThrown);
     alert(XMLHttpRequest.responseText);
@@ -49,7 +49,9 @@ $(document).ready(function() {
     // dependencies inputs become checked (resp. unchecked).  
     // //////////////////////////////////////////////////////////////
     $("[value='" + LEN_INPUT.name + "']").change(function() {
-        changeCheckedProperty($(this).prop("checked"), LEN_INPUT.dependencies)    
+        if(!$("[value='" + CFA_INPUT.name + "']").prop("checked")) {
+            changeCheckedProperty($(this).prop("checked"), LEN_INPUT.dependencies);
+        }
     });
 
     // //////////////////////////////////////////////////////////////
@@ -57,23 +59,34 @@ $(document).ready(function() {
     // dependencies inputs become checked (resp. unchecked).  
     // //////////////////////////////////////////////////////////////
     $("[value='" + LA_INPUT.name + "']").change(function() {
-        changeCheckedProperty($(this).prop("checked"), LA_INPUT.dependencies)    
+        if(!$("[value='" + CFA_INPUT.name + "']").prop("checked")) {
+            changeCheckedProperty($(this).prop("checked"), LA_INPUT.dependencies);
+        }
     });
 
     // //////////////////////////////////////////////////////////////
     // When the CFA_INPUT becomes checked :
+    //  - the LEN_INPUT dependencies have to be updated with the
+    //    "checked" property set to false.
+    //  - the LA_INPUT dependencies have to be updated with the
+    //    "checked" property set to false.
+    //
+    // When the CFA_INPUT becomes unchecked :
     //  - the LEN_INPUT dependencies have to be updated with the
     //    "checked" property than the LEN_INPUT itself.
     //  - the LA_INPUT dependencies have to be updated with the
     //    "checked" property than the LA_INPUT itself.
     // //////////////////////////////////////////////////////////////
     $("[value='" + CFA_INPUT.name + "']").change(function() {
-        // Update of the LEN_INPUT dependencies
-        var element = $("[value='" + LEN_INPUT.name + "']");
-        changeCheckedProperty(element.prop("checked"), LEN_INPUT.dependencies)    
-        // Update of the LA_INPUT dependencies
-        var element = $("[value='" + LA_INPUT.name + "']");
-        changeCheckedProperty(element.prop("checked"), LA_INPUT.dependencies)    
+        if($(this).prop("checked")) {
+            changeCheckedProperty(false, LEN_INPUT.dependencies)    
+            changeCheckedProperty(false, LA_INPUT.dependencies)    
+        } else {
+            var element = $("[value='" + LEN_INPUT.name + "']");
+            changeCheckedProperty(element.prop("checked"), LEN_INPUT.dependencies)    
+            var element = $("[value='" + LA_INPUT.name + "']");
+            changeCheckedProperty(element.prop("checked"), LA_INPUT.dependencies)    
+        }
     });
 
 
@@ -98,6 +111,13 @@ $(document).ready(function() {
 		updateEstablishments();
     });
 
+    // //////////////////////////////////////////////////////////////
+    // Update of the form if the page has been reloaded or the
+    // form has been submitted with errors.
+    // Moreover the establishements list is reloaded.
+    // //////////////////////////////////////////////////////////////
+    updateForm();
+    updateEstablishments();
 });
 
 
@@ -137,6 +157,7 @@ function changeCheckedProperty(haveToBeChecked, elementValues) {
         }
         
     }
+
 /** 
  * Function that changes the property of an element retrieved by its value.
  */
@@ -221,6 +242,46 @@ function selectedElementsValues() {
     return selected;
 }
 
+
+/**
+ * Function that retrieved the values of some special elements even if they are not checked.
+ * The values of these checked elements are put into a string
+ * respecting this format :
+ *  {ELEMENT_VALUE1}{SEPARATOR}{ELEMENT_VALUE2}...
+ *
+ * These elements are considered as checked in order to get the expected establishements list.
+ *
+ * Return:
+ *      a string containing the values of some special elements.
+ */
+function specialCheckedElementsValues() {
+    // Final result
+    var elementsValues = "";
+
+    // If the CFA_INPUT is not checked
+    if(!$("[value='" + CFA_INPUT.name + "']").prop("checked")) {
+        return elementsValues;
+    }
+
+    // If the LEN_INPUT is checked
+    if($("[value='" + LEN_INPUT.name + "']").prop("checked")) {
+        // The dependencies of the LEN_INPUT must be considered as checked
+        for(var i = 0; i < LEN_INPUT.dependencies.length; i++) {
+            elementsValues += LEN_INPUT.dependencies[i] + SEPARATOR;
+        }
+    }
+
+    // If the LA_INPUT is checked
+    if($("[value='" + LA_INPUT.name + "']").prop("checked")) {
+        // The dependencies of the LA_INPUT must be considered as checked
+        for(var i = 0; i < LA_INPUT.dependencies.length; i++) {
+            elementsValues += LA_INPUT.dependencies[i] + SEPARATOR;
+        }
+    }
+
+    return elementsValues;
+}
+
 /**
  * Uncheckes HTML elements by value.
  * All the elements having a value contained in the 'elementValues' list
@@ -275,8 +336,12 @@ function updateEstablishments() {
     // Retrieval of the values of the checked elements
     var checkedValues = checkedElementsValues();
 
+    // Retrieval of the values of the 'special' elements
+    checkedValues += specialCheckedElementsValues();
+
     // Retrieval of the values of the selected elements
     var selectedValues = selectedElementsValues();
+
 
     // Data for the request
     $.post(  "accounts-activations-ajax/update-establishments", 
