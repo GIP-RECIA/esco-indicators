@@ -18,6 +18,9 @@
 ///////////////////////////////////////////////////////////
 var SEPARATOR   = ";";
 
+var CFA_INPUT           = new Object( );
+CFA_INPUT.name          = "establishmentType.CFA";
+
 var LEN_INPUT           = new Object( );
 LEN_INPUT.name          = "establishmentType.LEN";
 LEN_INPUT.dependencies  = new Array("lyceesTypes.LP", "lyceesTypes.LEGT", "lyceesTypes.EREA");
@@ -26,8 +29,9 @@ var LA_INPUT            = new Object( );
 LA_INPUT.name           = "establishmentType.LA";
 LA_INPUT.dependencies   = new Array("laTypes.LEGTA", "laTypes.LPA");
 
-var CFA_INPUT           = new Object( );
-CFA_INPUT.name          = "establishmentType.CFA";
+var SUM_ON_COUNTIES_INPUT           = new Object( );
+SUM_ON_COUNTIES_INPUT.name          = "sumOnCounties.DEFAULT";
+SUM_ON_COUNTIES_INPUT.dependency    = "county.COUNTY_ALL";
 
 ///////////////////////////////////////////////////////////
 // FUNCTIONS
@@ -71,6 +75,14 @@ $(document).ready(function() {
         changeCheckedProperty(element.prop("checked"), LA_INPUT.dependencies)    
     });
 
+
+    // //////////////////////////////////////////////////////////////
+    // When the SUM_ON_COUNTIES_INPUT is checked, its dependency
+    // is selected.
+    // //////////////////////////////////////////////////////////////
+    $("[value='" + SUM_ON_COUNTIES_INPUT.name + "']").change(function() {
+        changeElementProperty(SUM_ON_COUNTIES_INPUT.dependency, "selected", true) 
+    });
 
     // //////////////////////////////////////////////////////////////
     // When an input is checked, the values of the checked inputs are 
