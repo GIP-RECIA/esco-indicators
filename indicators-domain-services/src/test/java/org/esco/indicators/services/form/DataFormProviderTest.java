@@ -9,7 +9,7 @@ import java.util.List;
 import junit.framework.Assert;
 
 import org.esco.indicators.domain.beans.xml.form.EntryValue;
-import org.esco.indicators.domain.beans.xml.form.OnSelectionEvent;
+import org.esco.indicators.domain.beans.xml.form.OnActivationEvent;
 import org.hibernate.mapping.Array;
 import org.junit.Before;
 import org.junit.Test;

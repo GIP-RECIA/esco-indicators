@@ -171,8 +171,8 @@ public class DataFormTest {
 	Integer actual = 0;
 	
 	for (EntryValue entryValue : dataForm.getAllEntryValues()) {
-		List<DisableEntryValue> refsToDisable = entryValue.getOnSelectionEvent().getEntryValuesToDisable();
-		List<EnableEntryValue> refsToEnable = entryValue.getOnSelectionEvent().getEntryValuesToEnable();
+		List<EntryValueRef> refsToDisable = entryValue.getWhenActivatedEvent().getEntryValuesToDisable();
+		List<EntryValueRef> refsToEnable = entryValue.getWhenActivatedEvent().getEntryValuesToEnable();
 		actual += (refsToDisable == null ? 0 : refsToDisable.size());
 		actual += (refsToEnable == null ? 0 : refsToEnable.size());
 	}
@@ -199,19 +199,19 @@ public class DataFormTest {
 	// Actual result
 	///////////////////////////////
 	List<String> actual =  new ArrayList<String>();
-	List<DisableEntryValue> refsToDisable = new ArrayList<DisableEntryValue>();
+	List<EntryValueRef> refsToDisable = new ArrayList<EntryValueRef>();
 	
 	// Iteration on the entry form
 	    for(EntryValue entryValue :dataForm.getAllEntryValues()) {
-		List<DisableEntryValue> disableEV = entryValue.getOnSelectionEvent().getEntryValuesToDisable();
+		List<EntryValueRef> disableEV = entryValue.getWhenActivatedEvent().getEntryValuesToDisable();
 		 if (disableEV != null) {
 		     refsToDisable.addAll(disableEV);
 		 }
 	    }
 	
 	// Get the names of the entry values to disable
-	for (DisableEntryValue disableEntryValue : refsToDisable) {
-	    actual.add(disableEntryValue.getEntryValue().getName());
+	for (EntryValueRef entryValueRef : refsToDisable) {
+	    actual.add(entryValueRef.getEntryValue().getName());
 	}
 	
 	///////////////////////////////
@@ -237,18 +237,18 @@ public class DataFormTest {
 	// Actual result
 	///////////////////////////////
 	List<String> actual =  new ArrayList<String>();
-	List<EnableEntryValue> refsToEnable = new ArrayList<EnableEntryValue>();
+	List<EntryValueRef> refsToEnable = new ArrayList<EntryValueRef>();
 	
 	// Iteration on the entry form
 	for (EntryValue entryValue : dataForm.getAllEntryValues()) {
-	    List<EnableEntryValue> enableEV = entryValue.getOnSelectionEvent().getEntryValuesToEnable();
+	    List<EntryValueRef> enableEV = entryValue.getWhenActivatedEvent().getEntryValuesToEnable();
 	    if (enableEV != null) {
 		refsToEnable.addAll(enableEV);
 	    }
 	}
 	
 	// Get the names of the entry values to enable
-	for (EnableEntryValue enableEntryValue : refsToEnable) {
+	for (EntryValueRef enableEntryValue : refsToEnable) {
 	    actual.add(enableEntryValue.getEntryValue().getName());
 	}
 	

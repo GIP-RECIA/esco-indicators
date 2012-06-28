@@ -86,6 +86,7 @@ public class EntryForm {
     }
 
 
+    //------------------------------------------------------------------------------ PUBLIC METHODS
     /* (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */

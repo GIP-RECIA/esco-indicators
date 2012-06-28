@@ -75,9 +75,14 @@ public class AccountActivationAjaxController  {
      *  <ul>
      *  
      * @param checkedJspKeys
-     * 			The JSP keys that are checked in the user view.
+     * 			The JSP keys that are checked in the user view.<br/>
+     * 			This string has to respect this pattern : {JSP_KEY1}{SEPARATOR}{JSP_KEY2}{...}<br/>
+     * 			The SEPARATOR corresponds to the {@link JsonConstants#SEPARATOR}.
+     * 
      * @param selectedJspKeys
-     * 			The JSP keys that are selected in the user view.
+     * 			The JSP keys that are selected in the user view.<br/>
+     * 			This string has to respect this pattern : {JSP_KEY1}{SEPARATOR}{JSP_KEY2}{...}<br/>
+     * 			The SEPARATOR corresponds to the {@link JsonConstants#SEPARATOR}.
      * 
      * @return
      * 	the map containing the new establishments list.
@@ -115,6 +120,7 @@ public class AccountActivationAjaxController  {
      * 			JSP keys already checked in the user view.<br/>
      * 			This string has to respect this pattern : {JSP_KEY1}{SEPARATOR}{JSP_KEY2}{...}<br/>
      * 			The SEPARATOR corresponds to the {@link JsonConstants#SEPARATOR}.
+     * 
      * @return
      * 	A map containing the new states of the form inputs<br/>
      *		This map contains two strings as keys, an list as values :
@@ -126,6 +132,9 @@ public class AccountActivationAjaxController  {
      */
     @RequestMapping(value="/update-form", method=RequestMethod.POST)
     public @ResponseBody Map<String,List<String>> updateFormOnSelection(@RequestParam String checkedJspKeys) {
+	// Debug infos
+	LOGGER.debug("Parameter (checkedJspKeys) : [" + checkedJspKeys + "]" );
+	
 	// Remove the keys thtat are not known by the application
 	List<String> parameters = explodeJsonParams(checkedJspKeys);
 	

@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
+<!-- 
+    #######################################
+    Explanations about the tags of this XML
+    #######################################
+    
+    <data-form> : Root tag used to declare the content of a form and the rules between the entries.
+    
+        <entry-form name="{STRING}"> : Tag used to declare an entry in the form.
+                                       The attribute name must be unique.
+        
+            <entry-value name="{STRING}"> : Tag used to declare an available value for the parent <entry-form>.
+            
+                <jsp-key> : Tag used to declare the key used in the JSP in order to identify the entry value.
+                            The content of this tag is a {STRING}.
+                            This jsp key must be unique.
+                            Generally this key is put into the HTML attribute : 'value'.
+                            
+                <i18n-key>: Tag used to declare the i18n key to use for displaying the value in the user view.
+                            The content of this tag is a {STRING}.
+                            This i18n key must be unique.
+                
+                <disable-by-default> : Tag used to indicate if the parent <entry-value> is disabled in the user view.
+                                       The content of this tag is a {BOOLEAN}.
+                
+                <when-activated-event> : Tag used to indicate what happens when the parent <entry-value> is checked / selected.
+                
+                    <filter-county-number> : Tag used to indicate the county number used to filter the establishments list.
+                                             The content of this tag is {INTEGER}.
+                                             
+                    <filter-establishment-type> : Tag used to indicate the establishment type used to filter the establishements list in the user view.
+                                                  The content of this tag is {STRING}.
 
+                    <disable-entry-value entry-value="{STRING}"> : Tag used to indicate that the <entry-value> with the name put into the 'entry-value' attribute must be disabled in the user view.
+                    
+                    <enable-entry-value entry-value="{STRING}"> : Tag used to indicate that the <entry-value> with the name put into the 'entry-value' attribute must be enabled in the user view.                                         
+ 
+ 
+ 
+    #######################################
+    Tags composition
+    #######################################
+    
+    <data-form> :: <entry-form>*
+    <entry-form> :: <entry-value>+
+    <entry-value> :: <jsp-key> <i18n-key> <disable-by-default> <activate-by-default>? <on-activation-event> <when-activated-event>
+    <when-activated-event> :: ( <filter-county-number> | <filter-establishment-type> | <disable-entry-value> | <enable-entry-value> )*
+    
+ -->
 <data-form>
 
     <!-- ////////////////////////// -->
@@ -12,19 +59,19 @@
             <jsp-key>monitoringType.attendance</jsp-key>
             <i18n-key>form.monitoringType.attendance</i18n-key>
             <disable-by-default>false</disable-by-default>
-            <on-selection-event>
-            </on-selection-event>
+            <when-activated-event>
+            </when-activated-event>
         </entry-value>
         
         <entry-value name="monitoringAttendance">
             <jsp-key>monitoringType.monitoringAttendance</jsp-key>
             <i18n-key>form.monitoringType.monitoringAttendance</i18n-key>
             <disable-by-default>false</disable-by-default>
-            <on-selection-event>
+            <when-activated-event>
                 <disable-entry-value entry-value="CFA" />
                 <disable-entry-value entry-value="LA" />
                 <enable-entry-value entry-value="LEGT" />
-            </on-selection-event>
+            </when-activated-event>
         </entry-value>
         
     </entry-form>
@@ -38,26 +85,27 @@
             <jsp-key>establishmentType.CFA</jsp-key>
             <i18n-key>form.establishmentType.CFA</i18n-key>
             <disable-by-default>false</disable-by-default>
-            <on-selection-event>
-            </on-selection-event>
+            <when-activated-event>
+            </when-activated-event>
         </entry-value>
         
         <entry-value name="LA">
             <jsp-key>establishmentType.LA</jsp-key>
             <i18n-key>form.establishmentType.LA</i18n-key>
             <disable-by-default>false</disable-by-default>
-            <on-selection-event>
-            </on-selection-event>
+            <when-activated-event>
+            </when-activated-event>
         </entry-value>
         
         <entry-value name="LEGT">
             <jsp-key>establishmentType.LEGT</jsp-key>
             <i18n-key>form.establishmentType.LEGT</i18n-key>
             <disable-by-default>true</disable-by-default>
-            <on-selection-event>
-            </on-selection-event>
+            <when-activated-event>
+            </when-activated-event>
         </entry-value>
         
     </entry-form>
     
 </data-form>
+
