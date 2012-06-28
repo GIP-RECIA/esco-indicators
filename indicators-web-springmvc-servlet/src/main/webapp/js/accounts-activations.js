@@ -16,18 +16,19 @@
 ///////////////////////////////////////////////////////////
 // CONSTANTS
 ///////////////////////////////////////////////////////////
-var SEPARATOR   = ";";
+var SEPARATOR               = ";";
+var ESTABLISHMENTS_TABLE_ID = "establishmentsList";
 
-var CFA_INPUT           = new Object( );
-CFA_INPUT.name          = "establishmentType.CFA";
+var CFA_INPUT               = new Object( );
+CFA_INPUT.name              = "establishmentType.CFA";
 
-var LEN_INPUT           = new Object( );
-LEN_INPUT.name          = "establishmentType.LEN";
-LEN_INPUT.dependencies  = new Array("lyceesTypes.LP", "lyceesTypes.LEGT", "lyceesTypes.EREA");
+var LEN_INPUT               = new Object( );
+LEN_INPUT.name              = "establishmentType.LEN";
+LEN_INPUT.dependencies      = new Array("lyceesTypes.LP", "lyceesTypes.LEGT", "lyceesTypes.EREA");
 
-var LA_INPUT            = new Object( );
-LA_INPUT.name           = "establishmentType.LA";
-LA_INPUT.dependencies   = new Array("laTypes.LEGTA", "laTypes.LPA");
+var LA_INPUT                = new Object( );
+LA_INPUT.name               = "establishmentType.LA";
+LA_INPUT.dependencies       = new Array("laTypes.LEGTA", "laTypes.LPA");
 
 var SUM_ON_COUNTIES_INPUT           = new Object( );
 SUM_ON_COUNTIES_INPUT.name          = "sumOnCounties.DEFAULT";
@@ -98,6 +99,30 @@ $(document).ready(function() {
     });
 
 });
+
+
+/**
+ * Function that appends an establishment into the establishments
+ * table of the form.
+ * Each establishment contains :
+ *  - A label for displaying the name of the establishment
+ *  - A value for setting the value attribute of the establishement
+ *  - A path for setting the name attribute of the establishement
+ */
+function appendEstablishment(establishment) {
+    // String to append to the table
+    var toAppend = '<tr>';
+    toAppend += '<td>';
+    toAppend += '<input id="' + establishment.value + '" type="checkbox" value="' + establishment.value + '" + name="' + establishment.path + '">';
+    toAppend += '</td>';
+    toAppend += '<td>';
+    toAppend += '<label for="' + establishment.value + '">' + establishment.label + '</label>';
+    toAppend += '</td>';
+    toAppend += '</tr>';
+
+    // Appends the string to the table
+    $("#" + ESTABLISHMENTS_TABLE_ID).append(toAppend);
+}
 
 /**
  * Function that change the "checked" property of elements (referenced by their values).
@@ -208,6 +233,25 @@ function uncheckElementsByValues(elementValues) {
     }
 }
 
+
+
+/**
+ * Update the establishments list of the form with the new specified list.
+ * This list contains establishments containing :
+ *  - A label for disaplying the name of the establishment
+ *  - A value for setting the value attribute of the establishement
+ *  - A path for setting the name attribute of the establishement
+ */
+function updateEstablishmentsList(establishments_list) {
+    // Clear the current establishments list
+    $("#" + ESTABLISHMENTS_TABLE_ID + " tr").remove();
+
+    // Update the list
+    for(var i = 0; i < establishments_list.length; i++) {
+       appendEstablishment(establishments_list[i]);
+    }
+}
+
 ///////////////////////////////////////////////////////////
 // AJAX FUNCTIONS
 ///////////////////////////////////////////////////////////
@@ -240,8 +284,8 @@ function updateEstablishments() {
                     checkedJspKeys : checkedValues,
                     selectedJspKeys: selectedValues
                 }, 
-                function(formState) {
-                    alert("establishments : " + formState.establishments_list);
+                function(response) {
+                    updateEstablishmentsList(response.establishments_list);
                 }
              );
 }

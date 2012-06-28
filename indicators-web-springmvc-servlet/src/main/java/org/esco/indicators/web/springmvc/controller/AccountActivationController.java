@@ -159,14 +159,7 @@ public class AccountActivationController  {
      */
     @ModelAttribute("establishmentsItems")
     public List<FormField> populateEstablishments(HttpServletRequest request) {
-	Establishment estab = new Establishment(45, "0458751U", "CFA");
-	estab.setName("CFA des Sports");
-	estab.setSiren("4515452");
-	
-	List<FormField> labels = new ArrayList<FormField>();
-	labels.add(new FormField(estab.getName(), estab.getUai()));
-	
-	return labels;
+	return  (new ArrayList<FormField>());
     }
     
     /**
@@ -269,8 +262,6 @@ public class AccountActivationController  {
 	if(LOGGER.isDebugEnabled()) {
 	    LOGGER.debug("Submitted form : " + aaForm.toString());
 	}
-	
-	System.out.println(aaForm);
 	
 	// Validation of the form
 	accountActivationValidator.validate(aaForm, result);

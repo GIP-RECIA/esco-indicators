@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
  * <ul>
  * 	<li>A label : used for the display into the form</li>
  * 	<li>A value : used for the identification into the form</li>
+ * 	<li>A path : used for the mapping between user form and form object</li>
  * 	<li>A boolean : used for indicating if the value is disabled (or not) into the form</li>
  * </ul>
  * 
@@ -28,6 +29,9 @@ public class FormField {
     
     /** Value of the object */
     private String value;
+    
+    /** Name of the object */
+    private String path;
     
     /** Boolean indicating if the field is disabled */
     private boolean disabled;
@@ -47,7 +51,27 @@ public class FormField {
 	this.value = value;
     }
     
-    
+    /**
+     * 
+     * Constructor of the {@link FormField} class.
+     * 
+     * @param label
+     * 			The label of the object.
+     * @param value
+     * 			The value of the object.
+     * @param path
+     * 			The path of the object.
+     */
+    public FormField(String label, String value, String name) {
+	super();
+	this.label = label;
+	this.value = value;
+	this.path = name;
+    }
+
+
+
+
     //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
      * Gets the label.
@@ -81,7 +105,16 @@ public class FormField {
         return disabled;
     }
     
-    
+    /**
+     * Gets the path.
+     * 
+     * @return 
+     * 	the path
+     */
+    public String getPath() {
+        return path;
+    }
+
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**

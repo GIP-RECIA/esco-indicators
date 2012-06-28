@@ -80,7 +80,7 @@
     </div>
     
     <div>
-        <table>
+        <table id="establishmentsList">
             <c:forEach var="establishment" items="${establishmentsItems}">
                 <tr>
                    <td><form:checkbox path="establishments" value="${establishment.value}" /></td>

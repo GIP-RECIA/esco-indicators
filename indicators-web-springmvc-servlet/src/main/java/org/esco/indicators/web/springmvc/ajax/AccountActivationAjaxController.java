@@ -18,6 +18,7 @@ import org.esco.indicators.domain.beans.xml.form.EntryValue;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.constants.ajax.JsonConstants;
+import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.hibernate.annotations.Check;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -263,7 +264,7 @@ public class AccountActivationAjaxController  {
 	// Translate the establishments into form fields
 	List<FormField> formFields = new ArrayList<FormField>();
 	for (Establishment establishment : establishments) {
-	    FormField formField = new FormField(establishment.getName(), establishment.getUai());
+	    FormField formField = new FormField(establishment.getName(), establishment.getUai(), DataFormConstants.ESTABLISHMENTS);
 	    formFields.add(formField);
 	}
 	

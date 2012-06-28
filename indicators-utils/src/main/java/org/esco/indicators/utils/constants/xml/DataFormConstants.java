@@ -42,6 +42,8 @@ public class DataFormConstants {
     /** Users profiles */
     public static final  String USERS_PROFILES = "usersProfiles"; 
     
+    /** Establishments */
+    public static final  String ESTABLISHMENTS = "establishments"; 
     
     ///////////////////////////////////////////////////////
     // Values of the XML  <jsp-key> tags
