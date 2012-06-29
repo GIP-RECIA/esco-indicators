@@ -79,7 +79,7 @@ public interface DataFormService {
     public Integer getCountyNumberToFilter(String jspKey);
     
     /**
-     * Gets the establishment type to filter when the specified JSP key is checked in the iser view.
+     * Gets the establishment type to filter when the specified JSP key is checked in the user view.
      * 
      * @param jspKey
      * 			The JSP key to test.
@@ -88,6 +88,18 @@ public interface DataFormService {
      * 	<code>null</code> if no establishment type has to be filtered.
      */
     public String getEstablishmentTypeToFilter(String jspKey);
+    
+    /**
+     * Gets the i18n key associated to the specified JSP key.
+     * 
+     * @param jspKey
+     * 			The JSP key associated with the searched i18n key.
+     * 
+     * @return
+     * 	the i18n key associated to the specified JSP key.<br/>
+     * 	an empty string if no i18n key has been retrieved.
+     */
+    public String getI18nKey(String jspKey);
     
     /**
      * Indicates if a JSP key has an influence on the establishments list when its state changes in the user view.<br/>

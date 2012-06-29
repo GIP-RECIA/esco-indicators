@@ -163,6 +163,24 @@ public class DataFormServiceImpl implements DataFormService {
     }
 
     /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.DataFormService#getI18nKey(java.lang.String)
+     */
+    @Override
+    public String getI18nKey(String jspKey) {
+       init();
+       
+       // Retrieval of the entry value
+       EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
+       String i18n = entryValue.getI18nKey();
+       if(i18n == null ) {
+	   LOGGER.warn("No i18n key associated to the JSP key : [" + jspKey +"]");
+	   return "";
+       }
+       
+        return i18n;
+    }
+
+    /* (non-Javadoc)
      * @see org.esco.indicators.services.form.DataFormService#hasInfluenceOnEstablishmentsList(java.lang.String)
      */
     @Override

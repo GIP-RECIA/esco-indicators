@@ -12,6 +12,13 @@
 
     <h1>Well done, you have your result !</h1>
 
+<div id="filters">
+
+    <p><spring:message code="filter.title.monitoringType" /> : <spring:message code="${monitoringTypeItem}" /></p> 
+
+</div>
+
+
 <div>
     <ul id="menu">
         <li><a href="/accounts-activations"><spring:message code="menu.accounts-activations"/></a></li>
