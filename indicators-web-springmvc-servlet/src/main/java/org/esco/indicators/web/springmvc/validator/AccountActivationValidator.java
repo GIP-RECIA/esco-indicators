@@ -66,9 +66,8 @@ public class AccountActivationValidator implements Validator {
 	}
 	
 	// Validation of the county field
-	String sumOnCoutniesStr = (String) errors.getFieldValue(DataFormConstants.SUM_ON_COUNTIES);
-	boolean sumOnCounties = Boolean.valueOf(sumOnCoutniesStr);
-	if( !sumOnCounties) {
+	String sumOnCountiesStr = (String) errors.getFieldValue(DataFormConstants.SUM_ON_COUNTIES);
+	if( sumOnCountiesStr == null || sumOnCountiesStr.isEmpty()) {
 	    //  If no sum on counties is specified
 	    // A county must be selected
 	    ValidationUtils.rejectIfEmpty(errors, DataFormConstants.COUNTY, "error.form.county.empty");
