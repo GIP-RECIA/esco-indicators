@@ -19,6 +19,7 @@ import org.esco.indicators.domain.beans.form.FormField;
 import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.domain.beans.xml.form.EntryValue;
 import org.esco.indicators.services.form.DataFormService;
+import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.web.springmvc.validator.AccountActivationValidator;
 import org.esupportail.commons.services.i18n.I18nService;
@@ -269,7 +270,12 @@ public class AccountActivationController  {
 	if(result.hasErrors()) {
 	    return "accounts-activations";
 	}
-	return "accounts-activations-success";
+	
+	// Storage of the form in session
+	request.getSession().setAttribute(SessionConstants.ACCOUNT_FORM_ATTR, aaForm);
+	
+	// Redirection to the result controller
+	return "redirect:result";
     }
     
 
