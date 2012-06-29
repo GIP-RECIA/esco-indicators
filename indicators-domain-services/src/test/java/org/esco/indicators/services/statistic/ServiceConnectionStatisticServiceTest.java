@@ -52,7 +52,7 @@ public class ServiceConnectionStatisticServiceTest {
 	String establishmentUai = "0453456A";
 	String serviceName = "Teacher service";
 	String userProfile = "Teacher";
-	Date day = DateUtils.toSqlDate("2012-05-28");
+	Date day = DateUtils.toSqlDate("28/05/2012", DateUtils.DATE_FORMAT_FR);
 	Integer actual = serviceConnectionStatisticService.findDailyNumConnectionsByProfile(day,
 		establishmentUai, serviceName, userProfile);
 	

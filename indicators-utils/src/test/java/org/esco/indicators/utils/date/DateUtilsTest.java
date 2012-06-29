@@ -28,7 +28,7 @@ public class DateUtilsTest {
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**
-     * Test method for {@link org.esco.indicators.utils.date.DateUtils#toSqlDate(java.lang.String)}.
+     * Test method for {@link org.esco.indicators.utils.date.DateUtils#toSqlDate(java.lang.String, String)}.
      */
     @Test
     public void testToSqlDate() {
@@ -45,8 +45,8 @@ public class DateUtilsTest {
 	String yearStr = year.toString();
 	String monthStr = month.toString();
 	String dayStr = day.toString();
-	String dateStr = yearStr + "-" + monthStr + "-" + dayStr;
-	Date actual =  DateUtils.toSqlDate(dateStr);
+	String dateStr = dayStr + "/" + monthStr + "/" + yearStr;
+	Date actual =  DateUtils.toSqlDate(dateStr, DateUtils.DATE_FORMAT_FR);
 	
 	// Test
 	Assert.assertEquals(expected.getTime(), actual.getTime());

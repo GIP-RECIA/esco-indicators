@@ -27,13 +27,13 @@ public class AccountActivationForm {
     
     /** 
      * Date : Beginning of the period
-     * Format : yyyy-DD-mm
+     * Format : DD/mm/yyyy
      */
     private Date startDate;
 
     /** 
      * Date : End of the period
-     * Format : yyyy-DD-mm
+     * Format : DD/mm/yyyy
      */
     private Date endDate;
     

@@ -53,8 +53,8 @@ public class AccountActivationStatisticServiceTest {
 	Integer expected = 3;
 	
 	// Actual result
-	Date startDate = DateUtils.toSqlDate("2012-02-01");
-	Date endDate = DateUtils.toSqlDate("2012-02-04");
+	Date startDate = DateUtils.toSqlDate("01/02/2012", DateUtils.DATE_FORMAT_FR);
+	Date endDate = DateUtils.toSqlDate("04/02/2012", DateUtils.DATE_FORMAT_FR);
 	Integer actual  = accountActivationStatisticService.findNumActivatedAccountsBetween(startDate, endDate);
 	
 	// Test
@@ -74,8 +74,8 @@ public class AccountActivationStatisticServiceTest {
 	Integer expected = 2;
 	
 	// Actual result
-	Date startDate = DateUtils.toSqlDate("2012-01-20");
-	Date endDate = DateUtils.toSqlDate("2012-02-03");
+	Date startDate = DateUtils.toSqlDate("20/01/2012", DateUtils.DATE_FORMAT_FR);
+	Date endDate = DateUtils.toSqlDate("03/02/2012",  DateUtils.DATE_FORMAT_FR);
 	Integer actual  = accountActivationStatisticService.findNumActivatedAccountsBetween(startDate, endDate);
 	
 	// Test
@@ -95,8 +95,8 @@ public class AccountActivationStatisticServiceTest {
 	Integer expected = 0;
 	
 	// Actual result
-	Date startDate = DateUtils.toSqlDate("2000-01-01");
-	Date endDate = DateUtils.toSqlDate("2999-01-01");
+	Date startDate = DateUtils.toSqlDate("01/01/2000", DateUtils.DATE_FORMAT_FR);
+	Date endDate = DateUtils.toSqlDate("01/01/2999", DateUtils.DATE_FORMAT_FR);
 	Integer actual  = accountActivationStatisticService.findNumActivatedAccountsBetween(startDate, endDate);
 	
 	// Test

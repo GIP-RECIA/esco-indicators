@@ -24,23 +24,27 @@ public class DateUtils {
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(DateUtils.class);
 
+    /** Date format */
+    public static final String DATE_FORMAT_FR = "dd/MM/yyyy";
+    
     //-------------------------------------------------------------------------------- CONSTRUCTORS
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**
-     * Converts a string representing a date (yyyy-MM-dd) to a SQL date.
+     * Converts a string representing a date to a SQL date.
      * 
      * @param date
-     * 			The string date in the format yyyy-MM-dd
+     * 			The string date in the specified format
+     * @param format 
      * @return
      * 	the SQL date corresponding to the specified <code>date</code>.<br/>
      * 	<code>null</code> if the date could not been converted.
      */
-    public static Date toSqlDate(String date) {
+    public static Date toSqlDate(String date, String format) {
 	// Format of the specified date
-	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	SimpleDateFormat dateFormat = new SimpleDateFormat(format);
 	Date day = null;
 	
 	// Try to get the SQL date
@@ -49,7 +53,7 @@ public class DateUtils {
 	    day = new Date(parsedDate.getTime());
 	} catch (ParseException e) {
 	    LOGGER.error("The specified date : [" + date + "] could not have been translated into a SQL"
-	    		+ " date using the date format (yyyy-MM-dd)");
+	    		+ " date using the date format : [" + format + "]");
 	}
 	
 	return day;

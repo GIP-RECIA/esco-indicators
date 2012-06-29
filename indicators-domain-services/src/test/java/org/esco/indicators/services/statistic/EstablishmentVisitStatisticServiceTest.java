@@ -53,7 +53,7 @@ public class EstablishmentVisitStatisticServiceTest  {
     @Test
     public void testFindDailyStatistic1() {
 	// Expected result
-	Date day = DateUtils.toSqlDate("2012-05-28");
+	Date day = DateUtils.toSqlDate("28/05/2012", DateUtils.DATE_FORMAT_FR);
 	String establishmentUai = "0453456A";
 	String establishmentType = EstablishmentConstants.ESTABLISHMENT_TYPE_CFA;
 	String typeStat = StatisticConstants.TYPE_STAT_ESTABLISHMENT;
@@ -75,7 +75,7 @@ public class EstablishmentVisitStatisticServiceTest  {
      */
     @Test
     public void testFindDailyStatistic2() {
-	Date day = DateUtils.toSqlDate("2999-12-31");
+	Date day = DateUtils.toSqlDate("31/12/2999", DateUtils.DATE_FORMAT_FR);
 	String establishmentUai = "0453456A";
 	String establishmentType = EstablishmentConstants.ESTABLISHMENT_TYPE_CFA;
 	

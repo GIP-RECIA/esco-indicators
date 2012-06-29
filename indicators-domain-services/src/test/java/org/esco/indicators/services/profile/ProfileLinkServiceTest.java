@@ -54,8 +54,8 @@ public class ProfileLinkServiceTest {
 	expected.add("F8654397U");
 	
 	// Actual result
-	Date startDate = DateUtils.toSqlDate("2012-02-01");
-	Date endDate = DateUtils.toSqlDate("2012-07-13");
+	Date startDate = DateUtils.toSqlDate("01/02/2012", DateUtils.DATE_FORMAT_FR);
+	Date endDate = DateUtils.toSqlDate("13/07/2012", DateUtils.DATE_FORMAT_FR);
 	String userProfile = "Teacher";
 	String establishmentUai = "0453456A";
 	List<String> actual = profileLinkService.findUidsByProfile(userProfile, establishmentUai, startDate, endDate);
@@ -77,8 +77,8 @@ public class ProfileLinkServiceTest {
 	expected.add("F8654397U");
 	
 	// Actual result
-	Date startDate = DateUtils.toSqlDate("2012-02-01");
-	Date endDate = DateUtils.toSqlDate("2012-07-14");
+	Date startDate = DateUtils.toSqlDate("01/02/2012", DateUtils.DATE_FORMAT_FR);
+	Date endDate = DateUtils.toSqlDate("14/07/2012", DateUtils.DATE_FORMAT_FR);
 	String userProfile = "Teacher";
 	String establishmentUai = "0453456A";
 	List<String> actual = profileLinkService.findUidsByProfile(userProfile, establishmentUai, startDate, endDate);
@@ -98,8 +98,8 @@ public class ProfileLinkServiceTest {
 	List<String> expected = new ArrayList<String>();
 	
 	// Actual result
-	Date startDate = DateUtils.toSqlDate("2011-03-17");
-	Date endDate = DateUtils.toSqlDate("2012-07-14");
+	Date startDate = DateUtils.toSqlDate("17/03/2011", DateUtils.DATE_FORMAT_FR);
+	Date endDate = DateUtils.toSqlDate("14/07/2012", DateUtils.DATE_FORMAT_FR);
 	String userProfile = "Teacher";
 	String establishmentUai = "0453456A";
 	List<String> actual = profileLinkService.findUidsByProfile(userProfile, establishmentUai, startDate, endDate);
