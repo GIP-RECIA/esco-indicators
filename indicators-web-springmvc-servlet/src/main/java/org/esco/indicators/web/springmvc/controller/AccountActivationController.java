@@ -55,10 +55,6 @@ public class AccountActivationController  {
     @Autowired
     private DataFormService dataFormService;
     
-    /** Service providing access to internationalized strings */
-    @Autowired
-    private I18nService i18nService;
-    
     /** Validator of the form */
     @Autowired
     private AccountActivationValidator accountActivationValidator;
@@ -92,15 +88,6 @@ public class AccountActivationController  {
         this.dataFormService = dataFormService;
     }
 
-    /**
-     * Sets the service providing access to i18n string.
-     * 
-     * @param i18nService 
-     * 			The service providing access to i18n string to set.
-     */
-    public void setI18nService(I18nService i18nService) {
-        this.i18nService = i18nService;
-    }    
     
     
     //------------------------------------------------------------------------------ PUBLIC METHODS
@@ -282,20 +269,6 @@ public class AccountActivationController  {
     //----------------------------------------------------------------------------- PRIVATE METHODS
     
     /**
-     * Gets the web user locale from the request.
-     * 
-     * @param request
-     * 			The request made by the web user.
-     * @return
-     * 	the locale of the web user.
-     */
-    private Locale getLocale(HttpServletRequest request) {
-	RequestContext requestContext = new RequestContext(request);
-	Locale locale = requestContext.getLocale();
-	return locale;
-    }
-    
-    /**
      * Gets the items (labels, values, disable states) available for the specified entry.
      * 
      * @param request
@@ -306,16 +279,13 @@ public class AccountActivationController  {
      * 	the available items (labels, values, disable states) for the entry.
      */
     private List<FormField> getEntryFormFields(HttpServletRequest request, String entryName) {
-	// Retrival of the locale
-	Locale locale = getLocale(request);
-	
 	// Retrieval of the entry values
 	List<EntryValue> entries = dataFormService.getEntryValues(entryName);
 	
 	// Creation of the corresponding items (labels and values)
 	List<FormField> formFields = new ArrayList<FormField>();
 	for (EntryValue entry : entries) {
-	    String label = i18nService.getString(entry.getI18nKey(), locale);
+	    String label = entry.getI18nKey();
 	    String value = entry.getJspKey();
 	    
 	    FormField formField = new FormField(label, value);
