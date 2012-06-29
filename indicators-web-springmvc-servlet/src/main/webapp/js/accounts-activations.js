@@ -22,6 +22,9 @@ var ESTABLISHMENTS_TABLE_ID = "establishmentsList";
 var CFA_INPUT               = new Object( );
 CFA_INPUT.name              = "establishmentType.CFA";
 
+var COLL_INPUT              = new Object( );
+COLL_INPUT.name             = "establishmentType.COLL";
+
 var LEN_INPUT               = new Object( );
 LEN_INPUT.name              = "establishmentType.LEN";
 LEN_INPUT.dependencies      = new Array("lyceesTypes.LP", "lyceesTypes.LEGT", "lyceesTypes.EREA");
@@ -49,7 +52,7 @@ $(document).ready(function() {
     // dependencies inputs become checked (resp. unchecked).  
     // //////////////////////////////////////////////////////////////
     $("[value='" + LEN_INPUT.name + "']").change(function() {
-        if(!$("[value='" + CFA_INPUT.name + "']").prop("checked")) {
+        if(!isChecked(CFA_INPUT.name)) {
             changeCheckedProperty($(this).prop("checked"), LEN_INPUT.dependencies);
         }
     });
@@ -59,7 +62,7 @@ $(document).ready(function() {
     // dependencies inputs become checked (resp. unchecked).  
     // //////////////////////////////////////////////////////////////
     $("[value='" + LA_INPUT.name + "']").change(function() {
-        if(!$("[value='" + CFA_INPUT.name + "']").prop("checked")) {
+        if(!isChecked(CFA_INPUT.name)) {
             changeCheckedProperty($(this).prop("checked"), LA_INPUT.dependencies);
         }
     });
@@ -222,6 +225,14 @@ function enableElementsByValues(elementValues) {
     }
 }
 
+
+/**
+ * Function that indicates if an element (finds by its value) is checked.
+ */
+function isChecked(elementValue) {
+    return $("[value='" + elementValue + "']").prop("checked");
+}
+
 /**
  * Function that retrieved the values of the selected elements of the form.
  * The values of the selected elements are put into a string
@@ -259,12 +270,12 @@ function specialCheckedElementsValues() {
     var elementsValues = "";
 
     // If the CFA_INPUT is not checked
-    if(!$("[value='" + CFA_INPUT.name + "']").prop("checked")) {
+    if(!isChecked(CFA_INPUT.name)) {
         return elementsValues;
     }
 
     // If the LEN_INPUT is checked
-    if($("[value='" + LEN_INPUT.name + "']").prop("checked")) {
+    if(isChecked(LEN_INPUT.name)) {
         // The dependencies of the LEN_INPUT must be considered as checked
         for(var i = 0; i < LEN_INPUT.dependencies.length; i++) {
             elementsValues += LEN_INPUT.dependencies[i] + SEPARATOR;
@@ -272,7 +283,7 @@ function specialCheckedElementsValues() {
     }
 
     // If the LA_INPUT is checked
-    if($("[value='" + LA_INPUT.name + "']").prop("checked")) {
+    if(isChecked(LA_INPUT.name)) {
         // The dependencies of the LA_INPUT must be considered as checked
         for(var i = 0; i < LA_INPUT.dependencies.length; i++) {
             elementsValues += LA_INPUT.dependencies[i] + SEPARATOR;

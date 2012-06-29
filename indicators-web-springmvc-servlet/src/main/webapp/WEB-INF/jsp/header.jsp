@@ -7,9 +7,11 @@
   
   <!-- JQUERY -->
   <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
   <script type="text/javascript" src="js/json2.js"></script>
   <script type="text/javascript" src="js/blank.js"></script>
-
+  <script type="text/javascript" src="js/datepicker.js"></script>
+  <script type="text/javascript" src="js/jquery.ui.datepicker-fr.js"></script>
   
   <!-- Framework CSS -->
   <link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection">
@@ -17,6 +19,9 @@
   <link rel="stylesheet" href="css/indicators.css" type="text/css" media="screen, projection">
   <link rel="stylesheet" href="css/blank.css" type="text/css" media="screen, projection">
 
+  <!-- JQuery UI CSS -->
+  <link rel="stylesheet" href="css/redmond/jquery-ui-1.8.21.custom.css" type="text/css" media="screen, projection">
+  
 </head>
 
 <body>

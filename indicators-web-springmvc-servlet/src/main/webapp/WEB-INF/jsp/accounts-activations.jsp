@@ -30,10 +30,12 @@
     
     <p><spring:message code="filter.title.period" /></p>
     <p>
-        <form:input path="startDate" />   
+        <form:input path="startDatePicker"  /> 
+        <form:hidden id="startDate" path="startDate" />  
         <form:errors path="startDate" cssClass="error" />
         
-        <form:input path="endDate" />
+        <form:input path="endDatePicker" />
+        <form:hidden id="endDate" path="endDate" />  
         <form:errors path="endDate" cssClass="error" />
     </p>
     

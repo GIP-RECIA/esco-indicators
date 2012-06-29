@@ -25,13 +25,25 @@ public class AccountActivationForm {
     /** Checkboxes : establishments type */
     private String [ ] establishmentsTypes;
     
+    /**
+     * Input for displaying the selected start date.
+     */
+    private String startDatePicker;
+    
     /** 
+     * Hidden input.
      * Date : Beginning of the period
      * Format : DD/mm/yyyy
      */
     private Date startDate;
 
+    /**
+     * Input for displaying the selected end date.
+     */
+    private String endDatePicker;
+    
     /** 
+     * Hidden input.
      * Date : End of the period
      * Format : DD/mm/yyyy
      */
@@ -223,21 +235,66 @@ public class AccountActivationForm {
     }
 
     /**
-     * @return the establishments
+     * Gets the establishments.
+     * 
+     * @return 
+     * 	the establishments
      */
     public String[] getEstablishments() {
         return establishments;
     }
 
     /**
-     * @param establishments the establishments to set
+     * Sets the establishments.
+     * 
+     * @param establishments 
+     * 			The establishments to set.
      */
     public void setEstablishments(String[] establishments) {
         this.establishments = establishments;
     }
 
     
-    //------------------------------------------------------------------------------ PUBLIC METHODS
+    /**
+     * Gets the start date selected by a date picker.
+     * 
+     * @return
+     * 	the start date selected by a date picker.
+     */
+    public String getStartDatePicker() {
+        return startDatePicker;
+    }
+
+    /**
+     * Sets the start date selected by a date picker.
+     * 
+     * @param startDatePicker 
+     * 			The start date selected by a date picker to set.
+     */
+    public void setStartDatePicker(String startDatePicker) {
+        this.startDatePicker = startDatePicker;
+    }
+
+    /**
+     * Gets the end date selected by a date picker.
+     * 
+     * @return
+     * 	the end date selected by a date picker.
+     */
+    public String getEndDatePicker() {
+        return endDatePicker;
+    }
+
+    /**
+     * Sets the end date selected by a date picker.
+     * 
+     * @param endDatePicker 
+     * 			The end date selected by a date picker to set.
+     */
+    public void setEndDatePicker(String endDatePicker) {
+        this.endDatePicker = endDatePicker;
+    }
+
     /* (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */
@@ -247,12 +304,14 @@ public class AccountActivationForm {
 	int result = 1;
 	result = prime * result + ((county == null) ? 0 : county.hashCode());
 	result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
+	result = prime * result + ((endDatePicker == null) ? 0 : endDatePicker.hashCode());
 	result = prime * result + Arrays.hashCode(establishments);
 	result = prime * result + Arrays.hashCode(establishmentsTypes);
 	result = prime * result + Arrays.hashCode(laTypes);
 	result = prime * result + Arrays.hashCode(lyceesTypes);
 	result = prime * result + ((monitoringType == null) ? 0 : monitoringType.hashCode());
 	result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
+	result = prime * result + ((startDatePicker == null) ? 0 : startDatePicker.hashCode());
 	result = prime * result + ((sumOnCounties == null) ? 0 : sumOnCounties.hashCode());
 	result = prime * result + Arrays.hashCode(usersProfiles);
 	return result;
@@ -280,6 +339,11 @@ public class AccountActivationForm {
 		return false;
 	} else if (!endDate.equals(other.endDate))
 	    return false;
+	if (endDatePicker == null) {
+	    if (other.endDatePicker != null)
+		return false;
+	} else if (!endDatePicker.equals(other.endDatePicker))
+	    return false;
 	if (!Arrays.equals(establishments, other.establishments))
 	    return false;
 	if (!Arrays.equals(establishmentsTypes, other.establishmentsTypes))
@@ -297,6 +361,11 @@ public class AccountActivationForm {
 	    if (other.startDate != null)
 		return false;
 	} else if (!startDate.equals(other.startDate))
+	    return false;
+	if (startDatePicker == null) {
+	    if (other.startDatePicker != null)
+		return false;
+	} else if (!startDatePicker.equals(other.startDatePicker))
 	    return false;
 	if (sumOnCounties == null) {
 	    if (other.sumOnCounties != null)

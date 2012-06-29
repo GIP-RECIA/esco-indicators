@@ -112,7 +112,7 @@ public class AccountActivationController  {
     @InitBinder
     public void initBinder(WebDataBinder binder) {
 	// Register a date editor that handles date conversions
-	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
     
