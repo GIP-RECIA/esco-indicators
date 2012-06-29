@@ -12,6 +12,8 @@
     -> enable json-> pojo with jackson-mapper-asl-->
 	<mvc:annotation-driven />
     
+   <!-- Configures how to handle static resources -->
+    <mvc:resources location="/css/" mapping="/css/**"/>
    <!-- Annotations Configuration -->
     <context:component-scan base-package="org.esco.indicators.web.springmvc"/>
 
