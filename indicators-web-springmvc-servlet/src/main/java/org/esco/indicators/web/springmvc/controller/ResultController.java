@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
+import org.esco.indicators.domain.beans.form.BasicForm;
 import org.esco.indicators.domain.beans.form.FormField;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
@@ -86,10 +88,18 @@ public class ResultController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public String initForm(ModelMap model, HttpServletRequest request){
-        // Return to the web page
+	// Verification of the presence of a submitted form
+	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+	    LOGGER.warn("No submitted form has been found in the user session, so there is no data to process and display. The user is redirected to the welcome page.");
+	    return "redirect:welcome";
+	}
+	
+        // Cleaning of the session
+	request.getSession().setAttribute(SessionConstants.ACCOUNT_FORM_ATTR, null);
 	return "result";
     }
     
+
     /**
      * Populate the monitoring  type field.
      * 
@@ -100,8 +110,13 @@ public class ResultController {
      */
     @ModelAttribute("monitoringTypeItem")
     public String populateMonitoringTypeItem(HttpServletRequest request) {
+	// Checks if the there is a valid submitted form to process
+	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+	    return null;
+	}
+	
 	// Retrieval of the submitted monitoring type value
-	AccountActivationForm aaForm = (AccountActivationForm) request.getSession().getAttribute(SessionConstants.ACCOUNT_FORM_ATTR);
+	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
 	
 	// Retrieval of the i18n key
 	String jspKey = aaForm.getMonitoringType();
@@ -111,6 +126,44 @@ public class ResultController {
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
-
+    
+    /**
+     * Checks if the specified session contains a form associated to the session attribute <code>formAttribute</code>.<br/>
+     * 
+     * @param session
+     * 			The user session.
+     * @param formAttribute
+     * 			The session attribute associated to the form.
+     * 
+     * @return
+     * 	<code>true</code> if the session contained a form associated to <code>formAttribute</code>.<br/>
+     * 	<code>false</code> in other cases.
+     */
+    private boolean containsForm(HttpSession session, String formAttribute) {
+	// Retrieval of the associated form
+	BasicForm basicForm = (BasicForm) session.getAttribute(formAttribute);
+	if(basicForm == null) {
+	    return false;
+	}
+	return true;
+    }
+    
+    /**
+     * Gets the form associated to the session attribute : <code>formAttribute</code>.
+     * 
+     * @param session
+     * 			The user session.
+     * @param formAttribute
+     * 			The session attribute associated to the form.
+     * 
+     * @return
+     * 	the form associated to the session attribute : <code>formAttribute</code>.<br/>.
+     * 	<code>null</code> if no form is associated to the session attribute.
+     */
+    private BasicForm getSessionForm(HttpSession session, String formAttribute) {
+	// Retrieval of the form
+	return (BasicForm) session.getAttribute(formAttribute);
+    }
+    
     //------------------------------------------------------------------------------ STATIC METHODS
 }

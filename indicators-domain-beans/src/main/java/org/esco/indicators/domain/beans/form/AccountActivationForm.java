@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
  * @since  2012/06/15
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public class AccountActivationForm {
+public class AccountActivationForm extends BasicForm {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(AccountActivationForm.class);

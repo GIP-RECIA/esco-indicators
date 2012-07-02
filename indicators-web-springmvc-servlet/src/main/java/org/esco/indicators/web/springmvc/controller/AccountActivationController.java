@@ -258,7 +258,8 @@ public class AccountActivationController  {
 	    return "accounts-activations";
 	}
 	
-	// Storage of the form in session
+	// Indication of the last submitted form, and storage of this form
+	request.getSession().setAttribute(SessionConstants.LAST_SUBMITTED_FORM_ATTR, SessionConstants.ACCOUNT_FORM_ATTR);
 	request.getSession().setAttribute(SessionConstants.ACCOUNT_FORM_ATTR, aaForm);
 	
 	// Redirection to the result controller
