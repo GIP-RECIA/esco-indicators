@@ -28,6 +28,5 @@
 </div>
 
 <!-- SCRIPTS -->
-<script type="text/javascript" src="js/accounts-activations.js"></script>
 
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>
