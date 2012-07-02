@@ -4,6 +4,7 @@
 package org.esco.indicators.web.springmvc.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -101,15 +102,151 @@ public class ResultController {
     
 
     /**
+     * Populate the county field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the submitted value for the county field.
+     */
+    @ModelAttribute("countyItem")
+    public String populateCounty(HttpServletRequest request) {
+	// Checks if the there is a valid submitted form to process
+	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+	    return null;
+	}
+	
+	// Retrieval of the submitted monitoring type value
+	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
+	
+	// Retrieval of the i18n key
+	String jspKey = aaForm.getCounty();
+	String i18nKey = null;
+	if(jspKey != null) {
+	    i18nKey = dataFormService.getI18nKey(jspKey);
+	}
+
+	return i18nKey;
+    }
+    
+    /**
+     * Populate the end date field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the submitted value for the end date field.
+     */
+    @ModelAttribute("endDateItem")
+    public String populateEndDate(HttpServletRequest request) {
+	// Checks if the there is a valid submitted form to process
+	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+	    return null;
+	}
+	
+	// Retrieval of the submitted monitoring type value
+	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
+	
+	// Retrieval of the end date
+	String endDate = aaForm.getEndDatePicker();
+	
+	return endDate;
+    }
+    
+    /**
+     * Populate the establishments types field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the submitted values for the establishments types field.
+     */
+    @ModelAttribute("estbalishmentsTypesItems")
+    public List<String> populateEstablishmentsTypes(HttpServletRequest request) {
+	// Checks if the there is a valid submitted form to process
+	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+	    return null;
+	}
+	
+	// Retrieval of the submitted monitoring type value
+	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
+	
+	// Retrieval of the i18n key
+	String [] establishmentsTypes = aaForm.getEstablishmentsTypes();
+	List<String> jspKeys = new ArrayList<String>(Arrays.asList(establishmentsTypes));
+	List<String> i18nKeys = getI18nKeys(jspKeys);
+	
+	return i18nKeys;
+    }
+    
+    /**
+     * Populate the 'lycees' types field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the submitted values for the 'lycees' types field.
+     */
+    @ModelAttribute("lyceesTypesItems")
+    public List<String> populateLyceesTypes(HttpServletRequest request) {
+	// Checks if the there is a valid submitted form to process
+	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+	    return null;
+	}
+	
+	// Retrieval of the submitted monitoring type value
+	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
+	
+	// Retrieval of the i18n key
+	String [] lyceesTypes = aaForm.getLyceesTypes();
+	List<String> i18nKeys = null;
+	if(lyceesTypes != null) {
+		List<String> jspKeys = new ArrayList<String>(Arrays.asList(lyceesTypes));
+		i18nKeys = getI18nKeys(jspKeys);
+	}
+	
+	return i18nKeys;
+    }
+    
+    /**
+     * Populate the 'la' types field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the submitted values for the 'la' types field.
+     */
+    @ModelAttribute("laTypesItems")
+    public List<String> populateLaTypes(HttpServletRequest request) {
+	// Checks if the there is a valid submitted form to process
+	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+	    return null;
+	}
+	
+	// Retrieval of the submitted monitoring type value
+	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
+	
+	// Retrieval of the i18n key
+	String [] lyceesTypes = aaForm.getLaTypes();
+	List<String> i18nKeys = null;
+	if(lyceesTypes != null) {
+		List<String> jspKeys = new ArrayList<String>(Arrays.asList(lyceesTypes));
+		i18nKeys = getI18nKeys(jspKeys);
+	}
+	
+	return i18nKeys;
+    }
+    
+    /**
      * Populate the monitoring  type field.
      * 
      * @param request
      * 			The request made by the user.
      * @return
-     * 	the available values for the monitoring  type  field.
+     * 	the submitted value for the monitoring  type  field.
      */
     @ModelAttribute("monitoringTypeItem")
-    public String populateMonitoringTypeItem(HttpServletRequest request) {
+    public String populateMonitoringType(HttpServletRequest request) {
 	// Checks if the there is a valid submitted form to process
 	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
 	    return null;
@@ -123,6 +260,84 @@ public class ResultController {
 	String i18nKey = dataFormService.getI18nKey(jspKey);
 	
 	return i18nKey;
+    }
+    
+    /**
+     * Populate the start date field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the submitted value for the start date field.
+     */
+    @ModelAttribute("startDateItem")
+    public String populateStartDate(HttpServletRequest request) {
+	// Checks if the there is a valid submitted form to process
+	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+	    return null;
+	}
+	
+	// Retrieval of the submitted monitoring type value
+	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
+	
+	// Retrieval of the start date
+	String startDate = aaForm.getStartDatePicker();
+	
+	return startDate;
+    }
+    
+    /**
+     * Populate the sum on counties field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the submitted value for the sum on counties field.
+     */
+    @ModelAttribute("sumOnCountiesItem")
+    public String populateSumOnCounties(HttpServletRequest request) {
+	// Checks if the there is a valid submitted form to process
+	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+	    return null;
+	}
+	
+	// Retrieval of the submitted monitoring type value
+	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
+	
+	// Retrieval of the i18n key
+	String jspKey = aaForm.getSumOnCounties();
+	String i18nKey = null;
+	if(jspKey != null) {
+	    i18nKey = dataFormService.getI18nKey(jspKey);
+	}
+	
+	return i18nKey;
+    }
+    
+    /**
+     * Populate the users profiles field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the submitted values for the users profiles field.
+     */
+    @ModelAttribute("usersProfilesItems")
+    public List<String> populateUsersProfiles(HttpServletRequest request) {
+	// Checks if the there is a valid submitted form to process
+	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+	    return null;
+	}
+	
+	// Retrieval of the submitted monitoring type value
+	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
+	
+	// Retrieval of the i18n key
+	String [] usersProfiles = aaForm.getUsersProfiles();
+	List<String> jspKeys = new ArrayList<String>(Arrays.asList(usersProfiles));
+	List<String> i18nKeys = getI18nKeys(jspKeys);
+	
+	return i18nKeys;
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
@@ -163,6 +378,25 @@ public class ResultController {
     private BasicForm getSessionForm(HttpSession session, String formAttribute) {
 	// Retrieval of the form
 	return (BasicForm) session.getAttribute(formAttribute);
+    }
+    
+    /**
+     * Gets the i18n keys associated to the specified JSP keys.
+     * 
+     * @param jspKeys
+     * 			The JSP keys associated to the i18n keys to retrieve.
+     * 
+     * @return
+     * 	the list of the i18n keys associated to the JSP keys.<br/>
+     * 	an empty list if no i18n keys has been retrieved.
+     */
+    private List<String> getI18nKeys(List<String> jspKeys) {
+	// Retrieval of the i18n keys
+	List<String> i18nKeys = new ArrayList<String>();
+	for (String jspKey : jspKeys) {
+	    i18nKeys.add(dataFormService.getI18nKey(jspKey));
+	}
+	return i18nKeys;
     }
     
     //------------------------------------------------------------------------------ STATIC METHODS
