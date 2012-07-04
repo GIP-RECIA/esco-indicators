@@ -263,7 +263,12 @@ public class AccountActivationController  {
 	request.getSession().setAttribute(SessionConstants.ACCOUNT_FORM_ATTR, aaForm);
 	
 	// Redirection to the result controller
-	return "redirect:result";
+	String monitoringType = aaForm.getMonitoringType();
+	if(monitoringType.equals(DataFormConstants.JSP_KEY_ATTENDANCE)) {
+	    return "redirect:accounts-activations-attendance-result";
+	}
+	
+	return "redirect:accounts-activations-monitoring-attendance-result";
     }
     
 

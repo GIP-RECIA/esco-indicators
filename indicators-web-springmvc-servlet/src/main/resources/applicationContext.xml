@@ -27,6 +27,7 @@
     <import resource="classpath*:META-INF/indicators-domain-services-auth.xml"/>     
     <import resource="classpath*:META-INF/indicators-domain-services-data-form.xml" />   
     <import resource="classpath*:META-INF/indicators-domain-services-domain.xml"/>    
+    <import resource="classpath*:META-INF/indicators-domain-services-html.xml"/>    
     <import resource="classpath*:META-INF/indicators-domain-services-ldap.xml"/>
     <import resource="classpath*:META-INF/indicators-domain-services-establishment.xml"/>
     <import resource="classpath*:META-INF/indicators-domain-services-permissions.xml"/>
