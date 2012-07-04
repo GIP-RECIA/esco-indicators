@@ -79,6 +79,18 @@ public interface DataFormService {
     public Integer getCountyNumberToFilter(String jspKey);
     
     /**
+     * Gets the county numbers to filter when the specified JSP keys are checked in the user view.
+     * 
+     * @param checkedJspKeys
+     * 			The JSP keys that are checked in the user view.
+     * 
+     * @return
+     * 	the list of the county numbers to filter.<br/>
+     * 	an empty list if no county number has to be filtered.
+     */
+    public List<Integer> getCountyNumbersToFilter(List<String> checkedJspKeys);    
+    
+    /**
      * Gets the establishment type to filter when the specified JSP key is checked in the user view.
      * 
      * @param jspKey
@@ -88,6 +100,41 @@ public interface DataFormService {
      * 	<code>null</code> if no establishment type has to be filtered.
      */
     public String getEstablishmentTypeToFilter(String jspKey);
+    
+    /**
+     * Gets the establishments types to filter when the specified JSP keys are checked in the user view.
+     * 
+     * @param checkedJspKeys
+     * 			The JSP keys that are checked in the user view.
+     * 
+     * @return
+     * 	the list of the establishment types to filter.<br/>
+     * 	an empty list if no establishment type has to be filtered.
+     */
+    public List<String> getEstablishmentsTypesToFilter(List<String> checkedJspKeys);    
+    
+    /**
+     * Gets the user profile to filter when the specified JSP key is checked in the user view.
+     * 
+     * @param jspKey
+     * 			The JSP key to test.
+     * @return
+     * 	the user profile to filter.<br/>
+     * 	<code>null</code> if no user profile has to be filtered.
+     */
+    public String getUserProfileToFilter(String jspKey);
+    
+    /**
+     * Gets the users profiles to filter when the specified JSP keys are checked in the user view.
+     * 
+     * @param checkedJspKeys
+     * 			The JSP keys that are checked in the user view.
+     * 
+     * @return
+     * 	the list of the users profiles to filter.<br/>
+     * 	an empty list if no user profile has to be filtered.
+     */
+    public List<String> getUsersProfilesToFilter(List<String> checkedJspKeys);    
     
     /**
      * Gets the i18n key associated to the specified JSP key.

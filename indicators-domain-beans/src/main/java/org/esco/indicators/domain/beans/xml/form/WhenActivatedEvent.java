@@ -45,6 +45,9 @@ public class WhenActivatedEvent {
     /** The establishment type to filter */
     private String filterEstablishmentType;
     
+    /** The user profile to filter */
+    private String filterUserProfile;
+    
     //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
      * Gets the entry values to disable.
@@ -126,8 +129,27 @@ public class WhenActivatedEvent {
         this.filterEstablishmentType = filterEstablishmentType;
     }
 
-    
-    
+    /**
+     * Gets the user profile to filter.
+     * 
+     * @return 
+     * 	the user profile to filter.
+     */
+    @XmlElement(name = "filter-user-profile")
+    public String getFilterUserProfile() {
+        return filterUserProfile;
+    }
+
+    /**
+     * Sets the user profile to filter.
+     * 
+     * @param filterUserProfile 
+     * 			the user profile (to filter) to set.
+     */
+    public void setFilterUserProfile(String filterUserProfile) {
+        this.filterUserProfile = filterUserProfile;
+    }
+
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /* (non-Javadoc)
      * @see java.lang.Object#hashCode()

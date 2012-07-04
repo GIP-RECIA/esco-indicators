@@ -150,6 +150,24 @@ public class DataFormServiceImpl implements DataFormService {
     }
 
     /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.DataFormService#getCountyNumbersToFilter(java.util.List)
+     */
+    public List<Integer> getCountyNumbersToFilter(List<String> checkedJspKeys) {
+	// Final result
+	List<Integer> countyNumbers = new ArrayList<Integer>();
+	
+	// Retrieval of the county numbers to filter
+	for (String jspKey : checkedJspKeys) {
+	    Integer countyNumber = getCountyNumberToFilter(jspKey);
+	    if(countyNumber != null) {
+		countyNumbers.add(countyNumber);
+	    }
+	}
+	
+	return countyNumbers;
+    }
+    
+    /* (non-Javadoc)
      * @see org.esco.indicators.services.form.DataFormService#getEstablishmentTypeToFilter(java.lang.String)
      */
     @Override
@@ -163,21 +181,71 @@ public class DataFormServiceImpl implements DataFormService {
     }
 
     /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.DataFormService#getEstablishmentsTypesToFilter(java.util.List)
+     */
+    public List<String> getEstablishmentsTypesToFilter(List<String> checkedJspKeys) {
+	// Final result
+	List<String> establishmentsTypes = new ArrayList<String>();
+	
+	// Retrieval of the establishments types to filter
+	for (String jspKey : checkedJspKeys) {
+	    String establishmentType = getEstablishmentTypeToFilter(jspKey);
+	    if(establishmentType != null) {
+		establishmentsTypes.add(establishmentType);
+	    }
+	}
+	
+	return establishmentsTypes;
+    }
+
+    /* (non-Javadoc)
      * @see org.esco.indicators.services.form.DataFormService#getI18nKey(java.lang.String)
      */
     @Override
     public String getI18nKey(String jspKey) {
        init();
-       
+    
        // Retrieval of the entry value
        EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
        String i18n = entryValue.getI18nKey();
        if(i18n == null ) {
-	   LOGGER.warn("No i18n key associated to the JSP key : [" + jspKey +"]");
-	   return "";
+           LOGGER.warn("No i18n key associated to the JSP key : [" + jspKey +"]");
+           return "";
        }
-       
+    
         return i18n;
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.DataFormService#getuserProfileToFilter(java.lang.String)
+     */
+    @Override
+    public String getUserProfileToFilter(String jspKey) {
+	       init();
+	       
+	       // Retrieval of the entry value
+	       EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
+	       
+	        return entryValue.getUserProfileToFilter();
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.DataFormService#getUsersProfilesToFilter(java.util.List)
+     */
+    @Override
+    public List<String> getUsersProfilesToFilter(List<String> checkedJspKeys) {
+	// Final result
+	List<String> usersProfiles = new ArrayList<String>();
+	
+	// Retrieval of the establishments types to filter
+	for (String jspKey : checkedJspKeys) {
+	    String userProfile = getUserProfileToFilter(jspKey);
+	    if(userProfile != null) {
+		usersProfiles.add(userProfile);
+	    }
+	}
+	
+	return usersProfiles;
     }
 
     /* (non-Javadoc)

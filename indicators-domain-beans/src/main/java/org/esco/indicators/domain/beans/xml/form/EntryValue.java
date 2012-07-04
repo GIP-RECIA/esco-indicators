@@ -235,6 +235,17 @@ public class EntryValue {
     }
     
     
+    /**
+     * Gets the user profile to filter when this entry value has selected.
+     * 
+     * @return 
+     * 	the establishment type to filter.
+     */
+    public String getUserProfileToFilter() {
+	return getWhenActivatedEvent().getFilterUserProfile();
+    }
+    
+    
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /* (non-Javadoc)
      * @see java.lang.Object#hashCode()

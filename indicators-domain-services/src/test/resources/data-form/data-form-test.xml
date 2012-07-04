@@ -32,6 +32,8 @@
                     <filter-establishment-type> : Tag used to indicate the establishment type used to filter the establishements list in the user view.
                                                   The content of this tag is {STRING}.
 
+                    <filter-user-profile> : Tag used to indicate the user profile used to filter in the result view.
+
                     <disable-entry-value entry-value="{STRING}"> : Tag used to indicate that the <entry-value> with the name put into the 'entry-value' attribute must be disabled in the user view.
                     
                     <enable-entry-value entry-value="{STRING}"> : Tag used to indicate that the <entry-value> with the name put into the 'entry-value' attribute must be enabled in the user view.                                         
@@ -45,7 +47,7 @@
     <data-form> :: <entry-form>*
     <entry-form> :: <entry-value>+
     <entry-value> :: <jsp-key> <i18n-key> <disable-by-default> <activate-by-default>? <on-activation-event> <when-activated-event>
-    <when-activated-event> :: ( <filter-county-number> | <filter-establishment-type> | <disable-entry-value> | <enable-entry-value> )*
+    <when-activated-event> :: ( <filter-county-number> | <filter-establishment-type> | <filter-user-profile> | <disable-entry-value> | <enable-entry-value> )*
     
  -->
 <data-form>
