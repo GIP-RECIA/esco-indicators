@@ -40,6 +40,14 @@ import org.apache.log4j.Logger;
 		+ " AND ewpcs.firstWeekDay = :firstWeekDay " 
 	    	+ " AND ewpcs.userProfile = :userProfile"
 		+ " AND ewpcs.numConnections <= :treshold"
+	    ),
+    @NamedQuery(
+	name = "EspecialWeeklyPortalConnectionStatistic.findNumVisitorsAboveTreshold",
+	query = "SELECT COUNT( DISTINCT ewpcs.userUid ) FROM EspecialWeeklyPortalConnectionStatistic ewpcs"
+		+ " WHERE ewpcs.establishmentUai = :establishmentUai"
+		+ " AND ewpcs.firstWeekDay = :firstWeekDay " 
+		+ " AND ewpcs.userProfile = :userProfile"
+		+ " AND ewpcs.numConnections > :treshold"
 	    )
 })
 @Table(name = "seconnectesemaine")

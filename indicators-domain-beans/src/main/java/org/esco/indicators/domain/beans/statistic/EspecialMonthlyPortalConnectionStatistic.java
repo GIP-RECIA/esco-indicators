@@ -32,6 +32,22 @@ import org.apache.log4j.Logger;
 	    query = "SELECT SUM(empcs.numConnections) FROM EspecialMonthlyPortalConnectionStatistic empcs"
 	    	+ " WHERE empcs.establishmentUai = :establishmentUai"
 		+ " AND empcs.firstMonthDay = :firstMonthDay AND empcs.userProfile = :userProfile"
+    	    ),
+    @NamedQuery(
+	    name = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsBelowTreshold",
+	    query = "SELECT COUNT( DISTINCT empcs.userUid ) FROM EspecialMonthlyPortalConnectionStatistic empcs"
+		+ " WHERE empcs.establishmentUai = :establishmentUai"
+		+ " AND empcs.firstMonthDay = :firstMonthDay" 
+		+ " AND empcs.userProfile = :userProfile"
+		+ " AND empcs.numConnections <= :treshold"
+	    ),
+    @NamedQuery(
+	name = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsAboveTreshold",
+	query = "SELECT COUNT( DISTINCT empcs.userUid ) FROM EspecialMonthlyPortalConnectionStatistic empcs"
+		+ " WHERE empcs.establishmentUai = :establishmentUai"
+		+ " AND empcs.firstMonthDay = :firstMonthDay" 
+		+ " AND empcs.userProfile = :userProfile"
+		+ " AND empcs.numConnections > :treshold"
 	    )
 })
 @Table(name = "seconnectemois")

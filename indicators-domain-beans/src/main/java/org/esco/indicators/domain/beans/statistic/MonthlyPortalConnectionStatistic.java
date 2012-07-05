@@ -31,7 +31,23 @@ import org.apache.log4j.Logger;
 	    query = "SELECT mpcs FROM MonthlyPortalConnectionStatistic mpcs"
 	    	+ " WHERE mpcs.establishmentUai = :establishmentUai"
 		+ " AND mpcs.firstMonthDay = :firstMonthDay AND mpcs.userProfile = :userProfile"
-	    )
+	    ),
+    @NamedQuery(
+	    name = "MonthlyPortalConnectionStatistic.findNumVisitorsBelowTreshold",
+	    query = "SELECT SUM(mpcs.numUsers) FROM MonthlyPortalConnectionStatistic mpcs"
+	    	+ " WHERE mpcs.establishmentUai = :establishmentUai"
+		+ " AND mpcs.firstMonthDay = :firstMonthDay "
+	    	+ " AND mpcs.userProfile = :userProfile"
+		+ " AND mpcs.numConnections <= :treshold"
+	    ),
+    @NamedQuery(
+	name = "MonthlyPortalConnectionStatistic.findNumVisitorsAboveTreshold",
+	query = "SELECT SUM(mpcs.numUsers) FROM MonthlyPortalConnectionStatistic mpcs"
+		+ " WHERE mpcs.establishmentUai = :establishmentUai"
+		+ " AND mpcs.firstMonthDay = :firstMonthDay "
+		+ " AND mpcs.userProfile = :userProfile"
+		+ " AND mpcs.numConnections > :treshold"
+	    ) 
 })
 @Table(name = "connexionprofilmois")
 public class MonthlyPortalConnectionStatistic implements Serializable {
