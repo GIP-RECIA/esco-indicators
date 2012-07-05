@@ -32,6 +32,14 @@ import org.apache.log4j.Logger;
 	    query = "SELECT SUM(ewpcs.numConnections) FROM EspecialWeeklyPortalConnectionStatistic ewpcs"
 	    	+ " WHERE ewpcs.establishmentUai = :establishmentUai"
 		+ " AND ewpcs.firstWeekDay = :firstWeekDay AND ewpcs.userProfile = :userProfile"
+	    ),
+    @NamedQuery(
+	    name = "EspecialWeeklyPortalConnectionStatistic.findNumVisitorsBelowTreshold",
+	    query = "SELECT COUNT( DISTINCT ewpcs.userUid ) FROM EspecialWeeklyPortalConnectionStatistic ewpcs"
+	    	+ " WHERE ewpcs.establishmentUai = :establishmentUai"
+		+ " AND ewpcs.firstWeekDay = :firstWeekDay " 
+	    	+ " AND ewpcs.userProfile = :userProfile"
+		+ " AND ewpcs.numConnections <= :treshold"
 	    )
 })
 @Table(name = "seconnectesemaine")

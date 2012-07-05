@@ -102,6 +102,30 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
     // DAILY STATISTICS
     ///////////////////////////////////////////////////////
     
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumConnectionsBelowTreshold(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Integer findWeeklyNumVisitorsBelowTreshold(String establishmentUai, String userProfile,
+            Integer week, Integer year, Integer treshold) {
+	// Get the SQL date corresponding to the first day of the week for the year
+	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
+	
+	// Number of connections for the especial users
+	Integer especialNumConnections = especialPortalConnectionStatisticDao
+		.findWeeklyNumVisitorsBelowTreshold(establishmentUai, firstWeekDay, userProfile, treshold);
+	
+	// Number of connections for the normal users
+	Integer normalNumConnections = portalConnectionStatisticDao
+		.findWeeklyNumVisitorsBelowTreshold(establishmentUai, firstWeekDay, userProfile, treshold);
+	
+	// Final number of connections
+	Integer numConnections = especialNumConnections + normalNumConnections;
+	
+	return numConnections;
+    }
+
+
     ///////////////////////////////////////////////////////
     // WEEKLY STATISTICS
     ///////////////////////////////////////////////////////

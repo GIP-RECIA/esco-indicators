@@ -26,12 +26,20 @@ import org.apache.log4j.Logger;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(
-	    name = "WeeklyPortalConnectionStatistic.findStatisticsByProfile",
-	    query = "SELECT wpcs FROM WeeklyPortalConnectionStatistic wpcs"
-	    	+ " WHERE wpcs.establishmentUai = :establishmentUai"
-		+ " AND wpcs.firstWeekDay = :firstWeekDay AND wpcs.userProfile = :userProfile"
-	    )
+            @NamedQuery(
+        	    name = "WeeklyPortalConnectionStatistic.findStatisticsByProfile",
+        	    query = "SELECT wpcs FROM WeeklyPortalConnectionStatistic wpcs"
+        	    	+ " WHERE wpcs.establishmentUai = :establishmentUai"
+        		+ " AND wpcs.firstWeekDay = :firstWeekDay AND wpcs.userProfile = :userProfile"
+        	    ),
+            @NamedQuery(
+        	    name = "WeeklyPortalConnectionStatistic.findNumVisitorsBelowTreshold",
+        	    query = "SELECT SUM(wpcs.numUsers) FROM WeeklyPortalConnectionStatistic wpcs"
+        	    	+ " WHERE wpcs.establishmentUai = :establishmentUai"
+        		+ " AND wpcs.firstWeekDay = :firstWeekDay "
+        	    	+ " AND wpcs.userProfile = :userProfile"
+        		+ " AND wpcs.numConnections <= :treshold"
+        	    ) 
 })
 @Table(name = "connexionprofilsemaine")
 public class WeeklyPortalConnectionStatistic implements Serializable {

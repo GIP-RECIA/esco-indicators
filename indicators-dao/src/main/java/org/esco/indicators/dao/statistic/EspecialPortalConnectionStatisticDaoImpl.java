@@ -73,7 +73,29 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
 	return numConnections;
     }
 
-   
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findWeeklyNumVisitorsBelowTreshold(java.lang.String, java.util.Date, java.lang.String, java.lang.Integer)
+     */
+    @Override
+    public Integer findWeeklyNumVisitorsBelowTreshold(String establishmentUai, Date firstWeekDay,
+	    String userProfile, Integer treshold) {
+	// Name of the query to execute
+	String namedQuery = "EspecialWeeklyPortalConnectionStatistic.findNumVisitorsBelowTreshold";
+	
+	// Setting of the parameters
+	Parameters parameters = new Parameters();
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("firstWeekDay", firstWeekDay);
+	parameters.put("userProfile", userProfile);
+	parameters.put("treshold", treshold);
+	
+	// Retrieval of the result
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Integer numVisitors = (result != null ? result.intValue() : 0);
+	
+	return numVisitors;
+    }
+    
 
     ///////////////////////////////////////////////////////
     // MONTHLY STATISTICS
@@ -99,6 +121,7 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
 	
 	return numConnections;
     }
+
 
     // ----------------------------------------------------------------------------- PRIVATE METHODS
 

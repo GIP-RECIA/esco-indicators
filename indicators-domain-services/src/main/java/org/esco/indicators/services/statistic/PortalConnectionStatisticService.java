@@ -19,6 +19,28 @@ public interface PortalConnectionStatisticService {
     ///////////////////////////////////////////////////////
     // WEEKLY STATISTICS
     ///////////////////////////////////////////////////////
+    
+    /**
+     * Retrieves the number of visitors that made less than <code>treshold</code> connections on the portal, and who has the specified 
+     * <code>userProfile</code> the specified <code>establishmentUai</code>.
+     * 
+     * @param establishmentUai
+     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param userProfile
+     * 			The user profile of the statistic to retrieve.
+     * @param week
+     * 			The week number of the statistic to retrieve.
+     * @param year
+     * 			The year of the statistic to retrieve.
+     * @param treshold
+     * 			The maximum number of connections treshold.
+     * 
+     * @return
+     * 	the number of visitors who made less than <code>treshold</code> connections on the portal.<br/>
+     * 	the number 0 if no statistic has been retrieved.
+     */
+    public Integer findWeeklyNumVisitorsBelowTreshold(String establishmentUai, String userProfile, Integer week, Integer year, Integer treshold);
+    
     /**
      * Retrieves the number of connections made on the portal for the specified user profile
      * <code>userprofile</code> and the specified establishment UAI <code>establishmentUai</code>.<br/>
@@ -34,7 +56,7 @@ public interface PortalConnectionStatisticService {
      * 			The year of the statistic to retrieve.
      * @return
      * 	the number of connections made on the portal.<br/>
-     * 	<code>null</code> if no statistic has been retrieved. 
+     * 	the number 0 if no statistic has been retrieved. 
      */
     public Integer findWeeklyNumConnectionsByProfile(String establishmentUai, String userProfile, Integer week, Integer year);
     
@@ -57,7 +79,7 @@ public interface PortalConnectionStatisticService {
      * 			The year of the statistic to retrieve.
      * @return
      * 	the number of connections made on the portal.<br/>
-     * 	<code>null</code> if no statistic has been retrieved. 
+     * 	the number 0 if no statistic has been retrieved. 
      */
     public Integer findMonthlyNumConnectionsByProfile(String establishmentUai, String userProfile, Integer month, Integer year);
 }

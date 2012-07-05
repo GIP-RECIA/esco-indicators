@@ -68,6 +68,76 @@ public class PortalConnectionStatisticServiceTest {
     }
     
     /**
+     * Test method for {@link org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumVisitorsBelowTreshold(String, String, Integer, Integer, Integer)}.<br/>
+     *
+     * Tests the number of visitors on the portal for a specified :
+     * <ul>
+     * 	<li>establishment UAI</li>
+     * 	<li>week (determined by the first day of the week)</li>
+     * 	<li>user profile</li>
+     * 	<li>num connections treshold</li>
+     * </ul>
+     */
+    @Test
+    public void testFindWeeklyNumVisitorsBelowTreshold1() {
+	///////////////////////////////////////////////////
+	// Expected weekly number of visitors
+	///////////////////////////////////////////////////
+	// Especial users : 1 visitor
+	// Normal users : 13 + 25 = 38 visitors
+	//-------------------------------------------------------------
+	// TOTAL : 39  expected visitors
+	///////////////////////////////////////////////////
+	Integer expected = 39;
+	
+	// Actual result
+	Integer year = 2012;
+	Integer weekNumber = 22;
+	String establishmentUai = "0453456A";
+	String userProfile = "Teacher";
+	Integer treshold = 8;
+	
+	Integer actual = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTreshold(establishmentUai, userProfile, weekNumber, year, treshold);
+	
+	Assert.assertEquals(expected, actual);
+    }
+    
+    /**
+     * Test method for {@link org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumVisitorsBelowTreshold(String, String, Integer, Integer, Integer)}.<br/>
+     *
+     * Tests the number of visitors on the portal for a specified :
+     * <ul>
+     * 	<li>establishment UAI</li>
+     * 	<li>week (determined by the first day of the week)</li>
+     * 	<li>user profile</li>
+     * 	<li>num connections treshold</li>
+     * </ul>
+     */
+    @Test
+    public void testFindWeeklyNumVisitorsBelowTreshold2() {
+	///////////////////////////////////////////////////
+	// Expected weekly number of visitors
+	///////////////////////////////////////////////////
+	// Especial users : 2 visitors
+	// Normal users : 13 + 25 = 38 visitors
+	//-------------------------------------------------------------
+	// TOTAL : 40  expected visitors
+	///////////////////////////////////////////////////
+	Integer expected = 40;
+	
+	// Actual result
+	Integer year = 2012;
+	Integer weekNumber = 22;
+	String establishmentUai = "0453456A";
+	String userProfile = "Teacher";
+	Integer treshold = 12;
+	
+	Integer actual = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTreshold(establishmentUai, userProfile, weekNumber, year, treshold);
+	
+	Assert.assertEquals(expected, actual);
+    }
+    
+    /**
      * Test method for {@link org.esco.indicators.services.statistic.PortalConnectionStatisticService#findMonthlyNumConnectionsByProfile(String, String, Integer, Integer)}.<br/>
      *
      * Tests the number of connections on the portal for a specified :
@@ -98,6 +168,8 @@ public class PortalConnectionStatisticServiceTest {
 	
 	Assert.assertEquals(expected, actual);
     }
+    
+    
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
