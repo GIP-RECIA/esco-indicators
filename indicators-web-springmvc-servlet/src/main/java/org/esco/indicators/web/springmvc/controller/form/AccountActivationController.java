@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.esco.indicators.web.springmvc.controller;
+package org.esco.indicators.web.springmvc.controller.form;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

@@ -1,10 +1,12 @@
 /**
  * 
  */
-package org.esco.indicators.web.springmvc.controller;
+package org.esco.indicators.web.springmvc.controller.result;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,15 +15,21 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
 import org.esco.indicators.domain.beans.form.BasicForm;
+import org.esco.indicators.domain.beans.result.ResultRow;
 import org.esco.indicators.services.form.DataFormService;
+import org.esco.indicators.services.form.ResultFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.constants.web.SessionConstants;
+import org.esco.indicators.utils.constants.xml.DataFormConstants;
+import org.esco.indicators.utils.date.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.ibm.icu.util.Calendar;
 
 /**
  * Controller handling the requests on the page displaying the results of a form submission.
@@ -43,6 +51,10 @@ public class AccountActivationAttendanceResultController {
     /** Establishment service providing access to establishments data */
     @Autowired
     private EstablishmentService establishmentService;
+    
+    /** Service providing access to result data */
+    @Autowired
+    private ResultFormService resultFormService;
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
@@ -261,6 +273,44 @@ public class AccountActivationAttendanceResultController {
     }
     
     /**
+     * Populates the data rows of the table used to display the result of the submitted form.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the data rows of the table used to display the result of the submitted form.
+     */
+    @ModelAttribute("tableRowsItems")
+    public List<ResultRow> populateTableRows(HttpServletRequest request) {
+	// Checks if the there is a valid submitted form to process
+	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+	    return null;
+	}
+	
+	// Retrieval of the submitted form
+	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
+	
+	// Retrieval of the establishments uai
+	List<String> checkedUais = new ArrayList<String>(Arrays.asList(aaForm.getEstablishments()));
+	List<String> establishmentsUai = dataFormService.getUsersProfilesToFilter(checkedUais);
+	
+	// Retrieval of the establishments types
+	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(aaForm.getEstablishmentsTypes()));
+	
+	// Retrieval of the users profiles to filter
+	List<String> checkedProfiles = new ArrayList<String>(Arrays.asList(aaForm.getUsersProfiles()));
+	List<String> usersProfilesToFilter = dataFormService.getUsersProfilesToFilter(checkedProfiles);
+	
+	// Retrieval of the start date
+	Date startDate = aaForm.getStartDate();
+	
+	// Gets the result rows to display
+	List<ResultRow> resultRows = getResultRows(establishmentsTypes, establishmentsUai, usersProfilesToFilter, startDate);
+	
+	return resultRows;
+    }
+    
+    /**
      * Populate the start date field.
      * 
      * @param request
@@ -395,6 +445,28 @@ public class AccountActivationAttendanceResultController {
 	    i18nKeys.add(dataFormService.getI18nKey(jspKey));
 	}
 	return i18nKeys;
+    }
+    
+    private List<ResultRow> getResultRows( List<String> establishmentsTypes, List<String> establishmentsUai,List<String> usersProfiles, Date startDate) {
+	// Final result
+	List<ResultRow> rows =  new ArrayList<ResultRow>();
+	
+	// Retrieval of the year
+	Integer year = DateUtils.getYear(startDate);
+	
+	// Retrieval of the month / or week
+	if(	establishmentsTypes.contains(DataFormConstants.JSP_KEY_CFA) 
+		&& establishmentsTypes.size() == 1
+	) {
+	    // If the only selected establishment type is : CFA
+	    Integer month = DateUtils.getMonthOfYear(startDate);
+	    rows.addAll(resultFormService.getPunctualMonthResultRows(establishmentsUai, usersProfiles, month, year));
+	} else {
+	    Integer week = DateUtils.getWeekOfYear(startDate);
+	    rows.addAll(resultFormService.getPunctualWeekResultRows(establishmentsUai, usersProfiles, week, year));
+	}
+	
+	return rows;
     }
     
     //------------------------------------------------------------------------------ STATIC METHODS
