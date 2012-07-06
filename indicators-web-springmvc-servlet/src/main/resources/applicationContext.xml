@@ -30,7 +30,6 @@
     <import resource="classpath*:META-INF/indicators-domain-services-ldap.xml"/>
     <import resource="classpath*:META-INF/indicators-domain-services-establishment.xml"/>
     <import resource="classpath*:META-INF/indicators-domain-services-permissions.xml"/>
-    <import resource="classpath*:META-INF/indicators-domain-services-profile.xml"/>
     <import resource="classpath*:META-INF/indicators-domain-services-statistic.xml"/>
     
     <!-- dao -->
