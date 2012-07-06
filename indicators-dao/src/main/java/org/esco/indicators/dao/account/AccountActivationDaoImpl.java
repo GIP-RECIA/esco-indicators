@@ -4,6 +4,7 @@
 package org.esco.indicators.dao.account;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -40,16 +41,17 @@ public class AccountActivationDaoImpl implements AccountActivationDao {
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.account.AccountActivationDao#findNumActivatedAccountsBetween
+     * @see org.esco.indicators.dao.account.AccountActivationDao#findNumActivatedAccountsBetween(java.lang.String, java.lang.String, java.util.Date, java.util.Date)
      */
     @Override
-    public Integer findNumActivatedAccountsBetween(String establishmentUai, Date startDate, Date endDate) {
+    public Integer findNumActivatedAccountsForProfiles(String establishmentUai, List<String> usersProfiles, Date startDate, Date endDate) {
 	// Name of the query to execute
-	String namedQuery = "AccountActivation.findNumActivatedAccountsBetween";
+	String namedQuery = "AccountActivation.findNumActivatedAccountsForProfiles";
 	
 	// Parameters setting
 	Parameters parameters = new Parameters();
-	parameters.put("establishmentUai", establishmentUai);	
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("userProfileList", usersProfiles);
 	parameters.put("activationStart", startDate);
 	parameters.put("activationEnd", endDate);
 	

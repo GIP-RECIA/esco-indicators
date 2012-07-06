@@ -18,10 +18,13 @@ import org.esco.indicators.domain.beans.account.AccountActivation;
 public interface AccountActivationDao extends StatisticDao {
     
     /**
-     * Retrieves the number of activated accounts int the specified establishment between the start date (<code>startDate</code>) and the end date (<code>endDate</code>).
+     * Retrieves the number of activated accounts in the specified establishment between the start date (<code>startDate</code>) and the end date (<code>endDate</code>).<br/>
+     * These activated accounts have to be associated to one of the specified users profiles.
      * 
      * @param establishmentUai
      * 			UAI of the establishment.
+     * @param usersProfiles
+     * 			The profiles of the users.
      * @param startDate
      * 			The start date of account activation.
      * @param endDate
@@ -31,6 +34,6 @@ public interface AccountActivationDao extends StatisticDao {
      * 	the number of actived accounts in the establishment, during the specified period.<br/>
      * 	<code>null</code> if no data has been retrieved.
      */
-    public Integer findNumActivatedAccountsBetween(String establishmentUai, Date startDate, Date endDate);
+    public Integer findNumActivatedAccountsForProfiles(String establishmentUai, List<String> usersProfiles, Date startDate, Date endDate);
     
 }

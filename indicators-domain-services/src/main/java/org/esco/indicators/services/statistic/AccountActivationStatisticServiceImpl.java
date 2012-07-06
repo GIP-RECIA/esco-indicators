@@ -4,6 +4,7 @@
 package org.esco.indicators.services.statistic;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -59,17 +60,31 @@ public class AccountActivationStatisticServiceImpl implements AccountActivationS
 
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
+
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.AccountActivationStatisticService#findWeeklyNumActivatedAccounts(java.lang.String, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.AccountActivationStatisticService#findWeeklyNumActivatedAccountsForProfile(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findWeeklyNumActivatedAccounts(String establishmentUai, Integer week, Integer year) {
+    public Integer findWeeklyNumActivatedAccountsForProfile(String establishmentUai, String userProfile, Integer week, Integer year) {
+	// List of the available users profiles
+	List<String> usersProfiles = new ArrayList<String>();
+	usersProfiles.add(userProfile);
+	
+	return findWeeklyNumActivatedAccountsForProfiles(establishmentUai, usersProfiles, week, year);
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.AccountActivationStatisticService#findWeeklyNumActivatedAccountsForProfiles(java.lang.String, java.util.List, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Integer findWeeklyNumActivatedAccountsForProfiles(String establishmentUai,
+	    List<String> usersProfiles, Integer week, Integer year) {
 	// Get the SQL dates corresponding to the first (and last) days of the week for the year
 	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
 	Date lastWeekDay = DateUtils.addDays(firstWeekDay, 6);
 	
 	// Get the number of activated accounts for this week
-	Integer numActivatedAccounts = accountActivationDao.findNumActivatedAccountsBetween(establishmentUai, firstWeekDay, lastWeekDay);
+	Integer numActivatedAccounts = accountActivationDao.findNumActivatedAccountsForProfiles(establishmentUai, usersProfiles, firstWeekDay, lastWeekDay);
 	numActivatedAccounts = (numActivatedAccounts == null ? 0 : numActivatedAccounts);
 	
 	return numActivatedAccounts;
