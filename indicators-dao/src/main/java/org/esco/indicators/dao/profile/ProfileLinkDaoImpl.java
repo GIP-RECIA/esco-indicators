@@ -3,10 +3,11 @@
  */
 package org.esco.indicators.dao.profile;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.management.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -42,11 +43,11 @@ public class ProfileLinkDaoImpl implements ProfileLinkDao {
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.profile.ProfileLinkDao#findProfileLinksBetween(java.sql.Date, java.sql.Date, java.lang.String, java.lang.String)
+     * @see org.esco.indicators.dao.profile.ProfileLinkDao#findProfileLinksBetween(java.util.Date, java.util.Date, java.lang.String, java.lang.String)
      */
     @Override
-    public List<ProfileLink> findProfileLinksBetween(Date startDate, Date endDate, String userProfile,
-	    String establishmentUai) {
+    public List<ProfileLink> findProfileLinksBetween(String establishmentUai, String userProfile, Date startDate,
+	    Date endDate) {
 	// Name of the query to execute
 	String namedQuery = "ProfileLink.findProfileLinksBetween";
 	
@@ -67,6 +68,28 @@ public class ProfileLinkDaoImpl implements ProfileLinkDao {
 	}
 	
 	return result;
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.profile.ProfileLinkDao#findTotalNumAccounts(java.lang.String, java.util.Date, java.util.Date)
+     */
+    @Override
+    public Integer findTotalNumLinkedAccounts(String establishmentUai, Date startDate,
+	    Date endDate) {
+	// Name of the query to execute
+	String namedQuery = "ProfileLink.findTotalNumLinkedAccounts";
+	
+	// Parameters setting
+	Parameters parameters = new Parameters();
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("linkStart", startDate);
+	parameters.put("linkEnd", endDate);
+	
+	// Execution of the query
+	Long queryResult = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Integer totalNumLinkedAccounts = (queryResult == null ? null : queryResult.intValue());
+	
+	return totalNumLinkedAccounts;
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS

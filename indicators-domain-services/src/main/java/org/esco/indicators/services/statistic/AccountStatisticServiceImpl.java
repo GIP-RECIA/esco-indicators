@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.dao.account.AccountActivationDao;
+import org.esco.indicators.dao.profile.ProfileLinkDao;
 import org.esco.indicators.domain.beans.account.AccountActivation;
 import org.esco.indicators.utils.date.DateUtils;
 
@@ -25,6 +26,9 @@ public class AccountStatisticServiceImpl implements AccountStatisticService {
     
     /** DAO providing access to account activations data */
     private AccountActivationDao accountActivationDao;
+    
+    /** DAO providing access to profile links data */
+    private ProfileLinkDao profileLinkDao;
 
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
@@ -37,16 +41,6 @@ public class AccountStatisticServiceImpl implements AccountStatisticService {
 
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /**
-     * Gets the DAO providing access to account activations data.
-     * 
-     * @return
-     * 	 the DAO providing access to account activations data.
-     */
-    public AccountActivationDao getAccountActivationDao() {
-        return accountActivationDao;
-    }
-
 
     /**
      * Sets the DAO providing access to account activations data.
@@ -57,10 +51,23 @@ public class AccountStatisticServiceImpl implements AccountStatisticService {
     public void setAccountActivationDao(AccountActivationDao accountActivationDao) {
         this.accountActivationDao = accountActivationDao;
     }
-
+    
+    /**
+     * Sets the DAO providing access to profile links data.
+     * 
+     * @param profileLinkDao 
+     * 			The DAO,providing access to profile links data, to set.
+     */
+    public void setProfileLinkDao(ProfileLinkDao profileLinkDao) {
+        this.profileLinkDao = profileLinkDao;
+    }
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
 
+    ///////////////////////////////////////////////////////
+    // WEEKLY STATISTICS
+    ///////////////////////////////////////////////////////
+    
     /* (non-Javadoc)
      * @see org.esco.indicators.services.statistic.AccountStatisticService#findWeeklyNumActivatedAccountsForProfile(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
      */
@@ -89,6 +96,29 @@ public class AccountStatisticServiceImpl implements AccountStatisticService {
 	
 	return numActivatedAccounts;
     }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.AccountStatisticService#findWeeklyTotalNumAccounts(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Integer findWeeklyTotalNumAccounts(String establishmentUai, Integer week, Integer year) {
+	// Get the SQL dates corresponding to the first (and last) days of the week for the year
+	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
+	Date lastWeekDay = DateUtils.addDays(firstWeekDay, 6);
+	
+	// Get the total number of accounts for this week
+	Integer totalNumAccounts = profileLinkDao.findTotalNumLinkedAccounts(establishmentUai, firstWeekDay, lastWeekDay);
+	totalNumAccounts = (totalNumAccounts == null ? 0 : totalNumAccounts);
+	
+	return totalNumAccounts;
+    }
+    
+    
+    
+    ///////////////////////////////////////////////////////
+    // MONTHLY STATISTICS
+    ///////////////////////////////////////////////////////   
+
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
 

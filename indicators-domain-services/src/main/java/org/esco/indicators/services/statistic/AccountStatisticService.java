@@ -14,6 +14,11 @@ import java.util.List;
  */
 public interface AccountStatisticService {
 
+    
+    ///////////////////////////////////////////////////////
+    // WEEKLY STATISTICS
+    ///////////////////////////////////////////////////////
+    
     /**
      * Retrieves the number of activated accounts in the specified establishment for the specified <code>week</code>
      * of the specified <code>year</code>.<br/>
@@ -53,5 +58,28 @@ public interface AccountStatisticService {
      * 	The number 0 if no data has been retrieved in this period.
      */
     public Integer findWeeklyNumActivatedAccountsForProfiles(String establishmentUai, List<String> usersProfiles, Integer week, Integer year);
+
+    /**
+     * Retrieves the total number of accounts present in the specified establishment for the specified <code>week</code>
+     * of the specified <code>year</code>.<br/>
+     *  
+     * @param establishmentUai
+     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param week
+     * 			The week number of the statistic to retrieve.
+     * @param year
+     * 			The year of the statistic to retrieve.
+     * 
+     * @return
+     * 	The total number of activated accounts in the establishment in the week.<br/>
+     * 	The number 0 if no data has been retrieved in this period.
+     */
+    public Integer findWeeklyTotalNumAccounts(String establishmentUai, Integer week, Integer year);
+    
+    
+    ///////////////////////////////////////////////////////
+    // MONTHLY STATISTICS
+    ///////////////////////////////////////////////////////
+    
     
 }
