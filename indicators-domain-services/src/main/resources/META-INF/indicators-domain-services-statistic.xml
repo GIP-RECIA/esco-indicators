@@ -10,8 +10,9 @@
 
   
     <bean   id="accountActivationStatisticService" 
-            class="org.esco.indicators.services.statistic.AccountActivationStatisticServiceImpl">
+            class="org.esco.indicators.services.statistic.AccountStatisticServiceImpl">
             <property name="accountActivationDao" ref="accountActivationDao"/>
+            <property name="profileLinkDao" ref="profileLinkDao"/>
     </bean>
 
     <bean   id="establishmentVisitStatisticService" 
