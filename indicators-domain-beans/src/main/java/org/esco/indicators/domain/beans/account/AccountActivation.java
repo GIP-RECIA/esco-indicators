@@ -26,10 +26,14 @@ import org.apache.log4j.Logger;
 @Entity
 @NamedQueries({
     @NamedQuery(
-	    name = "AccountActivation.findActivatedAccountsBetween",
-	    query = "SELECT aa FROM AccountActivation aa"
+	    name = "AccountActivation.findNumActivatedAccountsBetween",
+	    query = "SELECT COUNT( aa ) FROM AccountActivation aa, ProfileLink pl"
 	    	+ " WHERE aa.activationStart <= :activationStart"
 		+ " AND ( aa.activationEnd >= :activationEnd OR aa.activationEnd IS NULL)"
+	    	+ " AND aa.userUid = pl.userUid"
+		+ " AND pl.establishmentUai = :establishmentUai"
+	    	+ " AND pl.linkStart <= :activationStart"
+		+ " AND ( pl.linkEnd >= :activationEnd OR pl.linkEnd IS NULL)"
 	    )
 })
 @Table(name = "estactivee")
