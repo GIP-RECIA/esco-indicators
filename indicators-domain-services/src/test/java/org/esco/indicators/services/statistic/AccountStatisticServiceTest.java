@@ -15,7 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * Tests of the {@link AccountActivationStatisticService} interface. <br/>
+ * Tests of the {@link AccountStatisticService} interface. <br/>
  * <br/>
  * 
  * These tests are based on a HSQL database. <br/>
@@ -28,21 +28,21 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="classpath*:META-INF/testApplicationContext.xml")
-public class AccountActivationStatisticServiceTest {
+public class AccountStatisticServiceTest {
     // ---------------------------------------------------------------------------------- ATTRIBUTES
     /**
-     * {@link AccountActivationStatisticService} interface providing access to statistical data on accounts
+     * {@link AccountStatisticService} interface providing access to statistical data on accounts
      * activations
      */
     @Autowired
-    private AccountActivationStatisticService accountActivationStatisticService;
+    private AccountStatisticService accountStatisticService;
 
     // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     // --------------------------------------------------------------------------- GETTERS / SETTERS
     /**
      * Test method for
-     * {@link org.esco.indicators.services.statistic.AccountActivationStatisticService#findWeeklyNumActivatedAccountsForProfile(String, String, Integer, Integer)}
+     * {@link org.esco.indicators.services.statistic.AccountStatisticService#findWeeklyNumActivatedAccountsForProfile(String, String, Integer, Integer)}
      * <br/>
      * 	
      * Tests if the number of activated accounts is the expected one.
@@ -57,7 +57,7 @@ public class AccountActivationStatisticServiceTest {
 	String userProfile = "Teacher";
 	Integer week = 12;
 	Integer year = 2011;
-	Integer actual  = accountActivationStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentUai, userProfile, week, year);
+	Integer actual  = accountStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentUai, userProfile, week, year);
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -65,7 +65,7 @@ public class AccountActivationStatisticServiceTest {
     
     /**
      * Test method for
-     * {@link org.esco.indicators.services.statistic.AccountActivationStatisticService#findWeeklyNumActivatedAccountsForProfile(String, String, Integer, Integer)}
+     * {@link org.esco.indicators.services.statistic.AccountStatisticService#findWeeklyNumActivatedAccountsForProfile(String, String, Integer, Integer)}
      * <br/>
      * 	
      * Tests if the number of activated accounts is the expected one.
@@ -80,7 +80,7 @@ public class AccountActivationStatisticServiceTest {
 	String userProfile = "Teacher";
 	Integer week = 6;
 	Integer year = 2012;
-	Integer actual  = accountActivationStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentUai, userProfile, week, year);
+	Integer actual  = accountStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentUai, userProfile, week, year);
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -88,7 +88,7 @@ public class AccountActivationStatisticServiceTest {
     
     /**
      * Test method for
-      * {@link org.esco.indicators.services.statistic.AccountActivationStatisticService#findWeeklyNumActivatedAccountsForProfile(String, String, Integer, Integer)}
+      * {@link org.esco.indicators.services.statistic.AccountStatisticService#findWeeklyNumActivatedAccountsForProfile(String, String, Integer, Integer)}
       * <br/>
      * 	
      * Tests if the number of activated accounts is the expected one.
@@ -103,7 +103,7 @@ public class AccountActivationStatisticServiceTest {
 	String userProfile = "Teacher";
 	Integer week = 6;
 	Integer year = 2002;
-	Integer actual  = accountActivationStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentUai, userProfile, week, year);
+	Integer actual  = accountStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentUai, userProfile, week, year);
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -111,7 +111,7 @@ public class AccountActivationStatisticServiceTest {
     
     /**
      * Test method for
-     * {@link org.esco.indicators.services.statistic.AccountActivationStatisticService#findWeeklyNumActivatedAccountsForProfile(String, String, Integer, Integer)}
+     * {@link org.esco.indicators.services.statistic.AccountStatisticService#findWeeklyNumActivatedAccountsForProfile(String, String, Integer, Integer)}
      * <br/>
      * 	
      * Tests if the number of activated accounts is the expected one.
@@ -126,7 +126,7 @@ public class AccountActivationStatisticServiceTest {
 	String userProfile = "FakeProfile";
 	Integer week = 6;
 	Integer year = 2012;
-	Integer actual  = accountActivationStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentUai, userProfile, week, year);
+	Integer actual  = accountStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentUai, userProfile, week, year);
 	
 	// Test
 	Assert.assertEquals(expected, actual);

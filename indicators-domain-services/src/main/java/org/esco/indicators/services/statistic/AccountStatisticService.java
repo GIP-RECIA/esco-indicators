@@ -7,12 +7,12 @@ import java.util.List;
 
 
 /**
- * Interface providing access statistical data on account activations.
+ * Interface providing access statistical data on accounts.
  * 
  * @since 2012/06/06
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public interface AccountActivationStatisticService {
+public interface AccountStatisticService {
 
     /**
      * Retrieves the number of activated accounts in the specified establishment for the specified <code>week</code>

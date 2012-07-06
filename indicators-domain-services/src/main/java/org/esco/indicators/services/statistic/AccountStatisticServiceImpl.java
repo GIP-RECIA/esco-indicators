@@ -13,15 +13,15 @@ import org.esco.indicators.domain.beans.account.AccountActivation;
 import org.esco.indicators.utils.date.DateUtils;
 
 /**
- * Implementation of the {@link AccountActivationStatisticService} interface.
+ * Implementation of the {@link AccountStatisticService} interface.
  * 
  * @since  2012/06/06
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public class AccountActivationStatisticServiceImpl implements AccountActivationStatisticService {
+public class AccountStatisticServiceImpl implements AccountStatisticService {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
-    private static final Logger LOGGER = Logger.getLogger(AccountActivationStatisticServiceImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(AccountStatisticServiceImpl.class);
     
     /** DAO providing access to account activations data */
     private AccountActivationDao accountActivationDao;
@@ -29,9 +29,9 @@ public class AccountActivationStatisticServiceImpl implements AccountActivationS
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
-     * Default constructor of the {@link AccountActivationStatisticServiceImpl} class. 
+     * Default constructor of the {@link AccountStatisticServiceImpl} class. 
      */
-    public AccountActivationStatisticServiceImpl() {
+    public AccountStatisticServiceImpl() {
 	super();
     }
 
@@ -62,7 +62,7 @@ public class AccountActivationStatisticServiceImpl implements AccountActivationS
     //------------------------------------------------------------------------------ PUBLIC METHODS
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.AccountActivationStatisticService#findWeeklyNumActivatedAccountsForProfile(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.AccountStatisticService#findWeeklyNumActivatedAccountsForProfile(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     @Override
     public Integer findWeeklyNumActivatedAccountsForProfile(String establishmentUai, String userProfile, Integer week, Integer year) {
@@ -74,7 +74,7 @@ public class AccountActivationStatisticServiceImpl implements AccountActivationS
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.AccountActivationStatisticService#findWeeklyNumActivatedAccountsForProfiles(java.lang.String, java.util.List, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.AccountStatisticService#findWeeklyNumActivatedAccountsForProfiles(java.lang.String, java.util.List, java.lang.Integer, java.lang.Integer)
      */
     @Override
     public Integer findWeeklyNumActivatedAccountsForProfiles(String establishmentUai,
