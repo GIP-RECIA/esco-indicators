@@ -44,6 +44,29 @@ public interface PortalConnectionStatisticDao extends StatisticDao {
 	    String userProfile);
     
     /**
+     * Retrieves the number of visitors that made more than <code>treshold</code> connections on the portal, and who has the specified 
+     * <code>userProfile</code> the specified <code>establishmentUai</code>.
+     * This number of connections only concerns the week beggining with the day <code>firstWeekDay</code>.<br/>
+     * 
+     * @param establishmentUai
+     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param userProfile
+     * 			The user profile of the statistic to retrieve.
+     * @param firstWeekDay
+     * 			he first day of the week associated to the statistic.
+     * @param year
+     * 			The year of the statistic to retrieve.
+     * @param treshold
+     * 			The minimum number of connections treshold.
+     * 
+     * @return
+     * 	the number of visitors who made more than <code>treshold</code> connections on the portal.<br/>
+     * 	<code>null</code> if no statistic has been retrieved.
+     */
+    public Integer findWeeklyNumVisitorsAboveTreshold(String establishmentUai, Date firstWeekDay,
+	    String userProfile, Integer treshold);
+    
+    /**
      * Retrieves the number of visitors that made less than <code>treshold</code> connections on the portal, and who has the specified 
      * <code>userProfile</code> the specified <code>establishmentUai</code>.
      * This number of connections only concerns the week beggining with the day <code>firstWeekDay</code>.<br/>
@@ -61,7 +84,7 @@ public interface PortalConnectionStatisticDao extends StatisticDao {
      * 
      * @return
      * 	the number of visitors who made less than <code>treshold</code> connections on the portal.<br/>
-     * 	the number 0 if no statistic has been retrieved.
+     * 	<code>null</code> if no statistic has been retrieved.
      */
     public Integer findWeeklyNumVisitorsBelowTreshold(String establishmentUai, Date firstWeekDay,
 	    String userProfile, Integer treshold);
@@ -86,5 +109,51 @@ public interface PortalConnectionStatisticDao extends StatisticDao {
      */
     public Integer findMonthlyNumConnectionsByProfile(String establishmentUai, Date firstMonthDay,
 	    String userProfile);
+    
+    /**
+     * Retrieves the number of visitors that made more than <code>treshold</code> connections on the portal, and who has the specified 
+     * <code>userProfile</code> the specified <code>establishmentUai</code>.
+     * This number of connections only concerns the month beggining with the day <code>firstMonthDay</code>.
+     * 
+     * @param establishmentUai
+     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param userProfile
+     * 			The user profile of the statistic to retrieve.
+     * @param firstMonthDay
+     *            The first day of the month associated to the statistic.
+     * @param year
+     * 			The year of the statistic to retrieve.
+     * @param treshold
+     * 			The minimum number of connections treshold.
+     * 
+     * @return
+     * 	the number of visitors who made more than <code>treshold</code> connections on the portal.<br/>
+     * 	<code>null</code> if no statistic has been retrieved.
+     */
+    public Integer findMonthlyNumVisitorsAboveTreshold(String establishmentUai, Date firstMonthDay,
+	    String userProfile, Integer treshold);
 
+    /**
+     * Retrieves the number of visitors that made less than <code>treshold</code> connections on the portal, and who has the specified 
+     * <code>userProfile</code> the specified <code>establishmentUai</code>.
+     * This number of connections only concerns the month beggining with the day <code>firstMonthDay</code>.
+     * 
+     * @param establishmentUai
+     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param userProfile
+     * 			The user profile of the statistic to retrieve.
+     * @param firstMonthDay
+     *            The first day of the month associated to the statistic.
+     * @param year
+     * 			The year of the statistic to retrieve.
+     * @param treshold
+     * 			The maximum number of connections treshold.
+     * 
+     * @return
+     * 	the number of visitors who made less than <code>treshold</code> connections on the portal.<br/>
+     * 	<code>null</code> if no statistic has been retrieved.
+     */
+    public Integer findMonthlyNumVisitorsBelowTreshold(String establishmentUai, Date firstMonthDay,
+	    String userProfile, Integer treshold);
+    
 }
