@@ -6,10 +6,14 @@ package org.esco.indicators.utils.date;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
+import org.joda.time.Interval;
+import org.joda.time.Months;
 
 
 
@@ -32,6 +36,31 @@ public class DateUtils {
     //--------------------------------------------------------------------------- GETTERS / SETTERS
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
+    
+    /**
+     * Adds the specified number of days to the specified date.
+     * 
+     * @param initialDate
+     * 			Date to increment.
+     * @param days
+     * 			Number of days to addition to the initial date.
+     * 
+     * @return
+     * 	the inital date incremented by the number of days.
+     */
+    public static Date addDays(Date initialDate, Integer days) {
+	// Get the date time
+	DateTime dateTime = new DateTime(initialDate.getTime());
+	
+	// Addition of the days
+	dateTime = dateTime.plusDays(days);
+	
+	// Conversion to SQL date
+	Date sqlDate = new Date(dateTime.getMillis());
+	
+	return sqlDate;
+    }
+    
     /**
      * Converts a string representing a date to a SQL date.
      * 
@@ -109,6 +138,48 @@ public class DateUtils {
 	Date date = new Date(time);
 	
 	return date;
+    }
+    
+    /**
+     * Returns the month (in the year) of a date.
+     * 
+     * @param date
+     * 			The date containing the month.
+     * 
+     * @return
+     * 	the month of the specified date.
+     */
+    public static Integer getMonthOfYear(java.util.Date date) {
+	DateTime dateTime = new DateTime(date);
+	return dateTime.getMonthOfYear();
+    }
+    
+    /**
+     * Returns the year of a date.
+     * 
+     * @param date
+     * 			The date containing the year.
+     * 
+     * @return
+     * 	the year of the specified date.
+     */
+    public static Integer getYear(java.util.Date date) {
+	DateTime dateTime = new DateTime(date);
+	return dateTime.getYear();
+    }
+    
+    /**
+     * Returns the week (in the year) of a date.
+     * 
+     * @param date
+     * 			The date containing the week.
+     * 
+     * @return
+     * 	the week of the specified date.
+     */
+    public static Integer getWeekOfYear(java.util.Date date) {
+	DateTime dateTime = new DateTime(date);
+	return dateTime.getWeekOfWeekyear();
     }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
