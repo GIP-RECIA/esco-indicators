@@ -3,7 +3,6 @@
  */
 package org.esco.indicators.services.statistic;
 
-import java.sql.Date;
 
 /**
  * Interface providing access statistical data on account activations.
@@ -14,17 +13,20 @@ import java.sql.Date;
 public interface AccountActivationStatisticService {
 
     /**
-     * Retrieves the number of activated accounts in the period beginning with the specified
-     * <code>startDate</code> and ending with the specified <code>endDate</code>.
+     * Retrieves the number of activated accounts in the specified establishment for the specified <code>week</code>
+     * of the specified <code>year</code>.
+     *  
+     * @param establishmentUai
+     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param week
+     * 			The week number of the statistic to retrieve.
+     * @param year
+     * 			The year of the statistic to retrieve.
      * 
-     * @param startDate
-     * 			The start date of the period.
-     * @param endDate
-     * 			The end date of the period.
      * @return
-     * 	The number of activated accounts on the specified period.<br/>
+     * 	The number of activated accounts in the establishment in the week.<br/>
      * 	The number 0 if no data has been retrieved in this period.
      */
-    public Integer findNumActivatedAccountsBetween(Date startDate, Date endDate);
-
+    public Integer findWeeklyNumActivatedAccounts(String establishmentUai, Integer week, Integer year);
+    
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.esco.indicators.dao.account.AccountActivationDao;
 import org.esco.indicators.domain.beans.account.AccountActivation;
+import org.esco.indicators.utils.date.DateUtils;
 
 /**
  * Implementation of the {@link AccountActivationStatisticService} interface.
@@ -59,14 +60,19 @@ public class AccountActivationStatisticServiceImpl implements AccountActivationS
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.AccountActivationStatisticService#findNumActivatedAccountsBetween(java.sql.Date, java.sql.Date)
+     * @see org.esco.indicators.services.statistic.AccountActivationStatisticService#findWeeklyNumActivatedAccounts(java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findNumActivatedAccountsBetween(Date startDate, Date endDate) {
-	// Gets the activated account of this period
-	List<AccountActivation> accountActivations = accountActivationDao.findActivatedAccountsBetween(startDate, endDate);
+    public Integer findWeeklyNumActivatedAccounts(String establishmentUai, Integer week, Integer year) {
+	// Get the SQL dates corresponding to the first (and last) days of the week for the year
+	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
+	Date lastWeekDay = DateUtils.addDays(firstWeekDay, 6);
 	
-	return accountActivations.size();
+	// Get the number of activated accounts for this week
+	Integer numActivatedAccounts = accountActivationDao.findNumActivatedAccountsBetween(establishmentUai, firstWeekDay, lastWeekDay);
+	numActivatedAccounts = (numActivatedAccounts == null ? 0 : numActivatedAccounts);
+	
+	return numActivatedAccounts;
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS

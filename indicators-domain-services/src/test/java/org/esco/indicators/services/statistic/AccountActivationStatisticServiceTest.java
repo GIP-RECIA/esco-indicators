@@ -42,20 +42,43 @@ public class AccountActivationStatisticServiceTest {
     // --------------------------------------------------------------------------- GETTERS / SETTERS
     /**
      * Test method for
-     * {@link org.esco.indicators.services.statistic.AccountActivationStatisticService#findNumActivatedAccountsBetween(java.sql.Date, java.sql.Date)}
+     * {@link org.esco.indicators.services.statistic.AccountActivationStatisticService#findWeeklyNumActivatedAccounts(String, Integer, Integer)}
      * <br/>
      * 	
      * Tests if the number of activated accounts is the expected one.
      */
     @Test
-    public void testFindNumActivatedAccountsBetween1() {
-	// Expected result
+    public void testFindWeeklyNumActivatedAccounts1() {
+	// Expected result : 1 activated account
+	Integer expected = 1;
+	
+	// Actual result
+	String establishmentUai = "0453456A";
+	Integer week = 12;
+	Integer year = 2011;
+	Integer actual  = accountActivationStatisticService.findWeeklyNumActivatedAccounts(establishmentUai, week, year);
+	
+	// Test
+	Assert.assertEquals(expected, actual);
+    }
+    
+    /**
+     * Test method for
+     * {@link org.esco.indicators.services.statistic.AccountActivationStatisticService#findWeeklyNumActivatedAccounts(String, Integer, Integer)}
+     * <br/>
+     * 	
+     * Tests if the number of activated accounts is the expected one.
+     */
+    @Test
+    public void testFindWeeklyNumActivatedAccounts2() {
+	// Expected result : 3 activated accounts
 	Integer expected = 3;
 	
 	// Actual result
-	Date startDate = DateUtils.toSqlDate("01/02/2012", DateUtils.DATE_FORMAT_FR);
-	Date endDate = DateUtils.toSqlDate("04/02/2012", DateUtils.DATE_FORMAT_FR);
-	Integer actual  = accountActivationStatisticService.findNumActivatedAccountsBetween(startDate, endDate);
+	String establishmentUai = "0453456A";
+	Integer week = 6;
+	Integer year = 2012;
+	Integer actual  = accountActivationStatisticService.findWeeklyNumActivatedAccounts(establishmentUai, week, year);
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -63,45 +86,47 @@ public class AccountActivationStatisticServiceTest {
     
     /**
      * Test method for
-     * {@link org.esco.indicators.services.statistic.AccountActivationStatisticService#findNumActivatedAccountsBetween(java.sql.Date, java.sql.Date)}
+     * {@link org.esco.indicators.services.statistic.AccountActivationStatisticService#findWeeklyNumActivatedAccounts(String, Integer, Integer)}
      * <br/>
      * 	
      * Tests if the number of activated accounts is the expected one.
      */
     @Test
-    public void testFindNumActivatedAccountsBetween2() {
-	// Expected result
-	Integer expected = 2;
-	
-	// Actual result
-	Date startDate = DateUtils.toSqlDate("20/01/2012", DateUtils.DATE_FORMAT_FR);
-	Date endDate = DateUtils.toSqlDate("03/02/2012",  DateUtils.DATE_FORMAT_FR);
-	Integer actual  = accountActivationStatisticService.findNumActivatedAccountsBetween(startDate, endDate);
-	
-	// Test
-	Assert.assertEquals(expected, actual);
-    }
-    
-    /**
-     * Test method for
-     * {@link org.esco.indicators.services.statistic.AccountActivationStatisticService#findNumActivatedAccountsBetween(java.sql.Date, java.sql.Date)}
-     * <br/>
-     * 	
-     * Tests if the number of activated accounts is the expected one.
-     */
-    @Test
-    public void testFindNumActivatedAccountsBetween3() {
-	// Expected result
+    public void testFindWeeklyNumActivatedAccounts3() {
+	// Expected result : 0 activated account
 	Integer expected = 0;
 	
 	// Actual result
-	Date startDate = DateUtils.toSqlDate("01/01/2000", DateUtils.DATE_FORMAT_FR);
-	Date endDate = DateUtils.toSqlDate("01/01/2999", DateUtils.DATE_FORMAT_FR);
-	Integer actual  = accountActivationStatisticService.findNumActivatedAccountsBetween(startDate, endDate);
+	String establishmentUai = "0453456A";
+	Integer week = 6;
+	Integer year = 2002;
+	Integer actual  = accountActivationStatisticService.findWeeklyNumActivatedAccounts(establishmentUai, week, year);
 	
 	// Test
 	Assert.assertEquals(expected, actual);
     }
+    
+    /**
+     * Test method for
+     * {@link org.esco.indicators.services.statistic.AccountActivationStatisticService#findWeeklyNumActivatedAccounts(String, Integer, Integer)}
+     * <br/>
+     * 	
+     * Tests if the number of activated accounts is the expected one.
+     */
+    @Test
+    public void testFindWeeklyNumActivatedAccounts4() {
+	// Expected result : 0 activated account
+	Integer expected = 0;
+	
+	// Actual result
+	String establishmentUai = "0888888A";
+	Integer week = 6;
+	Integer year = 2012;
+	Integer actual  = accountActivationStatisticService.findWeeklyNumActivatedAccounts(establishmentUai, week, year);
+	
+	// Test
+	Assert.assertEquals(expected, actual);
+    }    
     
     // ------------------------------------------------------------------------------ PUBLIC METHODS
 
