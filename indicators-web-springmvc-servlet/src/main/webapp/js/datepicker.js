@@ -43,7 +43,7 @@ $(document).ready(function() {
                 // Update the date picker calendar
                 $(this).datepicker("setDate", new Date(year,month,day));
                 // Force minimum end date
-                forceMinimumEndDate();
+                forceMinimumEndDate(year, month, day);
             }
     });
     
@@ -73,8 +73,8 @@ $(document).ready(function() {
 // FUNCTIONS
 ///////////////////////////////////////////////////////////
 
-function forceMinimumEndDate() {
-
+function forceMinimumEndDate(year, month, day) {
+    $("#endDatePicker").datepicker("option", "minDate", new Date(year, month, day));
 }
 
 /**

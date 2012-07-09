@@ -23,7 +23,7 @@ var CFA_INPUT               = new Object( );
 CFA_INPUT.name              = "establishmentType.CFA";
 
 var COLL_INPUT              = new Object( );
-COLL_INPUT.name             = "establishmentType.COLL";
+COLL_INPUT.name             = "establishmentType.COLLEGE";
 
 var LEN_INPUT               = new Object( );
 LEN_INPUT.name              = "establishmentType.LEN";
