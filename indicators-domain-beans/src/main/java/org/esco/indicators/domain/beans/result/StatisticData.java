@@ -134,6 +134,12 @@ public class StatisticData {
      * 	the float 0, if an error occured during the computation.
      */
     private static Float calculatePercentage(Integer numerator, Integer denominator) {
+	// If the denominator is equal to zero
+	if(denominator.equals(0)) {
+	    LOGGER.warn("The percentage cannot be calculated because the denominator is equal to zero.");
+	    return new Float(0);
+	}
+	// Else
 	Float percent;
 	try {
 	    Float numeratorFloat = Float.valueOf(numerator);

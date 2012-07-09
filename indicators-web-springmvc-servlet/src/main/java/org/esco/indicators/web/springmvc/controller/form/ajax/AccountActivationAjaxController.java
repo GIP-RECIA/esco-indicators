@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.esco.indicators.web.springmvc.ajax;
+package org.esco.indicators.web.springmvc.controller.form.ajax;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,6 +19,7 @@ import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.constants.web.JsonConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
+import org.esco.indicators.web.springmvc.controller.BasicController;
 import org.hibernate.annotations.Check;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,15 +36,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/accounts-activations-ajax")
-public class AccountActivationAjaxController  {
+public class AccountActivationAjaxController extends BasicController  {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(AccountActivationAjaxController.class);
 
-    /** Data form service providing information on the data from */
-    @Autowired
-    private DataFormService dataFormService;
-    
     /** Establishment service providing access to establishments data */
     @Autowired
     private EstablishmentService establishmentService;
@@ -313,31 +310,6 @@ public class AccountActivationAjaxController  {
 	
 	return influentialJspKeys;
     }
-    
-    /**
-     * Remove the unknown JSP keys from the list.<br/>
-     * Return a copy of the specified keys only containing known keys.
-     * 
-     * @param jspKeys
-     * 			The JSP keys to verify.
-     * 
-     * @return
-     * 	a copy of the specified list without the unknown JSP keys.
-     */
-    private List<String> removeUnknownJspKeys(List<String> jspKeys) {
-	// Final result
-	List<String> knownKeys = new ArrayList<String>();
-	
-	// Only keep the known keys
-	for (String jspKey : jspKeys) {
-	    if(dataFormService.isKnown(jspKey)) {
-		knownKeys.add(jspKey);
-	    }
-	}
-	
-	return knownKeys;
-    }
-
     
     //------------------------------------------------------------------------------ STATIC METHODS
 }

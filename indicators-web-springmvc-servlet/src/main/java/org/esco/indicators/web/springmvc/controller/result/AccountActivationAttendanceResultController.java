@@ -22,6 +22,7 @@ import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.utils.date.DateUtils;
+import org.esco.indicators.web.springmvc.controller.BasicController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,15 +40,11 @@ import com.ibm.icu.util.Calendar;
  */
 @Controller
 @RequestMapping("/accounts-activations-attendance-result")
-public class AccountActivationAttendanceResultController {
+public class AccountActivationAttendanceResultController extends BasicController {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(AccountActivationAttendanceResultController.class);
 
-    /** Data form service providing information on the data from */
-    @Autowired
-    private DataFormService dataFormService;
-    
     /** Establishment service providing access to establishments data */
     @Autowired
     private EstablishmentService establishmentService;
@@ -199,6 +196,31 @@ public class AccountActivationAttendanceResultController {
     }
     
     /**
+     * Populate the field containing the list of the filtered users profiles.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the users profiles that have been filtered.
+     */
+    @ModelAttribute("filteredUsersProfilesItems")
+    public List<String> populateFilteredUsersProfiles(HttpServletRequest request) {
+	// Checks if the there is a valid submitted form to process
+	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+	    return null;
+	}
+	
+	// Retrieval of the submitted monitoring type value
+	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
+	
+	// Retrieval of the users profiles to filter
+	List<String> checkedProfiles = new ArrayList<String>(Arrays.asList(aaForm.getUsersProfiles()));
+	List<String> usersProfilesToFilter = dataFormService.getUsersProfilesToFilter(checkedProfiles);
+	
+	return usersProfilesToFilter;
+    }
+    
+    /**
      * Populate the 'lycees' types field.
      * 
      * @param request
@@ -300,8 +322,7 @@ public class AccountActivationAttendanceResultController {
 	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
 	
 	// Retrieval of the establishments uai
-	List<String> checkedUais = new ArrayList<String>(Arrays.asList(aaForm.getEstablishments()));
-	List<String> establishmentsUai = dataFormService.getUsersProfilesToFilter(checkedUais);
+	List<String> establishmentsUai = new ArrayList<String>(Arrays.asList(aaForm.getEstablishments()));
 	
 	// Retrieval of the establishments types
 	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(aaForm.getEstablishmentsTypes()));
@@ -456,6 +477,25 @@ public class AccountActivationAttendanceResultController {
 	return i18nKeys;
     }
     
+    /**
+     * Creates the result row; each result row containing the following data :
+     * <ul>
+     * 	<li>The establishment data (name, UAI,..)</li>
+     * 	<li>The statistic data (number of connections,...)</li>
+     * </ul>
+     * 
+     * @param establishmentsTypes
+     * 			The types of the establishments.
+     * @param establishmentsUai
+     * 			The UAI of the establishments.
+     * @param usersProfiles
+     * 			The users profiles concerned by the statistics.
+     * @param startDate
+     * 			The start date of the statistics.
+     * 
+     * @return
+     * 	the result rows containing the data to display.
+     */
     private List<ResultRow> getResultRows( List<String> establishmentsTypes, List<String> establishmentsUai,List<String> usersProfiles, Date startDate) {
 	// Final result
 	List<ResultRow> rows =  new ArrayList<ResultRow>();
@@ -468,11 +508,11 @@ public class AccountActivationAttendanceResultController {
 		&& establishmentsTypes.size() == 1
 	) {
 	    // If the only selected establishment type is : CFA
-	    Integer month = DateUtils.getMonthOfYear(startDate);
-	    rows.addAll(resultFormService.getPunctualMonthResultRows(establishmentsUai, usersProfiles, month, year));
-	} else {
 	    Integer week = DateUtils.getWeekOfYear(startDate);
 	    rows.addAll(resultFormService.getPunctualWeekResultRows(establishmentsUai, usersProfiles, week, year));
+	} else {
+	    Integer month = DateUtils.getMonthOfYear(startDate);
+	    rows.addAll(resultFormService.getPunctualMonthResultRows(establishmentsUai, usersProfiles, month, year));
 	}
 	
 	return rows;

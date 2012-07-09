@@ -1,4 +1,6 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
+<%@ page import="java.util.*" %>
+
 
 <h1><spring:message code="header.title"/></h1>
 
@@ -120,6 +122,22 @@
                 </th>
             </c:forEach>
             
+            <c:forEach var="item" items="${usersProfilesItems}">
+                <th>
+                </th>
+                <th>
+                   <spring:message code="result.table.num" /> 
+                </th>            
+                <th>
+                   <spring:message code="result.table.percent" /> 
+                </th>     
+                <th colspan="2">
+                    <spring:message code="result.table.maxTimes" arguments="4" /> 
+                </th>
+                <th colspan="2">
+                    <spring:message code="result.table.minTimes" arguments="5" /> 
+                </th>
+            </c:forEach>
 
         </tr>
         
@@ -151,11 +169,49 @@
             </c:forEach>
         </tr>
         
+        <!-- Data of the table -->
         <c:forEach var="item" items="${tableRowsItems}">
             <tr>
                 <td>
                     ${item.establishmentData.establishmentName}
                 </td>
+                <td>
+                    ${item.establishmentData.uai}
+                </td>
+                <td>
+                    ${item.establishmentData.countyNumber}
+                </td>
+                <td>
+                    ${item.establishmentData.establishmentType}
+                </td>
+                <td>
+                    ${item.establishmentData.lyceeType}
+                </td>
+                
+                <c:forEach var="filteredProfile" items="${filteredUsersProfilesItems}">
+                    <c:set var="statistic" value="${item.statisticDataByKey[filteredProfile]}" /> 
+                    <td>
+                        ${statistic.totalAccountNumber}
+                    </td>
+                    <td>
+                        ${statistic.activeAccountNumber}
+                    </td>
+                    <td>
+                        ${statistic.percentageActiveAccount}
+                    </td>
+                    <td>
+                        ${statistic.numVisitorsBelowTreshold}
+                    </td>
+                    <td>
+                        ${statistic.percentageNumVisitorsBelowTreshold}
+                    </td>
+                    <td>
+                        ${statistic.numVisitorsAboveTreshold}
+                    </td>
+                    <td>
+                        ${statistic.percentageNumVisitorsAboveTreshold}
+                    </td>
+                </c:forEach>
             <tr>
         </c:forEach>    
             

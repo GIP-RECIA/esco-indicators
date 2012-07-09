@@ -56,7 +56,17 @@ public class ResultRow {
     }
     
     /**
-     * gets the statistic data associated to the key.
+     * Gets the statistic data map.
+     * 
+     * @return
+     * 	the statistic data map.
+     */
+    public Map<Object,StatisticData> getStatisticDataByKey() {
+	return statisticDataByKey;
+    }
+    
+    /**
+     * Gets the statistic data associated to the key.
      * 
      * @param key
      * 			The key associated to the statistic data.

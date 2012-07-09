@@ -96,6 +96,7 @@ public class ResultFormServiceImpl implements ResultFormService {
 		StatisticData statistic = createPunctualWeekStatisticData(uai, profile, week, year);
 		resultRow.putStatisticData(profile, statistic);
 	    }
+	    rows.add(resultRow);
 	}
 	
 	return rows;
