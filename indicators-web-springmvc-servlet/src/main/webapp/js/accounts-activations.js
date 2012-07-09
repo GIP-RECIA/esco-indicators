@@ -19,6 +19,12 @@
 var SEPARATOR               = ";";
 var ESTABLISHMENTS_TABLE_ID = "establishmentsList";
 
+var ATTENDANCE              = new Object( );
+ATTENDANCE.name             = "monitoringType.ATTENDANCE";
+
+var MONITORING_ATTENDANCE   = new Object( );
+MONITORING_ATTENDANCE.name  = "monitoringType.MONITORING_ATTENDANCE";
+
 var CFA_INPUT               = new Object( );
 CFA_INPUT.name              = "establishmentType.CFA";
 
@@ -232,6 +238,7 @@ function enableElementsByValues(elementValues) {
 function isChecked(elementValue) {
     return $("[value='" + elementValue + "']").prop("checked");
 }
+
 
 /**
  * Function that retrieved the values of the selected elements of the form.

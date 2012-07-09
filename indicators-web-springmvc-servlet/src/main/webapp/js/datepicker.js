@@ -65,6 +65,29 @@ $(document).ready(function() {
                 $(this).datepicker("setDate", new Date(year,month,day));
             }
     });
+
+    ///////////////////////////////////////////////////////
+    // Toggle of the end date picker visibility
+    ///////////////////////////////////////////////////////
+    $("#endDatePicker").hide();
+
+    $("[value='" + MONITORING_ATTENDANCE.name + "']").change(function() {
+        // If the monitoring attendance type has been selected
+        if(isChecked(MONITORING_ATTENDANCE.name)) {
+            $("#endDatePicker").show();
+        } else {
+            $("#endDatePicker").hide();
+        }
+    });
+
+    $("[value='" + ATTENDANCE.name + "']").change(function() {
+        // If the attendance type has been selected
+        if(isChecked(ATTENDANCE.name)) {
+            $("#endDatePicker").hide();
+        } else {
+            $("#endDatePicker").show();
+        }
+    });
 });
 
 
