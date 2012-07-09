@@ -84,6 +84,15 @@ public class AccountActivationAttendanceResultController {
         this.dataFormService = dataFormService;
     }
 
+    /**
+     * Sets the service providing access to result data.
+     * 
+     * @param resultFormService 
+     * 			The service providing access to result data to set.
+     */
+    public void setResultFormService(ResultFormService resultFormService) {
+        this.resultFormService = resultFormService;
+    }
     
     //------------------------------------------------------------------------------ PUBLIC METHODS
 

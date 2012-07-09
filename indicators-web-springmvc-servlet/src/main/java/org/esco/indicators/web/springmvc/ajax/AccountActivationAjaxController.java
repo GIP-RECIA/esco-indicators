@@ -233,10 +233,10 @@ public class AccountActivationAjaxController  {
      */
     private  List<FormField> createNewEstablishmentsList(List<String> checkedJspKeys) {
 	// Retrieval of the authorized establishments type for the establishments list
-	List<String> establishmentsTypes = getEstablishmentsTypesToFilter(checkedJspKeys);
+	List<String> establishmentsTypes = dataFormService.getEstablishmentsTypesToFilter(checkedJspKeys);
 	
 	// Retrieval of the authorized county numbers
-	List<Integer> countyNumbers = getCountyNumbersToFilter(checkedJspKeys);
+	List<Integer> countyNumbers = dataFormService.getCountyNumbersToFilter(checkedJspKeys);
 	
 	// Retrieval of the establishements form fields by type and county
 	List<FormField> establishments = getEstablishmentsByCountyNumbersAndTypes(countyNumbers, establishmentsTypes);
@@ -269,58 +269,6 @@ public class AccountActivationAjaxController  {
 	}
 	
 	return formFields;
-    }
-
-
-    /**
-     * Gets the county numbers to filter when the specified JSP keys are checked in the user view.
-     * 
-     * @param checkedJspKeys
-     * 			The JSP keys that are checked in the user view.
-     * 
-     * @return
-     * 	the list of the county numbers to filter.<br/>
-     * 	an empty list if no county number has to be filtered.
-     */
-    private List<Integer> getCountyNumbersToFilter(List<String> checkedJspKeys) {
-	// Final result
-	List<Integer> countyNumbers = new ArrayList<Integer>();
-	
-	// Retrieval of the county numbers to filter
-	for (String jspKey : checkedJspKeys) {
-	    Integer countyNumber = dataFormService.getCountyNumberToFilter(jspKey);
-	    if(countyNumber != null) {
-		countyNumbers.add(countyNumber);
-	    }
-	}
-	
-	return countyNumbers;
-    }
-
-
-    /**
-     * Gets the establishments types to filter when the specified JSP keys are checked in the user view.
-     * 
-     * @param checkedJspKeys
-     * 			The JSP keys that are checked in the user view.
-     * 
-     * @return
-     * 	the list of the establishment types to filter.<br/>
-     * 	an empty list if no establishment type has to be filtered.
-     */
-    private List<String> getEstablishmentsTypesToFilter(List<String> checkedJspKeys) {
-	// Final result
-	List<String> establishmentsTypes = new ArrayList<String>();
-	
-	// Retrieval of the establishments types to filter
-	for (String jspKey : checkedJspKeys) {
-	    String establishmentType = dataFormService.getEstablishmentTypeToFilter(jspKey);
-	    if(establishmentType != null) {
-		establishmentsTypes.add(establishmentType);
-	    }
-	}
-	
-	return establishmentsTypes;
     }
 
 

@@ -23,7 +23,7 @@ public class ResultRow {
     private EstablishmentData establishmentData;
     
     /** Data concerning the statistics classified by a key */
-    private Map<String,StatisticData> statisticDataByKey;
+    private Map<Object,StatisticData> statisticDataByKey;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
@@ -31,7 +31,7 @@ public class ResultRow {
      */
     public ResultRow() {
 	super();
-	statisticDataByKey = new HashMap<String, StatisticData>();
+	statisticDataByKey = new HashMap<Object, StatisticData>();
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS

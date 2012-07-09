@@ -19,5 +19,13 @@
         </property>
     </bean>
     
-    <bean id="dataFormService" class="org.esco.indicators.services.form.DataFormServiceImpl" />
+    <bean   id="dataFormService" 
+            class="org.esco.indicators.services.form.DataFormServiceImpl" />
+            
+    <bean   id="resultFormService" 
+            class="org.esco.indicators.services.form.ResultFormServiceImpl">
+            <property name="accountStatisticService" ref="accountActivationStatisticService"/>
+            <property name="establishmentService" ref="establishmentService"/>
+            <property name="portalConnectionStatisticService" ref="portalConnectionStatisticService"/>
+    </bean>  
 </beans>

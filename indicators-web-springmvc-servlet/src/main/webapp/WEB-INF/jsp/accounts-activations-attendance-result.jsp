@@ -120,22 +120,7 @@
                 </th>
             </c:forEach>
             
-            <c:forEach var="item" items="${usersProfilesItems}">
-                <th>
-                </th>
-                <th>
-                    <spring:message code="result.table.num" />
-                </th>
-                <th>
-                    <spring:message code="result.table.percent" />
-                </th>            
-                <th colspan="2">
-                    <spring:message code="result.table.maxTimes" arguments="4" />
-                </th>
-                <th colspan="2">
-                    <spring:message code="result.table.minTimes" arguments="5" />
-                </th>
-            </c:forEach>
+
         </tr>
         
         <!-- Headers : Fourth level -->
@@ -166,6 +151,14 @@
             </c:forEach>
         </tr>
         
+        <c:forEach var="item" items="${tableRowsItems}">
+            <tr>
+                <td>
+                    ${item.establishmentData.establishmentName}
+                </td>
+            <tr>
+        </c:forEach>    
+            
     </table>
 
 

@@ -17,16 +17,16 @@ public class StatisticData {
     private static final Logger LOGGER = Logger.getLogger(StatisticData.class);
 
     /** Total account number */
-    private String totalAccountNumber;
+    private Integer totalAccountNumber;
 
     /** Active account number */
-    private String activeAccountNumber;
+    private Integer activeAccountNumber;
 
     /** Number of visitors that realize a number of visits lesser than a treshold */
-    private String numVisitorsBelowTreshold;
+    private Integer numVisitorsBelowTreshold;
 
     /** Number of visitors that realize a number of visits greater than a treshold */
-    private String numVisitorsAboveTreshold;
+    private Integer numVisitorsAboveTreshold;
 
     // -------------------------------------------------------------------------------- CONSTRUCTORS
     /**
@@ -41,8 +41,8 @@ public class StatisticData {
      * @param numVisitorsAboveTreshold
      *            Number of visitors having made a number of visits greater than a treshold.
      */
-    public StatisticData(String totalAccountNumber, String activeAccountNumber,
-	    String numVisitorsBelowTreshold, String numVisitorsAboveTreshold) {
+    public StatisticData(Integer totalAccountNumber, Integer activeAccountNumber,
+	    Integer numVisitorsBelowTreshold, Integer numVisitorsAboveTreshold) {
 	super();
 	this.totalAccountNumber = totalAccountNumber;
 	this.activeAccountNumber = activeAccountNumber;
@@ -56,7 +56,7 @@ public class StatisticData {
      * 
      * @return the number of total account.
      */
-    public String getTotalAccountNumber() {
+    public Integer getTotalAccountNumber() {
 	return totalAccountNumber;
     }
 
@@ -65,7 +65,7 @@ public class StatisticData {
      * 
      * @return the number of active account.
      */
-    public String getActiveAccountNumber() {
+    public Integer getActiveAccountNumber() {
 	return activeAccountNumber;
     }
 
@@ -74,7 +74,7 @@ public class StatisticData {
      * 
      * @return the number of visitors having made a number of visits lesser than a treshold.
      */
-    public String getNumVisitorsBelowTreshold() {
+    public Integer getNumVisitorsBelowTreshold() {
 	return numVisitorsBelowTreshold;
     }
 
@@ -83,7 +83,7 @@ public class StatisticData {
      * 
      * @return the number of visitors having made a number of visits greater than a treshold.
      */
-    public String getNumVisitorsAboveTreshold() {
+    public Integer getNumVisitorsAboveTreshold() {
 	return numVisitorsAboveTreshold;
     }
 
@@ -93,7 +93,7 @@ public class StatisticData {
      * @return
      * 	 the percentage of active account regarding to the total number of account.
      */
-    public String getPercentageActiveAccount() {
+    public Float getPercentageActiveAccount() {
 	return calculatePercentage(activeAccountNumber, totalAccountNumber);
     }
     
@@ -102,7 +102,7 @@ public class StatisticData {
      * 
      * @return the percentage of visitors having made a number of visits greater than a treshold.
      */
-    public String getPercentageNumVisitorsAboveTreshold() {
+    public Float getPercentageNumVisitorsAboveTreshold() {
 	return calculatePercentage(numVisitorsAboveTreshold, totalAccountNumber);
     }
     
@@ -111,7 +111,7 @@ public class StatisticData {
      * 
      * @return the percentage of visitors having made a number of visits lesser than a treshold.
      */
-    public String getPercentageNumVisitorsBelowTreshold() {
+    public Float getPercentageNumVisitorsBelowTreshold() {
 	return calculatePercentage(numVisitorsBelowTreshold, totalAccountNumber);
     }
     
@@ -121,19 +121,19 @@ public class StatisticData {
     
     // ------------------------------------------------------------------------------ STATIC METHODS
     /**
-     * Computes and returns the percentage (<code>String</code>) calculated from the
-     * specified numerator  (<code>String</code>) and denominator  (<code>String</code>).
+     * Computes and returns the percentage calculated from the
+     * specified numerator and denominator.
      * 
      * @param numerator
-     * 			The string representing the numerator.
+     * 			The numerator.
      * @param denominator
-     * 			The string representing the denominator.
+     * 			The denominator.
      * 
      * @return
-     * 	the string representing the percentage.<br/>
-     * 	the string "0", if an error occured during the computation.
+     * 	the percentage.<br/>
+     * 	the float 0, if an error occured during the computation.
      */
-    private static String calculatePercentage(String numerator, String denominator) {
+    private static Float calculatePercentage(Integer numerator, Integer denominator) {
 	Float percent;
 	try {
 	    Float numeratorFloat = Float.valueOf(numerator);
@@ -141,8 +141,8 @@ public class StatisticData {
 	    percent = numeratorFloat / denominatorFloat;
 	} catch (NullPointerException e) {
 	    LOGGER.warn("The percentage cannot be calculated because the numerator / denominator is undefined.");
-	    return "0";
+	    return new Float(0);
 	}
-	return percent.toString();
+	return percent;
     }
 }

@@ -117,7 +117,7 @@ public class AccountStatisticServiceTest {
      * Tests if the number of activated accounts is the expected one.
      */
     @Test
-    public void testFindWeeklyNumActivatedAccountsForProfile4() {
+    public void testFindWeeklyNumActivatedAccountsForProfile41() {
 	// Expected result : 0 activated account
 	Integer expected = 0;
 	
@@ -127,6 +127,73 @@ public class AccountStatisticServiceTest {
 	Integer week = 6;
 	Integer year = 2012;
 	Integer actual  = accountStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentUai, userProfile, week, year);
+	
+	// Test
+	Assert.assertEquals(expected, actual);
+    }    
+    
+    
+    /**
+     * Test method for
+     * {@link org.esco.indicators.services.statistic.AccountStatisticService#findWeeklyTotalNumAccounts(String, Integer, Integer)}.
+     * <br/>
+     * 	
+     * Tests if the total number of accounts for a specified week is the expected one.
+     */
+    @Test
+    public void testFindWeeklyTotalNumAccounts1() {
+	// Expected result : 3 accounts
+	Integer expected = 3;
+	
+	// Actual result
+	String establishmentUai = "0453456A";
+	Integer week = 6;
+	Integer year = 2012;
+	Integer actual  = accountStatisticService.findWeeklyTotalNumAccounts(establishmentUai, week, year);
+	
+	// Test
+	Assert.assertEquals(expected, actual);
+    }    
+    
+    /**
+     * Test method for
+     * {@link org.esco.indicators.services.statistic.AccountStatisticService#findWeeklyTotalNumAccounts(String, Integer, Integer)}.
+     * <br/>
+     * 	
+     * Tests if the total number of accounts for a specified week is the expected one.
+     */
+    @Test
+    public void testFindWeeklyTotalNumAccounts2() {
+	// Expected result : 2 accounts
+	Integer expected = 2;
+	
+	// Actual result
+	String establishmentUai = "0453456A";
+	Integer week = 38;
+	Integer year = 2011;
+	Integer actual  = accountStatisticService.findWeeklyTotalNumAccounts(establishmentUai, week, year);
+	
+	// Test
+	Assert.assertEquals(expected, actual);
+    }    
+    
+    /**
+     * Test method for
+     * {@link org.esco.indicators.services.statistic.AccountStatisticService#findWeeklyTotalNumAccounts(String, Integer, Integer)}.
+     * <br/>
+     * 	
+     * Tests if the total number of accounts for a specified week is the expected one.
+     */
+    @Test
+    public void testFindWeeklyTotalNumAccounts3() {
+	// Expected result : 0 accounts
+	Integer expected = 0;
+	
+	// Actual result
+	String establishmentUai = "0888888A";
+	Integer week = 01;
+	Integer year = 2002;
+	Integer actual  = accountStatisticService.findWeeklyTotalNumAccounts(establishmentUai, week, year);
 	
 	// Test
 	Assert.assertEquals(expected, actual);

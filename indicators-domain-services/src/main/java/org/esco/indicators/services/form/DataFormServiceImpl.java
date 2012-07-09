@@ -221,12 +221,10 @@ public class DataFormServiceImpl implements DataFormService {
      */
     @Override
     public String getUserProfileToFilter(String jspKey) {
-	       init();
-	       
-	       // Retrieval of the entry value
-	       EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
-	       
-	        return entryValue.getUserProfileToFilter();
+	init();
+	// Retrieval of the entry value
+	EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
+	return entryValue.getUserProfileToFilter();
     }
 
     /* (non-Javadoc)
