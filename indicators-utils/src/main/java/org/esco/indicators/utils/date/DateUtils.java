@@ -224,6 +224,68 @@ public class DateUtils {
     }
     
     /**
+     * Splits the specified period into a list of pairs (month - year).<br/>
+     * Each pair contains :
+     * <ul>
+     * 	<li>First value : a month number</li>
+     * 	<li>Second value : a year</li>
+     * </ul>
+     * 
+     * For instance :<br/>
+     * 	With the following parameters :
+     * 	<ul>
+     * 		<li><code>startMonth</code> : 03 </li>
+     * 		<li><code>startYear</code> : 2012 </li>
+     * 		<li><code>endMonth</code> : 04 </li>
+     * 		<li><code>endYear</code> : 2013 </li>
+     * 	</ul>
+     *  The return will be the following list of pairs : <br/>
+     *  [ (03 - 2012) (04 - 2012) (05 - 2012) ... (03 - 2013) (04 - 2013) ]
+     * 
+     * @param startMonth
+     * 			The number of the start month (in the start year).
+     * @param startYear
+     * 			The start year.
+     * @param endMonth
+     * 			The number of the end month (in the end year).
+     * @param endYear
+     * 			The end year.
+     * 
+     * @return
+     * 	the list of months contained between the start and the end.<br/>
+     * 	these months are put into pairs, each pair containing the month number and the year.
+     */
+    public static List<IntegerPair>  splitMonths(Integer startMonth, Integer startYear, Integer endMonth, Integer endYear) {
+	// Final result
+	List<IntegerPair> monthsAndYears = new ArrayList<IntegerPair>();
+
+	// Gets the number of years between the start and the end
+	Integer diffYears = endYear - startYear;
+	Integer minMonth = startMonth;
+	Integer maxMonth;
+	
+	// If the period is in the same year
+	if(diffYears == 0) {
+	    maxMonth = endMonth;
+	} else {
+	    maxMonth = 11;
+	}
+	
+	// Creation of the pairs (month - year)
+    	for(int currentYear = startYear; currentYear <= endYear; currentYear++) {
+        	for(int currentMonth = minMonth; currentMonth <= maxMonth; currentMonth++ ) {
+        	    IntegerPair monthAndYear = new IntegerPair(currentMonth, currentYear);
+        	    monthsAndYears.add(monthAndYear);
+        	}
+        	// Reset of the minimum / maximum week
+        	minMonth = 1;
+        	maxMonth = (currentYear + 1 == endYear) ? endMonth :  12;
+	}
+
+    	return monthsAndYears;
+    }
+    
+    /**
      * Splits the specified period into a list of pairs (week - year).<br/>
      * Each pair contains :
      * <ul>
@@ -234,13 +296,13 @@ public class DateUtils {
      * For instance :<br/>
      * 	With the following parameters :
      * 	<ul>
-     * 		<li><code>startWeek</code> : 03 </li>
+     * 		<li><code>startWeek</code> : 21 </li>
      * 		<li><code>startYear</code> : 2012 </li>
-     * 		<li><code>endWeek</code> : 04 </li>
+     * 		<li><code>endWeek</code> : 15 </li>
      * 		<li><code>endYear</code> : 2013 </li>
      * 	</ul>
      *  The return will be the following list of pairs : <br/>
-     *  [ (03 - 2012) (04 - 2012) (05 - 2012) ... (03 - 2013) (04 - 2013) ]
+     *  [ (21 - 2012) (22 - 2012) (23 - 2012) ... (14 - 2013) (15 - 2013) ]
      * 
      * @param startWeek
      * 			The number of the start week (in the start year).
