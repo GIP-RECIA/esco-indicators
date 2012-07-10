@@ -48,22 +48,24 @@ public class MonitoringAttendanceResultController extends BasicResultController 
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     
-    
     /**
-     * Populate the attribute containing all the statistic periods represented by pairs ({@link IntegerPair}).<br/>
+     * Populate the field containing the list of the keys used to index the statistic data in each result row.<br/>
+     * In this page, the keys used to index the statistic data are : the statistic periods.<br/>
+     * 
+     * All the statistic periods are represented by pairs ({@link IntegerPair}).<br/>
      * Each pair contains :
      * <ul>
      * 	<li>First value : number of a week (or month)</li>
-     * 	<li>Second value : year of the first value</li>
+     * 	<li>Second value : year (of the first value : week or month)</li>
      * </ul>
      * 
      * @param request
      * 			The request made by the user.
-     * 
      * @return
-     * 	the statistic periods used to index the statistic data in the result rows.
+     * 	the list of the keys used to index the statistic data.
      */
-    public List<IntegerPair> populateStatisticPeriods(HttpServletRequest request) {
+    @ModelAttribute("statisticDataKeys")
+    public List<IntegerPair> populateStatisticDataKeys(HttpServletRequest request) {
         // Checks if the there is a valid submitted form to process
         if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
             return null;

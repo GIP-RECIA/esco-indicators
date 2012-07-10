@@ -54,15 +54,16 @@ public class AttendanceResultController extends BasicResultController {
     //------------------------------------------------------------------------------ PUBLIC METHODS
 
     /**
-     * Populate the field containing the list of the filtered users profiles.
+     * Populate the field containing the list of the keys used to index the statistic data in each result row.<br/>
+     * In this page, the keys used to index the statistic data are : the filtered users profiles.
      * 
      * @param request
      * 			The request made by the user.
      * @return
-     * 	the users profiles that have been filtered.
+     * 	the list of the keys used to index the statistic data.
      */
-    @ModelAttribute("filteredUsersProfilesItems")
-    public List<String> populateFilteredUsersProfiles(HttpServletRequest request) {
+    @ModelAttribute("statisticDataKeys")
+    public List<String> populateStatisticDataKeys(HttpServletRequest request) {
         // Checks if the there is a valid submitted form to process
         if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
             return null;
