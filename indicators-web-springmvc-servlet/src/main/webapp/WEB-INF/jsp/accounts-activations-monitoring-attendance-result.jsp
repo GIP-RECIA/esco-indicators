@@ -12,7 +12,6 @@
   
 </div>
 
-
 <!-- Selected filters -->
 <%@ include file="/WEB-INF/jsp/include/account/filters.jsp"%>
 
@@ -39,10 +38,9 @@
                 <spring:message code="result.table.lyceeType" />
             </th>
 
-            <c:forEach var="item" items="${usersProfilesItems}">
-                <spring:message code="${item}" var="i18n"/> 
+            <c:forEach var="item" items="${statisticDataKeys}">
                 <th colspan="7">
-                    ${i18n}
+                    ${item.first} - ${item.second}
                 </th>
             </c:forEach>        
         </tr>        
@@ -54,7 +52,7 @@
                 </th>
             </c:forEach>
             
-            <c:forEach var="item" items="${usersProfilesItems}">
+            <c:forEach var="item" items="${statisticDataKeys}">
                 <th>
                     <spring:message code="result.table.totalAccount" />
                 </th>
@@ -74,7 +72,7 @@
                 </th>
             </c:forEach>
             
-            <c:forEach var="item" items="${usersProfilesItems}">
+            <c:forEach var="item" items="${statisticDataKeys}">
                 <th>
                 </th>
                 <th>
@@ -100,7 +98,7 @@
                 </th>
             </c:forEach>
             
-            <c:forEach var="item" items="${usersProfilesItems}">
+            <c:forEach var="item" items="${statisticDataKeys}">
                 <c:forEach var="i" begin="1" end="3">
                     <th>
                     </th>
