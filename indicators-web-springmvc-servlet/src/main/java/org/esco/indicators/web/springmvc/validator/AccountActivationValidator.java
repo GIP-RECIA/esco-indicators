@@ -7,6 +7,7 @@ import javax.xml.crypto.Data;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
+import org.esco.indicators.utils.constants.web.FormValidationConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.hibernate.classic.Validatable;
 import org.springframework.validation.Errors;
@@ -70,8 +71,9 @@ public class AccountActivationValidator implements Validator {
 	    
 	    // Only one user profile must be specified
 	    String [] usersProfiles = aaForm.getUsersProfiles();
-	    if(usersProfiles.length > 1) {
-		errors.rejectValue(DataFormConstants.USERS_PROFILES, "error.form.usersProfiles.maxValue", new Object [ ] { 1 }, "error.form.usersProfiles.maxValue");
+	    Integer maxUsersProfiles = FormValidationConstants.MAX_SELECTED_PROFILES_MONITORING;
+	    if(usersProfiles.length > maxUsersProfiles) {
+		errors.rejectValue(DataFormConstants.USERS_PROFILES, "error.form.usersProfiles.maxValue", new Object [ ] { maxUsersProfiles }, "error.form.usersProfiles.maxValue");
 	    }
 	}
 	
@@ -85,6 +87,15 @@ public class AccountActivationValidator implements Validator {
 	    ValidationUtils.rejectIfEmpty(errors, DataFormConstants.COUNTY, "error.form.county.empty");
 	}
 	
+	/////////////////////////////////////////
+	// Validation of the establishments
+	// list
+	/////////////////////////////////////////
+	String [] establishments = aaForm.getEstablishments();
+	Integer maxEstablishments = FormValidationConstants.MAX_SELECTED_ESTABLISHMENTS;
+	if(establishments.length > maxEstablishments) {
+	    errors.rejectValue(DataFormConstants.ESTABLISHMENTS, "error.form.establishments.maxValue", new Object [ ] { maxEstablishments }, "error.form.establishments.maxValue");
+	}
     }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS

@@ -97,6 +97,7 @@
                 <tr>
             </c:forEach>
         </table>
+        <form:errors path="establishments" cssClass="error" />
     </div>
     
     <input type="submit">
