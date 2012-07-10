@@ -1,11 +1,10 @@
 /**
  * 
  */
-package org.esco.indicators.domain.beans.result;
+package org.esco.indicators.domain.beans.util;
 
 
 import org.apache.log4j.Logger;
-import org.esco.indicators.domain.beans.util.Pair;
 
 /**
  * Class representing a pair of <code>Integer</code> values.
