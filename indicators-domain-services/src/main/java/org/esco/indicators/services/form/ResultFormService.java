@@ -26,8 +26,9 @@ public interface ResultFormService {
      * Each result row is associated to one establishment, and contained two kinds of data :
      * <ul>
      * 	<li>The establishment data (name,...)</li>
-     * 	<li>The statistic data on each user profile (number of active accounts,...)</li>
+     * 	<li>The statistic data  (number of active accounts,...) indexed by user profile</li>
      * </ul>
+     * In fact, in each result row, there is one statistic data per user profile.<br/>
      * For more informations on the result row content, see {@link ResultRow}.
      * 
      * @param establishmentsUai
@@ -44,7 +45,34 @@ public interface ResultFormService {
      */
     public List<ResultRow> getPunctualWeekResultRows(List<String> establishmentsUai, List<String> usersProfiles, Integer week, Integer year);
     
-    public List<ResultRow> getWeeklyResultRows(List<String> establishmentsUai, List<String> usersProfiles, Integer startWeek, Integer startYear, Integer endWeek, Integer endYear);
+    /**
+     * Gets the result rows containing the data on the establishements and the users profiles.<br/>
+     * These data only concern the period beginning with the specified <code>startWeek</code> of the <code>startYear</code>, and finishing with the <code>endWeek</code> of the <code>endYear</code>.<br/>
+     * Each result row is associated to one establishment, and contained two kinds of data :
+     * <ul>
+     * 	<li>The establishment data (name,...)</li>
+     * 	<li>The statistic data  (number of active accounts,...) indexed by week and year</li>
+     * </ul>
+     * In fact, in each result row, there is one statistic data per week contained in the period.<br/>
+     * For more informations on the result row content, see {@link ResultRow}.
+     * 
+     * @param establishmentsUai
+     * 			The UAI of the establishments.
+     * @param userProfile
+     * 			The user profile.
+     * @param startWeek
+     * 			The number of the beginning week (in the beginning year).
+     * @param startYear
+     * 			The beginning year.
+     * @param endWeek
+     * 			The number of the finishing week (in the finishning year).
+     * @param endYear
+     * 			The number of the finishing year.
+     * 
+     * @return
+     * 	the result rows containing establishment data, and statistics data, for each period of one week in each establishment.
+     */
+    public List<ResultRow> getWeeklyResultRows(List<String> establishmentsUai, String userProfile, Integer startWeek, Integer startYear, Integer endWeek, Integer endYear);
     
     ///////////////////////////////////////////////////////
     // MONTHLY RESULTS
@@ -55,8 +83,9 @@ public interface ResultFormService {
      * Each result row is associated to one establishment, and contained two kinds of data :
      * <ul>
      * 	<li>The establishment data (name,...)</li>
-     * 	<li>The statistic data on each user profile (number of active accounts,...)</li>
+     * 	<li>The statistic data  (number of active accounts,...) indexed by user profile</li>
      * </ul>
+     * In fact, in each result row, there is one statistic data per user profile.<br/>
      * For more informations on the result row content, see {@link ResultRow}.
      * 
      * @param establishmentsUai
@@ -73,6 +102,6 @@ public interface ResultFormService {
      */
     public List<ResultRow> getPunctualMonthResultRows(List<String> establishmentsUai, List<String> usersProfiles, Integer month, Integer year);
     
-    public List<ResultRow> getMonthlyResultRows(List<String> establishmentsUai, List<String> usersProfiles, Integer startMonth, Integer startYear, Integer endMonth, Integer endYear);
+    public List<ResultRow> getMonthlyResultRows(List<String> establishmentsUai, String userProfile, Integer startMonth, Integer startYear, Integer endMonth, Integer endYear);
     
 }

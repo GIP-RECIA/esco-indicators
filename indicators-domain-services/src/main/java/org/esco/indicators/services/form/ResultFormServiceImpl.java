@@ -11,11 +11,12 @@ import org.esco.indicators.domain.beans.result.EstablishmentData;
 import org.esco.indicators.domain.beans.result.ResultRow;
 import org.esco.indicators.domain.beans.result.StatisticData;
 import org.esco.indicators.domain.beans.structure.Establishment;
+import org.esco.indicators.domain.beans.util.IntegerPair;
 import org.esco.indicators.services.constants.ServicesConstants;
 import org.esco.indicators.services.statistic.AccountStatisticService;
 import org.esco.indicators.services.statistic.PortalConnectionStatisticService;
 import org.esco.indicators.services.structure.EstablishmentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.esco.indicators.utils.date.DateUtils;
 
 /**
  * Implementation of the {@link ResultFormService} interface.
@@ -108,13 +109,32 @@ public class ResultFormServiceImpl implements ResultFormService {
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.form.ResultFormService#getWeeklyResultRows(java.util.List, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.form.ResultFormService#getWeeklyResultRows(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public List<ResultRow> getWeeklyResultRows(List<String> establishmentsUai, List<String> usersProfiles,
-	    Integer startWeek, Integer startYear, Integer endWeek, Integer endYear) {
-	// TODO Auto-generated method stub
-	return null;
+    public List<ResultRow> getWeeklyResultRows(List<String> establishmentsUai, String userProfile,
+            Integer startWeek, Integer startYear, Integer endWeek, Integer endYear) {
+	// Final result
+	List<ResultRow> rows = new ArrayList<ResultRow>();
+	
+	// Splits the specified period into weeks
+	List<IntegerPair> weeksAndYears = DateUtils.splitWeeks(startWeek, startYear, endWeek, endYear);
+	
+	// For each establishment :
+	//	Creation of the corresponding result row
+	//	Addition of the establishment data in the result row
+	//	Addition of the statistic data in the result row (for each period)
+	for (String uai : establishmentsUai) {
+	    ResultRow resultRow = new ResultRow();
+	    resultRow.setEstablishmentData(getEstablishmentData(uai));
+	    for (IntegerPair weekAndYear : weeksAndYears) {
+		StatisticData statistic = createPunctualWeekStatisticData(uai, userProfile, weekAndYear.getFirst(), weekAndYear.getSecond());
+		resultRow.putStatisticData(weekAndYear, statistic);
+	    }
+	    rows.add(resultRow);
+	}
+	
+	return rows;
     }
 
     
@@ -147,18 +167,18 @@ public class ResultFormServiceImpl implements ResultFormService {
 	
 	return rows;
     }
-
+    
+    
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.form.ResultFormService#getMonthlyResultRows(java.util.List, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.form.ResultFormService#getMonthlyResultRows(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public List<ResultRow> getMonthlyResultRows(List<String> establishmentsUai, List<String> usersProfiles,
-	    Integer startMonth, Integer startYear, Integer endMonth, Integer endYear) {
-	// TODO Auto-generated method stub
-	return null;
+    public List<ResultRow> getMonthlyResultRows(List<String> establishmentsUai, String userProfile,
+            Integer startMonth, Integer startYear, Integer endMonth, Integer endYear) {
+        // TODO Auto-generated method stub
+        return null;
     }
-    
-    
+
     //----------------------------------------------------------------------------- PRIVATE METHODS
     /**
      * Retrieves data and creates the statistic data for a specified :
@@ -263,7 +283,6 @@ public class ResultFormServiceImpl implements ResultFormService {
 	
 	return data;
     }
-
-
+    
     //------------------------------------------------------------------------------ STATIC METHODS
 }
