@@ -57,21 +57,34 @@ public class AccountActivationValidator implements Validator {
 	// Validation of the more complicated content
 	/////////////////////////////////////////////////////////////
 	
-	// Validation of the end date field
+	/////////////////////////////////////////
+	// Validation of :
+	//	- the end date field
+	// 	- the user profile field 
+	/////////////////////////////////////////
 	String monitoringType = (String) errors.getFieldValue(DataFormConstants.MONITORING_TYPE);
+	 // If the monitoring type is monitoring attendance
 	if(monitoringType != null && monitoringType.equals(DataFormConstants.JSP_KEY_MONITORING_ATTENDANCE)) {
-	    // If the monitoring type is monitoring attendance
 	    // A end date must be specified
 	    ValidationUtils.rejectIfEmpty(errors, DataFormConstants.END_DATE, "error.form.endDate.empty");
+	    
+	    // Only one user profile must be specified
+	    String [] usersProfiles = aaForm.getUsersProfiles();
+	    if(usersProfiles.length > 1) {
+		errors.rejectValue(DataFormConstants.USERS_PROFILES, "error.form.usersProfiles.maxValue", new Object [ ] { 1 }, "error.form.usersProfiles.maxValue");
+	    }
 	}
 	
+	/////////////////////////////////////////
 	// Validation of the county field
+	/////////////////////////////////////////
 	String sumOnCountiesStr = (String) errors.getFieldValue(DataFormConstants.SUM_ON_COUNTIES);
 	if( sumOnCountiesStr == null || sumOnCountiesStr.isEmpty()) {
 	    //  If no sum on counties is specified
 	    // A county must be selected
 	    ValidationUtils.rejectIfEmpty(errors, DataFormConstants.COUNTY, "error.form.county.empty");
 	}
+	
     }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
