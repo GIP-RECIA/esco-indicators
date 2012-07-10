@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.esco.indicators.web.springmvc.controller.result;
+package org.esco.indicators.web.springmvc.controller.account.result;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,10 +40,10 @@ import com.ibm.icu.util.Calendar;
  */
 @Controller
 @RequestMapping("/accounts-activations-attendance-result")
-public class AccountActivationAttendanceResultController extends BasicController {
+public class AttendanceResultController extends BasicController {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
-    private static final Logger LOGGER = Logger.getLogger(AccountActivationAttendanceResultController.class);
+    private static final Logger LOGGER = Logger.getLogger(AttendanceResultController.class);
 
     /** Establishment service providing access to establishments data */
     @Autowired
@@ -55,9 +55,9 @@ public class AccountActivationAttendanceResultController extends BasicController
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
-     * Default constructor of the {@link AccountActivationAttendanceResultController} class.
+     * Default constructor of the {@link AttendanceResultController} class.
      */
-    public AccountActivationAttendanceResultController() {
+    public AttendanceResultController() {
 	super();
     }
 

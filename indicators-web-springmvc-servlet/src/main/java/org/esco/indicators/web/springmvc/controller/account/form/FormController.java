@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.esco.indicators.web.springmvc.controller.form;
+package org.esco.indicators.web.springmvc.controller.account.form;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,10 +46,10 @@ import org.springframework.web.servlet.support.RequestContext;
  */
 @Controller
 @RequestMapping("/accounts-activations")
-public class AccountActivationController  {
+public class FormController  {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
-    private static final Logger LOGGER = Logger.getLogger(AccountActivationController.class);
+    private static final Logger LOGGER = Logger.getLogger(FormController.class);
 
     /** Service providing the data form */
     @Autowired
@@ -61,9 +61,9 @@ public class AccountActivationController  {
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
-     * Default construcotr of the {@link AccountActivationController} class.
+     * Default construcotr of the {@link FormController} class.
      */
-    public AccountActivationController() {
+    public FormController() {
     }
     
 

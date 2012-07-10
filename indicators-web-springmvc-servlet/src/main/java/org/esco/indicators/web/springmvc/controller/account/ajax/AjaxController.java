@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.esco.indicators.web.springmvc.controller.form.ajax;
+package org.esco.indicators.web.springmvc.controller.account.ajax;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,10 +36,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/accounts-activations-ajax")
-public class AccountActivationAjaxController extends BasicController  {
+public class AjaxController extends BasicController  {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
-    private static final Logger LOGGER = Logger.getLogger(AccountActivationAjaxController.class);
+    private static final Logger LOGGER = Logger.getLogger(AjaxController.class);
 
     /** Establishment service providing access to establishments data */
     @Autowired
@@ -50,9 +50,9 @@ public class AccountActivationAjaxController extends BasicController  {
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
-     * Default construcotr of the {@link AccountActivationAjaxController} class.
+     * Default construcotr of the {@link AjaxController} class.
      */
-    public AccountActivationAjaxController() {
+    public AjaxController() {
 	objectMapper = new ObjectMapper();
     }
     
