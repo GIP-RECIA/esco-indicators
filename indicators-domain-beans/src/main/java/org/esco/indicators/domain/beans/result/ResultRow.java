@@ -75,7 +75,7 @@ public class ResultRow {
      * 	the statistic data associated to the key.<br/>
      * 	<code>null</code> if no data is associated to the key.
      */
-    public StatisticData getStatisticData(String key) {
+    public StatisticData getStatisticData(Object key) {
 	return statisticDataByKey.get(key);
     }
     
@@ -93,7 +93,7 @@ public class ResultRow {
      * @return
      * 	the previous value associated with the key, or <code>null</code> if no value was associated.
      */
-    public StatisticData putStatisticData(String key, StatisticData value) {
+    public StatisticData putStatisticData(Object key, StatisticData value) {
 	return statisticDataByKey.put(key, value);
     }
 
