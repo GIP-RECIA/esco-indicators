@@ -191,7 +191,7 @@ public class DateUtils {
      * 	the number of weeks in the year.
      */
     public static Integer getNumWeeksInYear(Integer year) {
-	DateTime dateTime = new DateTime().withYearOfCentury(year);
+	DateTime dateTime = new DateTime().withYear(year);
 	return dateTime.weekOfWeekyear().getMinimumValue();
     }
     
