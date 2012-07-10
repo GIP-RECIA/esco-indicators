@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.esco.indicators.domain.beans.util.IntegerPair;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
@@ -181,6 +182,20 @@ public class DateUtils {
     }
     
     /**
+     * Gets the number of weeks in the specified <code>year</code>.
+     * 
+     * @param year
+     * 			The year.
+     * 
+     * @return
+     * 	the number of weeks in the year.
+     */
+    public static Integer getNumWeeksInYear(Integer year) {
+	DateTime dateTime = new DateTime().withYearOfCentury(year);
+	return dateTime.weekOfWeekyear().getMinimumValue();
+    }
+    
+    /**
      * Returns the year of a date.
      * 
      * @param date
@@ -206,6 +221,68 @@ public class DateUtils {
     public static Integer getWeekOfYear(java.util.Date date) {
 	DateTime dateTime = new DateTime(date);
 	return dateTime.getWeekOfWeekyear();
+    }
+    
+    /**
+     * Splits the specified period into a list of pairs (week - year).<br/>
+     * Each pair contains :
+     * <ul>
+     * 	<li>First value : a week number</li>
+     * 	<li>Second value : a year</li>
+     * </ul>
+     * 
+     * For instance :<br/>
+     * 	With the following parameters :
+     * 	<ul>
+     * 		<li><code>startWeek</code> : 03 </li>
+     * 		<li><code>startYear</code> : 2012 </li>
+     * 		<li><code>endWeek</code> : 04 </li>
+     * 		<li><code>endYear</code> : 2013 </li>
+     * 	</ul>
+     *  The return will be the following list of pairs : <br/>
+     *  [ (03 - 2012) (04 - 2012) (05 - 2012) ... (03 - 2013) (04 - 2013) ]
+     * 
+     * @param startWeek
+     * 			The number of the start week (in the start year).
+     * @param startYear
+     * 			The start year.
+     * @param endWeek
+     * 			The number of the end week (in the end year).
+     * @param endYear
+     * 			The end year.
+     * 
+     * @return
+     * 	the list of weeks contained between the start and the end.<br/>
+     * 	these weeks are put into pairs, each pair containing the week number and the year.
+     */
+    public static List<IntegerPair>  splitWeeks(Integer startWeek, Integer startYear, Integer endWeek, Integer endYear) {
+	// Final result
+	List<IntegerPair> weeksAndYears = new ArrayList<IntegerPair>();
+
+	// Gets the number of years between the start and the end
+	Integer diffYears = endYear - startYear;
+	Integer minWeek = startWeek;
+	Integer maxWeek;
+	
+	// If the period is in the same year
+	if(diffYears == 0) {
+	    maxWeek = endWeek;
+	} else {
+	    maxWeek = DateUtils.getNumWeeksInYear(startWeek);
+	}
+	
+	// Creation of the pairs (week - year)
+    	for(int currentYear = startYear; currentYear <= endYear; currentYear++) {
+        	for(int currentWeek = minWeek; currentWeek <= maxWeek; currentWeek++ ) {
+        	    IntegerPair weekAndYear = new IntegerPair(currentWeek, currentYear);
+        	    weeksAndYears.add(weekAndYear);
+        	}
+        	// Reset of the minimum / maximum week
+        	minWeek = 1;
+        	maxWeek = (currentYear + 1 == endYear) ? endWeek :  DateUtils.getNumWeeksInYear(currentYear + 1);
+	}
+
+    	return weeksAndYears;
     }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
