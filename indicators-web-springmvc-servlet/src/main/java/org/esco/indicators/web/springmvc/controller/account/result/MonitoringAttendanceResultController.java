@@ -82,7 +82,6 @@ public class MonitoringAttendanceResultController extends BasicResultController 
         Date endDate = aaForm.getEndDate();
         
         return getStatisticPeriods(establishmentsTypes, startDate, endDate);
-        
     }
     
     /**
@@ -226,8 +225,9 @@ public class MonitoringAttendanceResultController extends BasicResultController 
 	    return DateUtils.splitWeeks(startWeek, startYear, endWeek, endYear);
 	}
 	   
-	// TODO
-	return null;
+	Integer startMonth = DateUtils.getMonthOfYear(startDate);
+	Integer endMonth = DateUtils.getMonthOfYear(endDate);
+	return DateUtils.splitMonths(startMonth, startYear, endMonth, endYear);
     }
     
     //------------------------------------------------------------------------------ STATIC METHODS
