@@ -76,6 +76,11 @@ public class ResultFormServiceImpl implements ResultFormService {
 
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
+    
+    ///////////////////////////////////////////////////////
+    // WEEKLY RESULTS
+    ///////////////////////////////////////////////////////
+    
     /* (non-Javadoc)
      * @see org.esco.indicators.services.form.ResultFormService#getPunctualWeekResultRows(java.util.List, java.util.List, java.lang.Integer, java.lang.Integer)
      */
@@ -112,13 +117,35 @@ public class ResultFormServiceImpl implements ResultFormService {
 	return null;
     }
 
+    
+    ///////////////////////////////////////////////////////
+    // MONTHLY RESULTS
+    ///////////////////////////////////////////////////////
+    
     /* (non-Javadoc)
      * @see org.esco.indicators.services.form.ResultFormService#getPunctualMonthResultRows(java.util.List, java.util.List, java.lang.Integer, java.lang.Integer)
      */
     @Override
     public List<ResultRow> getPunctualMonthResultRows(List<String> establishmentsUai,
 	    List<String> usersProfiles, Integer month, Integer year) {
-	return null;
+	// Final result
+	List<ResultRow> rows = new ArrayList<ResultRow>();
+
+	// For each establishment :
+	//	Creation of the corresponding result row
+	//	Addition of the establishment data in the result row
+	//	Addition of the statistic data in the result row (for each user profile)
+	for (String uai : establishmentsUai) {
+	    ResultRow resultRow = new ResultRow();
+	    resultRow.setEstablishmentData(getEstablishmentData(uai));
+	    for (String profile : usersProfiles) {
+		StatisticData statistic = createPunctualMonthStatisticData(uai, profile, month, year);
+		resultRow.putStatisticData(profile, statistic);
+	    }
+	    rows.add(resultRow);
+	}
+	
+	return rows;
     }
 
     /* (non-Javadoc)
@@ -133,6 +160,45 @@ public class ResultFormServiceImpl implements ResultFormService {
     
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
+    /**
+     * Retrieves data and creates the statistic data for a specified :
+     * <ul>
+     * 	<li>establishment</li>
+     * 	<li>user profile</li>
+     * 	<li>month</li>
+     * 	<li>year</li>
+     * </ul>
+     * 
+     * @param establishmentUai
+     * 			The UAI of the establishment.
+     * @param userProfile
+     * 			The user profile.
+     * @param month
+     * 			The number of the month in the year.
+     * @param year
+     * 			The year.
+     * 
+     * @return
+     * 	the statistic data.
+     */
+    private StatisticData createPunctualMonthStatisticData(String establishmentUai, String userProfile, Integer week, Integer year) {
+	// Retrieval of the total account number
+	Integer totalAccountNumber = accountStatisticService.findMonthlyTotalNumAccounts(establishmentUai, week, year);
+	
+	// Retrieval of the number of activated accounts
+	Integer numActivatedAccounts = accountStatisticService.findMonthlyNumActivatedAccountsForProfile(establishmentUai, userProfile, week, year);
+	
+	// Retrieval of the statistics visitors with a number of portal connections below / above a treshold
+	Integer treshold = ServicesConstants.NUM_CONNECTIONS_TRESHOLD;
+	Integer numVisitorsAboveTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsAboveTreshold(establishmentUai, userProfile, week, year, treshold);
+	Integer numVisitorsBelowTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTreshold(establishmentUai, userProfile, week, year, treshold);
+	
+	// Creation of the statistic data
+	StatisticData data = new StatisticData(totalAccountNumber, numActivatedAccounts, numVisitorsBelowTreshold, numVisitorsAboveTreshold);
+	
+	return data;
+    }
+    
     /**
      * Retrieves data and creates the statistic data for a specified :
      * <ul>
