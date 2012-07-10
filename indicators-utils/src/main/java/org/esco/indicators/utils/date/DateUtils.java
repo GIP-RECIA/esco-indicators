@@ -141,6 +141,32 @@ public class DateUtils {
     }
     
     /**
+     * Gets the SQL date corresponding to the specified <code>month</code> of the <code>year</code>.<br/>
+     * The constructed date corresponds to the last day of the specified <code>month</code> of the specified <code>year</code>.
+     * 
+     * @param month
+     * 			The month number.
+     * @param year
+     * 			The year.
+     * @return
+     * 	the SQL date corresponding to the last day of the specified <code>month</code> of the specified <code>year</code>.
+     */
+    public static Date getLastMonthDay(Integer month, Integer year) {
+	// Constructs the date time for the specified year and month
+	DateTime dateTime = new DateTime().withYear(year).withMonthOfYear(month);
+
+	// Sets the day to the first day of the month
+	dateTime = dateTime.dayOfMonth().withMaximumValue();
+	
+	// Constructs the equivalent SQL date
+	DateMidnight dateMidnight = dateTime.toDateMidnight();
+	long time = dateMidnight.toGregorianCalendar().getTimeInMillis();
+	Date date = new Date(time);
+	
+	return date;
+    }
+    
+    /**
      * Returns the month (in the year) of a date.
      * 
      * @param date
