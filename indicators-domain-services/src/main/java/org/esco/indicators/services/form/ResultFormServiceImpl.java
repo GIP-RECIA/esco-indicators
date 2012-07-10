@@ -175,8 +175,27 @@ public class ResultFormServiceImpl implements ResultFormService {
     @Override
     public List<ResultRow> getMonthlyResultRows(List<String> establishmentsUai, String userProfile,
             Integer startMonth, Integer startYear, Integer endMonth, Integer endYear) {
-        // TODO Auto-generated method stub
-        return null;
+	// Final result
+	List<ResultRow> rows = new ArrayList<ResultRow>();
+	
+	// Splits the specified period into weeks
+	List<IntegerPair> monthsAndYears = DateUtils.splitMonths(startMonth, startYear, endMonth, endYear);
+	
+	// For each establishment :
+	//	Creation of the corresponding result row
+	//	Addition of the establishment data in the result row
+	//	Addition of the statistic data in the result row (for each period)
+	for (String uai : establishmentsUai) {
+	    ResultRow resultRow = new ResultRow();
+	    resultRow.setEstablishmentData(getEstablishmentData(uai));
+	    for (IntegerPair monthAndYear : monthsAndYears) {
+		StatisticData statistic = createPunctualMonthStatisticData(uai, userProfile, monthAndYear.getFirst(), monthAndYear.getSecond());
+		resultRow.putStatisticData(monthAndYear, statistic);
+	    }
+	    rows.add(resultRow);
+	}
+	
+	return rows;
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
@@ -201,17 +220,17 @@ public class ResultFormServiceImpl implements ResultFormService {
      * @return
      * 	the statistic data.
      */
-    private StatisticData createPunctualMonthStatisticData(String establishmentUai, String userProfile, Integer week, Integer year) {
+    private StatisticData createPunctualMonthStatisticData(String establishmentUai, String userProfile, Integer month, Integer year) {
 	// Retrieval of the total account number
-	Integer totalAccountNumber = accountStatisticService.findMonthlyTotalNumAccounts(establishmentUai, week, year);
+	Integer totalAccountNumber = accountStatisticService.findMonthlyTotalNumAccounts(establishmentUai, month, year);
 	
 	// Retrieval of the number of activated accounts
-	Integer numActivatedAccounts = accountStatisticService.findMonthlyNumActivatedAccountsForProfile(establishmentUai, userProfile, week, year);
+	Integer numActivatedAccounts = accountStatisticService.findMonthlyNumActivatedAccountsForProfile(establishmentUai, userProfile, month, year);
 	
 	// Retrieval of the statistics visitors with a number of portal connections below / above a treshold
 	Integer treshold = ServicesConstants.NUM_CONNECTIONS_TRESHOLD;
-	Integer numVisitorsAboveTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsAboveTreshold(establishmentUai, userProfile, week, year, treshold);
-	Integer numVisitorsBelowTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTreshold(establishmentUai, userProfile, week, year, treshold);
+	Integer numVisitorsAboveTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsAboveTreshold(establishmentUai, userProfile, month, year, treshold);
+	Integer numVisitorsBelowTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTreshold(establishmentUai, userProfile, month, year, treshold);
 	
 	// Creation of the statistic data
 	StatisticData data = new StatisticData(totalAccountNumber, numActivatedAccounts, numVisitorsBelowTreshold, numVisitorsAboveTreshold);

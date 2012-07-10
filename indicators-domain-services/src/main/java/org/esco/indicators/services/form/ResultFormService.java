@@ -46,7 +46,7 @@ public interface ResultFormService {
     public List<ResultRow> getPunctualWeekResultRows(List<String> establishmentsUai, List<String> usersProfiles, Integer week, Integer year);
     
     /**
-     * Gets the result rows containing the data on the establishements and the users profiles.<br/>
+     * Gets the result rows containing the data on the establishements for the specified period (composed of weeks).<br/>
      * These data only concern the period beginning with the specified <code>startWeek</code> of the <code>startYear</code>, and finishing with the <code>endWeek</code> of the <code>endYear</code>.<br/>
      * Each result row is associated to one establishment, and contained two kinds of data :
      * <ul>
@@ -65,7 +65,7 @@ public interface ResultFormService {
      * @param startYear
      * 			The beginning year.
      * @param endWeek
-     * 			The number of the finishing week (in the finishning year).
+     * 			The number of the finishing week (in the finishing year).
      * @param endYear
      * 			The number of the finishing year.
      * 
@@ -102,6 +102,33 @@ public interface ResultFormService {
      */
     public List<ResultRow> getPunctualMonthResultRows(List<String> establishmentsUai, List<String> usersProfiles, Integer month, Integer year);
     
+    /**
+     * Gets the result rows containing the data on the establishements for the specified period (composed of months).<br/>
+     * These data only concern the period beginning with the specified <code>startMonth</code> of the <code>startYear</code>, and finishing with the <code>endMonth</code> of the <code>endYear</code>.<br/>
+     * Each result row is associated to one establishment, and contained two kinds of data :
+     * <ul>
+     * 	<li>The establishment data (name,...)</li>
+     * 	<li>The statistic data  (number of active accounts,...) indexed by month and year</li>
+     * </ul>
+     * In fact, in each result row, there is one statistic data per month contained in the period.<br/>
+     * For more informations on the result row content, see {@link ResultRow}.
+     * 
+     * @param establishmentsUai
+     * 			The UAI of the establishments.
+     * @param userProfile
+     * 			The user profile.
+     * @param startMonth
+     * 			The number of the beginning month (in the beginning year).
+     * @param startYear
+     * 			The beginning year.
+     * @param endMonth
+     * 			The number of the finishing month (in the finishing year).
+     * @param endYear
+     * 			The number of the finishing year.
+     * 
+     * @return
+     * 	the result rows containing establishment data, and statistics data, for each period of one week in each establishment.
+     */
     public List<ResultRow> getMonthlyResultRows(List<String> establishmentsUai, String userProfile, Integer startMonth, Integer startYear, Integer endMonth, Integer endYear);
     
 }
