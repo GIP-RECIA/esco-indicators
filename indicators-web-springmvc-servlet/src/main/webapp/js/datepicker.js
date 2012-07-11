@@ -32,7 +32,7 @@ $(document).ready(function() {
     $("#startDatePicker").datepicker({
         changeMonth: true,
         changeYear: true,
-        dateFormat: 'dd MM yy',
+        dateFormat: 'MM yy',
         onClose: function(dateText, inst) {
                 var year = getSelectedYear();
                 var month = getSelectedMonth();
@@ -53,7 +53,7 @@ $(document).ready(function() {
     $("#endDatePicker").datepicker({
         changeMonth: true,
         changeYear: true,
-        dateFormat: 'dd MM yy',
+        dateFormat: 'MM yy',
         onClose: function(dateText, inst) {
                 var year = getSelectedYear();
                 var month = getSelectedMonth();
@@ -69,8 +69,6 @@ $(document).ready(function() {
     ///////////////////////////////////////////////////////
     // Toggle of the end date picker visibility
     ///////////////////////////////////////////////////////
-    $("#endDatePicker").hide();
-
     $("[value='" + MONITORING_ATTENDANCE.name + "']").change(function() {
         // If the monitoring attendance type has been selected
         if(isChecked(MONITORING_ATTENDANCE.name)) {
@@ -79,6 +77,8 @@ $(document).ready(function() {
             $("#endDatePicker").hide();
         }
     });
+    $("[value='" + MONITORING_ATTENDANCE.name + "']").change();
+
 
     $("[value='" + ATTENDANCE.name + "']").change(function() {
         // If the attendance type has been selected
@@ -88,6 +88,21 @@ $(document).ready(function() {
             $("#endDatePicker").show();
         }
     });
+
+    ///////////////////////////////////////////////////////
+    // Toggle of the format in the date inputs
+    ///////////////////////////////////////////////////////
+    $("[name='" + ESTAB_TYPES.name + "']").change(function() {
+        // If the only selected type is : CFA
+        if(onlyCfaInputChecked()) {
+            $("#startDatePicker").datepicker("option", "dateFormat", 'dd MM yy');
+            $("#endDatePicker").datepicker("option", "dateFormat", 'dd MM yy');
+        } else {
+            $("#startDatePicker").datepicker("option", "dateFormat", 'MM yy');
+            $("#endDatePicker").datepicker("option", "dateFormat", 'MM yy');
+        }
+    });
+    
 });
 
 
