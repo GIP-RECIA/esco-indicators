@@ -93,7 +93,7 @@ public class AccountActivationValidator implements Validator {
 	/////////////////////////////////////////
 	String [] establishments = aaForm.getEstablishments();
 	Integer maxEstablishments = FormValidationConstants.MAX_SELECTED_ESTABLISHMENTS;
-	if(establishments.length > maxEstablishments) {
+	if(establishments != null && establishments.length > maxEstablishments) {
 	    errors.rejectValue(DataFormConstants.ESTABLISHMENTS, "error.form.establishments.maxValue", new Object [ ] { maxEstablishments }, "error.form.establishments.maxValue");
 	}
     }
