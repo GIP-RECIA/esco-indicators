@@ -19,6 +19,18 @@
 var SEPARATOR               = ";";
 var ESTABLISHMENTS_TABLE_ID = "establishmentsList";
 
+var ESTAB_TYPES             = new Object( );
+ESTAB_TYPES.name            = "establishmentsTypes";
+
+var USERS_PROFILES          = new Object( );
+USERS_PROFILES.name         = "usersProfiles";
+USERS_PROFILES.values       = new Array( "usersProfiles.EMPLOYERS",
+                                         "usersProfiles.RELATIVES",
+                                         "usersProfiles.STUDENTS",
+                                         "usersProfiles.TEACHERS",
+                                         "usersProfiles.STAFF",
+                                         "usersProfiles.STAFF_COLLECTIVITY" );
+
 var ATTENDANCE              = new Object( );
 ATTENDANCE.name             = "monitoringType.ATTENDANCE";
 
@@ -107,6 +119,27 @@ $(document).ready(function() {
         changeElementProperty(SUM_ON_COUNTIES_INPUT.dependency, "selected", true) 
     });
 
+    ///////////////////////////////////////////////////////
+    // When the MONITORING_ATTENDANCE is checked,
+    // only one user profile can be selected
+    ///////////////////////////////////////////////////////
+
+    // When MONITORING_ATTENDANCE becomes checked, unchecks all users profiles 
+    $("[value='" + MONITORING_ATTENDANCE.name + "']").change(function() {
+        if($(this).prop("checked")) {
+            uncheckElementsByValues(USERS_PROFILES.values);
+        }
+    });
+
+    $("[name='" + USERS_PROFILES.name + "']").change(function() {
+        if(isChecked(MONITORING_ATTENDANCE.name)) {
+            if($(this).prop("checked")) {
+                uncheckElementsByValues(USERS_PROFILES.values);
+                $(this).prop("checked", true);
+            }
+        }
+    });
+    
     // //////////////////////////////////////////////////////////////
     // When an input is checked, the values of the checked inputs are 
     // send to the server in order to know what inputs have to be 
@@ -119,6 +152,7 @@ $(document).ready(function() {
         //    refresh the establishments list
 		updateEstablishments();
     });
+
 
     // //////////////////////////////////////////////////////////////
     // Update of the form if the page has been reloaded or the
