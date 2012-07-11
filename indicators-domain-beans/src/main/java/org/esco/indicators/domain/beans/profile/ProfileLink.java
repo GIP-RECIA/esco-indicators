@@ -46,6 +46,14 @@ import org.apache.log4j.Logger;
 		    	+ " WHERE pl.establishmentUai = :establishmentUai"
 			+ " AND pl.linkStart <= :linkStart"
 			+ " AND (pl.linkEnd >= :linkEnd OR pl.linkEnd IS NULL)"
+	    ),
+    @NamedQuery(
+	    name = "ProfileLink.findTotalNumLinkedAccountsForProfile",
+	    query = "SELECT COUNT( pl.userUid ) FROM ProfileLink pl"
+		    	+ " WHERE pl.establishmentUai = :establishmentUai"
+			+ " AND pl.linkStart <= :linkStart"
+			+ " AND (pl.linkEnd >= :linkEnd OR pl.linkEnd IS NULL)"
+			+ " AND (pl.userProfile = :userProfile)"
 	    )
 })
 @Table(name = "acommeprofil")

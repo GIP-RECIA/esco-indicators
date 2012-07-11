@@ -149,7 +149,8 @@ public class AccountStatisticServiceTest {
 	String establishmentUai = "0453456A";
 	Integer week = 6;
 	Integer year = 2012;
-	Integer actual  = accountStatisticService.findWeeklyTotalNumAccounts(establishmentUai, week, year);
+	String userProfile = "Teacher";
+	Integer actual  = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentUai, userProfile, week, year);
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -171,7 +172,8 @@ public class AccountStatisticServiceTest {
 	String establishmentUai = "0453456A";
 	Integer week = 38;
 	Integer year = 2011;
-	Integer actual  = accountStatisticService.findWeeklyTotalNumAccounts(establishmentUai, week, year);
+	String userProfile = "Teacher";
+	Integer actual  = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentUai, userProfile, week, year);
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -193,7 +195,8 @@ public class AccountStatisticServiceTest {
 	String establishmentUai = "0888888A";
 	Integer week = 01;
 	Integer year = 2002;
-	Integer actual  = accountStatisticService.findWeeklyTotalNumAccounts(establishmentUai, week, year);
+	String userProfile = "Teacher";
+	Integer actual  = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentUai, userProfile, week, year);
 	
 	// Test
 	Assert.assertEquals(expected, actual);

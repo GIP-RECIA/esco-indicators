@@ -222,15 +222,15 @@ public class ResultFormServiceImpl implements ResultFormService {
      */
     private StatisticData createPunctualMonthStatisticData(String establishmentUai, String userProfile, Integer month, Integer year) {
 	// Retrieval of the total account number
-	Integer totalAccountNumber = accountStatisticService.findMonthlyTotalNumAccounts(establishmentUai, month, year);
+	Integer totalAccountNumber = accountStatisticService.findMonthlyTotalNumAccountsForProfile(establishmentUai, userProfile, month, year);
 	
 	// Retrieval of the number of activated accounts
 	Integer numActivatedAccounts = accountStatisticService.findMonthlyNumActivatedAccountsForProfile(establishmentUai, userProfile, month, year);
 	
 	// Retrieval of the statistics visitors with a number of portal connections below / above a treshold
 	Integer treshold = ServicesConstants.NUM_CONNECTIONS_TRESHOLD;
-	Integer numVisitorsAboveTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsAboveTreshold(establishmentUai, userProfile, month, year, treshold);
-	Integer numVisitorsBelowTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTreshold(establishmentUai, userProfile, month, year, treshold);
+	Integer numVisitorsAboveTreshold = portalConnectionStatisticService.findMonthlyNumVisitorsAboveTreshold(establishmentUai, userProfile, month, year, treshold);
+	Integer numVisitorsBelowTreshold = portalConnectionStatisticService.findMonthlyNumVisitorsBelowTreshold(establishmentUai, userProfile, month, year, treshold);
 	
 	// Creation of the statistic data
 	StatisticData data = new StatisticData(totalAccountNumber, numActivatedAccounts, numVisitorsBelowTreshold, numVisitorsAboveTreshold);
@@ -261,7 +261,7 @@ public class ResultFormServiceImpl implements ResultFormService {
      */
     private StatisticData createPunctualWeekStatisticData(String establishmentUai, String userProfile, Integer week, Integer year) {
 	// Retrieval of the total account number
-	Integer totalAccountNumber = accountStatisticService.findWeeklyTotalNumAccounts(establishmentUai, week, year);
+	Integer totalAccountNumber = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentUai, userProfile, week, year);
 	
 	// Retrieval of the number of activated accounts
 	Integer numActivatedAccounts = accountStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentUai, userProfile, week, year);

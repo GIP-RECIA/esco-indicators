@@ -62,9 +62,12 @@ public interface AccountStatisticService {
     /**
      * Retrieves the total number of accounts present in the specified establishment for the specified <code>week</code>
      * of the specified <code>year</code>.<br/>
+     * This total of accounts only concerns the account associated to the specified <code>userProfile</code>.
      *  
      * @param establishmentUai
      * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param userProfile
+     * 			The user profile associated to the statistic to retrieve.
      * @param week
      * 			The week number of the statistic to retrieve.
      * @param year
@@ -74,7 +77,7 @@ public interface AccountStatisticService {
      * 	The total number of activated accounts in the establishment in the week.<br/>
      * 	The number 0 if no data has been retrieved in this period.
      */
-    public Integer findWeeklyTotalNumAccounts(String establishmentUai, Integer week, Integer year);
+    public Integer findWeeklyTotalNumAccountsForProfile(String establishmentUai, String userProfile, Integer week, Integer year);
     
     
     ///////////////////////////////////////////////////////
@@ -126,6 +129,8 @@ public interface AccountStatisticService {
      *  
      * @param establishmentUai
      * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param userProfile
+     * 			The user profile associated to the statistic to retrieve.
      * @param month
      * 			The week number of the statistic to retrieve.
      * @param year
@@ -135,7 +140,7 @@ public interface AccountStatisticService {
      * 	The total number of activated accounts in the establishment in the month.<br/>
      * 	The number 0 if no data has been retrieved in this period.
      */
-    public Integer findMonthlyTotalNumAccounts(String establishmentUai, Integer month, Integer year);
+    public Integer findMonthlyTotalNumAccountsForProfile(String establishmentUai, String userProfile, Integer month, Integer year);
     
     
 }
