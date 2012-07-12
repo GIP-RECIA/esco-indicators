@@ -14,48 +14,6 @@
  */
 
 ///////////////////////////////////////////////////////////
-// CONSTANTS
-///////////////////////////////////////////////////////////
-var SEPARATOR               = ";";
-var ESTABLISHMENTS_TABLE_ID = "establishmentsList";
-
-var ESTAB_TYPES             = new Object( );
-ESTAB_TYPES.name            = "establishmentsTypes";
-
-var USERS_PROFILES          = new Object( );
-USERS_PROFILES.name         = "usersProfiles";
-USERS_PROFILES.values       = new Array( "usersProfiles.EMPLOYERS",
-                                         "usersProfiles.RELATIVES",
-                                         "usersProfiles.STUDENTS",
-                                         "usersProfiles.TEACHERS",
-                                         "usersProfiles.STAFF",
-                                         "usersProfiles.STAFF_COLLECTIVITY" );
-
-var ATTENDANCE              = new Object( );
-ATTENDANCE.name             = "monitoringType.ATTENDANCE";
-
-var MONITORING_ATTENDANCE   = new Object( );
-MONITORING_ATTENDANCE.name  = "monitoringType.MONITORING_ATTENDANCE";
-
-var CFA_INPUT               = new Object( );
-CFA_INPUT.name              = "establishmentType.CFA";
-
-var COLL_INPUT              = new Object( );
-COLL_INPUT.name             = "establishmentType.COLLEGE";
-
-var LEN_INPUT               = new Object( );
-LEN_INPUT.name              = "establishmentType.LEN";
-LEN_INPUT.dependencies      = new Array("lyceesTypes.LP", "lyceesTypes.LEGT", "lyceesTypes.EREA");
-
-var LA_INPUT                = new Object( );
-LA_INPUT.name               = "establishmentType.LA";
-LA_INPUT.dependencies       = new Array("laTypes.LEGTA", "laTypes.LPA");
-
-var SUM_ON_COUNTIES_INPUT           = new Object( );
-SUM_ON_COUNTIES_INPUT.name          = "sumOnCounties.DEFAULT";
-SUM_ON_COUNTIES_INPUT.dependency    = "county.COUNTY_ALL";
-
-///////////////////////////////////////////////////////////
 // FUNCTIONS
 ///////////////////////////////////////////////////////////
 $.ajaxSetup({"error":function(XMLHttpRequest,textStatus, errorThrown) {
@@ -164,213 +122,12 @@ $(document).ready(function() {
 });
 
 
-/**
- * Function that appends an establishment into the establishments
- * table of the form.
- * Each establishment contains :
- *  - A label for displaying the name of the establishment
- *  - A value for setting the value attribute of the establishement
- *  - A path for setting the name attribute of the establishement
- */
-function appendEstablishment(establishment) {
-    // String to append to the table
-    var toAppend = '<tr>';
-    toAppend += '<td>';
-    toAppend += '<input id="' + establishment.value + '" type="checkbox" value="' + establishment.value + '" + name="' + establishment.path + '">';
-    toAppend += '</td>';
-    toAppend += '<td>';
-    toAppend += '<label for="' + establishment.value + '">' + establishment.label + '</label>';
-    toAppend += '</td>';
-    toAppend += '</tr>';
-
-    // Appends the string to the table
-    $("#" + ESTABLISHMENTS_TABLE_ID).append(toAppend);
-}
-
-/**
- * Function that change the "checked" property of elements (referenced by their values).
- * The "checked" property of the elements is set equal to the haveToBeChecked
- * parameter.
- */ 
-function changeCheckedProperty(haveToBeChecked, elementValues) {
-        if(haveToBeChecked) {
-            checkElementsByValues(elementValues);
-        } else {
-            uncheckElementsByValues(elementValues);
-        }
-        
-    }
-
-/** 
- * Function that changes the property of an element retrieved by its value.
- */
-function changeElementProperty(elementValue, property, propertyValue) {
-    $('[value="' + elementValue + '"]').prop(property, propertyValue);
-}
-
-/**
- * Function that retrieved the values of the checked elements of the form.
- * The values of the checked elements are put into a string
- * respecting this format :
- *  {ELEMENT_VALUE1}{SEPARATOR}{ELEMENT_VALUE2}...
- *
- * Return:
- *      a string containing the values of the checked elements.
- */
-function checkedElementsValues() {
-    var checkedElements = $("#accountactivationform input:checked");
-    var checked = new String( );
-
-    // Retrieval of the values of the checked elements
-    for(var i=0; i < checkedElements.length ; i++) {
-        checked += checkedElements[i].value + SEPARATOR; 
-    }
-
-    return checked;
-}
-
-/**
- * Checkes HTML elements by value.
- * All the elements having a value contained in the 'elementValues' list
- * will be checked by the function.
- */
-function checkElementsByValues(elementValues) {
-    // Check elements one by one
-    for(var i = 0; i < elementValues.length; i++) {
-        changeElementProperty(elementValues[i], "checked", true);
-    }
-}
-
-/**
- * Disables HTML elements by value.
- * All the elements having a value contained in the 'elementValues' list
- * will be disabled by the function.
- */
-function disableElementsByValues(elementValues) {
-    // Disable elements one by one
-    for(var i = 0; i < elementValues.length; i++) {
-        changeElementProperty(elementValues[i], "disabled", true);
-    }
-}
-
-/**
- * Enables HTML elements by value.
- * All the elements having a value contained in the 'elementValues' list
- * will be enabled by the function.
- */
-function enableElementsByValues(elementValues) {
-    // Disable elements one by one
-    for(var i = 0; i < elementValues.length; i++) {
-        changeElementProperty(elementValues[i], "disabled", false);
-    }
-}
-
-
-/**
- * Function that indicates if an element (finds by its value) is checked.
- */
-function isChecked(elementValue) {
-    return $("[value='" + elementValue + "']").prop("checked");
-}
-
-
-/**
- * Function that retrieved the values of the selected elements of the form.
- * The values of the selected elements are put into a string
- * respecting this format :
- *  {ELEMENT_VALUE1}{SEPARATOR}{ELEMENT_VALUE2}...
- *
- * Return:
- *      a string containing the values of the selected elements.
- */
-function selectedElementsValues() {
-    var selectedElements = $("#accountactivationform option:selected");
-    var selected = new String( );
-
-    for(var i=0; i < selectedElements.length ; i++) {
-        selected += selectedElements[i].value + SEPARATOR; 
-    }
-
-    return selected;
-}
-
-
-/**
- * Function that retrieved the values of some special elements even if they are not checked.
- * The values of these checked elements are put into a string
- * respecting this format :
- *  {ELEMENT_VALUE1}{SEPARATOR}{ELEMENT_VALUE2}...
- *
- * These elements are considered as checked in order to get the expected establishements list.
- *
- * Return:
- *      a string containing the values of some special elements.
- */
-function specialCheckedElementsValues() {
-    // Final result
-    var elementsValues = "";
-
-    // If the CFA_INPUT is not checked
-    if(!isChecked(CFA_INPUT.name)) {
-        return elementsValues;
-    }
-
-    // If the LEN_INPUT is checked
-    if(isChecked(LEN_INPUT.name)) {
-        // The dependencies of the LEN_INPUT must be considered as checked
-        for(var i = 0; i < LEN_INPUT.dependencies.length; i++) {
-            elementsValues += LEN_INPUT.dependencies[i] + SEPARATOR;
-        }
-    }
-
-    // If the LA_INPUT is checked
-    if(isChecked(LA_INPUT.name)) {
-        // The dependencies of the LA_INPUT must be considered as checked
-        for(var i = 0; i < LA_INPUT.dependencies.length; i++) {
-            elementsValues += LA_INPUT.dependencies[i] + SEPARATOR;
-        }
-    }
-
-    return elementsValues;
-}
-
-/**
- * Uncheckes HTML elements by value.
- * All the elements having a value contained in the 'elementValues' list
- * will be unchecked by the function.
- */
-function uncheckElementsByValues(elementValues) {
-    // Uncheck elements one by one
-    for(var i = 0; i < elementValues.length; i++) {
-        changeElementProperty(elementValues[i], "checked", false);
-    }
-}
-
-
-
-/**
- * Update the establishments list of the form with the new specified list.
- * This list contains establishments containing :
- *  - A label for disaplying the name of the establishment
- *  - A value for setting the value attribute of the establishement
- *  - A path for setting the name attribute of the establishement
- */
-function updateEstablishmentsList(establishments_list) {
-    // Clear the current establishments list
-    $("#" + ESTABLISHMENTS_TABLE_ID + " tr").remove();
-
-    // Update the list
-    for(var i = 0; i < establishments_list.length; i++) {
-       appendEstablishment(establishments_list[i]);
-    }
-}
-
 ///////////////////////////////////////////////////////////
 // AJAX FUNCTIONS
 ///////////////////////////////////////////////////////////
 function updateForm() {
     // Retrieval of the values of the checked elements
-    var checkedValues = checkedElementsValues();
+    var checkedValues = checkedElementsValues("accountactivationform");
 
     // Data for the request
     $.post(  "accounts-activations-ajax/update-form", 
@@ -386,13 +143,13 @@ function updateForm() {
 
 function updateEstablishments() {
     // Retrieval of the values of the checked elements
-    var checkedValues = checkedElementsValues();
+    var checkedValues = checkedElementsValues("accountactivationform");
 
     // Retrieval of the values of the 'special' elements
     checkedValues += specialCheckedElementsValues();
 
     // Retrieval of the values of the selected elements
-    var selectedValues = selectedElementsValues();
+    var selectedValues = selectedElementsValues("accountactivationform");
 
 
     // Data for the request
