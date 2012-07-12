@@ -4,7 +4,7 @@
 package org.esco.indicators.services.constants;
 
 /**
- * Constants concerning the services.
+ * Constants concerning the wantedServices.
  * 
  * @since  2012/07/05
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>

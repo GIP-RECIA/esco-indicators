@@ -9,7 +9,7 @@ import java.util.Set;
 import org.esco.indicators.domain.beans.structure.Establishment;
 
 /**
- * Interface providing services for access establishments data.
+ * Interface providing wantedServices for access establishments data.
  * 
  * @since 2012/05/29
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>

@@ -35,17 +35,17 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
     
     //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
-     * Gets the DAO providing access to statistical data on the services connections.
+     * Gets the DAO providing access to statistical data on the wantedServices connections.
      * 
      * @return 
-     * 	the DAO providing access to statistical data on the services connections.
+     * 	the DAO providing access to statistical data on the wantedServices connections.
      */
     public ServiceConnectionStatisticDao getServiceConnectionStatisticDao() {
         return serviceConnectionStatisticDao;
     }
 
     /**
-     * Sets the DAO providing access to statistical data on the services connections.
+     * Sets the DAO providing access to statistical data on the wantedServices connections.
      * 
      * @param serviceConnectionStatisticDao 
      * 			The DAO to set.

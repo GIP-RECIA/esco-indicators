@@ -15,6 +15,9 @@ public class DataFormConstants {
     // Names of the XML  <entry-form> tags
     ///////////////////////////////////////////////////////
     
+    ///////////////////////////////////
+    // Basic form entries
+    ///////////////////////////////////
     /** County  */
     public static final  String COUNTY = "county"; 
 
@@ -44,6 +47,12 @@ public class DataFormConstants {
     
     /** Establishments */
     public static final  String ESTABLISHMENTS = "establishments"; 
+    
+    ///////////////////////////////////
+    // Service form entries
+    ///////////////////////////////////
+    /** Services names */
+    public static final String SERVICES = "services";
     
     ///////////////////////////////////////////////////////
     // Values of the XML  <jsp-key> tags

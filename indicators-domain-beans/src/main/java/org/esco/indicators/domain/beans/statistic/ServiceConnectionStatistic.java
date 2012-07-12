@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.annotations.NaturalId;
 
 /**
- * Class representing statistics on services usage of a user.<br/>
+ * Class representing statistics on wantedServices usage of a user.<br/>
  * 
  * @since 2012/06/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>

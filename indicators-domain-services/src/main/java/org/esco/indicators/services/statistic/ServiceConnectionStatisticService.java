@@ -9,7 +9,7 @@ import org.esco.indicators.domain.beans.statistic.EstablishmentVisitStatistic;
 import org.esco.indicators.domain.beans.statistic.ServiceConnectionStatistic;
 
 /**
- * Interface providing access to statistical data on the services connections.
+ * Interface providing access to statistical data on the wantedServices connections.
  * 
  * @since 2012/06/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
