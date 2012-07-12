@@ -4,6 +4,7 @@
 *
 * File organization :
 * -------------------
+*		0. General configuration
 *   1. Welcome page
 *   2. Accounts activations page
 *   3. Services page
@@ -12,9 +13,38 @@
 **********************************************************/
 
 /****************************
+* 1. GENERAL CONFIGURATION
+****************************/
+div {
+	clear: both;
+}
+
+/****************************
 * 1. WELCOME PAGE
 ****************************/
-
 div.welcome {
   width: 100%;
+}
+
+
+/****************************
+* 3. SERVICES PAGE
+****************************/
+
+ul.connectedServices {
+	width: 40%;
+	height: 100%;
+	border:1px solid black;
+}
+
+ul.connectedServices li {
+	list-style: none;
+}
+
+#wantedServicesItems {
+	float: right;
+}
+
+#availableServicesItems {
+	float: left;
 }
