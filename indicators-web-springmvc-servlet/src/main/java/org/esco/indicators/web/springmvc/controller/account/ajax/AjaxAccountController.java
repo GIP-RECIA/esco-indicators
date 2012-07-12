@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.esco.indicators.domain.beans.form.FormField;
 import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.services.form.DataFormService;
@@ -46,15 +45,11 @@ public class AjaxAccountController  {
     @Autowired
     private EstablishmentService establishmentService;
     
-    /** Object mapper used to deserialize the JSON strings */
-    private ObjectMapper objectMapper;
-    
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
-     * Default construcotr of the {@link AjaxAccountController} class.
+     * Default constructor of the {@link AjaxAccountController} class.
      */
     public AjaxAccountController() {
-	objectMapper = new ObjectMapper();
     }
     
 
