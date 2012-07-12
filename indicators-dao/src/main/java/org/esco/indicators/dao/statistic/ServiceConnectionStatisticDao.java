@@ -6,7 +6,7 @@ package org.esco.indicators.dao.statistic;
 import java.util.Date;
 
 /**
- * Interface providing functions to access statistical data on the services connections.
+ * Interface providing functions to access statistical data on the wantedServices connections.
  * 
  * @since 2012/05/31
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
