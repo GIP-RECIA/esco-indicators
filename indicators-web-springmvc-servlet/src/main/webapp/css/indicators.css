@@ -33,18 +33,18 @@ div.welcome {
 
 ul.connectedServices {
 	width: 40%;
-	height: 100%;
 	border:1px solid black;
+	list-style-type: none; 
+	margin: 0; 
+	padding: 0 0 2.5em; 
+	float: left; 
+	margin-right: 10px;
 }
 
 ul.connectedServices li {
+	border:1px solid black;
 	list-style: none;
-}
-
-#wantedServicesItems {
-	float: right;
-}
-
-#availableServicesItems {
-	float: left;
+ 	margin: 0 5px 5px 5px; 
+	padding: 5px; 
+	width: 120px;
 }

@@ -48,16 +48,16 @@
                 <form:hidden id="${item.value}" path="availableServices"/>
             </c:forEach>
             
-            <ul id="availableServicesItems" class="connectedServices">
+            <ul id="availableServicesList" class="connectedServices">
                 <c:forEach var="item" items="${availableServicesItems}">
                     <spring:message code="${item.label}" var="i18n"/> 
-                    <li id="${item.value}">
+                    <li class="ui-state-default" id="${item.value}">
                         ${i18n}
                     </li> 
                 </c:forEach> 
             </ul>
             
-            <ul id="wantedServicesItems" class="connectedServices">
+            <ul id="wantedServicesList" class="connectedServices">
             </ul>
             
             <form:errors path="usersProfiles" cssClass="error" />
@@ -137,6 +137,7 @@
 <!-- SCRIPTS -->
 <script type="text/javascript" src="js/constants.js"></script>
 <script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/datepicker.js"></script>
 <script type="text/javascript" src="js/services.js"></script>
 
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>

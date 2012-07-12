@@ -114,6 +114,7 @@
 <!-- SCRIPTS -->
 <script type="text/javascript" src="js/constants.js"></script>
 <script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/datepicker.js"></script>
 <script type="text/javascript" src="js/accounts-activations.js"></script>
 
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>

@@ -21,4 +21,17 @@
 ///////////////////////////////////////////////////////////
 
 $(document).ready(function() {
+    // //////////////////////////////////////////////////////////////
+    // Link the lists containing the available, and wanted, services
+    // //////////////////////////////////////////////////////////////
+    connectLists();
 });
+
+function connectLists() {
+    $("#availableServicesList").sortable({
+        connectWith: ".connectedServices"
+    }).disableSelection();
+    $("#wantedServicesList").sortable({
+        connectWith: ".connectedServices"
+    }).disableSelection(); 
+}
