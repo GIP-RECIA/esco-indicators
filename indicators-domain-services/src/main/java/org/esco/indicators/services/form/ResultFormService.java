@@ -29,6 +29,7 @@ public interface ResultFormService {
      * 	<li>The statistic data  (number of active accounts,...) indexed by user profile</li>
      * </ul>
      * In fact, in each result row, there is one statistic data per user profile.<br/>
+     * Moreover, each result row contains a statistic data that represents a global statistic on all the accounts of the establishment.<br/>
      * For more informations on the result row content, see {@link ResultRow}.
      * 
      * @param establishmentsUai

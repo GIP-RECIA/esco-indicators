@@ -14,13 +14,10 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.esco.indicators.domain.beans.form.FormField;
 import org.esco.indicators.domain.beans.structure.Establishment;
-import org.esco.indicators.domain.beans.xml.form.EntryValue;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.constants.web.JsonConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
-import org.esco.indicators.web.springmvc.controller.BasicController;
-import org.hibernate.annotations.Check;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,11 +33,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/accounts-activations-ajax")
-public class AjaxController extends BasicController  {
+public class AjaxController  {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(AjaxController.class);
 
+    /** Data form service providing information on the data from for the accounts */
+    @Autowired
+    protected DataFormService dataFormAccountService;
+    
     /** Establishment service providing access to establishments data */
     @Autowired
     private EstablishmentService establishmentService;
@@ -172,12 +173,12 @@ public class AjaxController extends BasicController  {
 	///////////////////////////////////////////////////////////////////////
 	
 	// Gets the JSP keys enabled / disabled by default
-	List<String> jspKeysDisabledByDefault = dataFormService.getJspKeysDisabledByDefault();
-	List<String> jspKeysEnabledByDefault = dataFormService.getJspKeysEnabledByDefault();
+	List<String> jspKeysDisabledByDefault = dataFormAccountService.getJspKeysDisabledByDefault();
+	List<String> jspKeysEnabledByDefault = dataFormAccountService.getJspKeysEnabledByDefault();
 	
 	// Gets the JSP keys to enable / disable regarding to the checked ones
-	List<String> jspKeysToDisable = dataFormService.getJspKeysToDisable(checkedKeys);
-	List<String> jspKeysToEnable = dataFormService.getJspKeysToEnable(checkedKeys);
+	List<String> jspKeysToDisable = dataFormAccountService.getJspKeysToDisable(checkedKeys);
+	List<String> jspKeysToEnable = dataFormAccountService.getJspKeysToEnable(checkedKeys);
 
 	///////////////////////////////////////////////////////////////////////
 	// Creation of the lists of the elements to enable / disable
@@ -230,10 +231,10 @@ public class AjaxController extends BasicController  {
      */
     private  List<FormField> createNewEstablishmentsList(List<String> checkedJspKeys) {
 	// Retrieval of the authorized establishments type for the establishments list
-	List<String> establishmentsTypes = dataFormService.getEstablishmentsTypesToFilter(checkedJspKeys);
+	List<String> establishmentsTypes = dataFormAccountService.getEstablishmentsTypesToFilter(checkedJspKeys);
 	
 	// Retrieval of the authorized county numbers
-	List<Integer> countyNumbers = dataFormService.getCountyNumbersToFilter(checkedJspKeys);
+	List<Integer> countyNumbers = dataFormAccountService.getCountyNumbersToFilter(checkedJspKeys);
 	
 	// Retrieval of the establishements form fields by type and county
 	List<FormField> establishments = getEstablishmentsByCountyNumbersAndTypes(countyNumbers, establishmentsTypes);
@@ -303,12 +304,36 @@ public class AjaxController extends BasicController  {
 	
 	// Keep the influential JSP keys
 	for (String jspKey : jspKeys) {
-	    if(dataFormService.hasInfluenceOnEstablishmentsList(jspKey)) {
+	    if(dataFormAccountService.hasInfluenceOnEstablishmentsList(jspKey)) {
 		influentialJspKeys.add(jspKey);
 	    }
 	}
 	
 	return influentialJspKeys;
+    }
+    
+    /**
+     * Remove the unknown JSP keys from the list.<br/>
+     * Return a copy of the specified keys only containing known keys.
+     * 
+     * @param jspKeys
+     * 			The JSP keys to verify.
+     * 
+     * @return
+     * 	a copy of the specified list without the unknown JSP keys.
+     */
+    protected List<String> removeUnknownJspKeys(List<String> jspKeys) {
+	// Final result
+	List<String> knownKeys = new ArrayList<String>();
+	
+	// Only keep the known keys
+	for (String jspKey : jspKeys) {
+	    if(dataFormAccountService.isKnown(jspKey)) {
+		knownKeys.add(jspKey);
+	    }
+	}
+	
+	return knownKeys;
     }
     
     //------------------------------------------------------------------------------ STATIC METHODS

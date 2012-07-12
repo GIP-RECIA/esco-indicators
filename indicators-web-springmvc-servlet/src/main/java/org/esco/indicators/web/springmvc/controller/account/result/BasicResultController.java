@@ -17,7 +17,6 @@ import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.services.form.ResultFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.constants.web.SessionConstants;
-import org.esco.indicators.web.springmvc.controller.BasicController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,11 +30,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @since  2012/07/10
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public abstract class BasicResultController extends BasicController {
+public abstract class BasicResultController {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(BasicResultController.class);
 
+    /** Data form service providing information on the data from for the accounts */
+    @Autowired
+    protected DataFormService dataFormAccountService;
+    
     /** Establishment service providing access to establishments data */
     @Autowired
     protected EstablishmentService establishmentService;
@@ -99,11 +102,11 @@ public abstract class BasicResultController extends BasicController {
     /**
       * Sets the service providing access to the data form.
       * 
-     * @param dataFormService 
+     * @param dataFormAccountService 
      * 			The service providing access to the data form to set.
      */
     public void setDataFormService(DataFormService dataFormService) {
-        this.dataFormService = dataFormService;
+        this.dataFormAccountService = dataFormService;
     }
 
     
@@ -141,7 +144,7 @@ public abstract class BasicResultController extends BasicController {
         String jspKey = aaForm.getCounty();
         String i18nKey = null;
         if(jspKey != null) {
-            i18nKey = dataFormService.getI18nKey(jspKey);
+            i18nKey = dataFormAccountService.getI18nKey(jspKey);
         }
     
         return i18nKey;
@@ -251,7 +254,7 @@ public abstract class BasicResultController extends BasicController {
         
         // Retrieval of the i18n key
         String jspKey = aaForm.getMonitoringType();
-        String i18nKey = dataFormService.getI18nKey(jspKey);
+        String i18nKey = dataFormAccountService.getI18nKey(jspKey);
         
         return i18nKey;
     }
@@ -302,7 +305,7 @@ public abstract class BasicResultController extends BasicController {
         String jspKey = aaForm.getSumOnCounties();
         String i18nKey = null;
         if(jspKey != null) {
-            i18nKey = dataFormService.getI18nKey(jspKey);
+            i18nKey = dataFormAccountService.getI18nKey(jspKey);
         }
         
         return i18nKey;
@@ -391,7 +394,7 @@ public abstract class BasicResultController extends BasicController {
         // Retrieval of the i18n keys
         List<String> i18nKeys = new ArrayList<String>();
         for (String jspKey : jspKeys) {
-            i18nKeys.add(dataFormService.getI18nKey(jspKey));
+            i18nKeys.add(dataFormAccountService.getI18nKey(jspKey));
         }
         return i18nKeys;
     }

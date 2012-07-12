@@ -6,7 +6,6 @@ package org.esco.indicators.web.springmvc.controller.account.result;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,20 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
 import org.esco.indicators.domain.beans.result.ResultRow;
-import org.esco.indicators.services.form.ResultFormService;
-import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.utils.date.DateUtils;
-import org.esco.indicators.web.springmvc.controller.BasicController;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.ibm.icu.util.Calendar;
 
 /**
  * Controller handling the requests on the page displaying the results.<br/>
@@ -74,7 +65,7 @@ public class AttendanceResultController extends BasicResultController {
         
         // Retrieval of the users profiles to filter
         List<String> checkedProfiles = new ArrayList<String>(Arrays.asList(aaForm.getUsersProfiles()));
-        List<String> usersProfilesToFilter = dataFormService.getUsersProfilesToFilter(checkedProfiles);
+        List<String> usersProfilesToFilter = dataFormAccountService.getUsersProfilesToFilter(checkedProfiles);
         
         return usersProfilesToFilter;
     }
@@ -105,7 +96,7 @@ public class AttendanceResultController extends BasicResultController {
 	
 	// Retrieval of the users profiles to filter
 	List<String> checkedProfiles = new ArrayList<String>(Arrays.asList(aaForm.getUsersProfiles()));
-	List<String> usersProfilesToFilter = dataFormService.getUsersProfilesToFilter(checkedProfiles);
+	List<String> usersProfilesToFilter = dataFormAccountService.getUsersProfilesToFilter(checkedProfiles);
 	
 	// Retrieval of the start date
 	Date startDate = aaForm.getStartDate();

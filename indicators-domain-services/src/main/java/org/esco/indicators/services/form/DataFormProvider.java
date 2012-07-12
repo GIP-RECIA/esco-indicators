@@ -10,6 +10,7 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.crypto.Data;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.xml.form.DataForm;
@@ -29,31 +30,59 @@ public class DataFormProvider {
     private static final Logger LOGGER = Logger.getLogger(DataFormProvider.class);
 
     /** URL of the file containing the data form */
-    private static String dataFormFileUrl;
-    
-    /** Singleton of the class */
-    private static DataFormProvider instance;
+    private String dataFormFileUrl;
     
     /** Data form extracted from the above file */
     private DataForm dataForm;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
-     * Default contructor of the {@link DataFormProvider} class.
+     * Defautl constructor of the {@link DataFormProvider} class.
      */
-    private DataFormProvider() {
+    public DataFormProvider() {
 	super();
+    }
+    
+    /**
+     * Constructor of the {@link DataFormProvider} class.
+     * 
+     * @param dataFormFileUrl
+     * 			The URL of the file containing the data form.
+     */
+    public DataFormProvider(String dataFormFileUrl) {
+	super();
+	this.dataFormFileUrl = dataFormFileUrl;
 	feedDataForm();
     }
     
     //--------------------------------------------------------------------------- GETTERS / SETTERS
+    /**
+     * Gets the URL of the file containing the data form.
+     * 
+     * @return 
+     * 	the URL of the file containing the data form.
+     */
+    public String getDataFormFileUrl() {
+        return dataFormFileUrl;
+    }
+    
+    /**
+     * Sets the URL of the file containing the data form.
+     * 
+     * @param dataFormFileUrl 
+     * 			The URL of the file containing the data form.
+     */
+    public void setDataFormFileUrl(String dataFormFileUrl) {
+        this.dataFormFileUrl = dataFormFileUrl;
+    }
+    
     /**
      * Sets the data form.
      * 
      * @param dataForm 
      * 			The data form to set.
      */
-    private void setDataForm(DataForm dataForm) {
+    public void setDataForm(DataForm dataForm) {
         this.dataForm = dataForm;
     }
     
@@ -154,45 +183,6 @@ public class DataFormProvider {
     public List<EntryValue> getEntryValuesEnabledByDefault() {
 	return dataForm.getEntryValuesEnabledByDefault();
     }
-    
-    //-------------------------------------------------------------------- STATIC GETTERS / SETTERS
-    /**
-     * Gets the data forms loaded from the file containing the data descriptions.
-     * 
-     * @return
-     * 	the data forms loaded from the file containing the data descriptions.
-     */
-    public static DataFormProvider getInstance() {
-	if(instance == null) {
-	    instance = new DataFormProvider();
-	}
-	return instance;
-    }
-
-
-    /**
-     * Gets the URL of the file containing the data form.
-     * 
-     * @return 
-     * 	the URL of the file containing the data form.
-     */
-    public static String getDataFormFileUrl() {
-        return dataFormFileUrl;
-    }
-    
-    /**
-     * Sets the URL of the file containing the data form.
-     * 
-     * @param dataFormFileUrl 
-     * 			The URL of the file containing the data form.
-     */
-    public static void setDataFormFileUrl(String dataFormFileUrl) {
-        DataFormProvider.dataFormFileUrl = dataFormFileUrl;
-    }
-    
-    
-    
-    
     
     //------------------------------------------------------------------------------ PUBLIC METHODS
     

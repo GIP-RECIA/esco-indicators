@@ -14,6 +14,7 @@ import org.hibernate.mapping.Array;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -28,18 +29,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class DataFormProviderTest {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** {@link DataFormProvider} under tests */
-    private DataFormProvider dataFormProvider;
+    @Autowired
+    private DataFormProvider dataFormAccountProvider;
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
-    /**
-     * Initialization of the provider for the tests.
-     * 
-     * @throws java.lang.Exception
-     */
-    @Before
-    public void setUp() throws Exception {
-	dataFormProvider = DataFormProvider.getInstance();
-    }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
@@ -53,7 +46,7 @@ public class DataFormProviderTest {
 	Integer expected = 2;
 	
 	// Actual result
-	Integer actual = dataFormProvider.getEntriesForm().size();
+	Integer actual = dataFormAccountProvider.getEntriesForm().size();
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -72,7 +65,7 @@ public class DataFormProviderTest {
 	expected.add("establishmentType");
 	
 	// Actual result
-	List<String> actual = dataFormProvider.getEntriesNames();
+	List<String> actual = dataFormAccountProvider.getEntriesNames();
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -92,7 +85,7 @@ public class DataFormProviderTest {
 	
 	// Actual result
 	List<String> actual = new ArrayList<String>();
-	List<EntryValue> entryValues = dataFormProvider.getEntryValues("monitoringType");
+	List<EntryValue> entryValues = dataFormAccountProvider.getEntryValues("monitoringType");
 	for (EntryValue entryValue : entryValues) {
 	    actual.add(entryValue.getName());
 	}

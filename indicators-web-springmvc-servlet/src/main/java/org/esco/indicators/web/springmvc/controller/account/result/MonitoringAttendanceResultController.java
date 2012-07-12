@@ -134,7 +134,7 @@ public class MonitoringAttendanceResultController extends BasicResultController 
 	
 	// Retrieval of the users profiles to filter
 	List<String> checkedProfiles = new ArrayList<String>(Arrays.asList(aaForm.getUsersProfiles()));
-	String userProfileToFilter = dataFormService.getUsersProfilesToFilter(checkedProfiles).get(0);
+	String userProfileToFilter = dataFormAccountService.getUsersProfilesToFilter(checkedProfiles).get(0);
 	
 	// Retrieval of the start date and end date
 	Date startDate = aaForm.getStartDate();

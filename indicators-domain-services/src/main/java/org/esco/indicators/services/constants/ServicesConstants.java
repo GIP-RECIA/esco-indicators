@@ -19,4 +19,5 @@ public class ServicesConstants {
      * <ul>
      */
     public static final Integer NUM_CONNECTIONS_TRESHOLD = 4;
+    
 }

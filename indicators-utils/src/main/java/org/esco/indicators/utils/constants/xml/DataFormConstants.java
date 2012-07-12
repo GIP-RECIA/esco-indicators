@@ -77,6 +77,9 @@ public class DataFormConstants {
     // Users profiles
     ///////////////////////////////////
     /** Employers */
+    public static final  String JSP_KEY_ALL_PROFILES = "usersProfiles.ALL";
+    
+    /** Employers */
     public static final  String JSP_KEY_EMPLOYERS = "usersProfiles.EMPLOYERS";
     
     /** Relatives */

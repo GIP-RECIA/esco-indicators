@@ -29,6 +29,7 @@ target/
 # Config files
 ###################
 *.prod.xml
+*.prod.properties
 
 ###################
 # Others

@@ -5,22 +5,16 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-    <!-- Setting of the URL of the XML file used for the data form -->
-    <bean   id="staticDataFormInitializer"
-            class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"> 
-        
-        <property   name="staticMethod" 
-                    value="org.esco.indicators.services.form.DataFormProvider.setDataFormFileUrl"/>
-        
-        <property name="arguments">
-            <list>
-                <value>${dataForm.url}</value>
-            </list>
-        </property>
+    <!-- Service for the form about account statistics -->
+    <bean   id="dataFormAccountProvider"
+            class="org.esco.indicators.services.form.DataFormProvider">
+        <constructor-arg index="0" value="${dataFormAccount.url}" />
     </bean>
     
-    <bean   id="dataFormService" 
-            class="org.esco.indicators.services.form.DataFormServiceImpl" />
+    <bean   id="dataFormAccountService" 
+            class="org.esco.indicators.services.form.DataFormServiceImpl">
+           <property name="dataFormProvider" ref="dataFormAccountProvider" /> 
+    </bean>
             
     <bean   id="resultFormService" 
             class="org.esco.indicators.services.form.ResultFormServiceImpl">

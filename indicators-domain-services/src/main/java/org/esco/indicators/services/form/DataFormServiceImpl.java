@@ -32,19 +32,28 @@ public class DataFormServiceImpl implements DataFormService {
     /**
      * Default constructor of the {@link DataFormServiceImpl} class.
      */
-    private DataFormServiceImpl() {
+    public DataFormServiceImpl() {
 	super();
     }
 
     // --------------------------------------------------------------------------- GETTERS / SETTERS
-
+    /**
+     * Sets the data form provider.
+     * 
+     * @param dataFormProvider 
+     * 			The data form provider to set.
+     */
+    public void setDataFormProvider(DataFormProvider dataFormProvider) {
+        this.dataFormProvider = dataFormProvider;
+    }
+    
+    
     // ------------------------------------------------------------------------------ PUBLIC METHODS
     /* (non-Javadoc)
      * @see org.esco.indicators.services.form.DataFormService#getDisabledJspKeysByDefault()
      */
     @Override
     public List<String> getJspKeysDisabledByDefault() {
-	init();
 	// Final result
 	List<String> jspKeys = new ArrayList<String>();
 	
@@ -62,7 +71,6 @@ public class DataFormServiceImpl implements DataFormService {
      */
     @Override
     public List<String> getJspKeysEnabledByDefault() {
-	init();
 	// Final result
 	List<String> jspKeys = new ArrayList<String>();
 	
@@ -80,8 +88,6 @@ public class DataFormServiceImpl implements DataFormService {
      */
     @Override
     public List<String> getJspKeysToDisable(List<String> checkedJspKeys) {
-	init();
-	
 	// Retrieval of the checked entry values
 	List<EntryValue> checkedEntries = getEntryValuesByJspKeys(checkedJspKeys);
 	
@@ -100,8 +106,6 @@ public class DataFormServiceImpl implements DataFormService {
      */
     @Override
     public List<String> getJspKeysToEnable(List<String> checkedJspKeys) {
-	init();
-	
 	// Retrieval of the checked entry values
 	List<EntryValue> checkedEntries = getEntryValuesByJspKeys(checkedJspKeys);
 	
@@ -122,15 +126,13 @@ public class DataFormServiceImpl implements DataFormService {
      */
     @Override
     public List<EntryValue> getEntryValues(String entryName) {
-	init();
-	
 	List<EntryValue> entryValues = new ArrayList<EntryValue>();
 	entryValues.addAll(dataFormProvider.getEntryValues(entryName));
 	
 	// If no values has been retrieved for this entry
 	if (entryValues.isEmpty()) {
 	    LOGGER.warn("No value has been retrieved for the entry : [" + entryName + "] in the file : ["
-		    + DataFormProvider.getDataFormFileUrl() + "]");
+		    + dataFormProvider.getDataFormFileUrl() + "]");
 	}
 	
 	return entryValues;
@@ -141,8 +143,6 @@ public class DataFormServiceImpl implements DataFormService {
      */
     @Override
     public Integer getCountyNumberToFilter(String jspKey) {
-	       init();
-	       
 	       // Retrieval of the entry value
 	       EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
 	       
@@ -172,8 +172,6 @@ public class DataFormServiceImpl implements DataFormService {
      */
     @Override
     public String getEstablishmentTypeToFilter(String jspKey) {
-       init();
-       
        // Retrieval of the entry value
        EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
        
@@ -203,8 +201,6 @@ public class DataFormServiceImpl implements DataFormService {
      */
     @Override
     public String getI18nKey(String jspKey) {
-       init();
-    
        // Retrieval of the entry value
        EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
        String i18n = entryValue.getI18nKey();
@@ -221,7 +217,6 @@ public class DataFormServiceImpl implements DataFormService {
      */
     @Override
     public String getUserProfileToFilter(String jspKey) {
-	init();
 	// Retrieval of the entry value
 	EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
 	return entryValue.getUserProfileToFilter();
@@ -251,8 +246,6 @@ public class DataFormServiceImpl implements DataFormService {
      */
     @Override
     public boolean hasInfluenceOnEstablishmentsList(String jspKey) {
-        init();
-        
         // Retrieval of the entry value
         EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
         
@@ -268,23 +261,12 @@ public class DataFormServiceImpl implements DataFormService {
      */
     @Override
     public boolean isKnown(String jspKey) {
-	init();
-	
 	// Try to retrieve the entry value associated to the JSP key
 	EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
 	return (entryValue != null);
     }
     
     // ----------------------------------------------------------------------------- PRIVATE METHODS
-    /**
-     * Initializes the {@link DataFormServiceImpl}.
-     */
-    private void init() {
-	if (dataFormProvider == null) {
-	    dataFormProvider = DataFormProvider.getInstance();
-	}
-    }
-    
     /**
      * Gets the entry values associated to the JSP keys.
      * 

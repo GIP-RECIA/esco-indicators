@@ -53,7 +53,7 @@ public class FormController  {
 
     /** Service providing the data form */
     @Autowired
-    private DataFormService dataFormService;
+    private DataFormService dataFormServiceAccount;
     
     /** Validator of the form */
     @Autowired
@@ -81,11 +81,11 @@ public class FormController  {
     /**
      * Sets the service providing access to the data form.
      * 
-     * @param dataFormService
+     * @param dataFormServiceAccount
      * 			The service providing access to the data form to set.
      */
-    public void setDataFormService(DataFormService dataFormService) {
-        this.dataFormService = dataFormService;
+    public void setDataFormServiceAccount(DataFormService dataFormService) {
+        this.dataFormServiceAccount = dataFormService;
     }
 
     
@@ -286,7 +286,7 @@ public class FormController  {
      */
     private List<FormField> getEntryFormFields(HttpServletRequest request, String entryName) {
 	// Retrieval of the entry values
-	List<EntryValue> entries = dataFormService.getEntryValues(entryName);
+	List<EntryValue> entries = dataFormServiceAccount.getEntryValues(entryName);
 	
 	// Creation of the corresponding items (labels and values)
 	List<FormField> formFields = new ArrayList<FormField>();
