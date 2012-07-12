@@ -39,21 +39,21 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.support.RequestContext;
 
 /**
- * Controller handling the requests and controls the form of the accounts activations web page.
+ * Controller that handles requests on the form  used for the accounts activations statistics.
  * 
  * @since  2012/06/15
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 @Controller
 @RequestMapping("/accounts-activations")
-public class FormController  {
+public class FormAccountController  {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
-    private static final Logger LOGGER = Logger.getLogger(FormController.class);
+    private static final Logger LOGGER = Logger.getLogger(FormAccountController.class);
 
-    /** Service providing the data form */
+    /** Service providing the data for form presenting the account statistics options */
     @Autowired
-    private DataFormService dataFormServiceAccount;
+    private DataFormService dataFormAccountService;
     
     /** Validator of the form */
     @Autowired
@@ -61,9 +61,9 @@ public class FormController  {
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
-     * Default construcotr of the {@link FormController} class.
+     * Default constructor of the {@link FormAccountController} class.
      */
-    public FormController() {
+    public FormAccountController() {
     }
     
 
@@ -81,11 +81,11 @@ public class FormController  {
     /**
      * Sets the service providing access to the data form.
      * 
-     * @param dataFormServiceAccount
+     * @param dataFormAccountService
      * 			The service providing access to the data form to set.
      */
-    public void setDataFormServiceAccount(DataFormService dataFormService) {
-        this.dataFormServiceAccount = dataFormService;
+    public void setDataFormAccountService(DataFormService dataFormService) {
+        this.dataFormAccountService = dataFormService;
     }
 
     
@@ -286,7 +286,7 @@ public class FormController  {
      */
     private List<FormField> getEntryFormFields(HttpServletRequest request, String entryName) {
 	// Retrieval of the entry values
-	List<EntryValue> entries = dataFormServiceAccount.getEntryValues(entryName);
+	List<EntryValue> entries = dataFormAccountService.getEntryValues(entryName);
 	
 	// Creation of the corresponding items (labels and values)
 	List<FormField> formFields = new ArrayList<FormField>();

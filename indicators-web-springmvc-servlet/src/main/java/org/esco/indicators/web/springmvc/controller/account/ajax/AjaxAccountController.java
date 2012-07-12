@@ -33,10 +33,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/accounts-activations-ajax")
-public class AjaxController  {
+public class AjaxAccountController  {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
-    private static final Logger LOGGER = Logger.getLogger(AjaxController.class);
+    private static final Logger LOGGER = Logger.getLogger(AjaxAccountController.class);
 
     /** Data form service providing information on the data from for the accounts */
     @Autowired
@@ -51,9 +51,9 @@ public class AjaxController  {
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
-     * Default construcotr of the {@link AjaxController} class.
+     * Default construcotr of the {@link AjaxAccountController} class.
      */
-    public AjaxController() {
+    public AjaxAccountController() {
 	objectMapper = new ObjectMapper();
     }
     
