@@ -27,6 +27,11 @@ var SEPARATOR               = ";";
 ///////////////////////////////////////
 var ESTABLISHMENTS_TABLE_ID     = "establishmentsList";
 
+var AVAILABLE_SERVICES_ID       = "availableServicesList";
+var WANTED_SERVICES_ID          = "wantedServicesList";
+var AVAILABLE_SERVICES_NAME     = "availableServices";
+var WANTED_SERVICES_NAME        = "wantedServices";
+
 ///////////////////////////////////////
 // ELEMENTS CLASSES
 ///////////////////////////////////////

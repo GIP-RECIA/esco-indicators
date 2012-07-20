@@ -45,7 +45,7 @@
         <p><spring:message code="filter.title.service" /></p>
         <p>
             <c:forEach var="item" items="${availableServicesItems}">
-                <form:hidden id="${item.value}" path="availableServices"/>
+                <form:hidden id="${item.value}" value="${item.value}" path="availableServices"/>
             </c:forEach>
             
             <ul id="availableServicesList" class="connectedServices">

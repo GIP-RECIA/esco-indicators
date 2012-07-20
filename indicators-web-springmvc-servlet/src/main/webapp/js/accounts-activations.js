@@ -74,7 +74,7 @@ $(document).ready(function() {
     // is selected.
     // //////////////////////////////////////////////////////////////
     $("[value='" + SUM_ON_COUNTIES_INPUT.name + "']").change(function() {
-        changeElementProperty(SUM_ON_COUNTIES_INPUT.dependency, "selected", true) 
+        changeElementPropertyByValue(SUM_ON_COUNTIES_INPUT.dependency, "selected", true) 
     });
 
     ///////////////////////////////////////////////////////

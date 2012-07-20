@@ -62,8 +62,15 @@ function changeCheckedProperty(haveToBeChecked, elementValues) {
 /** 
  * Function that changes the property of an element retrieved by its value.
  */
-function changeElementProperty(elementValue, property, propertyValue) {
+function changeElementPropertyByValue(elementValue, property, propertyValue) {
     $('[value="' + elementValue + '"]').prop(property, propertyValue);
+}
+
+/**
+ * Function that changes the property of an input element retrieved by its id
+ */
+function changeInputPropertyById(elementId, property, propertyValue) {
+    $('input[id="' + elementId + '"]').prop(property, propertyValue);
 }
 
 /**
@@ -98,7 +105,7 @@ function checkedElementsValues(formID) {
 function checkElementsByValues(elementValues) {
     // Check elements one by one
     for(var i = 0; i < elementValues.length; i++) {
-        changeElementProperty(elementValues[i], "checked", true);
+        changeElementPropertyByValue(elementValues[i], "checked", true);
     }
 }
 
@@ -110,7 +117,7 @@ function checkElementsByValues(elementValues) {
 function disableElementsByValues(elementValues) {
     // Disable elements one by one
     for(var i = 0; i < elementValues.length; i++) {
-        changeElementProperty(elementValues[i], "disabled", true);
+        changeElementPropertyByValue(elementValues[i], "disabled", true);
     }
 }
 
@@ -122,7 +129,7 @@ function disableElementsByValues(elementValues) {
 function enableElementsByValues(elementValues) {
     // Disable elements one by one
     for(var i = 0; i < elementValues.length; i++) {
-        changeElementProperty(elementValues[i], "disabled", false);
+        changeElementPropertyByValue(elementValues[i], "disabled", false);
     }
 }
 
@@ -206,7 +213,7 @@ function specialCheckedElementsValues() {
 function uncheckElementsByValues(elementValues) {
     // Uncheck elements one by one
     for(var i = 0; i < elementValues.length; i++) {
-        changeElementProperty(elementValues[i], "checked", false);
+        changeElementPropertyByValue(elementValues[i], "checked", false);
     }
 }
 
