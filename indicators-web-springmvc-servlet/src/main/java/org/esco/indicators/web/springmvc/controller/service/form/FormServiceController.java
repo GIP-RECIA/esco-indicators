@@ -11,17 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
+import org.esco.indicators.domain.beans.form.BasicForm;
 import org.esco.indicators.domain.beans.form.FormField;
 import org.esco.indicators.domain.beans.form.ServiceForm;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
-import org.esco.indicators.web.springmvc.controller.BasicFormController;
+import org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -51,20 +53,10 @@ public class FormServiceController extends BasicFormController {
      * Default constructor of the {@link FormServiceController} class.
      */
     public FormServiceController() {
-	super();
+	super(SessionConstants.SERVICE_FORM_ATTR);
     }
     
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /**
-     * Sets the service used to provide the data contained in the form.
-     * 
-     * @param dataFormServiceService 
-     * 			The service, used to provide the data contained in the form, to set.
-     */
-    public void setDataFormServiceService(DataFormService dataFormServiceService) {
-        this.dataFormServiceService = dataFormServiceService;
-    }
-    
     /* (non-Javadoc)
      * @see org.esco.indicators.web.springmvc.controller.BasicFormController#getDataFormService()
      */
@@ -73,20 +65,35 @@ public class FormServiceController extends BasicFormController {
         return dataFormServiceService;
     }
 
-    //------------------------------------------------------------------------------ PUBLIC METHODS
-    /**
-     * Initializes the binder in order to convert inputs.
-     * 
-     * @param binder
-     * 			Binder providing register functions.
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getValidator()
      */
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-	// Register a date editor that handles date conversions
-	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    @Override
+    public Validator getValidator() {
+        return null;
     }
-    
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getFailureViewName(org.esco.indicators.domain.beans.form.BasicForm)
+     */
+    @Override
+    public String getFailureViewName(BasicForm unvalidForm) {
+        return "form-services";
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getSuccessViewName(org.esco.indicators.domain.beans.form.BasicForm)
+     */
+    @Override
+    public String getSuccessViewName(BasicForm validForm) {
+	String monitoringType = validForm.getMonitoringType();
+	if(monitoringType.equals(DataFormConstants.JSP_KEY_ATTENDANCE)) {
+	    return "redirect:services-attendance-result";
+	}
+	return "redirect:services-monitoring-attendance-result";
+    }
+
+    //------------------------------------------------------------------------------ PUBLIC METHODS
     /**
      * Initializes the wantedServices form.
      * 
@@ -137,29 +144,7 @@ public class FormServiceController extends BasicFormController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public String processSubmit(HttpServletRequest request, @ModelAttribute("serviceform") ServiceForm serviceForm, BindingResult result, SessionStatus status) {
-	// Log of the submitted form
-	if(LOGGER.isDebugEnabled()) {
-	    LOGGER.debug("Submitted form : " + serviceForm.toString());
-	}
-	
-	// Validation of the form
-//	accountActivationValidator.validate(serviceForm, result);
-	
-	if(result.hasErrors()) {
-	    return "form-services";
-	}
-	
-	// Indication of the last submitted form, and storage of this form
-	request.getSession().setAttribute(SessionConstants.LAST_SUBMITTED_FORM_ATTR, SessionConstants.SERVICE_FORM_ATTR);
-	request.getSession().setAttribute(SessionConstants.SERVICE_FORM_ATTR, serviceForm);
-	
-	// Redirection to the result controller
-	String monitoringType = serviceForm.getMonitoringType();
-	if(monitoringType.equals(DataFormConstants.JSP_KEY_ATTENDANCE)) {
-	    return "redirect:accounts-activations-attendance-result";
-	}
-	
-	return "redirect:accounts-activations-monitoring-attendance-result";
+	return super.processSubmit(request, serviceForm, result, status);
     }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS

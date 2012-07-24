@@ -10,16 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
+import org.esco.indicators.domain.beans.form.BasicForm;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
-import org.esco.indicators.web.springmvc.controller.BasicFormController;
+import org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController;
 import org.esco.indicators.web.springmvc.validator.account.AccountValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -57,30 +59,10 @@ public class FormAccountController extends BasicFormController  {
      * Default constructor of the {@link FormAccountController} class.
      */
     public FormAccountController() {
+	super(SessionConstants.ACCOUNT_FORM_ATTR);
     }
-    
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /**
-     * Sets the validator for the {@link AccountActivationForm}.
-     * 
-     * @param accountValidator 
-     * 			 The validator for the {@link AccountActivationForm}.
-     */
-    public void setAccountActivationValidator(AccountValidator accountValidator) {
-        this.accountValidator = accountValidator;
-    }
-    
-    /**
-     * Sets the service providing access to the data form.
-     * 
-     * @param dataFormAccountService
-     * 			The service providing access to the data form to set.
-     */
-    public void setDataFormAccountService(DataFormService dataFormService) {
-        this.dataFormAccountService = dataFormService;
-    }
-
     /* (non-Javadoc)
      * @see org.esco.indicators.web.springmvc.controller.BasicFormController#getDataFormService()
      */
@@ -89,21 +71,36 @@ public class FormAccountController extends BasicFormController  {
         return dataFormAccountService;
     }
 
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getFailureViewName(org.esco.indicators.domain.beans.form.BasicForm)
+     */
+    @Override
+    public String getFailureViewName(BasicForm unvalidForm) {
+        return "form-accounts";
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getSuccessViewName(org.esco.indicators.domain.beans.form.BasicForm)
+     */
+    @Override
+    public String getSuccessViewName(BasicForm validForm) {
+	String monitoringType = validForm.getMonitoringType();
+	if(monitoringType.equals(DataFormConstants.JSP_KEY_ATTENDANCE)) {
+	    return "redirect:accounts-activations-attendance-result";
+	}
+	return "redirect:accounts-activations-monitoring-attendance-result";
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getValidator()
+     */
+    @Override
+    public Validator getValidator() {
+        return accountValidator;
+    }
+
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
-    /**
-     * Initializes the binder in order to convert inputs.
-     * 
-     * @param binder
-     * 			Binder providing register functions.
-     */
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-	// Register a date editor that handles date conversions
-	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
-    
     /**
      * Initializes the account activation form.
      * 
@@ -140,29 +137,7 @@ public class FormAccountController extends BasicFormController  {
      */
     @RequestMapping(method = RequestMethod.POST)
     public String processSubmit(HttpServletRequest request, @ModelAttribute("accountactivationform") AccountActivationForm aaForm, BindingResult result, SessionStatus status) {
-	// Log of the submitted form
-	if(LOGGER.isDebugEnabled()) {
-	    LOGGER.debug("Submitted form : " + aaForm.toString());
-	}
-	
-	// Validation of the form
-	accountValidator.validate(aaForm, result);
-	
-	if(result.hasErrors()) {
-	    return "form-accounts";
-	}
-	
-	// Indication of the last submitted form, and storage of this form
-	request.getSession().setAttribute(SessionConstants.LAST_SUBMITTED_FORM_ATTR, SessionConstants.ACCOUNT_FORM_ATTR);
-	request.getSession().setAttribute(SessionConstants.ACCOUNT_FORM_ATTR, aaForm);
-	
-	// Redirection to the result controller
-	String monitoringType = aaForm.getMonitoringType();
-	if(monitoringType.equals(DataFormConstants.JSP_KEY_ATTENDANCE)) {
-	    return "redirect:accounts-activations-attendance-result";
-	}
-	
-	return "redirect:accounts-activations-monitoring-attendance-result";
+	return super.processSubmit(request, aaForm, result, status);
     }
     
 
