@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.esco.indicators.web.springmvc.controller;
+package org.esco.indicators.web.springmvc.controller.basic.form;
 
 import java.util.ArrayList;
 import java.util.List;
