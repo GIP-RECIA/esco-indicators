@@ -14,6 +14,9 @@ public class FormValidationConstants {
     /** Maximum number of selected users profiles when monitoring attendance is selected */
     public static final Integer MAX_SELECTED_PROFILES_MONITORING = 1;
     
+    /** Maximum number of selected users profiles allowed in the service form */
+    public static final Integer MAX_SELECTED_PROFILES_SERVICE_FORM = 1;
+    
     /** Maximum number of selected establishments */
     public static final Integer MAX_SELECTED_ESTABLISHMENTS = 10;
 }
