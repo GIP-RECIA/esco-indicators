@@ -14,7 +14,7 @@ import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.web.springmvc.controller.BasicFormController;
-import org.esco.indicators.web.springmvc.validator.AccountActivationValidator;
+import org.esco.indicators.web.springmvc.validator.account.AccountValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -50,7 +50,7 @@ public class FormAccountController extends BasicFormController  {
     
     /** Validator of the form */
     @Autowired
-    private AccountActivationValidator accountActivationValidator;
+    private AccountValidator accountValidator;
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
@@ -64,11 +64,11 @@ public class FormAccountController extends BasicFormController  {
     /**
      * Sets the validator for the {@link AccountActivationForm}.
      * 
-     * @param accountActivationValidator 
+     * @param accountValidator 
      * 			 The validator for the {@link AccountActivationForm}.
      */
-    public void setAccountActivationValidator(AccountActivationValidator accountActivationValidator) {
-        this.accountActivationValidator = accountActivationValidator;
+    public void setAccountActivationValidator(AccountValidator accountValidator) {
+        this.accountValidator = accountValidator;
     }
     
     /**
@@ -146,7 +146,7 @@ public class FormAccountController extends BasicFormController  {
 	}
 	
 	// Validation of the form
-	accountActivationValidator.validate(aaForm, result);
+	accountValidator.validate(aaForm, result);
 	
 	if(result.hasErrors()) {
 	    return "form-accounts";
