@@ -26,13 +26,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Ajax controller handling the requests of the accounts activations web page.
+ * Ajax controller handling the requests of the services web page.
  * 
- * @since  2012/06/21
+ * @since  2012/07/24
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 @Controller
-@RequestMapping("/accounts-activations-ajax")
+@RequestMapping("/services-ajax")
 public class AjaxServiceController extends BasicAjaxController {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
@@ -40,7 +40,7 @@ public class AjaxServiceController extends BasicAjaxController {
 
     /** Data form service providing information on the data from for the accounts */
     @Autowired
-    protected DataFormService dataFormAccountService;
+    protected DataFormService dataFormServiceService;
     
     /** Establishment service providing access to establishments data */
     @Autowired
@@ -60,7 +60,7 @@ public class AjaxServiceController extends BasicAjaxController {
      */
     @Override
     public DataFormService getDataFormService() {
-	return dataFormAccountService;
+	return dataFormServiceService;
     }
     
     /* (non-Javadoc)
