@@ -29,6 +29,10 @@ var mastersAndSlaves = new Array();
 //  - Value : The master element
 var slavesAndMasters = new Array();
 
+// Flat array indicating the position of each items
+// in the lists
+var itemsIds = new Array();
+
 ///////////////////////////////////////////////////////////
 // FUNCTIONS
 ///////////////////////////////////////////////////////////
@@ -47,6 +51,8 @@ $(document).ready(function() {
     // //////////////////////////////////////////////////////////////
     createMastersAndSlaves();
     sortKeysAndValues(mastersAndSlaves);
+    var mastersAndSlavesIds = keepValuesIds(mastersAndSlaves);
+    itemsIds = flattenArray(mastersAndSlavesIds);
 
     // //////////////////////////////////////////////////////////////
     // When an element is drop into the list of wanted elements
@@ -54,9 +60,38 @@ $(document).ready(function() {
     // //////////////////////////////////////////////////////////////
     $(".connectedServices").droppable({
         drop: function(event, ui) { 
+                  // //////////////////////////////////////
+                  // Handles the drop event
+                  // //////////////////////////////////////
                   var listId = $(this).prop("id");
+                  var newInputName;
+                  var newDependencyName;
+
                   if(listId == WANTED_SERVICES_ID) {
                     dropWantedServiceHandler($(this), event, ui); 
+                    newInputName        = WANTED_SERVICES_NAME;
+                    newDependencyName   = AVAILABLE_SERVICES_NAME;
+                  } else {
+                    newInputName        = AVAILABLE_SERVICES_NAME;
+                    newDependencyName   = WANTED_SERVICES_NAME;
+                  }
+
+                  // //////////////////////////////////////
+                  // Update the associated hidden field
+                  // //////////////////////////////////////
+                  var hiddenId = ui.draggable.prop("id");
+                  updateInputName(hiddenId, newInputName); 
+
+                  // //////////////////////////////////////
+                  // Update the associated master / slaves 
+                  // //////////////////////////////////////
+                  var slaves = mastersAndSlaves[hiddenId] ;
+                  if(slaves) {
+                    updateInputsName(slaves, newDependencyName);
+                  }
+                  var master = slavesAndMasters[hiddenId] ;
+                  if(master) {
+                    updateInputName($(master).prop("id"), newDependencyName);
                   }
               }
     });
@@ -87,7 +122,7 @@ function connectLists() {
 }
 
 /**
- * Function that create the depencies between the hidden inputs.
+ * Function that creates the depencies between the hidden inputs.
  * Some inputs are considered as masters, while otheers inputs are considered as slaves.
  * A master input represents the sum of its slaves inputs.
  */
@@ -105,6 +140,27 @@ function createMastersAndSlaves() {
         });
     });
 
+}
+
+
+/**
+ * Function that compares the content of two elements retrieved by their ids.
+ */
+function compareInputsContentByIds(firstElementId, secondElementId) {
+    // Gets the contents
+   var firstElement     = $('input[id="' + firstElementId + '"]'); 
+   var secondelement    = $('input[id="' + secondElementId + '"]'); 
+   return compareElementsContent(firstElement, secondElement);
+}
+
+/**
+ * Function that compares the content of two elements.
+ */
+function compareElementsContent(firstElement, secondElement) {
+    // Gets the contents
+    var firstContent    = $(firstElement).prop("innerHTML");
+    var secondContent   = $(secondElement).prop("innerHTML");
+    return firstContent.localeCompare(secondContent);
 }
 
 /**
@@ -136,27 +192,44 @@ function dropWantedServiceHandler(droppableList, event, ui) {
             appendElementsToList(master, AVAILABLE_SERVICES_ID);
         }
     }
-    // Sort this list
 }
 
 /**
- * Function that compares the content of two elements retrieved by their ids.
+ * Function that flattens an array.
  */
-function compareInputsContentByIds(firstElementId, secondElementId) {
-    // Gets the contents
-   var firstElement     = $('input[id="' + firstElementId + '"]'); 
-   var secondelement    = $('input[id="' + secondElementId + '"]'); 
-   return compareElementsContent(firstElement, secondElement);
+function flattenArray(array) {
+    // Final result
+    var flatArray = new Array();
+    for(key in array) {
+        flatArray.push(key);
+        var values = array[key];
+        $.each(values, function(index) {
+            flatArray.push(values[index]);
+        });
+    }
+    return flatArray;
 }
-
 /**
- * Function that compares the content of two elements.
+ * Function that creates an associative array from an original associative array.
+ * All the values contained in the original array represent html elements.
+ * The ids of these elements are retrieved and put into arrays.
+ * These arrays are finally associated to the same key present inthe original array.
  */
-function compareElementsContent(firstElement, secondElement) {
-    // Gets the contents
-    var firstContent    = $(firstElement).prop("innerHTML");
-    var secondContent   = $(secondElement).prop("innerHTML");
-    return firstContent.localeCompare(secondContent);
+function keepValuesIds(array) {
+    // Final result
+    var idsArray = new Array();
+
+    // Create an array only containing elements ids
+    for(key in array) {
+        var values      = array[key];
+        var newValues   = new Array(); 
+        $.each(values, function() {
+           newValues.push($($(this)).prop("id")); 
+        });
+        idsArray[key] = newValues;
+    }
+
+    return idsArray;
 }
 
 /**
@@ -172,7 +245,7 @@ function listContains(listId, elementId) {
 }
 
 /**
- *Function that sort the keys, and the values, contained in an array.
+ * Function that sort the keys, and the values, contained in an array.
  * The array keys are composed of : element ids.
  * The array values are composed of : elements.
  *
@@ -196,4 +269,23 @@ function sortKeysAndValues(arrayToSort) {
  */
 function stringRemove(originalString, targetString) {
     return originalString.replace(targetString, "");
+}
+
+/**
+ * Function that updates the name of an input field.
+ */
+function updateInputName(inputId, newName) {
+    var input = $('input[id="' + inputId + '"]');
+    input.prop("name", newName);
+}
+
+/**
+ * Function that updates the name of the inputs having the same
+ * ids as the ones of the specified elements.
+ */
+function updateInputsName(elements, newName) {
+    $.each(elements, function(index) {
+        var inputId = $(elements[index]).prop("id");
+        updateInputName(inputId, newName); 
+    });
 }
