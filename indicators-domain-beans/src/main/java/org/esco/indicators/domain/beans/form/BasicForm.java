@@ -20,52 +20,52 @@ public class BasicForm {
     private static final Logger LOGGER = Logger.getLogger(BasicForm.class);
 
     /** Radio button : type of the monitoring */
-    private String monitoringType;
+    protected String monitoringType;
     
     /** Checkboxes : establishments type */
-    private String [ ] establishmentsTypes;
+    protected String [ ] establishmentsTypes;
     
     /**
      * Input for displaying the selected start date.
      */
-    private String startDatePicker;
+    protected String startDatePicker;
     
     /** 
      * Hidden input.
      * Date : Beginning of the period
      * Format : DD/mm/yyyy
      */
-    private Date startDate;
+    protected Date startDate;
 
     /**
      * Input for displaying the selected end date.
      */
-    private String endDatePicker;
+    protected String endDatePicker;
     
     /** 
      * Hidden input.
      * Date : End of the period
      * Format : DD/mm/yyyy
      */
-    private Date endDate;
+    protected Date endDate;
     
     /** Checkboxes : users profiles */
-    private String [] usersProfiles;
+    protected String [] usersProfiles;
     
     /** Dropdown box : county */
-    private String county;
+    protected String county;
     
     /** Checkbox : sum on counties */
-    private String sumOnCounties;
+    protected String sumOnCounties;
     
     /** Checkboxes : "lycees" types */
-    private String [] lyceesTypes;
+    protected String [] lyceesTypes;
     
     /** Checkboxes: "lycees agricoles" types */
-    private String [] laTypes;
+    protected String [] laTypes;
     
     /** Checkboxes : establishments list */
-    private String [] establishments;
+    protected String [] establishments;
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
 
