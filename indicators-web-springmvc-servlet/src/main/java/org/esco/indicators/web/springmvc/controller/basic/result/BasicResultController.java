@@ -55,7 +55,7 @@ public abstract class BasicResultController {
     
     //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
-     * Abstract method providing access to the data form service.
+     * Gets the data form service.
      * 
      * @return
      * 	the data form service
@@ -63,7 +63,7 @@ public abstract class BasicResultController {
     public abstract DataFormService getDataFormService(); 
     
     /**
-     * Abstract method providing access to the establishment service.
+     * Gets the establishment service.
      * 
      * @return
      * 	the establishment service
@@ -71,7 +71,7 @@ public abstract class BasicResultController {
     public abstract EstablishmentService getEstablishmentService(); 
     
     /**
-     * Abstract method providing access to the result form service.
+     * Gets the result form service.
      * 
      * @return
      * 	the result form service
