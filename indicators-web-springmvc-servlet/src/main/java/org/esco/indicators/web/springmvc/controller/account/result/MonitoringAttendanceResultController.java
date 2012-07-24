@@ -14,9 +14,14 @@ import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
 import org.esco.indicators.domain.beans.result.ResultRow;
 import org.esco.indicators.domain.beans.util.IntegerPair;
+import org.esco.indicators.services.form.DataFormService;
+import org.esco.indicators.services.form.ResultFormService;
+import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.utils.date.DateUtils;
+import org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +39,18 @@ public class MonitoringAttendanceResultController extends BasicResultController 
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(MonitoringAttendanceResultController.class);
+    
+    /** Data form service providing information on the data from for the accounts */
+    @Autowired
+    protected DataFormService dataFormAccountService;
+    
+    /** Establishment service providing access to establishments data */
+    @Autowired
+    protected EstablishmentService establishmentService;
+    
+    /** Service providing access to result data */
+    @Autowired
+    protected ResultFormService resultFormService;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
@@ -41,11 +58,34 @@ public class MonitoringAttendanceResultController extends BasicResultController 
      * @param viewName
      */
     public MonitoringAttendanceResultController() {
-	super("accounts-activations-monitoring-attendance-result");
+	super("accounts-activations-monitoring-attendance-result", SessionConstants.ACCOUNT_FORM_ATTR);
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController#getDataFormService()
+     */
+    @Override
+    public DataFormService getDataFormService() {
+        return dataFormAccountService;
+    }
 
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController#getEstablishmentService()
+     */
+    @Override
+    public EstablishmentService getEstablishmentService() {
+        return establishmentService;
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController#getResultService()
+     */
+    @Override
+    public ResultFormService getResultService() {
+        return resultFormService;
+    }
+    
     //------------------------------------------------------------------------------ PUBLIC METHODS
     
     /**
