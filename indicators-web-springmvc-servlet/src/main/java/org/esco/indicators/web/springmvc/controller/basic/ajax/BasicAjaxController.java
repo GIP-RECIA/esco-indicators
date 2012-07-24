@@ -45,7 +45,7 @@ public abstract class BasicAjaxController  {
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
-     * Abstract method that gets the data form service.
+     * Gets the data form service.
      * 
      * @return
      * 	the data form service.
@@ -53,7 +53,7 @@ public abstract class BasicAjaxController  {
     public abstract DataFormService getDataFormService();
     
     /**
-     * Abstract method that gets the establishment service.
+     * Gets the establishment service.
      * 
      * @return
      * 	the establishment service.
