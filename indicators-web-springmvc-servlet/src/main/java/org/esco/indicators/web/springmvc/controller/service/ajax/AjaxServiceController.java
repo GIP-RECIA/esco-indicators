@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.esco.indicators.web.springmvc.controller.account.ajax;
+package org.esco.indicators.web.springmvc.controller.service.ajax;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,10 +33,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/accounts-activations-ajax")
-public class AjaxAccountController extends BasicAjaxController {
+public class AjaxServiceController extends BasicAjaxController {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
-    private static final Logger LOGGER = Logger.getLogger(AjaxAccountController.class);
+    private static final Logger LOGGER = Logger.getLogger(AjaxServiceController.class);
 
     /** Data form service providing information on the data from for the accounts */
     @Autowired
@@ -50,7 +50,7 @@ public class AjaxAccountController extends BasicAjaxController {
     /**
      * Default constructor of the {@link BasicAjaxController} class.
      */
-    public AjaxAccountController() {
+    public AjaxServiceController() {
     }
     
 

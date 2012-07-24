@@ -14,6 +14,9 @@ public class SessionConstants {
     /** Account activation form attribute in session */
     public static final String ACCOUNT_FORM_ATTR = "accountActivationForm";
     
+    /** Service form attribute in session */
+    public static final String SERVICE_FORM_ATTR = "serviceForm";
+    
     /** Session attribute containing the name of the (session) attribute containing the last submitted form */
     public static final String LAST_SUBMITTED_FORM_ATTR = "lastSubmittedForm";
 }
