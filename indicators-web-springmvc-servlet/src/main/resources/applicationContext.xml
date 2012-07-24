@@ -53,7 +53,7 @@
     <!-- ////////////////////////// -->
     <!-- BEANS -->
     <!-- ////////////////////////// -->
-    <bean   id="accountActivationValidator" 
-            class="org.esco.indicators.web.springmvc.validator.AccountActivationValidator" />
+    <bean   id="accountValidator" 
+            class="org.esco.indicators.web.springmvc.validator.account.AccountValidator" />
             
 </beans>
