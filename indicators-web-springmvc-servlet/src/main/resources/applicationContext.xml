@@ -56,4 +56,7 @@
     <bean   id="accountValidator" 
             class="org.esco.indicators.web.springmvc.validator.account.AccountValidator" />
             
+    <bean   id="serviceValidator" 
+            class="org.esco.indicators.web.springmvc.validator.service.ServiceValidator" />            
+            
 </beans>
