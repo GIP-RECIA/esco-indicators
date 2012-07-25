@@ -115,8 +115,17 @@ $(document).ready(function() {
     // Moreover the establishements list is reloaded.
     // //////////////////////////////////////////////////////////////
     updateForm("serviceform", "services-ajax/update-form");
-
     updateEstablishments("serviceform", "services-ajax/update-establishments");
+
+    ///////////////////////////////////////////////////////
+    // Only one user profile can be selected
+    ///////////////////////////////////////////////////////
+    $("[name='" + USERS_PROFILES.name + "']").change(function() {
+        if($(this).prop("checked")) {
+            uncheckElementsByValues(USERS_PROFILES.values);
+            $(this).prop("checked", true);
+        }
+    });
 });
 
 

@@ -37,4 +37,17 @@ $(document).ready(function() {
     // //////////////////////////////////////////////////////////////
     updateForm("accountactivationform", "accounts-activations-ajax/update-form");
     updateEstablishments("accountactivationform", "accounts-activations-ajax/update-establishments");
+
+    ///////////////////////////////////////////////////////
+    // When the MONITORING_ATTENDANCE is checked,
+    // only one user profile can be selected
+    ///////////////////////////////////////////////////////
+    $("[name='" + USERS_PROFILES.name + "']").change(function() {
+        if(isChecked(MONITORING_ATTENDANCE.name)) {
+            if($(this).prop("checked")) {
+                uncheckElementsByValues(USERS_PROFILES.values);
+                $(this).prop("checked", true);
+            }
+        }
+    });
 });

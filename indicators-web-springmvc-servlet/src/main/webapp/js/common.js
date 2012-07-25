@@ -81,14 +81,6 @@ $(document).ready(function() {
             uncheckElementsByValues(USERS_PROFILES.values);
         }
     });
-    $("[name='" + USERS_PROFILES.name + "']").change(function() {
-        if(isChecked(MONITORING_ATTENDANCE.name)) {
-            if($(this).prop("checked")) {
-                uncheckElementsByValues(USERS_PROFILES.values);
-                $(this).prop("checked", true);
-            }
-        }
-    });
 });
 
 
