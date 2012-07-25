@@ -60,7 +60,7 @@
             <ul id="wantedServicesList" class="connectedServices">
             </ul>
             
-            <form:errors path="usersProfiles" cssClass="error" />
+            <form:errors path="wantedServices" cssClass="error" />
         </p>
     </div>
     

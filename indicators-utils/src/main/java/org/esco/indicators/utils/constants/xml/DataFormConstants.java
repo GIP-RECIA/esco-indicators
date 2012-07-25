@@ -67,6 +67,11 @@ public class DataFormConstants {
     /** Services */
     public static final String SERVICES = "services";
 
+    /** Available services */
+    public static final  String AVAILABLE_SERVICES = "availableServices"; 
+    
+    /** Wanted services */
+    public static final  String WANTED_SERVICES = "wantedServices"; 
     
     ///////////////////////////////////////////////////////
     // FORM VALUES
