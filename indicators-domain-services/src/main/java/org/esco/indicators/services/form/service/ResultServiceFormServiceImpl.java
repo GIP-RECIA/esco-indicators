@@ -97,7 +97,7 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
 	    ResultRow resultRow = new ResultRow();
 	    resultRow.setEstablishmentData(getEstablishmentData(uai));
 	    for (String service : services) {
-		PunctualAccountStatistic statistic = createPunctualWeekStatisticData(uai, service, userProfile, week, year);
+		ServiceStatistic statistic = createPunctualWeekStatisticData(uai, service, userProfile, week, year);
 		resultRow.putStatisticData(service, statistic);
 	    }
 	    rows.add(resultRow);
