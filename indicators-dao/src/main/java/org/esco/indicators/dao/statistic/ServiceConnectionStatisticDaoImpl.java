@@ -42,6 +42,10 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
     // --------------------------------------------------------------------------- GETTERS / SETTERS
 
     // ------------------------------------------------------------------------------ PUBLIC METHODS
+    ///////////////////////////////////////////////////////
+    // DAILY STATISTICS
+    ///////////////////////////////////////////////////////
+    
     /*
      * (non-Javadoc)
      * 
@@ -67,6 +71,35 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
 	Integer numConnections = (result != null ? result.intValue() : null);
 
 	return numConnections;
+    }
+
+    ///////////////////////////////////////////////////////
+    // WEEKLY / MONTHLY STATISTICS
+    ///////////////////////////////////////////////////////
+    
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.statistic.ServiceConnectionStatisticDao#findNumVisitorsAboveTreshold(java.lang.String, java.util.Date, java.util.Date, java.lang.String, java.lang.String, java.lang.Integer)
+     */
+    @Override
+    public Integer findNumVisitorsAboveTreshold(String establishmentUai, Date startDay,
+	    Date endDay, String serviceName, String userProfile, Integer treshold) {
+	// Name of the query to execute
+	String namedQuery = "ServiceConnectionStatistic.findNumVisitorsAboveTreshold";
+	
+	// Parameters
+	Parameters parameters = new Parameters();
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("startDay", startDay);
+	parameters.put("endDay", endDay);
+	parameters.put("serviceName", serviceName);
+	parameters.put("userProfile", userProfile);
+	parameters.put("treshold", treshold);
+
+	// Retrieval of the statistic
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Integer numVisitors = (result != null ? result.intValue() : null);
+
+	return numVisitors;
     }
 
     // ----------------------------------------------------------------------------- PRIVATE METHODS
