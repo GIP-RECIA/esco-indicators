@@ -70,14 +70,6 @@ public abstract class BasicResultController {
      */
     public abstract EstablishmentService getEstablishmentService(); 
     
-    /**
-     * Gets the result form service.
-     * 
-     * @return
-     * 	the result form service
-     */
-    public abstract ResultAccountFormService getResultService(); 
-    
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**
      * Initializes the result view and redirect to the view.
@@ -341,6 +333,24 @@ public abstract class BasicResultController {
         return (BasicForm) session.getAttribute(formAttribute);
     }
     
+    /**
+     * Gets the i18n keys associated to the specified JSP keys.
+     * 
+     * @param jspKeys
+     * 			The JSP keys associated to the i18n keys to retrieve.
+     * 
+     * @return
+     * 	the list of the i18n keys associated to the JSP keys.<br/>
+     * 	an empty list if no i18n keys has been retrieved.
+     */
+    protected List<String> getI18nKeys(List<String> jspKeys) {
+        // Retrieval of the i18n keys
+        List<String> i18nKeys = new ArrayList<String>();
+        for (String jspKey : jspKeys) {
+            i18nKeys.add(getDataFormService().getI18nKey(jspKey));
+        }
+        return i18nKeys;
+    }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
@@ -365,24 +375,5 @@ public abstract class BasicResultController {
 	return true;
     }
     
-    /**
-     * Gets the i18n keys associated to the specified JSP keys.
-     * 
-     * @param jspKeys
-     * 			The JSP keys associated to the i18n keys to retrieve.
-     * 
-     * @return
-     * 	the list of the i18n keys associated to the JSP keys.<br/>
-     * 	an empty list if no i18n keys has been retrieved.
-     */
-    private List<String> getI18nKeys(List<String> jspKeys) {
-        // Retrieval of the i18n keys
-        List<String> i18nKeys = new ArrayList<String>();
-        for (String jspKey : jspKeys) {
-            i18nKeys.add(getDataFormService().getI18nKey(jspKey));
-        }
-        return i18nKeys;
-    }
-
     //------------------------------------------------------------------------------ STATIC METHODS
 }

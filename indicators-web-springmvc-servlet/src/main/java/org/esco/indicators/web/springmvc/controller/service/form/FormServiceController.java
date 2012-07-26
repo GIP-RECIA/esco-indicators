@@ -41,7 +41,7 @@ public class FormServiceController extends BasicFormController {
 
     /** Service providing the data for form presenting the wantedServices statistics options */
     @Autowired
-    private DataFormService dataFormServiceService;
+    private DataFormService dataServiceFormService;
 
     /** Validator of the form */
     @Autowired
@@ -61,7 +61,7 @@ public class FormServiceController extends BasicFormController {
      */
     @Override
     public DataFormService getDataFormService() {
-        return dataFormServiceService;
+        return dataServiceFormService;
     }
 
     /* (non-Javadoc)

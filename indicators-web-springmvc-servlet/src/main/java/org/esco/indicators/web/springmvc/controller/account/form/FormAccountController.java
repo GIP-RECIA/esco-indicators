@@ -46,9 +46,9 @@ public class FormAccountController extends BasicFormController  {
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(FormAccountController.class);
 
-    /** Service providing the data for form presenting the account statistics options */
+    /** Service providing the data for the form presenting the account statistics options */
     @Autowired
-    private DataFormService dataFormAccountService;
+    private DataFormService dataAccountFormService;
     
     /** Validator of the form */
     @Autowired
@@ -68,7 +68,7 @@ public class FormAccountController extends BasicFormController  {
      */
     @Override
     public DataFormService getDataFormService() {
-        return dataFormAccountService;
+        return dataAccountFormService;
     }
 
     /* (non-Javadoc)

@@ -40,7 +40,7 @@ public class AjaxServiceController extends BasicAjaxController {
 
     /** Data form service providing information on the data from for the accounts */
     @Autowired
-    protected DataFormService dataFormServiceService;
+    protected DataFormService dataServiceFormService;
     
     /** Establishment service providing access to establishments data */
     @Autowired
@@ -60,7 +60,7 @@ public class AjaxServiceController extends BasicAjaxController {
      */
     @Override
     public DataFormService getDataFormService() {
-	return dataFormServiceService;
+	return dataServiceFormService;
     }
     
     /* (non-Javadoc)

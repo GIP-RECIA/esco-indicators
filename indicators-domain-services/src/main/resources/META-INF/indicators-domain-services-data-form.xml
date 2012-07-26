@@ -5,6 +5,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
+    <!-- ///////////////////////////////////////////////// --> 
+    <!-- DATA FORM SERVICES -->      
+    <!-- ///////////////////////////////////////////////// --> 
+    
     <!-- Service for the page containing the form about accounts statistics -->
     <bean   id="dataAccountFormProvider"
             class="org.esco.indicators.services.form.DataFormProvider">
@@ -26,7 +30,12 @@
             class="org.esco.indicators.services.form.DataFormServiceImpl">
            <property name="dataFormProvider" ref="dataServiceFormProvider" /> 
     </bean>
-            
+    
+    
+    <!-- ///////////////////////////////////////////////// --> 
+    <!-- RESULT SERVICES -->      
+    <!-- ///////////////////////////////////////////////// --> 
+    
     <!-- Service for the result page of the account form -->
     <bean   id="resultAccountFormService" 
             class="org.esco.indicators.services.form.account.ResultAccountFormServiceImpl">
@@ -34,4 +43,14 @@
             <property name="establishmentService" ref="establishmentService"/>
             <property name="portalConnectionStatisticService" ref="portalConnectionStatisticService"/>
     </bean>  
+    
+        <!-- Service for the result page of the service form -->
+    <bean   id="resultServiceFormService" 
+            class="org.esco.indicators.services.form.service.ResultServiceFormServiceImpl">
+            <property name="accountStatisticService" ref="accountStatisticService"/>
+            <property name="establishmentService" ref="establishmentService"/>
+            <property name="serviceConnectionStatisticService" ref="serviceConnectionStatisticService"/>
+    </bean>  
+    
+    
 </beans>
