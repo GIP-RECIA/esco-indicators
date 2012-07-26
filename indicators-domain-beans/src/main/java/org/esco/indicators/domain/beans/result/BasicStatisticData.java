@@ -11,10 +11,10 @@ import org.apache.log4j.Logger;
  * @since 2012/07/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public class StatisticData {
+public class BasicStatisticData {
     // ---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
-    private static final Logger LOGGER = Logger.getLogger(StatisticData.class);
+    private static final Logger LOGGER = Logger.getLogger(BasicStatisticData.class);
 
     /** Total account number */
     private Integer totalAccountNumber;
@@ -30,7 +30,7 @@ public class StatisticData {
 
     // -------------------------------------------------------------------------------- CONSTRUCTORS
     /**
-     * Constructor of the {@link StatisticData} class.
+     * Constructor of the {@link BasicStatisticData} class.
      * 
      * @param totalAccountNumber
      *            Number of total account.
@@ -41,7 +41,7 @@ public class StatisticData {
      * @param numVisitorsAboveTreshold
      *            Number of visitors having made a number of visits greater than a treshold.
      */
-    public StatisticData(Integer totalAccountNumber, Integer activeAccountNumber,
+    public BasicStatisticData(Integer totalAccountNumber, Integer activeAccountNumber,
 	    Integer numVisitorsBelowTreshold, Integer numVisitorsAboveTreshold) {
 	super();
 	this.totalAccountNumber = totalAccountNumber;

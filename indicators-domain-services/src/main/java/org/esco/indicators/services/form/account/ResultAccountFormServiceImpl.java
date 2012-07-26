@@ -9,7 +9,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.result.EstablishmentData;
 import org.esco.indicators.domain.beans.result.ResultRow;
-import org.esco.indicators.domain.beans.result.StatisticData;
+import org.esco.indicators.domain.beans.result.BasicStatisticData;
 import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.domain.beans.util.IntegerPair;
 import org.esco.indicators.services.constants.ServicesConstants;
@@ -99,7 +99,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    ResultRow resultRow = new ResultRow();
 	    resultRow.setEstablishmentData(getEstablishmentData(uai));
 	    for (String profile : usersProfiles) {
-		StatisticData statistic = createPunctualWeekStatisticData(uai, profile, week, year);
+		BasicStatisticData statistic = createPunctualWeekStatisticData(uai, profile, week, year);
 		resultRow.putStatisticData(profile, statistic);
 	    }
 	    rows.add(resultRow);
@@ -128,7 +128,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    ResultRow resultRow = new ResultRow();
 	    resultRow.setEstablishmentData(getEstablishmentData(uai));
 	    for (IntegerPair weekAndYear : weeksAndYears) {
-		StatisticData statistic = createPunctualWeekStatisticData(uai, userProfile, weekAndYear.getFirst(), weekAndYear.getSecond());
+		BasicStatisticData statistic = createPunctualWeekStatisticData(uai, userProfile, weekAndYear.getFirst(), weekAndYear.getSecond());
 		resultRow.putStatisticData(weekAndYear, statistic);
 	    }
 	    rows.add(resultRow);
@@ -159,7 +159,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    ResultRow resultRow = new ResultRow();
 	    resultRow.setEstablishmentData(getEstablishmentData(uai));
 	    for (String profile : usersProfiles) {
-		StatisticData statistic = createPunctualMonthStatisticData(uai, profile, month, year);
+		BasicStatisticData statistic = createPunctualMonthStatisticData(uai, profile, month, year);
 		resultRow.putStatisticData(profile, statistic);
 	    }
 	    rows.add(resultRow);
@@ -189,7 +189,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    ResultRow resultRow = new ResultRow();
 	    resultRow.setEstablishmentData(getEstablishmentData(uai));
 	    for (IntegerPair monthAndYear : monthsAndYears) {
-		StatisticData statistic = createPunctualMonthStatisticData(uai, userProfile, monthAndYear.getFirst(), monthAndYear.getSecond());
+		BasicStatisticData statistic = createPunctualMonthStatisticData(uai, userProfile, monthAndYear.getFirst(), monthAndYear.getSecond());
 		resultRow.putStatisticData(monthAndYear, statistic);
 	    }
 	    rows.add(resultRow);
@@ -220,7 +220,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * @return
      * 	the statistic data.
      */
-    private StatisticData createPunctualMonthStatisticData(String establishmentUai, String userProfile, Integer month, Integer year) {
+    private BasicStatisticData createPunctualMonthStatisticData(String establishmentUai, String userProfile, Integer month, Integer year) {
 	// Retrieval of the total account number
 	Integer totalAccountNumber = accountStatisticService.findMonthlyTotalNumAccountsForProfile(establishmentUai, userProfile, month, year);
 	
@@ -233,7 +233,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	Integer numVisitorsBelowTreshold = portalConnectionStatisticService.findMonthlyNumVisitorsBelowTreshold(establishmentUai, userProfile, month, year, treshold);
 	
 	// Creation of the statistic data
-	StatisticData data = new StatisticData(totalAccountNumber, numActivatedAccounts, numVisitorsBelowTreshold, numVisitorsAboveTreshold);
+	BasicStatisticData data = new BasicStatisticData(totalAccountNumber, numActivatedAccounts, numVisitorsBelowTreshold, numVisitorsAboveTreshold);
 	
 	return data;
     }
@@ -259,7 +259,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * @return
      * 	the statistic data.
      */
-    private StatisticData createPunctualWeekStatisticData(String establishmentUai, String userProfile, Integer week, Integer year) {
+    private BasicStatisticData createPunctualWeekStatisticData(String establishmentUai, String userProfile, Integer week, Integer year) {
 	// Retrieval of the total account number
 	Integer totalAccountNumber = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentUai, userProfile, week, year);
 	
@@ -272,7 +272,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	Integer numVisitorsBelowTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTreshold(establishmentUai, userProfile, week, year, treshold);
 	
 	// Creation of the statistic data
-	StatisticData data = new StatisticData(totalAccountNumber, numActivatedAccounts, numVisitorsBelowTreshold, numVisitorsAboveTreshold);
+	BasicStatisticData data = new BasicStatisticData(totalAccountNumber, numActivatedAccounts, numVisitorsBelowTreshold, numVisitorsAboveTreshold);
 	
 	return data;
     }
