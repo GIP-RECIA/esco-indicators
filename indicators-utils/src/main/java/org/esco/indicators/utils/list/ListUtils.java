@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.esco.indicators.domain.beans.util.IntegerPair;
+import org.esco.indicators.utils.classes.IntegerPair;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
