@@ -3,11 +3,12 @@
  */
 package org.esco.indicators.services.statistic;
 
-import java.util.Date;
+import java.sql.Date;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.dao.statistic.ServiceConnectionStatisticDao;
 import org.esco.indicators.domain.beans.statistic.ServiceConnectionStatistic;
+import org.esco.indicators.utils.date.DateUtils;
 
 /**
  * Implementation of the {@link ServiceConnectionStatisticService} interface.
@@ -56,15 +57,59 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
 
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
+    ///////////////////////////////////////////////////////
+    // DAILY STATISTICS
+    ///////////////////////////////////////////////////////
     /* (non-Javadoc)
      * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findDailyNumConnectionsByProfile(java.util.Date, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public Integer findDailyNumConnectionsByProfile(Date day, String establishmentUai,
+    public Integer findDailyNumConnectionsByProfile(java.util.Date day, String establishmentUai,
 	    String serviceName, String userProfile) {
 	return serviceConnectionStatisticDao.findDailyNumConnectionsByProfile(day, establishmentUai, serviceName, userProfile);
     }
 
+    ///////////////////////////////////////////////////////
+    // WEEKLY STATISTICS
+    ///////////////////////////////////////////////////////
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findWeeklyNumVisitorsAboveTreshold(java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Integer findWeeklyNumVisitorsAboveTreshold(String establishmentUai, String service,
+	    String userProfile, Integer treshold, Integer week, Integer year) {
+	// Gets the start day and end day of the week
+	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
+	Date lastWeekDay = DateUtils.addDays(firstWeekDay, 6);
+	
+	// Number of visitors
+	Integer numVisitors = serviceConnectionStatisticDao.findNumVisitorsAboveTreshold(establishmentUai, firstWeekDay, lastWeekDay, service, userProfile, treshold); 
+	numVisitors = (numVisitors == null ? 0 : numVisitors);
+	
+	return numVisitors;
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findWeeklyNumVisits(java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Integer findWeeklyNumVisits(String establishmentUai, String service, String userProfile,
+	    Integer week, Integer year) {
+	// Gets the start day and end day of the week
+	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
+	Date lastWeekDay = DateUtils.addDays(firstWeekDay, 6);
+	
+	// Number of visits
+	Integer numVisits = serviceConnectionStatisticDao.findNumVisits(establishmentUai, firstWeekDay, lastWeekDay, service, userProfile);
+	numVisits = (numVisits == null ? 0 : numVisits);
+	
+	return numVisits;
+    }
+
+    ///////////////////////////////////////////////////////
+    // MONTHLY STATISTICS
+    ///////////////////////////////////////////////////////
+    
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
     //------------------------------------------------------------------------------ STATIC METHODS
