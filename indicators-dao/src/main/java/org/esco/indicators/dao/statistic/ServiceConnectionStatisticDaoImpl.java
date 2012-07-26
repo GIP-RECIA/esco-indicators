@@ -89,8 +89,8 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
 	// Parameters
 	Parameters parameters = new Parameters();
 	parameters.put("establishmentUai", establishmentUai);
-	parameters.put("startDay", startDay);
-	parameters.put("endDay", endDay);
+	parameters.put("startDate", startDay);
+	parameters.put("endDate", endDay);
 	parameters.put("serviceName", serviceName);
 	parameters.put("userProfile", userProfile);
 	parameters.put("treshold", treshold);
@@ -114,8 +114,8 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
 	// Parameters
 	Parameters parameters = new Parameters();
 	parameters.put("establishmentUai", establishmentUai);
-	parameters.put("startDay", startDay);
-	parameters.put("endDay", endDay);
+	parameters.put("startDate", startDay);
+	parameters.put("endDate", endDay);
 	parameters.put("serviceName", serviceName);
 	parameters.put("userProfile", userProfile);
 
