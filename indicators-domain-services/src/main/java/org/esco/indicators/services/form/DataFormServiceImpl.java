@@ -213,6 +213,34 @@ public class DataFormServiceImpl implements DataFormService {
     }
 
     /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.DataFormService#getServiceToFilter(java.lang.String)
+     */
+    @Override
+    public String getServiceToFilter(String jspKey) {
+	// Retrieval of the entry value
+	EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
+	return entryValue.getServiceToFilter();
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.DataFormService#getServicesToFilter(java.util.List)
+     */
+    @Override
+    public List<String> getServicesToFilter(List<String> checkedJspKeys) {
+        // Final result
+	List<String> services = new ArrayList<String>();
+	
+	// Retrieval of the services to filter
+	for (String jspKey : checkedJspKeys) {
+	    String service = getServiceToFilter(jspKey);
+	    if(service != null) {
+		services.add(service);
+	    }
+	}
+        return services;
+    }
+
+    /* (non-Javadoc)
      * @see org.esco.indicators.services.form.DataFormService#getuserProfileToFilter(java.lang.String)
      */
     @Override

@@ -234,9 +234,18 @@ public class EntryValue {
 	return getWhenActivatedEvent().getFilterEstablishmentType();
     }
     
+    /**
+     * Gets the service to filter when this entry value has been selected.
+     * 
+     * @return 
+     * 	the establishment type to filter.
+     */
+    public String getServiceToFilter() {
+	return getWhenActivatedEvent().getFilterService();
+    }
     
     /**
-     * Gets the user profile to filter when this entry value has selected.
+     * Gets the user profile to filter when this entry value has been selected.
      * 
      * @return 
      * 	the establishment type to filter.
@@ -244,6 +253,7 @@ public class EntryValue {
     public String getUserProfileToFilter() {
 	return getWhenActivatedEvent().getFilterUserProfile();
     }
+    
     
     
     //------------------------------------------------------------------------------ PUBLIC METHODS

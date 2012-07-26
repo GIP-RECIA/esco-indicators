@@ -48,6 +48,9 @@ public class WhenActivatedEvent {
     /** The user profile to filter */
     private String filterUserProfile;
     
+    /** The service to filter */
+    private String filterService;
+    
     //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
      * Gets the entry values to disable.
@@ -129,6 +132,27 @@ public class WhenActivatedEvent {
         this.filterEstablishmentType = filterEstablishmentType;
     }
 
+    /**
+     * Gets the service to filter.
+     * 
+     * @return 
+     * 	the service to filter.
+     */
+    @XmlElement(name = "filter-service")
+    public String getFilterService() {
+        return filterService;
+    }
+
+    /**
+     * Sets the service to filter.
+     * 
+     * @param filterService 
+     * 			the service (to filter) to set.
+     */
+    public void setFilterService(String filterService) {
+        this.filterService = filterService;
+    }
+    
     /**
      * Gets the user profile to filter.
      * 

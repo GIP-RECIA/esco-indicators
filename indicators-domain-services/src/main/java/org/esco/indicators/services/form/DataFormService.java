@@ -114,6 +114,30 @@ public interface DataFormService {
     public List<String> getEstablishmentsTypesToFilter(List<String> checkedJspKeys);    
     
     /**
+     * Gets the service to filter when the specified JSP key is checked in the user view.
+     * 
+     * @param jspKey
+     * 			The JSP keys that is checked in the user view.
+     * 
+     * @return
+     * 	the service to filter.<br/>
+     * 	<code>null</code> if no service has to be filtered.
+     */
+    public String getServiceToFilter(String jspKey);
+    
+    /**
+     * Gets the services to filter when the specified JSP keys are checked in the user view.
+     * 
+     * @param checkedJspKeys
+     * 			The JSP keys that are checked in the user view.
+     * 
+     * @return
+     * 	the list of the services to filter.<br/>
+     * 	an empty list if no service has to be filtered.
+     */
+    public List<String> getServicesToFilter(List<String> checkedJspKeys);
+    
+    /**
      * Gets the user profile to filter when the specified JSP key is checked in the user view.
      * 
      * @param jspKey
