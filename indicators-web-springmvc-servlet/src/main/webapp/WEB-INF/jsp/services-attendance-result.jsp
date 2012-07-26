@@ -54,15 +54,12 @@
                 </th>
             </c:forEach>
             
-            <c:forEach var="item" items="${usersProfilesItems}">
-                <th>
-                    <spring:message code="result.table.totalAccount" />
-                </th>
-                <th colspan="2">
-                    <spring:message code="result.table.activeAccount" />
-                </th>            
+            <c:forEach var="item" items="${servicesItems}">
                 <th colspan="4">
                     <spring:message code="result.table.consultationFrequency" />
+                </th>
+                <th>
+                    <spring:message code="result.table.numVisit" />
                 </th>
             </c:forEach>
         </tr>
@@ -74,20 +71,15 @@
                 </th>
             </c:forEach>
             
-            <c:forEach var="item" items="${usersProfilesItems}">
-                <th>
-                </th>
-                <th>
-                   <spring:message code="result.table.num" /> 
-                </th>            
-                <th>
-                   <spring:message code="result.table.percent" /> 
-                </th>     
+            <c:forEach var="item" items="${servicesItems}">
                 <th colspan="2">
                     <spring:message code="result.table.maxTimes" arguments="4" /> 
                 </th>
                 <th colspan="2">
                     <spring:message code="result.table.minTimes" arguments="5" /> 
+                </th>
+                <th>
+                    <!-- NumVisit -->
                 </th>
             </c:forEach>
 
@@ -100,12 +92,7 @@
                 </th>
             </c:forEach>
             
-            <c:forEach var="item" items="${usersProfilesItems}">
-                <c:forEach var="i" begin="1" end="3">
-                    <th>
-                    </th>
-                </c:forEach>
-                
+            <c:forEach var="item" items="${servicesItems}">
                 <th>
                     <spring:message code="result.table.numVisitor" />
                 </th>
@@ -117,12 +104,15 @@
                 </th>
                 <th>
                     <spring:message code="result.table.percentTotalAccount" />
-                </th>       
+                </th>  
+                <th>
+                    <!-- NumVisit -->
+                </th>     
             </c:forEach>
         </tr>
         
         <!-- Data of the table -->
-        <%@ include file="/WEB-INF/jsp/include/account/table-data.jsp"%>
+        <%@ include file="/WEB-INF/jsp/include/service/table-data.jsp"%>
             
     </table>
 
