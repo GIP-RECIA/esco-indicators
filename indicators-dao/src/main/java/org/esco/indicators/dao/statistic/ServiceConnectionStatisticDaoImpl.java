@@ -102,6 +102,30 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
 	return numVisitors;
     }
 
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.statistic.ServiceConnectionStatisticDao#findNumVisits(java.lang.String, java.util.Date, java.util.Date, java.lang.String, java.lang.String)
+     */
+    @Override
+    public Integer findNumVisits(String establishmentUai, Date startDay, Date endDay, String serviceName,
+	    String userProfile) {
+	// Name of the query to execute
+	String namedQuery = "ServiceConnectionStatistic.findNumVisits";
+	
+	// Parameters
+	Parameters parameters = new Parameters();
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("startDay", startDay);
+	parameters.put("endDay", endDay);
+	parameters.put("serviceName", serviceName);
+	parameters.put("userProfile", userProfile);
+
+	// Retrieval of the statistic
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Integer numVisits = (result != null ? result.intValue() : null);
+	
+	return numVisits;
+    }
+
     // ----------------------------------------------------------------------------- PRIVATE METHODS
     
     // ------------------------------------------------------------------------------ STATIC METHODS
