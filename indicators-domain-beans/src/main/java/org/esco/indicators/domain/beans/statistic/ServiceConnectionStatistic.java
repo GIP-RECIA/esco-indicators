@@ -31,6 +31,22 @@ import org.hibernate.annotations.NaturalId;
 	    query = "SELECT SUM(scs.numConnections) FROM ServiceConnectionStatistic scs"
 	    		+ " WHERE scs.day = :day AND scs.establishmentUai = :establishmentUai"
 	    		+" AND scs.serviceName = :serviceName AND scs.userProfile = :userProfile"
+	    ),
+  @NamedQuery(
+	    name = "ServiceConnectionStatistic.findNumVisitorsBelowTreshold",
+	    query = "SELECT COUNT( DISTINCT scs.userUid ) FROM ServiceConnectionStatistic scs"
+	    		+ " WHERE scs.establishmentUai = :establishmentUai"
+	    		+ " AND scs.serviceName = :serviceName AND scs.userProfile = :userProfile"
+	    		+ " AND scs.numConnections <= :treshold"
+	    		+ " AND scs.day BETWEEN :startDate AND :endDate"
+	    ),
+   @NamedQuery(
+	    name = "ServiceConnectionStatistic.findNumVisitorsAboveTreshold",
+	    query = "SELECT COUNT( DISTINCT scs.userUid ) FROM ServiceConnectionStatistic scs"
+	    		+ " WHERE scs.establishmentUai = :establishmentUai"
+	    		+ " AND scs.serviceName = :serviceName AND scs.userProfile = :userProfile"
+	    		+ " AND scs.numConnections > :treshold"
+	    		+ " AND scs.day BETWEEN :startDate AND :endDate"
 	    )
 })
 @Table(name = "connexionservicejour")
