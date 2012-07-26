@@ -39,7 +39,7 @@
                 <spring:message code="result.table.lyceeType" />
             </th>
 
-            <c:forEach var="item" items="${usersProfilesItems}">
+            <c:forEach var="item" items="${servicesItems}">
                 <spring:message code="${item}" var="i18n"/> 
                 <th colspan="7">
                     ${i18n}
@@ -51,6 +51,7 @@
         <tr>
             <c:forEach var="i" begin="1" end="5">
                 <th>
+                    <!-- Establishment data -->
                 </th>
             </c:forEach>
             
