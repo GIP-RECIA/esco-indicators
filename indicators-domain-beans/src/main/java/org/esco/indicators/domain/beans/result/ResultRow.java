@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.esco.indicators.domain.beans.result.statistic.PunctualAccountStatistic;
 
 /**
  * Class representing a row present into the establishment table of the result page.
@@ -23,7 +24,7 @@ public class ResultRow {
     private EstablishmentData establishmentData;
     
     /** Data concerning the statistics classified by a key */
-    private Map<Object,StatisticData> statisticDataByKey;
+    private Map<Object,PunctualAccountStatistic> statisticDataByKey;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
@@ -31,7 +32,7 @@ public class ResultRow {
      */
     public ResultRow() {
 	super();
-	statisticDataByKey = new HashMap<Object, StatisticData>();
+	statisticDataByKey = new HashMap<Object, PunctualAccountStatistic>();
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
@@ -61,7 +62,7 @@ public class ResultRow {
      * @return
      * 	the statistic data map.
      */
-    public Map<Object,StatisticData> getStatisticDataByKey() {
+    public Map<Object,PunctualAccountStatistic> getStatisticDataByKey() {
 	return statisticDataByKey;
     }
     
@@ -75,7 +76,7 @@ public class ResultRow {
      * 	the statistic data associated to the key.<br/>
      * 	<code>null</code> if no data is associated to the key.
      */
-    public StatisticData getStatisticData(Object key) {
+    public PunctualAccountStatistic getStatisticData(Object key) {
 	return statisticDataByKey.get(key);
     }
     
@@ -93,7 +94,7 @@ public class ResultRow {
      * @return
      * 	the previous value associated with the key, or <code>null</code> if no value was associated.
      */
-    public StatisticData putStatisticData(Object key, StatisticData value) {
+    public PunctualAccountStatistic putStatisticData(Object key, PunctualAccountStatistic value) {
 	return statisticDataByKey.put(key, value);
     }
 
