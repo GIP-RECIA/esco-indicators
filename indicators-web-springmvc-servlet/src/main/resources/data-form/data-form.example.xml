@@ -34,6 +34,9 @@
 
                     <filter-user-profile> : Tag used to indicate the user profile used to filter in the result view.
 
+                    <filter-service> : Tag used to indicate the service name used to filter in the result view.
+                    
+
                     <disable-entry-value entry-value="{STRING}"> : Tag used to indicate that the <entry-value> with the name put into the 'entry-value' attribute must be disabled in the user view.
                     
                     <enable-entry-value entry-value="{STRING}"> : Tag used to indicate that the <entry-value> with the name put into the 'entry-value' attribute must be enabled in the user view.                                         
@@ -47,7 +50,7 @@
     <data-form> :: <entry-form>*
     <entry-form> :: <entry-value>+
     <entry-value> :: <jsp-key> <i18n-key> <disable-by-default> <activate-by-default>? <on-activation-event> <when-activated-event>
-    <when-activated-event> :: ( <filter-county-number> | <filter-establishment-type> | <filter-user-profile> | <disable-entry-value> | <enable-entry-value> )*
+    <when-activated-event> :: ( <filter-county-number> | <filter-establishment-type> | <filter-user-profile> | <filter-service> | <disable-entry-value> | <enable-entry-value> )*
     
  -->
 <data-form>
@@ -108,6 +111,32 @@
         </entry-value>
         
     </entry-form>
+    
+    <!-- ////////////////////////// -->
+    <!-- Services : -->
+    <!-- ////////////////////////// -->
+    <entry-form name="services">
+    
+        <!-- Services pédagogie -->
+        <entry-value name="MOODLE">
+            <jsp-key>services.education.MOODLE</jsp-key>
+            <i18n-key>form.services.education.MOODLE</i18n-key>
+            <disable-by-default>false</disable-by-default>
+            <when-activated-event>
+                <filter-service>MOODLE</filter-service>
+            </when-activated-event>
+        </entry-value>
+        
+        <entry-value name="STORAGE">
+            <jsp-key>services.education.STORAGE</jsp-key>
+            <i18n-key>form.services.education.STORAGE</i18n-key>
+            <disable-by-default>false</disable-by-default>
+            <when-activated-event>
+                <filter-service>STORAGE</filter-service>
+            </when-activated-event>
+        </entry-value>
+        
+  </entry-form>    
     
 </data-form>
 
