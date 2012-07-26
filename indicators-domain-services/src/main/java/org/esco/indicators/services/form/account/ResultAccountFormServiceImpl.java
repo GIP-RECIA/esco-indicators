@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.esco.indicators.services.form;
+package org.esco.indicators.services.form.account;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +19,15 @@ import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.date.DateUtils;
 
 /**
- * Implementation of the {@link ResultFormService} interface.
+ * Implementation of the {@link ResultAccountFormService} interface.
  * 
  * @since  2012/07/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public class ResultFormServiceImpl implements ResultFormService {
+public class ResultAccountFormServiceImpl implements ResultAccountFormService {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
-    private static final Logger LOGGER = Logger.getLogger(ResultFormServiceImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(ResultAccountFormServiceImpl.class);
     
     /** Service providing access to account activation statistics data */
     private AccountStatisticService accountStatisticService;

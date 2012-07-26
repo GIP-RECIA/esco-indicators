@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.esco.indicators.services.form;
+package org.esco.indicators.services.form.account;
 
 import java.util.Date;
 import java.util.List;
@@ -10,12 +10,13 @@ import org.esco.indicators.domain.beans.form.AccountActivationForm;
 import org.esco.indicators.domain.beans.result.ResultRow;
 
 /**
- * Interface providing functions for retrieving the result data to put into the result web page.
+ * Interface providing functions for retrieving the result data to put into the result web page
+ * concerning the account statistics.
  * 
  * @since  2012/07/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public interface ResultFormService {
+public interface ResultAccountFormService {
 
     ///////////////////////////////////////////////////////
     // WEEKLY RESULTS
