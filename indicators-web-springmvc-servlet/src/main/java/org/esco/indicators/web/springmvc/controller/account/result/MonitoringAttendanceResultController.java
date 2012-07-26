@@ -15,7 +15,7 @@ import org.esco.indicators.domain.beans.form.AccountActivationForm;
 import org.esco.indicators.domain.beans.result.ResultRow;
 import org.esco.indicators.domain.beans.util.IntegerPair;
 import org.esco.indicators.services.form.DataFormService;
-import org.esco.indicators.services.form.ResultFormService;
+import org.esco.indicators.services.form.account.ResultAccountFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
@@ -50,7 +50,7 @@ public class MonitoringAttendanceResultController extends BasicResultController 
     
     /** Service providing access to result data */
     @Autowired
-    protected ResultFormService resultFormService;
+    protected ResultAccountFormService resultAccountFormService;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
@@ -82,8 +82,8 @@ public class MonitoringAttendanceResultController extends BasicResultController 
      * @see org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController#getResultService()
      */
     @Override
-    public ResultFormService getResultService() {
-        return resultFormService;
+    public ResultAccountFormService getResultService() {
+        return resultAccountFormService;
     }
     
     //------------------------------------------------------------------------------ PUBLIC METHODS
@@ -228,12 +228,12 @@ public class MonitoringAttendanceResultController extends BasicResultController 
 	    // If the only selected establishment type is : CFA
 	    Integer startWeek = DateUtils.getWeekOfYear(startDate);
 	    Integer endWeek = DateUtils.getWeekOfYear(endDate);
-	    return resultFormService.getWeeklyResultRows(establishmentsUai, userProfile, startWeek, startYear, endWeek, endYear);
+	    return resultAccountFormService.getWeeklyResultRows(establishmentsUai, userProfile, startWeek, startYear, endWeek, endYear);
 	}
 			
 	Integer startMonth = DateUtils.getMonthOfYear(startDate);
 	Integer endMonth = DateUtils.getMonthOfYear(endDate);
-	return resultFormService.getMonthlyResultRows(establishmentsUai, userProfile, startMonth, startYear, endMonth, endYear);
+	return resultAccountFormService.getMonthlyResultRows(establishmentsUai, userProfile, startMonth, startYear, endMonth, endYear);
     }
     
     /**

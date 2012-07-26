@@ -30,7 +30,7 @@ public class DataFormProviderTest {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** {@link DataFormProvider} under tests */
     @Autowired
-    private DataFormProvider dataFormAccountProvider;
+    private DataFormProvider dataAccountFormProvider;
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -46,7 +46,7 @@ public class DataFormProviderTest {
 	Integer expected = 2;
 	
 	// Actual result
-	Integer actual = dataFormAccountProvider.getEntriesForm().size();
+	Integer actual = dataAccountFormProvider.getEntriesForm().size();
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -65,7 +65,7 @@ public class DataFormProviderTest {
 	expected.add("establishmentType");
 	
 	// Actual result
-	List<String> actual = dataFormAccountProvider.getEntriesNames();
+	List<String> actual = dataAccountFormProvider.getEntriesNames();
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -85,7 +85,7 @@ public class DataFormProviderTest {
 	
 	// Actual result
 	List<String> actual = new ArrayList<String>();
-	List<EntryValue> entryValues = dataFormAccountProvider.getEntryValues("monitoringType");
+	List<EntryValue> entryValues = dataAccountFormProvider.getEntryValues("monitoringType");
 	for (EntryValue entryValue : entryValues) {
 	    actual.add(entryValue.getName());
 	}

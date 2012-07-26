@@ -6,30 +6,30 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
     <!-- Service for the page containing the form about accounts statistics -->
-    <bean   id="dataFormAccountProvider"
+    <bean   id="dataAccountFormProvider"
             class="org.esco.indicators.services.form.DataFormProvider">
         <constructor-arg index="0" value="${dataFormAccount.url}" />
     </bean>
     
-    <bean   id="dataFormAccountService" 
+    <bean   id="dataAccountFormService" 
             class="org.esco.indicators.services.form.DataFormServiceImpl">
-           <property name="dataFormProvider" ref="dataFormAccountProvider" /> 
+           <property name="dataFormProvider" ref="dataAccountFormProvider" /> 
     </bean>
     
     <!-- Service for the page containing the form about services statistics -->
-    <bean   id="dataFormServiceProvider"
+    <bean   id="dataServiceFormProvider"
             class="org.esco.indicators.services.form.DataFormProvider">
         <constructor-arg index="0" value="${dataFormService.url}" />
     </bean>
     
-    <bean   id="dataFormServiceService" 
+    <bean   id="dataServiceFormService" 
             class="org.esco.indicators.services.form.DataFormServiceImpl">
-           <property name="dataFormProvider" ref="dataFormServiceProvider" /> 
+           <property name="dataFormProvider" ref="dataServiceFormProvider" /> 
     </bean>
             
-    <!-- Service for the result page -->
-    <bean   id="resultFormService" 
-            class="org.esco.indicators.services.form.ResultFormServiceImpl">
+    <!-- Service for the result page of the account form -->
+    <bean   id="resultAccountFormService" 
+            class="org.esco.indicators.services.form.account.ResultAccountFormServiceImpl">
             <property name="accountStatisticService" ref="accountActivationStatisticService"/>
             <property name="establishmentService" ref="establishmentService"/>
             <property name="portalConnectionStatisticService" ref="portalConnectionStatisticService"/>

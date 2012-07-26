@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.BasicForm;
 import org.esco.indicators.services.form.DataFormService;
-import org.esco.indicators.services.form.ResultFormService;
+import org.esco.indicators.services.form.account.ResultAccountFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -76,7 +76,7 @@ public abstract class BasicResultController {
      * @return
      * 	the result form service
      */
-    public abstract ResultFormService getResultService(); 
+    public abstract ResultAccountFormService getResultService(); 
     
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**

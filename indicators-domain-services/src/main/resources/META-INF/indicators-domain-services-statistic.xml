@@ -9,7 +9,7 @@
                         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
 
   
-    <bean   id="accountActivationStatisticService" 
+    <bean   id="accountStatisticService" 
             class="org.esco.indicators.services.statistic.AccountStatisticServiceImpl">
             <property name="accountActivationDao" ref="accountActivationDao"/>
             <property name="profileLinkDao" ref="profileLinkDao"/>

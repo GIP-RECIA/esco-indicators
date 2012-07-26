@@ -28,7 +28,7 @@ public class DataFormServiceTest {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** {@link DataFormService} under tests */
     @Autowired
-    private DataFormService dataFormAccountService;
+    private DataFormService dataAccountFormService;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -47,7 +47,7 @@ public class DataFormServiceTest {
 	 expected.add("establishmentType.LEGT");
 	 
 	 // Actual result
-	 List<String> actual = dataFormAccountService.getJspKeysDisabledByDefault();
+	 List<String> actual = dataAccountFormService.getJspKeysDisabledByDefault();
 	 
 	 // Test
 	 Assert.assertEquals(expected, actual);
@@ -68,7 +68,7 @@ public class DataFormServiceTest {
 	 expected.add("establishmentType.LA");
 	 
 	 // Actual result
-	 List<String> actual = dataFormAccountService.getJspKeysEnabledByDefault();
+	 List<String> actual = dataAccountFormService.getJspKeysEnabledByDefault();
 	 
 	 // Test
 	 Assert.assertEquals(expected, actual);
@@ -95,7 +95,7 @@ public class DataFormServiceTest {
 	checkedJspKeys.add("monitoringType.monitoringAttendance");
 	checkedJspKeys.add("establishmentType.CFA");
 
-	List<String> actual = dataFormAccountService.getJspKeysToDisable(checkedJspKeys);
+	List<String> actual = dataAccountFormService.getJspKeysToDisable(checkedJspKeys);
 	
 	///////////////////////////////
 	// Test
@@ -116,7 +116,7 @@ public class DataFormServiceTest {
 	expected.add("monitoringAttendance");
 	
 	// Actual result
-	List<EntryValue> entryValues = dataFormAccountService.getEntryValues("monitoringType");
+	List<EntryValue> entryValues = dataAccountFormService.getEntryValues("monitoringType");
 	List<String> actual = new ArrayList<String>();
 	for (EntryValue entryValue : entryValues) {
 	    actual.add(entryValue.getName());
@@ -134,7 +134,7 @@ public class DataFormServiceTest {
     @Test
     public void testIsKnown1() {
 	// Tests if the JSP key is known
-	boolean isKnown = dataFormAccountService.isKnown("establishmentType.CFA");
+	boolean isKnown = dataAccountFormService.isKnown("establishmentType.CFA");
 	Assert.assertTrue(isKnown);
     }
     
@@ -146,7 +146,7 @@ public class DataFormServiceTest {
     @Test
     public void testIsKnown2() {
 	// Tests if the JSP key is known
-	boolean isKnown = dataFormAccountService.isKnown("establishmentType.FAKE");
+	boolean isKnown = dataAccountFormService.isKnown("establishmentType.FAKE");
 	Assert.assertFalse(isKnown);
     }
 

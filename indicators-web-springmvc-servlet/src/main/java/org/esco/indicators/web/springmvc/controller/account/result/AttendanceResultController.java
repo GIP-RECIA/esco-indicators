@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
 import org.esco.indicators.domain.beans.result.ResultRow;
 import org.esco.indicators.services.form.DataFormService;
-import org.esco.indicators.services.form.ResultFormService;
+import org.esco.indicators.services.form.account.ResultAccountFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
@@ -41,7 +41,7 @@ public class AttendanceResultController extends BasicResultController {
     
     /** Data form service providing information on the data from for the accounts */
     @Autowired
-    protected DataFormService dataFormAccountService;
+    protected DataFormService dataAccountFormService;
     
     /** Establishment service providing access to establishments data */
     @Autowired
@@ -49,7 +49,7 @@ public class AttendanceResultController extends BasicResultController {
     
     /** Service providing access to result data */
     @Autowired
-    protected ResultFormService resultFormService;
+    protected ResultAccountFormService resultAccountFormService;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
@@ -65,7 +65,7 @@ public class AttendanceResultController extends BasicResultController {
      */
     @Override
     public DataFormService getDataFormService() {
-        return dataFormAccountService;
+        return dataAccountFormService;
     }
 
     /* (non-Javadoc)
@@ -80,8 +80,8 @@ public class AttendanceResultController extends BasicResultController {
      * @see org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController#getResultService()
      */
     @Override
-    public ResultFormService getResultService() {
-        return resultFormService;
+    public ResultAccountFormService getResultService() {
+        return resultAccountFormService;
     }
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
@@ -106,7 +106,7 @@ public class AttendanceResultController extends BasicResultController {
         
         // Retrieval of the users profiles to filter
         List<String> checkedProfiles = new ArrayList<String>(Arrays.asList(aaForm.getUsersProfiles()));
-        List<String> usersProfilesToFilter = dataFormAccountService.getUsersProfilesToFilter(checkedProfiles);
+        List<String> usersProfilesToFilter = dataAccountFormService.getUsersProfilesToFilter(checkedProfiles);
         
         return usersProfilesToFilter;
     }
@@ -137,7 +137,7 @@ public class AttendanceResultController extends BasicResultController {
 	
 	// Retrieval of the users profiles to filter
 	List<String> checkedProfiles = new ArrayList<String>(Arrays.asList(aaForm.getUsersProfiles()));
-	List<String> usersProfilesToFilter = dataFormAccountService.getUsersProfilesToFilter(checkedProfiles);
+	List<String> usersProfilesToFilter = dataAccountFormService.getUsersProfilesToFilter(checkedProfiles);
 	
 	// Retrieval of the start date
 	Date startDate = aaForm.getStartDate();
@@ -181,11 +181,11 @@ public class AttendanceResultController extends BasicResultController {
 	) {
 	    // If the only selected establishment type is : CFA
 	    Integer week = DateUtils.getWeekOfYear(startDate);
-	    return resultFormService.getPunctualWeekResultRows(establishmentsUai, usersProfiles, week, year);
+	    return resultAccountFormService.getPunctualWeekResultRows(establishmentsUai, usersProfiles, week, year);
 	} 
 	
 	Integer month = DateUtils.getMonthOfYear(startDate);
-	return resultFormService.getPunctualMonthResultRows(establishmentsUai, usersProfiles, month, year);
+	return resultAccountFormService.getPunctualMonthResultRows(establishmentsUai, usersProfiles, month, year);
     }
     
     //------------------------------------------------------------------------------ STATIC METHODS
