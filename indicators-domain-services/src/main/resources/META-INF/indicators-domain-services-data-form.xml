@@ -30,7 +30,7 @@
     <!-- Service for the result page of the account form -->
     <bean   id="resultAccountFormService" 
             class="org.esco.indicators.services.form.account.ResultAccountFormServiceImpl">
-            <property name="accountStatisticService" ref="accountActivationStatisticService"/>
+            <property name="accountStatisticService" ref="accountStatisticService"/>
             <property name="establishmentService" ref="establishmentService"/>
             <property name="portalConnectionStatisticService" ref="portalConnectionStatisticService"/>
     </bean>  
