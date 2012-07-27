@@ -74,7 +74,7 @@ public interface ResultAccountFormService {
      * @return
      * 	the result rows containing establishment data, and statistics data, for each period of one week in each establishment.
      */
-    public List<BasicResultRow> getWeeklyResultRows(List<String> establishmentsUai, String userProfile, Integer startWeek, Integer startYear, Integer endWeek, Integer endYear);
+    public List<BasicResultRow> getPeriodicWeekResultRows(List<String> establishmentsUai, String userProfile, Integer startWeek, Integer startYear, Integer endWeek, Integer endYear);
     
     ///////////////////////////////////////////////////////
     // MONTHLY RESULTS
@@ -131,6 +131,6 @@ public interface ResultAccountFormService {
      * @return
      * 	the result rows containing establishment data, and statistics data, for each period of one week in each establishment.
      */
-    public List<BasicResultRow> getMonthlyResultRows(List<String> establishmentsUai, String userProfile, Integer startMonth, Integer startYear, Integer endMonth, Integer endYear);
+    public List<BasicResultRow> getPeriodicMonthResultRows(List<String> establishmentsUai, String userProfile, Integer startMonth, Integer startYear, Integer endMonth, Integer endYear);
     
 }

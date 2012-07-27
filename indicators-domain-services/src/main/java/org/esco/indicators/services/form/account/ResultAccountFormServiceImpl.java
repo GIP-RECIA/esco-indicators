@@ -112,7 +112,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * @see org.esco.indicators.services.form.ResultFormService#getWeeklyResultRows(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public List<BasicResultRow> getWeeklyResultRows(List<String> establishmentsUai, String userProfile,
+    public List<BasicResultRow> getPeriodicWeekResultRows(List<String> establishmentsUai, String userProfile,
             Integer startWeek, Integer startYear, Integer endWeek, Integer endYear) {
 	// Final result
 	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();
@@ -173,7 +173,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * @see org.esco.indicators.services.form.ResultFormService#getMonthlyResultRows(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public List<BasicResultRow> getMonthlyResultRows(List<String> establishmentsUai, String userProfile,
+    public List<BasicResultRow> getPeriodicMonthResultRows(List<String> establishmentsUai, String userProfile,
             Integer startMonth, Integer startYear, Integer endMonth, Integer endYear) {
 	// Final result
 	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();

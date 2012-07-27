@@ -220,12 +220,12 @@ public class PeriodicAccountResultController extends BasicResultController {
 	    // If the only selected establishment type is : CFA
 	    Integer startWeek = DateUtils.getWeekOfYear(startDate);
 	    Integer endWeek = DateUtils.getWeekOfYear(endDate);
-	    return resultAccountFormService.getWeeklyResultRows(establishmentsUai, userProfile, startWeek, startYear, endWeek, endYear);
+	    return resultAccountFormService.getPeriodicWeekResultRows(establishmentsUai, userProfile, startWeek, startYear, endWeek, endYear);
 	}
 			
 	Integer startMonth = DateUtils.getMonthOfYear(startDate);
 	Integer endMonth = DateUtils.getMonthOfYear(endDate);
-	return resultAccountFormService.getMonthlyResultRows(establishmentsUai, userProfile, startMonth, startYear, endMonth, endYear);
+	return resultAccountFormService.getPeriodicMonthResultRows(establishmentsUai, userProfile, startMonth, startYear, endMonth, endYear);
     }
     
     /**
