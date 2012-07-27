@@ -46,8 +46,7 @@ public interface ResultServiceFormService {
      * 	the result rows containing establishment data, and statistics data, for each user profile in each establishment.
      */
     public List<ExtendedResultRow> getPunctualWeekResultRows(List<String> establishmentsUai, List<String> services, String userProfile, Integer week, Integer year);
-    
-    
+
     ///////////////////////////////////////////////////////
     // MONTHLY RESULTS
     ///////////////////////////////////////////////////////
@@ -76,7 +75,7 @@ public interface ResultServiceFormService {
      * @return
      * 	the result rows containing establishment data, and statistics data, for each user profile in each establishment.
      */
-//    public List<BasicResultRow> getPunctualMonthResultRows(List<String> establishmentsUai, List<String> services, String userProfile, Integer month, Integer year);
+    public List<ExtendedResultRow> getPunctualMonthResultRows(List<String> establishmentsUai,  List<String> services, String userProfile, Integer month, Integer year);
     
     
 }

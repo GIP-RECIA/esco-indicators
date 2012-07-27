@@ -123,10 +123,61 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
 	return numVisits;
     }
 
-
     ///////////////////////////////////////////////////////
     // MONTHLY STATISTICS
     ///////////////////////////////////////////////////////
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findMonthlyNumVisitorsAboveTreshold(java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Integer findMonthlyNumVisitorsAboveTreshold(String establishmentUai, String service,
+	    String userProfile, Integer treshold, Integer month, Integer year) {
+	// Gets the start day and end day of the month
+	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
+	Date lastMonthDay = DateUtils.getLastMonthDay(month, year);
+	
+	// Number of visitors
+	Integer numVisitors = serviceConnectionStatisticDao.findNumVisitorsAboveTreshold(establishmentUai, firstMonthDay, lastMonthDay, service, userProfile, treshold); 
+	numVisitors = (numVisitors == null ? 0 : numVisitors);
+	
+	return numVisitors;
+    }
+
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findMonthlyNumVisitorsBelowTreshold(java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Integer findMonthlyNumVisitorsBelowTreshold(String establishmentUai, String service,
+	    String userProfile, Integer treshold, Integer month, Integer year) {
+	// Gets the start day and end day of the month
+	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
+	Date lastMonthDay = DateUtils.getLastMonthDay(month, year);
+	
+	// Number of visitors
+	Integer numVisitors = serviceConnectionStatisticDao.findNumVisitorsBelowTreshold(establishmentUai, firstMonthDay, lastMonthDay, service, userProfile, treshold); 
+	numVisitors = (numVisitors == null ? 0 : numVisitors);
+	
+	return numVisitors;
+    }
+
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findMonthlyNumVisits(java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Integer findMonthlyNumVisits(String establishmentUai, String service, String userProfile,
+	    Integer month, Integer year) {
+	// Gets the start day and end day of the month
+	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
+	Date lastMonthDay = DateUtils.getLastMonthDay(month, year);
+	
+	// Number of visits
+	Integer numVisits = serviceConnectionStatisticDao.findNumVisits(establishmentUai, firstMonthDay, lastMonthDay, service, userProfile);
+	numVisits = (numVisits == null ? 0 : numVisits);
+	
+	return numVisits;
+    }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
 

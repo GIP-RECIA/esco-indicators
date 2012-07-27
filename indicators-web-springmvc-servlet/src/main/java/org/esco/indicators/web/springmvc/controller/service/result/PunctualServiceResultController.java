@@ -215,8 +215,7 @@ public class PunctualServiceResultController extends BasicResultController {
 	} 
 	
 	Integer month = DateUtils.getMonthOfYear(startDate);
-//	return resultServiceFormService.getPunctualMonthResultRows(establishmentsUai, services, userProfile, month, year);
-	return null;
+	return resultServiceFormService.getPunctualMonthResultRows(establishmentsUai, services, userProfile, month, year);
     }
     
     //------------------------------------------------------------------------------ STATIC METHODS
