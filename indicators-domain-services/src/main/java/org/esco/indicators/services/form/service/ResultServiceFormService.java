@@ -5,7 +5,7 @@ package org.esco.indicators.services.form.service;
 
 import java.util.List;
 
-import org.esco.indicators.domain.beans.result.ResultRow;
+import org.esco.indicators.domain.beans.result.BasicResultRow;
 
 /**
  * Interface providing functions for retrieving the result data to put into the result web page
@@ -28,7 +28,7 @@ public interface ResultServiceFormService {
      * 	<li>The statistic data  (number of visits,...) indexed by service</li>
      * </ul>
      * In fact, in each result row, there is one statistic data per service.<br/>
-     * For more informations on the result row content, see {@link ResultRow}.
+     * For more informations on the result row content, see {@link BasicResultRow}.
      * 
      * @param establishmentsUai
      * 			The UAI of the establishements.
@@ -44,7 +44,7 @@ public interface ResultServiceFormService {
      * @return
      * 	the result rows containing establishment data, and statistics data, for each user profile in each establishment.
      */
-    public List<ResultRow> getPunctualWeekResultRows(List<String> establishmentsUai, List<String> services, String userProfile, Integer week, Integer year);
+    public List<BasicResultRow> getPunctualWeekResultRows(List<String> establishmentsUai, List<String> services, String userProfile, Integer week, Integer year);
     
     
     ///////////////////////////////////////////////////////
@@ -59,7 +59,7 @@ public interface ResultServiceFormService {
      * 	<li>The statistic data  (number of active accounts,...) indexed by user profile</li>
      * </ul>
      * In fact, in each result row, there is one statistic data per user profile.<br/>
-     * For more informations on the result row content, see {@link ResultRow}.
+     * For more informations on the result row content, see {@link BasicResultRow}.
      * 
      * @param establishmentsUai
      * 			The UAI of the establishements.
@@ -75,7 +75,7 @@ public interface ResultServiceFormService {
      * @return
      * 	the result rows containing establishment data, and statistics data, for each user profile in each establishment.
      */
-//    public List<ResultRow> getPunctualMonthResultRows(List<String> establishmentsUai, List<String> services, String userProfile, Integer month, Integer year);
+//    public List<BasicResultRow> getPunctualMonthResultRows(List<String> establishmentsUai, List<String> services, String userProfile, Integer month, Integer year);
     
     
 }

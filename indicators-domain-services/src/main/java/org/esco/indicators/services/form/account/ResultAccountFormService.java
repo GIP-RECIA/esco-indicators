@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
-import org.esco.indicators.domain.beans.result.ResultRow;
+import org.esco.indicators.domain.beans.result.BasicResultRow;
 
 /**
  * Interface providing functions for retrieving the result data to put into the result web page
@@ -31,7 +31,7 @@ public interface ResultAccountFormService {
      * </ul>
      * In fact, in each result row, there is one statistic data per user profile.<br/>
      * Moreover, each result row contains a statistic data that represents a global statistic on all the accounts of the establishment.<br/>
-     * For more informations on the result row content, see {@link ResultRow}.
+     * For more informations on the result row content, see {@link BasicResultRow}.
      * 
      * @param establishmentsUai
      * 			The UAI of the establishements.
@@ -45,7 +45,7 @@ public interface ResultAccountFormService {
      * @return
      * 	the result rows containing establishment data, and statistics data, for each user profile in each establishment.
      */
-    public List<ResultRow> getPunctualWeekResultRows(List<String> establishmentsUai, List<String> usersProfiles, Integer week, Integer year);
+    public List<BasicResultRow> getPunctualWeekResultRows(List<String> establishmentsUai, List<String> usersProfiles, Integer week, Integer year);
     
     /**
      * Gets the result rows containing the data on the establishements for the specified period (composed of weeks).<br/>
@@ -56,7 +56,7 @@ public interface ResultAccountFormService {
      * 	<li>The statistic data  (number of active accounts,...) indexed by week and year</li>
      * </ul>
      * In fact, in each result row, there is one statistic data per week contained in the period.<br/>
-     * For more informations on the result row content, see {@link ResultRow}.
+     * For more informations on the result row content, see {@link BasicResultRow}.
      * 
      * @param establishmentsUai
      * 			The UAI of the establishments.
@@ -74,7 +74,7 @@ public interface ResultAccountFormService {
      * @return
      * 	the result rows containing establishment data, and statistics data, for each period of one week in each establishment.
      */
-    public List<ResultRow> getWeeklyResultRows(List<String> establishmentsUai, String userProfile, Integer startWeek, Integer startYear, Integer endWeek, Integer endYear);
+    public List<BasicResultRow> getWeeklyResultRows(List<String> establishmentsUai, String userProfile, Integer startWeek, Integer startYear, Integer endWeek, Integer endYear);
     
     ///////////////////////////////////////////////////////
     // MONTHLY RESULTS
@@ -88,7 +88,7 @@ public interface ResultAccountFormService {
      * 	<li>The statistic data  (number of active accounts,...) indexed by user profile</li>
      * </ul>
      * In fact, in each result row, there is one statistic data per user profile.<br/>
-     * For more informations on the result row content, see {@link ResultRow}.
+     * For more informations on the result row content, see {@link BasicResultRow}.
      * 
      * @param establishmentsUai
      * 			The UAI of the establishements.
@@ -102,7 +102,7 @@ public interface ResultAccountFormService {
      * @return
      * 	the result rows containing establishment data, and statistics data, for each user profile in each establishment.
      */
-    public List<ResultRow> getPunctualMonthResultRows(List<String> establishmentsUai, List<String> usersProfiles, Integer month, Integer year);
+    public List<BasicResultRow> getPunctualMonthResultRows(List<String> establishmentsUai, List<String> usersProfiles, Integer month, Integer year);
     
     /**
      * Gets the result rows containing the data on the establishements for the specified period (composed of months).<br/>
@@ -113,7 +113,7 @@ public interface ResultAccountFormService {
      * 	<li>The statistic data  (number of active accounts,...) indexed by month and year</li>
      * </ul>
      * In fact, in each result row, there is one statistic data per month contained in the period.<br/>
-     * For more informations on the result row content, see {@link ResultRow}.
+     * For more informations on the result row content, see {@link BasicResultRow}.
      * 
      * @param establishmentsUai
      * 			The UAI of the establishments.
@@ -131,6 +131,6 @@ public interface ResultAccountFormService {
      * @return
      * 	the result rows containing establishment data, and statistics data, for each period of one week in each establishment.
      */
-    public List<ResultRow> getMonthlyResultRows(List<String> establishmentsUai, String userProfile, Integer startMonth, Integer startYear, Integer endMonth, Integer endYear);
+    public List<BasicResultRow> getMonthlyResultRows(List<String> establishmentsUai, String userProfile, Integer startMonth, Integer startYear, Integer endMonth, Integer endYear);
     
 }

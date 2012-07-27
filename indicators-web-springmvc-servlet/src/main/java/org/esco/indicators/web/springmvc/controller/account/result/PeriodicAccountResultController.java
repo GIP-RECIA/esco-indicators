@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
-import org.esco.indicators.domain.beans.result.ResultRow;
+import org.esco.indicators.domain.beans.result.BasicResultRow;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.services.form.account.ResultAccountFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
@@ -149,7 +149,7 @@ public class PeriodicAccountResultController extends BasicResultController {
      * 	the data rows of the table used to display the result of the submitted form.
      */
     @ModelAttribute("tableRowsItems")
-    public List<ResultRow> populateTableRows(HttpServletRequest request) {
+    public List<BasicResultRow> populateTableRows(HttpServletRequest request) {
 	// Checks if the there is a valid submitted form to process
 	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
 	    return null;
@@ -173,9 +173,9 @@ public class PeriodicAccountResultController extends BasicResultController {
 	Date endDate = aaForm.getEndDate();
 	
 	// Gets the result rows to display
-	List<ResultRow> resultRows = createResultRows(establishmentsTypes, establishmentsUai, userProfileToFilter, startDate, endDate);
+	List<BasicResultRow> basicResultRows = createResultRows(establishmentsTypes, establishmentsUai, userProfileToFilter, startDate, endDate);
 	
-	return resultRows;
+	return basicResultRows;
     }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
@@ -208,7 +208,7 @@ public class PeriodicAccountResultController extends BasicResultController {
      * @return
      * 	the result rows containing the data to display.
      */
-    private List<ResultRow> createResultRows( List<String> establishmentsTypes, List<String> establishmentsUai,String userProfile, Date startDate, Date endDate) {
+    private List<BasicResultRow> createResultRows( List<String> establishmentsTypes, List<String> establishmentsUai,String userProfile, Date startDate, Date endDate) {
 	// Retrieval of the start and end years
 	Integer startYear = DateUtils.getYear(startDate);
 	Integer endYear = DateUtils.getYear(endDate);

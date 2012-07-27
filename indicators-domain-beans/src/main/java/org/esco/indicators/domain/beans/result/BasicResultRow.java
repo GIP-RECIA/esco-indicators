@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.esco.indicators.domain.beans.result.statistic.PunctualAccountStatistic;
 
 /**
  * Class representing a row present into the establishment table of the result page.
@@ -15,24 +14,24 @@ import org.esco.indicators.domain.beans.result.statistic.PunctualAccountStatisti
  * @since  2012/07/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public class ResultRow {
+public class BasicResultRow {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
-    private static final Logger LOGGER = Logger.getLogger(ResultRow.class);
+    private static final Logger LOGGER = Logger.getLogger(BasicResultRow.class);
 
     /** Data concerning the establishment */
     private EstablishmentData establishmentData;
     
     /** Data concerning the statistics classified by a key */
-    private Map<Object,PunctualAccountStatistic> statisticDataByKey;
+    private Map<Object,Object> statisticDataByKey;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
-     * Default constructor of the {@link ResultRow} class. 
+     * Default constructor of the {@link BasicResultRow} class. 
      */
-    public ResultRow() {
+    public BasicResultRow() {
 	super();
-	statisticDataByKey = new HashMap<Object, PunctualAccountStatistic>();
+	statisticDataByKey = new HashMap<Object, Object>();
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
@@ -62,7 +61,7 @@ public class ResultRow {
      * @return
      * 	the statistic data map.
      */
-    public Map<Object,PunctualAccountStatistic> getStatisticDataByKey() {
+    public Map<Object,Object> getStatisticDataByKey() {
 	return statisticDataByKey;
     }
     
@@ -76,7 +75,7 @@ public class ResultRow {
      * 	the statistic data associated to the key.<br/>
      * 	<code>null</code> if no data is associated to the key.
      */
-    public PunctualAccountStatistic getStatisticData(Object key) {
+    public Object getStatisticData(Object key) {
 	return statisticDataByKey.get(key);
     }
     
@@ -94,7 +93,7 @@ public class ResultRow {
      * @return
      * 	the previous value associated with the key, or <code>null</code> if no value was associated.
      */
-    public PunctualAccountStatistic putStatisticData(Object key, PunctualAccountStatistic value) {
+    public Object putStatisticData(Object key, Object value) {
 	return statisticDataByKey.put(key, value);
     }
 

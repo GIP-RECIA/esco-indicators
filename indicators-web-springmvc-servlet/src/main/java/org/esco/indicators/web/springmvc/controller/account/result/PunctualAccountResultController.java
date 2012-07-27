@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
-import org.esco.indicators.domain.beans.result.ResultRow;
+import org.esco.indicators.domain.beans.result.BasicResultRow;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.services.form.account.ResultAccountFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
@@ -112,7 +112,7 @@ public class PunctualAccountResultController extends BasicResultController {
      * 	the data rows of the table used to display the result of the submitted form.
      */
     @ModelAttribute("tableRowsItems")
-    public List<ResultRow> populateTableRows(HttpServletRequest request) {
+    public List<BasicResultRow> populateTableRows(HttpServletRequest request) {
 	// Checks if the there is a valid submitted form to process
 	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
 	    return null;
@@ -135,9 +135,9 @@ public class PunctualAccountResultController extends BasicResultController {
 	Date startDate = aaForm.getStartDate();
 	
 	// Gets the result rows to display
-	List<ResultRow> resultRows = createResultRows(establishmentsTypes, establishmentsUai, usersProfilesToFilter, startDate);
+	List<BasicResultRow> basicResultRows = createResultRows(establishmentsTypes, establishmentsUai, usersProfilesToFilter, startDate);
 	
-	return resultRows;
+	return basicResultRows;
     }
     
     
@@ -163,7 +163,7 @@ public class PunctualAccountResultController extends BasicResultController {
      * @return
      * 	the result rows containing the data to display.
      */
-    private List<ResultRow> createResultRows( List<String> establishmentsTypes, List<String> establishmentsUai,List<String> usersProfiles, Date startDate) {
+    private List<BasicResultRow> createResultRows( List<String> establishmentsTypes, List<String> establishmentsUai,List<String> usersProfiles, Date startDate) {
 	// Retrieval of the year
 	Integer year = DateUtils.getYear(startDate);
 	

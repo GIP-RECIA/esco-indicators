@@ -9,7 +9,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.result.EstablishmentData;
 import org.esco.indicators.domain.beans.result.PunctualAccountStatistic;
-import org.esco.indicators.domain.beans.result.ResultRow;
+import org.esco.indicators.domain.beans.result.BasicResultRow;
 import org.esco.indicators.domain.beans.result.ServiceStatistic;
 import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.services.constants.ServicesConstants;
@@ -84,23 +84,23 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
      * @see org.esco.indicators.services.form.service.ResultServiceFormService#getPunctualWeekResultRows(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public List<ResultRow> getPunctualWeekResultRows(List<String> establishmentsUai, List<String> services,
+    public List<BasicResultRow> getPunctualWeekResultRows(List<String> establishmentsUai, List<String> services,
             String userProfile, Integer week, Integer year) {
 	// Final result
-	List<ResultRow> rows = new ArrayList<ResultRow>();
+	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();
 
 	// For each establishment :
 	//	Creation of the corresponding result row
 	//	Addition of the establishment data in the result row
 	//	Addition of the statistic data in the result row (for each service)
 	for (String uai : establishmentsUai) {
-	    ResultRow resultRow = new ResultRow();
-	    resultRow.setEstablishmentData(getEstablishmentData(uai));
+	    BasicResultRow basicResultRow = new BasicResultRow();
+	    basicResultRow.setEstablishmentData(getEstablishmentData(uai));
 	    for (String service : services) {
 		ServiceStatistic statistic = createPunctualWeekStatisticData(uai, service, userProfile, week, year);
-		resultRow.putStatisticData(service, statistic);
+		basicResultRow.putStatisticData(service, statistic);
 	    }
-	    rows.add(resultRow);
+	    rows.add(basicResultRow);
 	}
 	
 	return rows;

@@ -9,7 +9,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.result.EstablishmentData;
 import org.esco.indicators.domain.beans.result.PunctualAccountStatistic;
-import org.esco.indicators.domain.beans.result.ResultRow;
+import org.esco.indicators.domain.beans.result.BasicResultRow;
 import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.services.constants.ServicesConstants;
 import org.esco.indicators.services.statistic.AccountStatisticService;
@@ -86,23 +86,23 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * @see org.esco.indicators.services.form.ResultFormService#getPunctualWeekResultRows(java.util.List, java.util.List, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public List<ResultRow> getPunctualWeekResultRows(List<String> establishmentsUai,
+    public List<BasicResultRow> getPunctualWeekResultRows(List<String> establishmentsUai,
 	    List<String> usersProfiles, Integer week, Integer year) {
 	// Final result
-	List<ResultRow> rows = new ArrayList<ResultRow>();
+	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();
 
 	// For each establishment :
 	//	Creation of the corresponding result row
 	//	Addition of the establishment data in the result row
 	//	Addition of the statistic data in the result row (for each user profile)
 	for (String uai : establishmentsUai) {
-	    ResultRow resultRow = new ResultRow();
-	    resultRow.setEstablishmentData(getEstablishmentData(uai));
+	    BasicResultRow basicResultRow = new BasicResultRow();
+	    basicResultRow.setEstablishmentData(getEstablishmentData(uai));
 	    for (String profile : usersProfiles) {
 		PunctualAccountStatistic statistic = createPunctualWeekStatisticData(uai, profile, week, year);
-		resultRow.putStatisticData(profile, statistic);
+		basicResultRow.putStatisticData(profile, statistic);
 	    }
-	    rows.add(resultRow);
+	    rows.add(basicResultRow);
 	}
 	
 	return rows;
@@ -112,10 +112,10 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * @see org.esco.indicators.services.form.ResultFormService#getWeeklyResultRows(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public List<ResultRow> getWeeklyResultRows(List<String> establishmentsUai, String userProfile,
+    public List<BasicResultRow> getWeeklyResultRows(List<String> establishmentsUai, String userProfile,
             Integer startWeek, Integer startYear, Integer endWeek, Integer endYear) {
 	// Final result
-	List<ResultRow> rows = new ArrayList<ResultRow>();
+	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();
 	
 	// Splits the specified period into weeks
 	List<IntegerPair> weeksAndYears = DateUtils.splitWeeks(startWeek, startYear, endWeek, endYear);
@@ -125,13 +125,13 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	//	Addition of the establishment data in the result row
 	//	Addition of the statistic data in the result row (for each period)
 	for (String uai : establishmentsUai) {
-	    ResultRow resultRow = new ResultRow();
-	    resultRow.setEstablishmentData(getEstablishmentData(uai));
+	    BasicResultRow basicResultRow = new BasicResultRow();
+	    basicResultRow.setEstablishmentData(getEstablishmentData(uai));
 	    for (IntegerPair weekAndYear : weeksAndYears) {
 		PunctualAccountStatistic statistic = createPunctualWeekStatisticData(uai, userProfile, weekAndYear.getFirst(), weekAndYear.getSecond());
-		resultRow.putStatisticData(weekAndYear, statistic);
+		basicResultRow.putStatisticData(weekAndYear, statistic);
 	    }
-	    rows.add(resultRow);
+	    rows.add(basicResultRow);
 	}
 	
 	return rows;
@@ -146,23 +146,23 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * @see org.esco.indicators.services.form.ResultFormService#getPunctualMonthResultRows(java.util.List, java.util.List, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public List<ResultRow> getPunctualMonthResultRows(List<String> establishmentsUai,
+    public List<BasicResultRow> getPunctualMonthResultRows(List<String> establishmentsUai,
 	    List<String> usersProfiles, Integer month, Integer year) {
 	// Final result
-	List<ResultRow> rows = new ArrayList<ResultRow>();
+	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();
 
 	// For each establishment :
 	//	Creation of the corresponding result row
 	//	Addition of the establishment data in the result row
 	//	Addition of the statistic data in the result row (for each user profile)
 	for (String uai : establishmentsUai) {
-	    ResultRow resultRow = new ResultRow();
-	    resultRow.setEstablishmentData(getEstablishmentData(uai));
+	    BasicResultRow basicResultRow = new BasicResultRow();
+	    basicResultRow.setEstablishmentData(getEstablishmentData(uai));
 	    for (String profile : usersProfiles) {
 		PunctualAccountStatistic statistic = createPunctualMonthStatisticData(uai, profile, month, year);
-		resultRow.putStatisticData(profile, statistic);
+		basicResultRow.putStatisticData(profile, statistic);
 	    }
-	    rows.add(resultRow);
+	    rows.add(basicResultRow);
 	}
 	
 	return rows;
@@ -173,10 +173,10 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * @see org.esco.indicators.services.form.ResultFormService#getMonthlyResultRows(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public List<ResultRow> getMonthlyResultRows(List<String> establishmentsUai, String userProfile,
+    public List<BasicResultRow> getMonthlyResultRows(List<String> establishmentsUai, String userProfile,
             Integer startMonth, Integer startYear, Integer endMonth, Integer endYear) {
 	// Final result
-	List<ResultRow> rows = new ArrayList<ResultRow>();
+	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();
 	
 	// Splits the specified period into weeks
 	List<IntegerPair> monthsAndYears = DateUtils.splitMonths(startMonth, startYear, endMonth, endYear);
@@ -186,13 +186,13 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	//	Addition of the establishment data in the result row
 	//	Addition of the statistic data in the result row (for each period)
 	for (String uai : establishmentsUai) {
-	    ResultRow resultRow = new ResultRow();
-	    resultRow.setEstablishmentData(getEstablishmentData(uai));
+	    BasicResultRow basicResultRow = new BasicResultRow();
+	    basicResultRow.setEstablishmentData(getEstablishmentData(uai));
 	    for (IntegerPair monthAndYear : monthsAndYears) {
 		PunctualAccountStatistic statistic = createPunctualMonthStatisticData(uai, userProfile, monthAndYear.getFirst(), monthAndYear.getSecond());
-		resultRow.putStatisticData(monthAndYear, statistic);
+		basicResultRow.putStatisticData(monthAndYear, statistic);
 	    }
-	    rows.add(resultRow);
+	    rows.add(basicResultRow);
 	}
 	
 	return rows;
