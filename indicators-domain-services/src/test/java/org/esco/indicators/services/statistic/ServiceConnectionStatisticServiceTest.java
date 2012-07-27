@@ -4,10 +4,11 @@
 package org.esco.indicators.services.statistic;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.Assert;
 
-import org.esco.indicators.domain.beans.statistic.ServiceConnectionStatistic;
 import org.esco.indicators.utils.date.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,11 +51,17 @@ public class ServiceConnectionStatisticServiceTest {
 	
 	// Actual result
 	String establishmentUai = "0453456A";
-	String serviceName = "Teacher service";
+	
 	String userProfile = "Teacher";
+	
+	String serviceName = "Teacher service";
+	List<String> services = new ArrayList<String>();
+	services.add(serviceName);
+	
 	Date day = DateUtils.toSqlDate("28/05/2012", DateUtils.DATE_FORMAT_FR);
+	
 	Integer actual = serviceConnectionStatisticService.findDailyNumConnectionsByProfile(day,
-		establishmentUai, serviceName, userProfile);
+		establishmentUai, services, userProfile);
 	
 	Assert.assertEquals(expected, actual);
 

@@ -50,6 +50,7 @@
             <property name="accountStatisticService" ref="accountStatisticService"/>
             <property name="establishmentService" ref="establishmentService"/>
             <property name="serviceConnectionStatisticService" ref="serviceConnectionStatisticService"/>
+            <property name="sumServicesManager" ref="sumServicesManager"/>
     </bean>  
     
     

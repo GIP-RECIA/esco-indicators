@@ -38,6 +38,9 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
     /** Service providing access to the services connections statistics */
     private ServiceConnectionStatisticService serviceConnectionStatisticService;
     
+    /** Manager providing informations on the sum services */
+    private SumServicesManager sumServicesManager;
+    
     //-------------------------------------------------------------------------------- CONSTRUCTORS
 
 
@@ -72,8 +75,16 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
     	ServiceConnectionStatisticService serviceConnectionStatisticService) {
         this.serviceConnectionStatisticService = serviceConnectionStatisticService;
     }
-
-
+    
+    /**
+     * Sets the manager providing informations on the sum services.
+     * 
+     * @param sumServicesManager 
+     * 			The manager of the sum services to set.
+     */
+    public void setSumServicesManager(SumServicesManager sumServicesManager) {
+        this.sumServicesManager = sumServicesManager;
+    }
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     
@@ -225,16 +236,19 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
      * 	the statistic data.
      */
     private ServiceStatistic createPunctualMonthStatisticData(String establishmentUai, String service, String userProfile, Integer month, Integer year) {
+	// Retrieval of the simple services concerned by the statistic
+	List<String> services = getSimpleServices(service);
+	
 	// Retrieval of the total account number
 	Integer totalAccountNumber = accountStatisticService.findMonthlyTotalNumAccountsForProfile(establishmentUai, userProfile, month, year);
 	
 	// Retrieval of the service visitors statistics with a number of connections below / above a treshold
 	Integer treshold = ServicesConstants.NUM_CONNECTIONS_TRESHOLD;
-	Integer numVisitorsAboveTreshold = serviceConnectionStatisticService.findMonthlyNumVisitorsAboveTreshold(establishmentUai, service, userProfile, treshold, month, year);
-	Integer numVisitorsBelowTreshold = serviceConnectionStatisticService.findMonthlyNumVisitorsBelowTreshold(establishmentUai, service, userProfile, treshold, month, year);
+	Integer numVisitorsAboveTreshold = serviceConnectionStatisticService.findMonthlyNumVisitorsAboveTreshold(establishmentUai, services, userProfile, treshold, month, year);
+	Integer numVisitorsBelowTreshold = serviceConnectionStatisticService.findMonthlyNumVisitorsBelowTreshold(establishmentUai, services, userProfile, treshold, month, year);
 	
 	// Retrieval of the number of visits realized on the service
-	Integer numVisits = serviceConnectionStatisticService.findMonthlyNumVisits(establishmentUai, service, userProfile, month, year);
+	Integer numVisits = serviceConnectionStatisticService.findMonthlyNumVisits(establishmentUai, services, userProfile, month, year);
 	
 	// Creation of the statistic data
 	ServiceStatistic data = new ServiceStatistic(totalAccountNumber, numVisitorsBelowTreshold, numVisitorsAboveTreshold, numVisits);
@@ -267,16 +281,19 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
      * 	the statistic data.
      */
     private ServiceStatistic createPunctualWeekStatisticData(String establishmentUai, String service, String userProfile, Integer week, Integer year) {
+	// Retrieval of the simple services concerned by the statistic
+	List<String> services = getSimpleServices(service);
+	
 	// Retrieval of the total account number
 	Integer totalAccountNumber = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentUai, userProfile, week, year);
 	
 	// Retrieval of the service visitors statistics with a number of connections below / above a treshold
 	Integer treshold = ServicesConstants.NUM_CONNECTIONS_TRESHOLD;
-	Integer numVisitorsAboveTreshold = serviceConnectionStatisticService.findWeeklyNumVisitorsAboveTreshold(establishmentUai, service, userProfile, treshold, week, year);
-	Integer numVisitorsBelowTreshold = serviceConnectionStatisticService.findWeeklyNumVisitorsBelowTreshold(establishmentUai, service, userProfile, treshold, week, year);
+	Integer numVisitorsAboveTreshold = serviceConnectionStatisticService.findWeeklyNumVisitorsAboveTreshold(establishmentUai, services, userProfile, treshold, week, year);
+	Integer numVisitorsBelowTreshold = serviceConnectionStatisticService.findWeeklyNumVisitorsBelowTreshold(establishmentUai, services, userProfile, treshold, week, year);
 	
 	// Retrieval of the number of visits realized on the service
-	Integer numVisits = serviceConnectionStatisticService.findWeeklyNumVisits(establishmentUai, service, userProfile, week, year);
+	Integer numVisits = serviceConnectionStatisticService.findWeeklyNumVisits(establishmentUai, services, userProfile, week, year);
 	
 	// Creation of the statistic data
 	ServiceStatistic data = new ServiceStatistic(totalAccountNumber, numVisitorsBelowTreshold, numVisitorsAboveTreshold, numVisits);
@@ -308,6 +325,32 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
 	EstablishmentData data = new EstablishmentData(countyNumber, name, establishmentType, uai);
 	
 	return data;
+    }
+    
+    /**
+     * Retrieves the simple services to use for retrieving the statisitcs data.<br/>
+     * 
+     * @param service
+     * 			The service name.
+     * 
+     * @return
+     * 	if the specified service is a sum service : a list containing the simple services associated to the service.<br/>
+     * 	in other cases : a list only containing the specified service.
+     */
+    private List<String> getSimpleServices(String service) {
+	// Final result
+	List<String> simpleServices = new ArrayList<String>();
+	
+	// If the service is the sum of simple services
+	if(sumServicesManager.isSumService(service)) {
+	    // Gets the simple services
+	    simpleServices.addAll(sumServicesManager.getSimpleServices(service));
+	} else {
+	    // The service is a simple service
+	    simpleServices.add(service);
+	}
+	
+	return simpleServices;
     }
     
     //------------------------------------------------------------------------------ STATIC METHODS

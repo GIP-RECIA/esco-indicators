@@ -30,13 +30,13 @@ import org.hibernate.annotations.NaturalId;
 	    name = "ServiceConnectionStatistic.Daily.findNumConnectionsByProfile",
 	    query = "SELECT SUM(scs.numConnections) FROM ServiceConnectionStatistic scs"
 	    		+ " WHERE scs.day = :day AND scs.establishmentUai = :establishmentUai"
-	    		+" AND scs.serviceName = :serviceName AND scs.userProfile = :userProfile"
+	    		+" AND scs.serviceName IN ( :serviceNameList ) AND scs.userProfile = :userProfile"
 	    ),
    @NamedQuery(
 	    name = "ServiceConnectionStatistic.findNumVisitorsAboveTreshold",
 	    query = "SELECT COUNT( DISTINCT scs.userUid ) FROM ServiceConnectionStatistic scs"
 	    		+ " WHERE scs.establishmentUai = :establishmentUai"
-	    		+ " AND scs.serviceName = :serviceName AND scs.userProfile = :userProfile"
+	    		+ " AND scs.serviceName IN ( :serviceNameList ) AND scs.userProfile = :userProfile"
 	    		+ " AND scs.numConnections > :treshold"
 	    		+ " AND scs.day BETWEEN :startDate AND :endDate"
 	    ),
@@ -44,7 +44,7 @@ import org.hibernate.annotations.NaturalId;
 	    name = "ServiceConnectionStatistic.findNumVisitorsBelowTreshold",
 	    query = "SELECT COUNT( DISTINCT scs.userUid ) FROM ServiceConnectionStatistic scs"
 	    		+ " WHERE scs.establishmentUai = :establishmentUai"
-	    		+ " AND scs.serviceName = :serviceName AND scs.userProfile = :userProfile"
+	    		+ " AND scs.serviceName IN ( :serviceNameList ) AND scs.userProfile = :userProfile"
 	    		+ " AND scs.numConnections <= :treshold"
 	    		+ " AND scs.day BETWEEN :startDate AND :endDate"
 	    ),
@@ -52,7 +52,7 @@ import org.hibernate.annotations.NaturalId;
 	    name = "ServiceConnectionStatistic.findNumVisits",
 	    query = "SELECT SUM(scs.numConnections) FROM ServiceConnectionStatistic scs"
 	    		+ " WHERE scs.establishmentUai = :establishmentUai"
-	    		+ " AND scs.serviceName = :serviceName AND scs.userProfile = :userProfile"
+	    		+ " AND scs.serviceName IN ( :serviceNameList ) AND scs.userProfile = :userProfile"
 	    		+ " AND scs.day BETWEEN :startDate AND :endDate"
 	    )
 })

@@ -4,9 +4,7 @@
 package org.esco.indicators.services.statistic;
 
 import java.util.Date;
-
-import org.esco.indicators.domain.beans.statistic.EstablishmentVisitStatistic;
-import org.esco.indicators.domain.beans.statistic.ServiceConnectionStatistic;
+import java.util.List;
 
 /**
  * Interface providing access to statistical data on the wantedServices connections.
@@ -27,15 +25,15 @@ public interface ServiceConnectionStatisticService {
      * 			The day of the statistic.
      * @param establishmentUai
      * 			The UAI of the establishment associated to the the statistic.
-     * @param serviceName
-     * 			The name of the service concerned by the statistic.
+     * @param servicesNames
+     * 			The services associated to the statistic to retireve.
      * @param userProfile
      * 			The profile of the user associated to the statistic.
      * @return
      * 	the number of connectionsmade on the service.<br/>
      * 	<code>null</code> if no statistic has been retrieved.
      */
-    public Integer findDailyNumConnectionsByProfile(Date day, String establishmentUai, String serviceName, String userProfile);
+    public Integer findDailyNumConnectionsByProfile(Date day, String establishmentUai, List<String> servicesNames, String userProfile);
     
     ///////////////////////////////////////////////////////
     // WEEKLY STATISTICS
@@ -47,8 +45,8 @@ public interface ServiceConnectionStatisticService {
      * 
      * @param establishmentUai
      * 			The UAI of the establishment associated to the statistic to retrieve.
-     * @param service
-     * 			The service associated to the statistic to retireve.
+     * @param services
+     * 			The services associated to the statistic to retireve.
      * @param userProfile
      * 			The user profile of the statistic to retrieve.
      * @param treshold
@@ -61,7 +59,7 @@ public interface ServiceConnectionStatisticService {
      * 	the number of visitors who made more than <code>treshold</code> connections on the service.<br/>
      * 	the number 0 if no statistic has been retrieved.
      */
-    public Integer findWeeklyNumVisitorsAboveTreshold(String establishmentUai, String service, String userProfile, Integer treshold, Integer week, Integer year);
+    public Integer findWeeklyNumVisitorsAboveTreshold(String establishmentUai, List<String> services, String userProfile, Integer treshold, Integer week, Integer year);
     
     /**
      * Retrieves the number of visitors that made less than <code>treshold</code> connections on the <code>service</code>, and who has the specified 
@@ -70,8 +68,8 @@ public interface ServiceConnectionStatisticService {
      * 
      * @param establishmentUai
      * 			The UAI of the establishment associated to the statistic to retrieve.
-     * @param service
-     * 			The service associated to the statistic to retireve.
+     * @param services
+     * 			The services associated to the statistic to retireve.
      * @param userProfile
      * 			The user profile of the statistic to retrieve.
      * @param treshold
@@ -84,7 +82,7 @@ public interface ServiceConnectionStatisticService {
      * 	the number of visitors who made less than <code>treshold</code> connections on the service.<br/>
      * 	the number 0 if no statistic has been retrieved.
      */
-    public Integer findWeeklyNumVisitorsBelowTreshold(String establishmentUai, String service, String userProfile, Integer treshold, Integer week, Integer year);
+    public Integer findWeeklyNumVisitorsBelowTreshold(String establishmentUai, List<String> services, String userProfile, Integer treshold, Integer week, Integer year);
     
     /**
      * Retrieves the number of visits made on the <code>service</code> for the specified <code>userProfile</code> in the specified <code>establishmentUai</code>.<br/>
@@ -92,8 +90,8 @@ public interface ServiceConnectionStatisticService {
      * 
      * @param establishmentUai
      * 			The UAI of the establishment associated to the statistic to retrieve.
-     * @param service
-     * 			The service associated to the statistic to retireve.
+     * @param services
+     * 			The services associated to the statistic to retireve.
      * @param userProfile
      * 			The user profile of the statistic to retrieve.
      * @param week
@@ -105,21 +103,21 @@ public interface ServiceConnectionStatisticService {
      * 	the number of visits made on the service.<br/>
      * 	the number 0 if no statistic has been retrieved.
      */
-    public Integer findWeeklyNumVisits(String establishmentUai, String service, String userProfile, Integer week, Integer year);
+    public Integer findWeeklyNumVisits(String establishmentUai, List<String> services, String userProfile, Integer week, Integer year);
 
 
     ///////////////////////////////////////////////////////
     // MONTHLY STATISTICS
     ///////////////////////////////////////////////////////
     /**
-     * Retrieves the number of visitors that made more than <code>treshold</code> connections on the <code>service</code>, and who has the specified 
+     * Retrieves the number of visitors that made more than <code>treshold</code> connections on the one of the <code>services</code>, and who has the specified 
      * <code>userProfile</code> in the specified <code>establishmentUai</code>.<br/>
      * This number of visitors only concerns the week having the number <code>month</code> in the year <code>year</code>.
      * 
      * @param establishmentUai
      * 			The UAI of the establishment associated to the statistic to retrieve.
-     * @param service
-     * 			The service associated to the statistic to retireve.
+     * @param services
+     * 			The services associated to the statistic to retireve.
      * @param userProfile
      * 			The user profile of the statistic to retrieve.
      * @param treshold
@@ -129,10 +127,10 @@ public interface ServiceConnectionStatisticService {
      * @param year
      * 			The year of the statistic to retrieve.
      * @return
-     * 	the number of visitors who made more than <code>treshold</code> connections on the service.<br/>
+     * 	the number of visitors who made more than <code>treshold</code> connections on one of the services.<br/>
      * 	the number 0 if no statistic has been retrieved.
      */
-    public Integer findMonthlyNumVisitorsAboveTreshold(String establishmentUai, String service, String userProfile, Integer treshold, Integer month, Integer year);
+    public Integer findMonthlyNumVisitorsAboveTreshold(String establishmentUai, List<String> services, String userProfile, Integer treshold, Integer month, Integer year);
 
     /**
      * Retrieves the number of visitors that made less than <code>treshold</code> connections on the <code>service</code>, and who has the specified 
@@ -141,8 +139,8 @@ public interface ServiceConnectionStatisticService {
      * 
      * @param establishmentUai
      * 			The UAI of the establishment associated to the statistic to retrieve.
-     * @param service
-     * 			The service associated to the statistic to retireve.
+     * @param services
+     * 			The services associated to the statistic to retireve.
      * @param userProfile
      * 			The user profile of the statistic to retrieve.
      * @param treshold
@@ -155,7 +153,7 @@ public interface ServiceConnectionStatisticService {
      * 	the number of visitors who made less than <code>treshold</code> connections on the service.<br/>
      * 	the number 0 if no statistic has been retrieved.
      */
-    public Integer findMonthlyNumVisitorsBelowTreshold(String establishmentUai, String service, String userProfile, Integer treshold, Integer month, Integer year);
+    public Integer findMonthlyNumVisitorsBelowTreshold(String establishmentUai, List<String> services, String userProfile, Integer treshold, Integer month, Integer year);
 
     /**
      * Retrieves the number of visits made on the <code>service</code> for the specified <code>userProfile</code> in the specified <code>establishmentUai</code>.<br/>
@@ -163,8 +161,8 @@ public interface ServiceConnectionStatisticService {
      * 
      * @param establishmentUai
      * 			The UAI of the establishment associated to the statistic to retrieve.
-     * @param service
-     * 			The service associated to the statistic to retireve.
+     * @param services
+     * 			The services associated to the statistic to retireve.
      * @param userProfile
      * 			The user profile of the statistic to retrieve.
      * @param month
@@ -176,5 +174,5 @@ public interface ServiceConnectionStatisticService {
      * 	the number of visits made on the service.<br/>
      * 	the number 0 if no statistic has been retrieved.
      */
-    public Integer findMonthlyNumVisits(String establishmentUai, String service, String userProfile, Integer month, Integer year);
+    public Integer findMonthlyNumVisits(String establishmentUai, List<String> services, String userProfile, Integer month, Integer year);
 }

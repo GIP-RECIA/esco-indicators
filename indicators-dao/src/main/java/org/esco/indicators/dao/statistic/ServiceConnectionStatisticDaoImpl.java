@@ -4,12 +4,10 @@
 package org.esco.indicators.dao.statistic;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.statistic.ServiceConnectionStatistic;
@@ -46,16 +44,12 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
     // DAILY STATISTICS
     ///////////////////////////////////////////////////////
     
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.esco.indicators.dao.statistic.ServiceConnectionStatisticDao#findDailyNumConnections(java.util.Date,
-     * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.statistic.ServiceConnectionStatisticDao#findDailyNumConnectionsByProfile(java.util.Date, java.lang.String, java.util.List, java.lang.String)
      */
     @Override
     public Integer findDailyNumConnectionsByProfile(Date day, String establishmentUai,
-	    String serviceName, String userProfile) {
+	    List<String> servicesNames, String userProfile) {
 	// Name of the query to execute
 	String namedQuery = "ServiceConnectionStatistic.Daily.findNumConnectionsByProfile";
 	
@@ -63,7 +57,7 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
 	Parameters parameters = new Parameters();
 	parameters.put("day", day);
 	parameters.put("establishmentUai", establishmentUai);
-	parameters.put("serviceName", serviceName);
+	parameters.put("serviceNameList", servicesNames);
 	parameters.put("userProfile", userProfile);
 
 	// Retrieval of the daily statistic
@@ -78,11 +72,11 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
     ///////////////////////////////////////////////////////
     
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.ServiceConnectionStatisticDao#findNumVisitorsAboveTreshold(java.lang.String, java.util.Date, java.util.Date, java.lang.String, java.lang.String, java.lang.Integer)
+     * @see org.esco.indicators.dao.statistic.ServiceConnectionStatisticDao#findNumVisitorsAboveTreshold(java.lang.String, java.util.Date, java.util.Date, java.util.List, java.lang.String, java.lang.Integer)
      */
     @Override
     public Integer findNumVisitorsAboveTreshold(String establishmentUai, Date startDay,
-	    Date endDay, String serviceName, String userProfile, Integer treshold) {
+	    Date endDay, List<String> servicesNames, String userProfile, Integer treshold) {
 	// Name of the query to execute
 	String namedQuery = "ServiceConnectionStatistic.findNumVisitorsAboveTreshold";
 	
@@ -91,7 +85,7 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
 	parameters.put("establishmentUai", establishmentUai);
 	parameters.put("startDate", startDay);
 	parameters.put("endDate", endDay);
-	parameters.put("serviceName", serviceName);
+	parameters.put("serviceNameList", servicesNames);
 	parameters.put("userProfile", userProfile);
 	parameters.put("treshold", treshold);
 
@@ -103,11 +97,11 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.ServiceConnectionStatisticDao#findNumVisitorsBelowTreshold(java.lang.String, java.util.Date, java.util.Date, java.lang.String, java.lang.String, java.lang.Integer)
+     * @see org.esco.indicators.dao.statistic.ServiceConnectionStatisticDao#findNumVisitorsBelowTreshold(java.lang.String, java.util.Date, java.util.Date, java.util.List, java.lang.String, java.lang.Integer)
      */
     @Override
     public Integer findNumVisitorsBelowTreshold(String establishmentUai, Date startDay, Date endDay,
-            String serviceName, String userProfile, Integer treshold) {
+            List<String> servicesNames, String userProfile, Integer treshold) {
 	// Name of the query to execute
 	String namedQuery = "ServiceConnectionStatistic.findNumVisitorsBelowTreshold";
 	
@@ -116,7 +110,7 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
 	parameters.put("establishmentUai", establishmentUai);
 	parameters.put("startDate", startDay);
 	parameters.put("endDate", endDay);
-	parameters.put("serviceName", serviceName);
+	parameters.put("serviceNameList", servicesNames);
 	parameters.put("userProfile", userProfile);
 	parameters.put("treshold", treshold);
 
@@ -131,7 +125,7 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
      * @see org.esco.indicators.dao.statistic.ServiceConnectionStatisticDao#findNumVisits(java.lang.String, java.util.Date, java.util.Date, java.lang.String, java.lang.String)
      */
     @Override
-    public Integer findNumVisits(String establishmentUai, Date startDay, Date endDay, String serviceName,
+    public Integer findNumVisits(String establishmentUai, Date startDay, Date endDay, List<String> servicesNames,
 	    String userProfile) {
 	// Name of the query to execute
 	String namedQuery = "ServiceConnectionStatistic.findNumVisits";
@@ -141,7 +135,7 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
 	parameters.put("establishmentUai", establishmentUai);
 	parameters.put("startDate", startDay);
 	parameters.put("endDate", endDay);
-	parameters.put("serviceName", serviceName);
+	parameters.put("serviceNameList", servicesNames);
 	parameters.put("userProfile", userProfile);
 
 	// Retrieval of the statistic
