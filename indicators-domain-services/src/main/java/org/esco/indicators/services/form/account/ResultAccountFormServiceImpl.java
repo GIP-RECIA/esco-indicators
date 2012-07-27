@@ -8,8 +8,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.result.EstablishmentData;
+import org.esco.indicators.domain.beans.result.PunctualAccountStatistic;
 import org.esco.indicators.domain.beans.result.ResultRow;
-import org.esco.indicators.domain.beans.result.statistic.PunctualAccountStatistic;
 import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.services.constants.ServicesConstants;
 import org.esco.indicators.services.statistic.AccountStatisticService;

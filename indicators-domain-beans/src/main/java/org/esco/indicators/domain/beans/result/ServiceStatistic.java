@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.esco.indicators.domain.beans.result.statistic;
+package org.esco.indicators.domain.beans.result;
 
 import org.apache.log4j.Logger;
 
