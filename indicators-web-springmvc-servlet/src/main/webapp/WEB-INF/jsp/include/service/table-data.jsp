@@ -18,6 +18,15 @@
         <td>
             ${item.establishmentData.lyceeType}
         </td>
+        <td>
+            ${item.totalAccountNumber}
+        </td>
+        <td>
+            ${item.activeAccountNumber}
+        </td>
+        <td>
+            ${item.percentageActiveAccount}
+        </td>
         
         <!-- Statistic data -->
         <c:forEach var="key" items="${statisticDataKeys}">

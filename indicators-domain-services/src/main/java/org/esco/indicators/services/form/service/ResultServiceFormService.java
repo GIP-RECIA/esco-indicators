@@ -6,6 +6,7 @@ package org.esco.indicators.services.form.service;
 import java.util.List;
 
 import org.esco.indicators.domain.beans.result.BasicResultRow;
+import org.esco.indicators.domain.beans.result.ExtendedResultRow;
 
 /**
  * Interface providing functions for retrieving the result data to put into the result web page
@@ -44,7 +45,7 @@ public interface ResultServiceFormService {
      * @return
      * 	the result rows containing establishment data, and statistics data, for each user profile in each establishment.
      */
-    public List<BasicResultRow> getPunctualWeekResultRows(List<String> establishmentsUai, List<String> services, String userProfile, Integer week, Integer year);
+    public List<ExtendedResultRow> getPunctualWeekResultRows(List<String> establishmentsUai, List<String> services, String userProfile, Integer week, Integer year);
     
     
     ///////////////////////////////////////////////////////

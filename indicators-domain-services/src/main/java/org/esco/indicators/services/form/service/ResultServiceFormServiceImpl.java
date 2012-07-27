@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.result.EstablishmentData;
+import org.esco.indicators.domain.beans.result.ExtendedResultRow;
 import org.esco.indicators.domain.beans.result.PunctualAccountStatistic;
 import org.esco.indicators.domain.beans.result.BasicResultRow;
 import org.esco.indicators.domain.beans.result.ServiceStatistic;
@@ -84,23 +85,22 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
      * @see org.esco.indicators.services.form.service.ResultServiceFormService#getPunctualWeekResultRows(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public List<BasicResultRow> getPunctualWeekResultRows(List<String> establishmentsUai, List<String> services,
+    public List<ExtendedResultRow> getPunctualWeekResultRows(List<String> establishmentsUai, List<String> services,
             String userProfile, Integer week, Integer year) {
 	// Final result
-	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();
+	List<ExtendedResultRow> rows = new ArrayList<ExtendedResultRow>();
 
 	// For each establishment :
 	//	Creation of the corresponding result row
 	//	Addition of the establishment data in the result row
 	//	Addition of the statistic data in the result row (for each service)
 	for (String uai : establishmentsUai) {
-	    BasicResultRow basicResultRow = new BasicResultRow();
-	    basicResultRow.setEstablishmentData(getEstablishmentData(uai));
+	    ExtendedResultRow resultRow = createWeeklyExtendedResultRow(uai, userProfile, week, year);
 	    for (String service : services) {
 		ServiceStatistic statistic = createPunctualWeekStatisticData(uai, service, userProfile, week, year);
-		basicResultRow.putStatisticData(service, statistic);
+		resultRow.putStatisticData(service, statistic);
 	    }
-	    rows.add(basicResultRow);
+	    rows.add(resultRow);
 	}
 	
 	return rows;
@@ -115,6 +115,38 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
     
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
+    
+    /**
+     * Creates an extended result row containing the all the data on the establishment, and the accounts.<br/>
+     * The accounts data only concerned the the accounts having the specified user profile in the specified period.
+     * 
+     * The statistics data are not filled.
+     * 
+     * @param establishmentUai
+     * 			The UAI of the establishment associated to the created row.
+     * @param userProfile
+     * 			The user profile.
+     * @param week
+     * 			The number of the week.
+     * @param year 
+     * 			The year.
+     * @return
+     * 	the exented result row containing informations on the establishment and the accounts.
+     */
+    private ExtendedResultRow createWeeklyExtendedResultRow(String establishmentUai, String userProfile, Integer week, Integer year) {
+	// Gets the informations on the accounts
+	Integer numTotalAccounts = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentUai, userProfile, week, year);
+	Integer numActivatedAccounts = accountStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentUai, userProfile, week, year);
+	
+	// Gets the informations on the establishment
+	EstablishmentData establishmentData = getEstablishmentData(establishmentUai);
+	
+	// Creation of the result row
+	ExtendedResultRow resultRow = new ExtendedResultRow(numTotalAccounts, numActivatedAccounts);
+	resultRow.setEstablishmentData(establishmentData);
+	
+	return resultRow;
+    }
     
     /**
      * Retrieves data and creates the statistic data for a specified :

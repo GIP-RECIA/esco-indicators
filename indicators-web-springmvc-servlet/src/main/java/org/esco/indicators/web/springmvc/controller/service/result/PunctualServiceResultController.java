@@ -11,17 +11,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.esco.indicators.domain.beans.form.AccountActivationForm;
-import org.esco.indicators.domain.beans.form.BasicForm;
 import org.esco.indicators.domain.beans.form.ServiceForm;
 import org.esco.indicators.domain.beans.result.BasicResultRow;
+import org.esco.indicators.domain.beans.result.ExtendedResultRow;
 import org.esco.indicators.services.form.DataFormService;
-import org.esco.indicators.services.form.account.ResultAccountFormService;
 import org.esco.indicators.services.form.service.ResultServiceFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.utils.date.DateUtils;
+import org.esco.indicators.web.springmvc.controller.account.result.PunctualAccountResultController;
 import org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -142,7 +141,7 @@ public class PunctualServiceResultController extends BasicResultController {
      * 	the data rows of the table used to display the result of the submitted form.
      */
     @ModelAttribute("tableRowsItems")
-    public List<BasicResultRow> populateTableRows(HttpServletRequest request) {
+    public List<ExtendedResultRow> populateTableRows(HttpServletRequest request) {
 	// Checks if the there is a valid submitted form to process
 	if(!containsForm(request.getSession(), formSessionAttribute)) {
 	    return null;
@@ -169,9 +168,9 @@ public class PunctualServiceResultController extends BasicResultController {
 	List<String> services = dataServiceFormService.getServicesToFilter(checkedServices);
 	
 	// Gets the result rows to display
-	List<BasicResultRow> basicResultRows = createResultRows(establishmentsTypes, establishmentsUai, services, userProfileToFilter, startDate);
+	List<ExtendedResultRow> resultRows = createResultRows(establishmentsTypes, establishmentsUai, services, userProfileToFilter, startDate);
 	
-	return basicResultRows;
+	return resultRows;
     }
     
     
@@ -202,7 +201,7 @@ public class PunctualServiceResultController extends BasicResultController {
      * @return
      * 	the result rows containing the data to display.
      */
-    private List<BasicResultRow> createResultRows( List<String> establishmentsTypes, List<String> establishmentsUai, List<String> services, String userProfile, Date startDate) {
+    private List<ExtendedResultRow> createResultRows( List<String> establishmentsTypes, List<String> establishmentsUai, List<String> services, String userProfile, Date startDate) {
 	// Retrieval of the year
 	Integer year = DateUtils.getYear(startDate);
 	

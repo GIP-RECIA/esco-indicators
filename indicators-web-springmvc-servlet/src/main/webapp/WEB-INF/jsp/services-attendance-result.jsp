@@ -38,10 +38,13 @@
             <th>
                 <spring:message code="result.table.lyceeType" />
             </th>
+            <th colspan="3">
+                <spring:message code="result.table.accountActivation" />
+            </th>
 
             <c:forEach var="item" items="${servicesItems}">
                 <spring:message code="${item}" var="i18n"/> 
-                <th colspan="7">
+                <th colspan="5">
                     ${i18n}
                 </th>
             </c:forEach>        
@@ -55,6 +58,14 @@
                 </th>
             </c:forEach>
             
+            <th>
+                <spring:message code="result.table.totalAccount" />
+            </th>
+            <th colspan="2">
+                <spring:message code="result.table.activeAccount" />
+            </th>
+            
+            
             <c:forEach var="item" items="${servicesItems}">
                 <th colspan="4">
                     <spring:message code="result.table.consultationFrequency" />
@@ -67,10 +78,18 @@
         
         <!-- Headers : Third level -->
         <tr>
-            <c:forEach var="i" begin="1" end="5">
+            <c:forEach var="i" begin="1" end="6">
                 <th>
+                    <!-- Establishment data + total account -->
                 </th>
             </c:forEach>
+            
+            <th>
+                <spring:message code="result.table.num" />
+            </th>
+            <th>
+                <spring:message code="result.table.percent" />
+            </th>
             
             <c:forEach var="item" items="${servicesItems}">
                 <th colspan="2">
@@ -88,8 +107,9 @@
         
         <!-- Headers : Fourth level -->
         <tr>
-            <c:forEach var="i" begin="1" end="5">
+            <c:forEach var="i" begin="1" end="8">
                 <th>
+                    <!-- Establishment data + accounts data -->
                 </th>
             </c:forEach>
             
