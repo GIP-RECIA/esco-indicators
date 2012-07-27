@@ -30,8 +30,6 @@ public class ServiceStatistic {
      * 
      * @param totalAccountNumber
      *            Total number of accounts.
-     * @param activeAccountNumber
-     *           Number of active accounts.
      * @param numVisitorsBelowTreshold
      *            Number of visitors having made a number of visits lesser than a treshold.
      * @param numVisitorsAboveTreshold
@@ -39,7 +37,7 @@ public class ServiceStatistic {
      *  @param numVisits
      *  	  Number of visits.
      */
-    public ServiceStatistic(Integer totalAccountNumber, Integer activeAccountNumber, Integer numVisitorsBelowTreshold, Integer numVisitorsAboveTreshold, Integer numVisits) {
+    public ServiceStatistic(Integer totalAccountNumber, Integer numVisitorsBelowTreshold, Integer numVisitorsAboveTreshold, Integer numVisits) {
 	super();
 	this.statisticOnVisitors = new StatisticOnVisitors(numVisitorsBelowTreshold, numVisitorsAboveTreshold, totalAccountNumber);
 	this.statisticOnVisits = new StatisticOnVisits(numVisits);

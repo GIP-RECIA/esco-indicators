@@ -6,7 +6,7 @@ package org.esco.indicators.dao.statistic;
 import java.util.Date;
 
 /**
- * Interface providing functions to access statistical data on the wantedServices connections.
+ * Interface providing functions to access statistical data on the services connections.
  * 
  * @since 2012/05/31
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
@@ -63,6 +63,30 @@ public interface ServiceConnectionStatisticDao extends StatisticDao {
     public Integer findNumVisitorsAboveTreshold(String establishmentUai, Date startDay, Date endDay, String serviceName, String userProfile, Integer treshold);
     
     /**
+     * Retrieves the number of visitors that made less than <code>treshold</code> connections on the service, and who has the specified 
+     * <code>userProfile</code> in the specified <code>establishmentUai</code>.<br/>
+     * This number of connections only concerns the period beginning with the day <code>startDay</code> and ending with the day <code>endDay</code>.<br/>
+     * 
+     * @param establishmentUai
+     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param startDay
+     * 			The start day of the period associated to the statistic.
+     * @param endDay
+     * 			The end day of the period associated to the statistic.
+     * @param serviceName
+     * 			The name of the service of the statistic to retrieve.
+     * @param userProfile
+     * 			The user profile of the statistic to retrieve.
+     * @param treshold
+     * 			The minimum number of connections treshold.
+     * 
+     * @return
+     * 	the number of visitors who made less than <code>treshold</code> connections on the service during the specified period.<br/>
+     * 	<code>null</code> if no statistic has been retrieved.
+     */
+    public Integer findNumVisitorsBelowTreshold(String establishmentUai, Date startDay, Date endDay, String serviceName, String userProfile, Integer treshold);
+    
+    /**
      * Retrieves the number of visits made on the service for the specified <code>userProfile</code> in the specified <code>establishmentUai</code>.<br/>
      * This number of visits only concerns the period beginning with the day <code>startDay</code> and ending with the day <code>endDay</code>.<br/>
      * 
@@ -82,5 +106,5 @@ public interface ServiceConnectionStatisticDao extends StatisticDao {
      * 	<code>null</code> if no statistic has been retrieved.
      */
     public Integer findNumVisits(String establishmentUai, Date startDay, Date endDay, String serviceName, String userProfile);
-    
+
 }

@@ -90,6 +90,23 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
     }
 
     /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findWeeklyNumVisitorsBelowTreshold(java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Integer findWeeklyNumVisitorsBelowTreshold(String establishmentUai, String service,
+	    String userProfile, Integer treshold, Integer week, Integer year) {
+	// Gets the start day and end day of the week
+	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
+	Date lastWeekDay = DateUtils.addDays(firstWeekDay, 6);
+	
+	// Number of visitors
+	Integer numVisitors = serviceConnectionStatisticDao.findNumVisitorsBelowTreshold(establishmentUai, firstWeekDay, lastWeekDay, service, userProfile, treshold); 
+	numVisitors = (numVisitors == null ? 0 : numVisitors);
+	
+	return numVisitors;
+    }
+    
+    /* (non-Javadoc)
      * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findWeeklyNumVisits(java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     @Override
@@ -105,6 +122,7 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
 	
 	return numVisits;
     }
+
 
     ///////////////////////////////////////////////////////
     // MONTHLY STATISTICS

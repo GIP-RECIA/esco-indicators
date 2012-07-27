@@ -144,21 +144,16 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
 	// Retrieval of the total account number
 	Integer totalAccountNumber = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentUai, userProfile, week, year);
 	
-	// Retrieval of the number of activated accounts
-	Integer numActivatedAccounts = accountStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentUai, userProfile, week, year);
-	
 	// Retrieval of the service visitors statistics with a number of connections below / above a treshold
 	Integer treshold = ServicesConstants.NUM_CONNECTIONS_TRESHOLD;
 	Integer numVisitorsAboveTreshold = serviceConnectionStatisticService.findWeeklyNumVisitorsAboveTreshold(establishmentUai, service, userProfile, treshold, week, year);
-	
-	// TODO : Change to findWeeklyNumVisitorsBelowTreshold
-	Integer numVisitorsBelowTreshold = serviceConnectionStatisticService.findWeeklyNumVisitorsAboveTreshold(establishmentUai, service, userProfile, treshold, week, year);
+	Integer numVisitorsBelowTreshold = serviceConnectionStatisticService.findWeeklyNumVisitorsBelowTreshold(establishmentUai, service, userProfile, treshold, week, year);
 	
 	// Retrieval of the number of visits realized on the service
 	Integer numVisits = serviceConnectionStatisticService.findWeeklyNumVisits(establishmentUai, service, userProfile, week, year);
 	
 	// Creation of the statistic data
-	ServiceStatistic data = new ServiceStatistic(totalAccountNumber, numActivatedAccounts, numVisitorsBelowTreshold, numVisitorsAboveTreshold, numVisits);
+	ServiceStatistic data = new ServiceStatistic(totalAccountNumber, numVisitorsBelowTreshold, numVisitorsAboveTreshold, numVisits);
 	
 	return data;
     }
