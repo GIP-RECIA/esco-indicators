@@ -54,7 +54,24 @@ public class PunctualAccountStatistic {
     }
 
     // --------------------------------------------------------------------------- GETTERS / SETTERS
+    /**
+     * Gets the number of total account.
+     * 
+     * @return the number of total account.
+     */
+    public Integer getTotalAccountNumber() {
+	return statisticOnAccounts.getTotalAccountNumber();
+    }
 
+    /**
+     * Gets the number of active account.
+     * 
+     * @return the number of active account.
+     */
+    public Integer getActiveAccountNumber() {
+	return statisticOnAccounts.getActiveAccountNumber();
+    }
+    
     /**
      * Gets the percentage of active account regarding to the total number of account.
      * 
