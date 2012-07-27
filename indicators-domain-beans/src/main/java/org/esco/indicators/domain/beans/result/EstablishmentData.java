@@ -5,14 +5,21 @@ package org.esco.indicators.domain.beans.result;
 
 import org.apache.log4j.Logger;
 
+
 /**
- * Class representing the establishment data to present into a result page.
+ * Class containing informations about an establishment.<br/>
+ * The following informations can be provided by this class :
+ * <ul>
+ * 	<li>The establishment name</li>
+ * 	<li>The establishment type</li>
+ * 	<li>The UAI of the establishment</li>
+ * 	<li>The county number of the establishment</li>
+ * 	<li>The "lyceeType" of the establishment</li>
+ * </ul>
  * 
- * @since  2012/07/04
- * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
- */
-/**
- * @since  
+ * <u>NOTE:</u> The "lyceeType" can be undefined.
+ * 
+ * @since
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class EstablishmentData {

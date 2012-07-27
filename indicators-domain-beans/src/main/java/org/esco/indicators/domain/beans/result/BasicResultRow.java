@@ -9,7 +9,15 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 /**
- * Class representing a row present into the establishment table of the result page.
+ * Class representing a basic row present into the establishment table of the result page.<br/>
+ * A result row is associated to one, and only one, establishment.<br/>
+ * A result row contains statistics data associated to the establishment.<br/>
+ * The statistics data can concern users connections, accounts activations,...<br/>
+ * In fact, this row is able to provide the following informations :
+ * <ul>
+ * 	<li>The data concerning the establishment (name, county,...) (see {@link EstablishmentData})</li>
+ * 	<li>The statistics data (on the establishment) indexed by keys (users profiles, services names,...)</li>
+ * </ul>
  * 
  * @since  2012/07/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
