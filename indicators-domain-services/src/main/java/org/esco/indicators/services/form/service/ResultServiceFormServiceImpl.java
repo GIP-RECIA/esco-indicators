@@ -17,6 +17,8 @@ import org.esco.indicators.services.constants.ServicesConstants;
 import org.esco.indicators.services.statistic.AccountStatisticService;
 import org.esco.indicators.services.statistic.ServiceConnectionStatisticService;
 import org.esco.indicators.services.structure.EstablishmentService;
+import org.esco.indicators.utils.classes.IntegerPair;
+import org.esco.indicators.utils.date.DateUtils;
 
 /**
  * Implementation of the {@link ResultServiceFormService} interface.
@@ -93,6 +95,43 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
     ///////////////////////////////////////////////////////
     
     /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.service.ResultServiceFormService#getPeriodicWeekResultRows(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public List<ExtendedResultRow> getPeriodicWeekResultRows(List<String> establishmentsUai,
+            List<String> services, String userProfile, Integer startWeek, Integer startYear, Integer endWeek,
+            Integer endYear) {
+	// Final result
+	List<ExtendedResultRow> rows = new ArrayList<ExtendedResultRow>();
+	
+	// Splits the specified period into weeks
+	List<IntegerPair> weeksAndYears = DateUtils.splitWeeks(startWeek, startYear, endWeek, endYear);
+	
+	// For each establishment :
+	//	Creation of the corresponding result row
+	//	Addition of the establishment data in the result row
+	//	Addition of result rows into the the created row (one row per period)
+	for (String uai : establishmentsUai) {
+	    // First level row : Establishment data
+	    ExtendedResultRow firstLevelRow = new ExtendedResultRow();
+	    firstLevelRow.setEstablishmentData(getEstablishmentData(uai));
+	    
+	    for (IntegerPair weekAndYear : weeksAndYears) {
+		// Second level row : Statistic data for a period and a service
+		ExtendedResultRow secondLevelRow = createWeeklyExtendedResultRow(uai, userProfile, weekAndYear.getFirst(), weekAndYear.getSecond());
+		for (String service : services) {
+		    ServiceStatistic statistic = createPunctualWeekStatisticData(uai, service, userProfile, weekAndYear.getFirst(), weekAndYear.getSecond());
+		    secondLevelRow.putStatisticData(service, statistic);
+		}
+		firstLevelRow.putStatisticData(weekAndYear, secondLevelRow);
+	    }
+	    
+	    rows.add(firstLevelRow);
+	}
+	return rows;
+    }
+
+    /* (non-Javadoc)
      * @see org.esco.indicators.services.form.service.ResultServiceFormService#getPunctualWeekResultRows(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     @Override
@@ -120,6 +159,18 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
     ///////////////////////////////////////////////////////
     // MONTHLY RESULTS
     ///////////////////////////////////////////////////////
+    
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.service.ResultServiceFormService#getPeriodicMonthResultRows(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public List<ExtendedResultRow> getPeriodicMonthResultRows(List<String> establishmentsUai,
+            List<String> services, String userProfile, Integer startMonth, Integer startYear,
+            Integer endMonth, Integer endYear) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
     /* (non-Javadoc)
      * @see org.esco.indicators.services.form.service.ResultServiceFormService#getPunctualMonthResultRows(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer)
      */
@@ -209,6 +260,34 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
 	resultRow.setEstablishmentData(establishmentData);
 	
 	return resultRow;
+    }
+    
+    /**
+     * Creates a result row containing statistic data about the specified services.<br/>
+     * Thses statistics concerned the specified user profile and the period determined by the week and the year.
+     * 
+     * @param establishmentUai
+     * 			The UAI of the establishment.
+     * @param userProfile
+     * 			The user profile concerned by the statistics.
+     * @param services
+     * 			The services concerned by the statistics.
+     * @param week
+     * 			The week of the statistics.
+     * @param year
+     * 			The year of the statistics.
+     * 
+     * @return
+     * 	the result row containing statistics data.
+     */
+    private ExtendedResultRow createWeeklySubResultRow(String establishmentUai, String userProfile, List<String> services,
+	    Integer week, Integer year) {
+	ExtendedResultRow subRow = new ExtendedResultRow();
+	for (String service : services) {
+	    ServiceStatistic statistic = createPunctualWeekStatisticData(establishmentUai, service, userProfile, week, year);
+	    subRow.putStatisticData(service, statistic);
+	}
+	return subRow;
     }
     
     /**
