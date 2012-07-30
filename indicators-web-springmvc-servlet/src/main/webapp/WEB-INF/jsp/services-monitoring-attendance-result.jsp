@@ -12,6 +12,7 @@
   
 </div>
 
+
 <!-- Selected filters -->
 <%@ include file="/WEB-INF/jsp/include/account/filters.jsp"%>
 
@@ -37,10 +38,15 @@
             <th>
                 <spring:message code="result.table.lyceeType" />
             </th>
+            <th colspan="3">
+                <spring:message code="result.table.accountActivation" />
+            </th>
 
-            <c:forEach var="item" items="${statisticDataKeys}">
-                <th colspan="7">
-                    ${item.first} - ${item.second}
+            <!-- Services -->
+            <c:forEach var="item" items="${wantedServicesItems}">
+                <spring:message code="${item}" var="i18n"/> 
+                <th colspan="5">
+                    ${i18n}
                 </th>
             </c:forEach>        
         </tr>        
@@ -49,43 +55,52 @@
         <tr>
             <c:forEach var="i" begin="1" end="5">
                 <th>
+                    <!-- Establishment data -->
                 </th>
             </c:forEach>
             
-            <c:forEach var="item" items="${statisticDataKeys}">
-                <th>
-                    <spring:message code="result.table.totalAccount" />
-                </th>
-                <th colspan="2">
-                    <spring:message code="result.table.activeAccount" />
-                </th>            
+            <th>
+                <spring:message code="result.table.totalAccount" />
+            </th>
+            <th colspan="2">
+                <spring:message code="result.table.activeAccount" />
+            </th>
+            
+            
+            <c:forEach var="item" items="${wantedServicesItems}">
                 <th colspan="4">
                     <spring:message code="result.table.consultationFrequency" />
+                </th>
+                <th>
+                    <spring:message code="result.table.numVisit" />
                 </th>
             </c:forEach>
         </tr>
         
         <!-- Headers : Third level -->
         <tr>
-            <c:forEach var="i" begin="1" end="5">
+            <c:forEach var="i" begin="1" end="6">
                 <th>
+                    <!-- Establishment data + total account -->
                 </th>
             </c:forEach>
             
-            <c:forEach var="item" items="${statisticDataKeys}">
-                <th>
-                </th>
-                <th>
-                   <spring:message code="result.table.num" /> 
-                </th>            
-                <th>
-                   <spring:message code="result.table.percent" /> 
-                </th>     
+            <th>
+                <spring:message code="result.table.num" />
+            </th>
+            <th>
+                <spring:message code="result.table.percent" />
+            </th>
+            
+            <c:forEach var="item" items="${wantedServicesItems}">
                 <th colspan="2">
                     <spring:message code="result.table.maxTimes" arguments="4" /> 
                 </th>
                 <th colspan="2">
                     <spring:message code="result.table.minTimes" arguments="5" /> 
+                </th>
+                <th>
+                    <!-- NumVisit -->
                 </th>
             </c:forEach>
 
@@ -93,17 +108,13 @@
         
         <!-- Headers : Fourth level -->
         <tr>
-            <c:forEach var="i" begin="1" end="5">
+            <c:forEach var="i" begin="1" end="8">
                 <th>
+                    <!-- Establishment data + accounts data -->
                 </th>
             </c:forEach>
             
-            <c:forEach var="item" items="${statisticDataKeys}">
-                <c:forEach var="i" begin="1" end="3">
-                    <th>
-                    </th>
-                </c:forEach>
-                
+            <c:forEach var="item" items="${wantedServicesItems}">
                 <th>
                     <spring:message code="result.table.numVisitor" />
                 </th>
@@ -115,12 +126,15 @@
                 </th>
                 <th>
                     <spring:message code="result.table.percentTotalAccount" />
-                </th>       
+                </th>  
+                <th>
+                    <!-- NumVisit -->
+                </th>     
             </c:forEach>
         </tr>
         
         <!-- Data of the table -->
-        <%@ include file="/WEB-INF/jsp/include/account/table-data.jsp"%>
+        <%@ include file="/WEB-INF/jsp/include/service/table-data-monitoring-attendance.jsp"%>
             
     </table>
 
