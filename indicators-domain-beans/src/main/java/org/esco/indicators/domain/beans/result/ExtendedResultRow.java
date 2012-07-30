@@ -27,6 +27,16 @@ public class ExtendedResultRow extends BasicResultRow {
     private StatisticOnAccounts statisticOnAccounts;
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
+    /**
+     * Default constructor of the {@link ExtendedResultRow} class.<br/>
+     * <u>Note :</u> This constructor does not set properly the statistics on the accounts.
+     * So, the {@link ExtendedResultRow} created by this constructor should not rely on the accounts statistics.
+     */
+    public ExtendedResultRow() {
+	super();
+	this.statisticOnAccounts = new StatisticOnAccounts(null, null);
+    }
+    
     
     /**
      * Constructor of the {@link ExtendedResultRow} class.
