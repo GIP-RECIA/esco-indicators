@@ -228,39 +228,5 @@ public class PeriodicAccountResultController extends BasicResultController {
 	return resultAccountFormService.getPeriodicMonthResultRows(establishmentsUai, userProfile, startMonth, startYear, endMonth, endYear);
     }
     
-    /**
-     * Gets the statistic periods present in the specified period starting with the <code>startDate</code> and ending with the <code>endDate</code>.<br/>
-     * These periods will be split by weeks if the only selected establishment type is {@link DataFormConstants#JSP_KEY_CFA}.<br/>
-     * Else, the periods will be split by months.
-     * 
-     * @param establishmentsTypes
-     * 			The establishments types selected in the user view.
-     * @param startDate
-     * 			The start
-     * @param endDate
-     * 
-     * @return
-     * 	the statistic periods.
-     */
-    private List<IntegerPair> getStatisticPeriods(List<String> establishmentsTypes, Date startDate, Date endDate) {
-	// Get the start and end years
-	Integer startYear = DateUtils.getYear(startDate);
-	Integer endYear = DateUtils.getYear(endDate);
-	
-	// Retrieval of the periods by month / or by week
-	if(	establishmentsTypes.contains(DataFormConstants.JSP_KEY_CFA) 
-		&& establishmentsTypes.size() == 1
-	) {
-	    // If the only selected establishment type is : CFA
-	    Integer startWeek = DateUtils.getWeekOfYear(startDate);
-	    Integer endWeek = DateUtils.getWeekOfYear(endDate);
-	    return DateUtils.splitWeeks(startWeek, startYear, endWeek, endYear);
-	}
-	   
-	Integer startMonth = DateUtils.getMonthOfYear(startDate);
-	Integer endMonth = DateUtils.getMonthOfYear(endDate);
-	return DateUtils.splitMonths(startMonth, startYear, endMonth, endYear);
-    }
-    
     //------------------------------------------------------------------------------ STATIC METHODS
 }

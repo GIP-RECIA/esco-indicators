@@ -5,6 +5,7 @@ package org.esco.indicators.web.springmvc.controller.basic.result;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,9 @@ import org.esco.indicators.domain.beans.form.BasicForm;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.services.form.account.ResultAccountFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
+import org.esco.indicators.utils.classes.IntegerPair;
+import org.esco.indicators.utils.constants.xml.DataFormConstants;
+import org.esco.indicators.utils.date.DateUtils;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -350,6 +354,40 @@ public abstract class BasicResultController {
             i18nKeys.add(getDataFormService().getI18nKey(jspKey));
         }
         return i18nKeys;
+    }
+    
+    /**
+     * Gets the statistic periods present in the specified period starting with the <code>startDate</code> and ending with the <code>endDate</code>.<br/>
+     * These periods will be split by weeks if the only selected establishment type is {@link DataFormConstants#JSP_KEY_CFA}.<br/>
+     * Else, the periods will be split by months.
+     * 
+     * @param establishmentsTypes
+     * 			The establishments types selected in the user view.
+     * @param startDate
+     * 			The start
+     * @param endDate
+     * 
+     * @return
+     * 	the statistic periods.
+     */
+    protected List<IntegerPair> getStatisticPeriods(List<String> establishmentsTypes, Date startDate, Date endDate) {
+	// Get the start and end years
+	Integer startYear = DateUtils.getYear(startDate);
+	Integer endYear = DateUtils.getYear(endDate);
+	
+	// Retrieval of the periods by month / or by week
+	if(	establishmentsTypes.contains(DataFormConstants.JSP_KEY_CFA) 
+		&& establishmentsTypes.size() == 1
+	) {
+	    // If the only selected establishment type is : CFA
+	    Integer startWeek = DateUtils.getWeekOfYear(startDate);
+	    Integer endWeek = DateUtils.getWeekOfYear(endDate);
+	    return DateUtils.splitWeeks(startWeek, startYear, endWeek, endYear);
+	}
+	   
+	Integer startMonth = DateUtils.getMonthOfYear(startDate);
+	Integer endMonth = DateUtils.getMonthOfYear(endDate);
+	return DateUtils.splitMonths(startMonth, startYear, endMonth, endYear);
     }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
