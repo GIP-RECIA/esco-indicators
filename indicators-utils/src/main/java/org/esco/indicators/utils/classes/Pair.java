@@ -103,6 +103,14 @@ public class Pair<A, B> {
 	return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+	return "Pair [first=" + first + ", second=" + second + "]";
+    }
+
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
     //------------------------------------------------------------------------------ STATIC METHODS
