@@ -12,14 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
-import org.esco.indicators.domain.beans.result.BasicResultRow;
+import org.esco.indicators.domain.beans.form.ServiceForm;
+import org.esco.indicators.domain.beans.result.ExtendedResultRow;
 import org.esco.indicators.services.form.DataFormService;
-import org.esco.indicators.services.form.account.ResultAccountFormService;
+import org.esco.indicators.services.form.service.ResultServiceFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.classes.IntegerPair;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.utils.date.DateUtils;
+import org.esco.indicators.web.springmvc.controller.account.result.PeriodicAccountResultController;
 import org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,15 +52,14 @@ public class PeriodicServiceResultController extends BasicResultController {
     
     /** Service providing access to result data */
     @Autowired
-    protected ResultAccountFormService resultAccountFormService;
+    protected ResultServiceFormService resultServiceFormService;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
      * Constructor of the {@link PeriodicAccountResultController} class.
-     * @param viewName
      */
     public PeriodicServiceResultController() {
-	super("accounts-activations-monitoring-attendance-result", SessionConstants.ACCOUNT_FORM_ATTR);
+	super("services-monitoring-attendance-result", SessionConstants.SERVICE_FORM_ATTR);
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
@@ -82,14 +83,7 @@ public class PeriodicServiceResultController extends BasicResultController {
     
     /**
      * Populate the field containing the list of the keys used to index the statistic data in each result row.<br/>
-     * In this page, the keys used to index the statistic data are : the statistic periods.<br/>
-     * 
-     * All the statistic periods are represented by pairs ({@link IntegerPair}).<br/>
-     * Each pair contains :
-     * <ul>
-     * 	<li>First value : number of a week (or month)</li>
-     * 	<li>Second value : year (of the first value : week or month)</li>
-     * </ul>
+     * In this page, the keys used to index the statistic data are : the services.<br/>
      * 
      * @param request
      * 			The request made by the user.
@@ -97,23 +91,20 @@ public class PeriodicServiceResultController extends BasicResultController {
      * 	the list of the keys used to index the statistic data.
      */
     @ModelAttribute("statisticDataKeys")
-    public List<IntegerPair> populateStatisticDataKeys(HttpServletRequest request) {
+    public List<String> populateStatisticDataKeys(HttpServletRequest request) {
         // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+        if(!containsForm(request.getSession(), formSessionAttribute)) {
             return null;
         }
         
         // Retrieval of the submitted monitoring type value
-        AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
+        ServiceForm aaForm = (ServiceForm) getSessionForm(request.getSession(), formSessionAttribute);
         
-	// Retrieval of the establishments types
-	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(aaForm.getEstablishmentsTypes()));
+	// Retrieval of the wanted services
+	List<String> wantedServices = new ArrayList<String>(Arrays.asList(aaForm.getWantedServices()));
+	List<String> services = dataServiceFormService.getServicesToFilter(wantedServices);
 	
-        // Retrieval of the start and end date
-        Date startDate = aaForm.getStartDate();
-        Date endDate = aaForm.getEndDate();
-        
-        return getStatisticPeriods(establishmentsTypes, startDate, endDate);
+        return services;
     }
     
     /**
@@ -127,17 +118,45 @@ public class PeriodicServiceResultController extends BasicResultController {
     @ModelAttribute("endDateItem")
     public String populateEndDate(HttpServletRequest request) {
         // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+        if(!containsForm(request.getSession(), formSessionAttribute)) {
             return null;
         }
         
         // Retrieval of the submitted monitoring type value
-        AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
+        ServiceForm aaForm = (ServiceForm) getSessionForm(request.getSession(), formSessionAttribute);
         
         // Retrieval of the end date
         String endDate = aaForm.getEndDatePicker();
         
         return endDate;
+    }
+    
+    /**
+     * Populate the field containing the list of the periods used to index the statistic data in the sub rows.<br/>
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the list of the periods used to index the statistic data.
+     */
+    @ModelAttribute("statisticPeriodsItems")
+    public List<IntegerPair> populatePeriods(HttpServletRequest request) {
+        // Checks if the there is a valid submitted form to process
+        if(!containsForm(request.getSession(), formSessionAttribute)) {
+            return null;
+        }
+        
+        // Retrieval of the submitted monitoring type value
+        ServiceForm aaForm = (ServiceForm) getSessionForm(request.getSession(), formSessionAttribute);
+        
+	// Retrieval of the establishments types
+	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(aaForm.getEstablishmentsTypes()));
+	
+        // Retrieval of the start and end date
+        Date startDate = aaForm.getStartDate();
+        Date endDate = aaForm.getEndDate();
+        
+        return getStatisticPeriods(establishmentsTypes, startDate, endDate);
     }
     
     /**
@@ -149,35 +168,64 @@ public class PeriodicServiceResultController extends BasicResultController {
      * 	the data rows of the table used to display the result of the submitted form.
      */
     @ModelAttribute("tableRowsItems")
-    public List<BasicResultRow> populateTableRows(HttpServletRequest request) {
+    public List<ExtendedResultRow> populateTableRows(HttpServletRequest request) {
 	// Checks if the there is a valid submitted form to process
-	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+	if(!containsForm(request.getSession(), formSessionAttribute)) {
 	    return null;
 	}
 	
 	// Retrieval of the submitted form
-	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
+	ServiceForm serviceForm = (ServiceForm) getSessionForm(request.getSession(), formSessionAttribute);
 	
 	// Retrieval of the establishments uai
-	List<String> establishmentsUai = new ArrayList<String>(Arrays.asList(aaForm.getEstablishments()));
+	List<String> establishmentsUai = new ArrayList<String>(Arrays.asList(serviceForm.getEstablishments()));
 	
 	// Retrieval of the establishments types
-	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(aaForm.getEstablishmentsTypes()));
+	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(serviceForm.getEstablishmentsTypes()));
 	
 	// Retrieval of the users profiles to filter
-	List<String> checkedProfiles = new ArrayList<String>(Arrays.asList(aaForm.getUsersProfiles()));
+	List<String> checkedProfiles = new ArrayList<String>(Arrays.asList(serviceForm.getUsersProfiles()));
 	String userProfileToFilter = dataServiceFormService.getUsersProfilesToFilter(checkedProfiles).get(0);
 	
 	// Retrieval of the start date and end date
-	Date startDate = aaForm.getStartDate();
-	Date endDate = aaForm.getEndDate();
+	Date startDate = serviceForm.getStartDate();
+	Date endDate = serviceForm.getEndDate();
 	
+	// Retrieval of the services to filter
+	List<String> checkedServices = new ArrayList<String>(Arrays.asList(serviceForm.getWantedServices()));
+	List<String> services = dataServiceFormService.getServicesToFilter(checkedServices);
+	 
 	// Gets the result rows to display
-	List<BasicResultRow> basicResultRows = createResultRows(establishmentsTypes, establishmentsUai, userProfileToFilter, startDate, endDate);
+	List<ExtendedResultRow> resultRows = createResultRows(establishmentsTypes, establishmentsUai, services, userProfileToFilter, startDate, endDate);
 	
-	return basicResultRows;
+	return resultRows;
     }
     
+    /**
+     * Populate the field containing the list of i18n keys for the wanted services.<br/>
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the list of the keys used to index the statistic data.
+     */
+    @ModelAttribute("wantedServicesItems")
+    public List<String> populateWantedServices(HttpServletRequest request) {
+        // Checks if the there is a valid submitted form to process
+        if(!containsForm(request.getSession(), formSessionAttribute)) {
+            return null;
+        }
+        
+        // Retrieval of the submitted monitoring type value
+        ServiceForm aaForm = (ServiceForm) getSessionForm(request.getSession(), formSessionAttribute);
+        
+        // Retrieval of the wanted services
+        List<String> wantedServices = new ArrayList<String>(Arrays.asList(aaForm.getWantedServices()));
+        List<String> i18nKeys = getI18nKeys(wantedServices);
+        
+        return i18nKeys;
+    }
+
     //----------------------------------------------------------------------------- PRIVATE METHODS
     /**
      * Creates the result rows; each result row containing the following data :
@@ -198,6 +246,8 @@ public class PeriodicServiceResultController extends BasicResultController {
      * 			The types of the establishments.
      * @param establishmentsUai
      * 			The UAI of the establishments.
+     * @param services
+     * 			The services concerned by the statistics.
      * @param userProfile
      * 			The user profile concerned by the statistics.
      * @param startDate
@@ -208,7 +258,7 @@ public class PeriodicServiceResultController extends BasicResultController {
      * @return
      * 	the result rows containing the data to display.
      */
-    private List<BasicResultRow> createResultRows( List<String> establishmentsTypes, List<String> establishmentsUai,String userProfile, Date startDate, Date endDate) {
+    private List<ExtendedResultRow> createResultRows( List<String> establishmentsTypes, List<String> establishmentsUai, List<String> services, String userProfile, Date startDate, Date endDate) {
 	// Retrieval of the start and end years
 	Integer startYear = DateUtils.getYear(startDate);
 	Integer endYear = DateUtils.getYear(endDate);
@@ -220,46 +270,12 @@ public class PeriodicServiceResultController extends BasicResultController {
 	    // If the only selected establishment type is : CFA
 	    Integer startWeek = DateUtils.getWeekOfYear(startDate);
 	    Integer endWeek = DateUtils.getWeekOfYear(endDate);
-	    return resultAccountFormService.getWeeklyResultRows(establishmentsUai, userProfile, startWeek, startYear, endWeek, endYear);
+	    return resultServiceFormService.getPeriodicWeekResultRows(establishmentsUai, services, userProfile, startWeek, startYear, endWeek, endYear);
 	}
 			
 	Integer startMonth = DateUtils.getMonthOfYear(startDate);
 	Integer endMonth = DateUtils.getMonthOfYear(endDate);
-	return resultAccountFormService.getMonthlyResultRows(establishmentsUai, userProfile, startMonth, startYear, endMonth, endYear);
-    }
-    
-    /**
-     * Gets the statistic periods present in the specified period starting with the <code>startDate</code> and ending with the <code>endDate</code>.<br/>
-     * These periods will be split by weeks if the only selected establishment type is {@link DataFormConstants#JSP_KEY_CFA}.<br/>
-     * Else, the periods will be split by months.
-     * 
-     * @param establishmentsTypes
-     * 			The establishments types selected in the user view.
-     * @param startDate
-     * 			The start
-     * @param endDate
-     * 
-     * @return
-     * 	the statistic periods.
-     */
-    private List<IntegerPair> getStatisticPeriods(List<String> establishmentsTypes, Date startDate, Date endDate) {
-	// Get the start and end years
-	Integer startYear = DateUtils.getYear(startDate);
-	Integer endYear = DateUtils.getYear(endDate);
-	
-	// Retrieval of the periods by month / or by week
-	if(	establishmentsTypes.contains(DataFormConstants.JSP_KEY_CFA) 
-		&& establishmentsTypes.size() == 1
-	) {
-	    // If the only selected establishment type is : CFA
-	    Integer startWeek = DateUtils.getWeekOfYear(startDate);
-	    Integer endWeek = DateUtils.getWeekOfYear(endDate);
-	    return DateUtils.splitWeeks(startWeek, startYear, endWeek, endYear);
-	}
-	   
-	Integer startMonth = DateUtils.getMonthOfYear(startDate);
-	Integer endMonth = DateUtils.getMonthOfYear(endDate);
-	return DateUtils.splitMonths(startMonth, startYear, endMonth, endYear);
+	return resultServiceFormService.getPeriodicMonthResultRows(establishmentsUai, services, userProfile, startMonth, startYear, endMonth, endYear);
     }
     
     //------------------------------------------------------------------------------ STATIC METHODS
