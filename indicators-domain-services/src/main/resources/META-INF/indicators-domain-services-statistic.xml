@@ -18,6 +18,7 @@
     <bean   id="establishmentVisitStatisticService" 
             class="org.esco.indicators.services.statistic.EstablishmentVisitStatisticServiceImpl">
             <property name="establishmentVisitStatisticDao" ref="establishmentVisitStatisticDao"/>
+            <property name="establishmentDao" ref="establishmentDao" />
     </bean>
     
     <bean   id="portalConnectionStatisticService" 

@@ -42,6 +42,7 @@
             <property name="accountStatisticService" ref="accountStatisticService"/>
             <property name="establishmentService" ref="establishmentService"/>
             <property name="portalConnectionStatisticService" ref="portalConnectionStatisticService"/>
+            <property name="establishmentVisitStatisticService" ref="establishmentVisitStatisticService" />
     </bean>  
     
         <!-- Service for the result page of the service form -->
