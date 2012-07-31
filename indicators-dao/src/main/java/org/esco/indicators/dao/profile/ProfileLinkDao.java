@@ -3,7 +3,7 @@
  */
 package org.esco.indicators.dao.profile;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import org.esco.indicators.domain.beans.profile.ProfileLink;
@@ -16,6 +16,9 @@ import org.esco.indicators.domain.beans.profile.ProfileLink;
  */
 public interface ProfileLinkDao {
 
+    ///////////////////////////////////////////////////////
+    // WEEKLY / MONTHLY STATISTICS
+    ///////////////////////////////////////////////////////
     /**
      * Retrieves the links which are associated to the specified establishment (<code>establishmentUai</code>)
      * and associated to the specified user profile (<code>userProfile</code>).<br/>
@@ -39,6 +42,23 @@ public interface ProfileLinkDao {
 
     /**
      * Retrieves the total number of accounts that were linked to the establishment in the period (delimited by the start date and end date).<br/>
+     * This total number of accounts does not consider a particular user profile.
+     * 
+     * @param establishmentUai
+     * 			The UAI of the establishment.
+     * @param startDate
+     * 			The start date of the period.
+     * @param endDate
+     * 			The end date of the period.
+     * 
+     * @return
+     * 	the total number of accounts linked to the establishment in the specified period.<br/>
+     * 	<code>null</code> if no data has been retrieved.
+     */
+    public Integer findTotalNumLinkedAccounts(String establishmentUai, Date startDate, Date endDate);
+    
+    /**
+     * Retrieves the total number of accounts that were linked to the establishment in the period (delimited by the start date and end date).<br/>
      * The accounts have to be associated to the specified user profile.
      * 
      * @param establishmentUai
@@ -55,4 +75,5 @@ public interface ProfileLinkDao {
      * 	<code>null</code> if no data has been retrieved.
      */
     public Integer findTotalNumLinkedAccountsForProfile(String establishmentUai, String userProfile, Date startDate, Date endDate);
+
 }

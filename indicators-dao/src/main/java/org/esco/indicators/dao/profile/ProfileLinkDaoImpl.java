@@ -3,11 +3,10 @@
  */
 package org.esco.indicators.dao.profile;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import javax.management.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -68,6 +67,27 @@ public class ProfileLinkDaoImpl implements ProfileLinkDao {
 	}
 	
 	return result;
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.profile.ProfileLinkDao#findTotalNumLinkedAccounts(java.lang.String, java.sql.Date, java.sql.Date)
+     */
+    @Override
+    public Integer findTotalNumLinkedAccounts(String establishmentUai, Date startDate, Date endDate) {
+	// Name of the query to execute
+	String namedQuery = "ProfileLink.findTotalNumLinkedAccounts";
+	
+	// Parameters setting
+	Parameters parameters = new Parameters();
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("linkStart", startDate);
+	parameters.put("linkEnd", endDate);
+	
+	// Execution of the query
+	Long queryResult = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Integer totalNumLinkedAccounts = (queryResult == null ? null : queryResult.intValue());
+	
+	return totalNumLinkedAccounts;
     }
 
     @Override
