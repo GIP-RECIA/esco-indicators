@@ -4,6 +4,7 @@
 package org.esco.indicators.services.statistic;
 
 import java.util.Date;
+import java.util.List;
 
 import org.esco.indicators.domain.beans.statistic.EstablishmentVisitStatistic;
 
@@ -38,9 +39,39 @@ public interface EstablishmentVisitStatisticService {
     ///////////////////////////////////////////////////////
     // WEEKLY STATISTICS
     ///////////////////////////////////////////////////////
+    /**
+     * Retrieves the number of visits made  on the <code>establishmentUai</code> portal.<br/>
+     * This number of visits only concerns the week having the number <code>week</code> in the year <code>year</code>.
+     * 
+     * @param establishmentUai
+     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param week
+     * 			The week number of the statistic to retrieve.
+     * @param year
+     * 			The year of the statistic to retrieve.
+     * @return
+     * 	the number of visits made on the establishment portal.<br/>
+     * 	the number 0 if no statistic has been retrieved.
+     */
+    public Integer findEstablishmentWeeklyNumVisits(String establishmentUai, Integer week, Integer year);
     
     ///////////////////////////////////////////////////////
     // MONTHLY STATISTICS
     ///////////////////////////////////////////////////////
+    /**
+     * Retrieves the number of visits made  on the <code>establishmentUai</code> portal.<br/>
+     * This number of visits only concerns the month having the number <code>month</code> in the year <code>year</code>.
+     * 
+     * @param establishmentUai
+     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param month
+     * 			The month number of the statistic to retrieve.
+     * @param year
+     * 			The year of the statistic to retrieve.
+     * @return
+     * 	the number of visits made on the establishment portal.<br/>
+     * 	the number 0 if no statistic has been retrieved.
+     */
+    public Integer findEstablishmentMonthlyNumVisits(String establishmentUai, Integer month, Integer year);
     
 }

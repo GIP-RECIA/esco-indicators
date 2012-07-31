@@ -71,6 +71,33 @@ public class EstablishmentVisitStatisticDaoImpl implements EstablishmentVisitSta
 	return establishmentVisitStatistic;
     }
 
+    ///////////////////////////////////////////////////////
+    // WEEKLY / MONTHLY STATISTICS
+    ///////////////////////////////////////////////////////
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.statistic.EstablishmentVisitStatisticDao#findWeeklyNumVisits(java.lang.String, java.util.Date, java.util.Date, java.lang.String, java.lang.String)
+     */
+    @Override
+    public Integer findNumVisits(String establishmentUai, Date startDay, Date endDay,
+	    String establishmentType, String typeStat) {
+	// Name of the query to execute
+	String namedQuery = "EstablishmentVisitStatistic.findNumVisits";
+
+	// Parameters of the query
+	Parameters parameters = new Parameters();
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("startDate", startDay);
+	parameters.put("endDate", endDay);
+	parameters.put("establishmentType", establishmentType);
+	parameters.put("typeStat", typeStat);
+	
+	// Try to retrieve the daily statistic
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);	
+	Integer numVisits = (result == null ? null : result.intValue());
+	
+	return numVisits;
+    }
+
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
 

@@ -20,4 +20,9 @@ public class ServicesConstants {
      */
     public static final Integer NUM_CONNECTIONS_TRESHOLD = 4;
     
+    /**
+     * Constant used to index global statistic data in the result rows.
+     */
+    public static final String GLOBAL_STATISTIC = "GLOBAL_STATISTIC";
+    
 }

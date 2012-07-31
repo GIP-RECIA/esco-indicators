@@ -3,12 +3,15 @@
  */
 package org.esco.indicators.services.statistic;
 
-import java.util.Date;
+import java.sql.Date;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.dao.statistic.EstablishmentVisitStatisticDao;
+import org.esco.indicators.dao.structure.EstablishmentDao;
 import org.esco.indicators.domain.beans.statistic.EstablishmentVisitStatistic;
+import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.utils.constants.db.StatisticConstants;
+import org.esco.indicators.utils.date.DateUtils;
 
 /**
  * Implementation of the {@link EstablishmentVisitStatisticService} interface.
@@ -24,6 +27,9 @@ public class EstablishmentVisitStatisticServiceImpl implements EstablishmentVisi
     /** {@link EstablishmentVisitStatisticDao} providing access to statistical data. */
     private EstablishmentVisitStatisticDao establishmentVisitStatisticDao;
 
+    /** {@link EstablishmentDao} providing access to establishment data. */
+    private EstablishmentDao establishmentDao;
+    
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
      * Default constructor of the EstablishmentVisitStatisticServiceImpl class.
@@ -54,6 +60,9 @@ public class EstablishmentVisitStatisticServiceImpl implements EstablishmentVisi
     }
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
+    ///////////////////////////////////////////////////////
+    // DAILY STATISTICS
+    ///////////////////////////////////////////////////////
     /* (non-Javadoc)
      * @see org.esco.indicators.services.statistic.EstablishmentVisitStatisticService#findDailyStatistic(java.lang.String, java.util.Date)
      */
@@ -62,6 +71,58 @@ public class EstablishmentVisitStatisticServiceImpl implements EstablishmentVisi
 	// The type of statistic required : Statistic concerning only one establishment 
 	String typeStat = StatisticConstants.TYPE_STAT_ESTABLISHMENT;
 	return establishmentVisitStatisticDao.findDailyStatistic(day, establishmentType, establishmentUai, typeStat);
+    }
+
+    ///////////////////////////////////////////////////////
+    // WEEKLY STATISTICS
+    ///////////////////////////////////////////////////////
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.EstablishmentVisitStatisticService#findWeeklyNumVisits(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Integer findEstablishmentWeeklyNumVisits(String establishmentUai, Integer week, Integer year) {
+	// The type of statistic required : Statistic concerning only one establishment 
+	String typeStat = StatisticConstants.TYPE_STAT_ESTABLISHMENT;
+	
+	// The type of the establishment
+	Establishment establishment = establishmentDao.findEstablishmentByUai(establishmentUai);
+	if(establishment == null) {
+	    LOGGER.warn("The weekly number of visits can be retrieved, because there is no establishment associated to the UAI : [" + establishmentUai+ "]");
+	    return null;
+	}
+	String establishmentType = establishment.getType();
+	
+	// Gets the first and last days of the week
+	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
+	Date lastWeekDay = DateUtils.addDays(firstWeekDay, 6);
+	
+	return establishmentVisitStatisticDao.findNumVisits(establishmentUai, firstWeekDay, lastWeekDay, establishmentType, typeStat);
+    }
+
+    ///////////////////////////////////////////////////////
+    // MONTHLY STATISTICS
+    ///////////////////////////////////////////////////////
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.EstablishmentVisitStatisticService#findMonthlyNumVisits(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Integer findEstablishmentMonthlyNumVisits(String establishmentUai, Integer month, Integer year) {
+	// The type of statistic required : Statistic concerning only one establishment 
+	String typeStat = StatisticConstants.TYPE_STAT_ESTABLISHMENT;
+	
+	// The type of the establishment
+	Establishment establishment = establishmentDao.findEstablishmentByUai(establishmentUai);
+	if(establishment == null) {
+	    LOGGER.warn("The monthly number of visits can be retrieved, because there is no establishment associated to the UAI : [" + establishmentUai+ "]");
+	    return null;
+	}
+	String establishmentType = establishment.getType();
+	
+	// Gets the first and last days of the month
+	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
+	Date lastMonthDay = DateUtils.getLastMonthDay(month, year);
+	
+	return establishmentVisitStatisticDao.findNumVisits(establishmentUai, firstMonthDay, lastMonthDay, establishmentType, typeStat);
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS

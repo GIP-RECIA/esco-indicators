@@ -31,7 +31,16 @@ import org.apache.log4j.Logger;
 	    		+ " WHERE evs.establishmentUai = :establishmentUai" 
 	    		+ " AND evs.day = :day AND evs.establishmentType = :establishmentType"
 	    		+ " AND evs.typeStat = :typeStat"
-	    )
+	    ),
+  @NamedQuery(
+    name = "EstablishmentVisitStatistic.findNumVisits",
+    query = "SELECT SUM(evs.numVisits) FROM EstablishmentVisitStatistic evs"
+    		+ " WHERE evs.establishmentUai = :establishmentUai" 
+    		+ " AND evs.day BETWEEN :startDate AND :endDate"
+    		+ " AND evs.establishmentType = :establishmentType"
+    		+ " AND evs.typeStat = :typeStat"
+
+    )
 })
 @Table(name = "nombredevisiteurs")
 public class EstablishmentVisitStatistic implements Serializable {
