@@ -16,6 +16,21 @@ import org.esco.indicators.domain.beans.account.AccountActivation;
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public interface AccountActivationDao extends StatisticDao {
+    /**
+     * Retrieves the number of activated accounts in the specified establishment between the start date (<code>startDate</code>) and the end date (<code>endDate</code>).<br/>
+     * 
+     * @param establishmentUai
+     * 			UAI of the establishment.
+     * @param startDate
+     * 			The start date of account activation.
+     * @param endDate
+     * 			The end date of account activation.
+     * 
+     * @return
+     * 	the number of actived accounts in the establishment, during the specified period.<br/>
+     * 	<code>null</code> if no data has been retrieved.
+     */
+    public Integer findNumActivatedAccounts(String establishmentUai, Date startDate, Date endDate);
     
     /**
      * Retrieves the number of activated accounts in the specified establishment between the start date (<code>startDate</code>) and the end date (<code>endDate</code>).<br/>

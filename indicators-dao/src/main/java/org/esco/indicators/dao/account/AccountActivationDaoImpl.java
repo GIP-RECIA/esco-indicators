@@ -41,6 +41,27 @@ public class AccountActivationDaoImpl implements AccountActivationDao {
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /* (non-Javadoc)
+     * @see org.esco.indicators.dao.account.AccountActivationDao#findNumActivatedAccounts(java.lang.String, java.util.Date, java.util.Date)
+     */
+    @Override
+    public Integer findNumActivatedAccounts(String establishmentUai, Date startDate, Date endDate) {
+	// Name of the query to execute
+	String namedQuery = "AccountActivation.findNumActivatedAccounts";
+	
+	// Parameters setting
+	Parameters parameters = new Parameters();
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("activationStart", startDate);
+	parameters.put("activationEnd", endDate);
+	
+	// Execution of the query
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Integer numActivatedAccounts = (result != null ? result.intValue() : null);
+	
+	return numActivatedAccounts;
+    }
+    
+    /* (non-Javadoc)
      * @see org.esco.indicators.dao.account.AccountActivationDao#findNumActivatedAccountsBetween(java.lang.String, java.lang.String, java.util.Date, java.util.Date)
      */
     @Override
