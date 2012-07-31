@@ -48,9 +48,9 @@ public interface EstablishmentVisitStatisticDao extends StatisticDao {
      * 
      * @param establishmentUai
      * 			The UAI of the establishment.
-     * @param startDay
+     * @param startDate
      * 			The start day of the statistic to retrieve.
-     * @param endDay
+     * @param endDate
      * 			The end day of the statistic to retrieve.
      * @param establishmentType
      * 			The type of the establishment.
@@ -61,6 +61,6 @@ public interface EstablishmentVisitStatisticDao extends StatisticDao {
      * 	the number of visits retrieved.<br/>
      * 	<code>null</code> if no statistic has been retrieved.
      */
-    public Integer findNumVisits(String establishmentUai, Date startDay, Date endDay, String establishmentType, String typeStat);
+    public Integer findNumVisits(String establishmentUai, Date startDate, Date endDate, String establishmentType, String typeStat);
     
 }
