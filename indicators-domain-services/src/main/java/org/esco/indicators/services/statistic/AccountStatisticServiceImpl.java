@@ -69,6 +69,23 @@ public class AccountStatisticServiceImpl implements AccountStatisticService {
     ///////////////////////////////////////////////////////
     
     /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.AccountStatisticService#findWeeklyNumActivatedAccounts(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Integer findWeeklyNumActivatedAccounts(String establishmentUai, Integer week, Integer year) {
+	// Gets the first and last days of the week
+	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
+	Date lastWeekDay = DateUtils.addDays(firstWeekDay, 6);
+	
+	// Gets the number of activated accounts
+	Integer numActivatedAccounts = accountActivationDao.findNumActivatedAccounts(establishmentUai, firstWeekDay, lastWeekDay);
+	numActivatedAccounts = (numActivatedAccounts == null ? 0 : numActivatedAccounts);
+	
+         return numActivatedAccounts;
+    }
+
+
+    /* (non-Javadoc)
      * @see org.esco.indicators.services.statistic.AccountStatisticService#findWeeklyNumActivatedAccountsForProfile(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     @Override
@@ -98,6 +115,22 @@ public class AccountStatisticServiceImpl implements AccountStatisticService {
     }
 
     /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.AccountStatisticService#findWeeklyTotalNumAccounts(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Integer findWeeklyTotalNumAccounts(String establishmentUai, Integer week, Integer year) {
+	// Get the  dates corresponding to the first (and last) days of the week for the year
+	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
+	Date lastWeekDay = DateUtils.addDays(firstWeekDay, 6);
+	
+	// Get the total number of accounts for this week
+	Integer totalNumAccounts = profileLinkDao.findTotalNumLinkedAccounts(establishmentUai, firstWeekDay, lastWeekDay);
+	totalNumAccounts = (totalNumAccounts == null ? 0 : totalNumAccounts);
+	
+	return totalNumAccounts;
+    }
+
+    /* (non-Javadoc)
      * @see org.esco.indicators.services.statistic.AccountStatisticService#findWeeklyTotalNumAccounts(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     @Override
@@ -115,6 +148,16 @@ public class AccountStatisticServiceImpl implements AccountStatisticService {
     ///////////////////////////////////////////////////////
     // MONTHLY STATISTICS
     ///////////////////////////////////////////////////////   
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.AccountStatisticService#findMonthlyNumActivatedAccounts(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Integer findMonthlyNumActivatedAccounts(String establishmentUai, Integer month, Integer year) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 
     /* (non-Javadoc)
      * @see org.esco.indicators.services.statistic.AccountStatisticService#findMonthlyNumActivatedAccountsForProfile(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
@@ -144,6 +187,21 @@ public class AccountStatisticServiceImpl implements AccountStatisticService {
 	return findNumActivatedAccounts(establishmentUai, usersProfiles, firstMonthDay, lastMonthDay);
     }
 
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.AccountStatisticService#findMonthlyTotalNumAccounts(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Integer findMonthlyTotalNumAccounts(String establishmentUai, Integer month, Integer year) {
+	// Get the  dates corresponding to the first (and last) days of the week for the year
+	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
+	Date lastMonthDay = DateUtils.getLastMonthDay(month, year);
+	
+	// Get the total number of accounts for this week
+	Integer totalNumAccounts = profileLinkDao.findTotalNumLinkedAccounts(establishmentUai, firstMonthDay, lastMonthDay);
+	totalNumAccounts = (totalNumAccounts == null ? 0 : totalNumAccounts);
+	
+	return totalNumAccounts;
+    }
 
     /* (non-Javadoc)
      * @see org.esco.indicators.services.statistic.AccountStatisticService#findMonthlyTotalNumAccountsForProfile(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)

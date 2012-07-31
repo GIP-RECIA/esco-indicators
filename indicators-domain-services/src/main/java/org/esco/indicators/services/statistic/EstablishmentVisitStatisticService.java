@@ -3,8 +3,7 @@
  */
 package org.esco.indicators.services.statistic;
 
-import java.util.Date;
-import java.util.List;
+import java.sql.Date;
 
 import org.esco.indicators.domain.beans.statistic.EstablishmentVisitStatistic;
 
