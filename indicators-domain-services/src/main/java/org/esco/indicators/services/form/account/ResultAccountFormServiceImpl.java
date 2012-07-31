@@ -8,11 +8,15 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.result.EstablishmentData;
+import org.esco.indicators.domain.beans.result.ExtendedResultRow;
+import org.esco.indicators.domain.beans.result.PeriodicAccountStatistic;
 import org.esco.indicators.domain.beans.result.PunctualAccountStatistic;
 import org.esco.indicators.domain.beans.result.BasicResultRow;
+import org.esco.indicators.domain.beans.statistic.EstablishmentVisitStatistic;
 import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.services.constants.ServicesConstants;
 import org.esco.indicators.services.statistic.AccountStatisticService;
+import org.esco.indicators.services.statistic.EstablishmentVisitStatisticService;
 import org.esco.indicators.services.statistic.PortalConnectionStatisticService;
 import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.classes.IntegerPair;
@@ -34,6 +38,9 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
     
     /** Service providing access to establishment data */
     private EstablishmentService establishmentService;
+    
+    /** Service providing access to establishment visits / visitors */
+    private EstablishmentVisitStatisticService establishmentVisitStatisticService;
     
     /** Service providing access to the portal connection statistics */
     private PortalConnectionStatisticService portalConnectionStatisticService;
@@ -61,6 +68,17 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      */
     public void setEstablishmentService(EstablishmentService establishmentService) {
         this.establishmentService = establishmentService;
+    }
+
+    
+    /**
+     * Sets the service providing statistics on establishment visits / visitors.
+     * 
+     * @param establishmentVisitStatistic 
+     * 			The service to set.
+     */
+    public void setEstablishmentVisitStatisticService(EstablishmentVisitStatisticService establishmentVisitStatisticService) {
+        this.establishmentVisitStatisticService = establishmentVisitStatisticService;
     }
 
     /**
@@ -95,6 +113,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	//	Creation of the corresponding result row
 	//	Addition of the establishment data in the result row
 	//	Addition of the statistic data in the result row (for each user profile)
+	//	Addition of the global statistic
 	for (String uai : establishmentsUai) {
 	    BasicResultRow basicResultRow = new BasicResultRow();
 	    basicResultRow.setEstablishmentData(getEstablishmentData(uai));
@@ -102,6 +121,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 		PunctualAccountStatistic statistic = createPunctualWeekStatisticData(uai, profile, week, year);
 		basicResultRow.putStatisticData(profile, statistic);
 	    }
+	    basicResultRow.putStatisticData(ServicesConstants.GLOBAL_STATISTIC, createGlobalWeekStatisticData(uai, week, year));
 	    rows.add(basicResultRow);
 	}
 	
@@ -199,6 +219,44 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
+    
+    /**
+     * Creates a global statistic concerning the specified establishment.<br/>
+     * This statistic only concerns the specified week and year.<br/>
+     * 
+     * This statistic gives informations about the accounts in the establishment without considering a particular user profile.
+     * 
+     * @param establishmentUai
+     * 			The UAI of the establishment.
+     * @param week
+     * 			The week number.
+     * @param year
+     * 			The year number.
+     * 
+     * @return
+     * 	the global statistic.
+     */
+    private PeriodicAccountStatistic createGlobalWeekStatisticData(String establishmentUai, Integer week, Integer year) {
+	// Retrieval of the total account number
+	Integer totalAccountNumber = accountStatisticService.findWeeklyTotalNumAccounts(establishmentUai, week, year);
+	
+	// Retrieval of the number of activated accounts
+	Integer numActivatedAccounts = accountStatisticService.findWeeklyNumActivatedAccounts(establishmentUai, week, year);
+	
+	// Retrieval of the statistics visitors with a number of portal connections below / above a treshold
+	Integer treshold = ServicesConstants.NUM_CONNECTIONS_TRESHOLD;
+	Integer numVisitorsAboveTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsAboveTreshold(establishmentUai, week, year, treshold);
+	Integer numVisitorsBelowTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTreshold(establishmentUai, week, year, treshold);
+	
+	// Retrieval of the statistics visits
+	Integer numVisits = establishmentVisitStatisticService.findEstablishmentWeeklyNumVisits(establishmentUai, week, year);
+	
+	// Creation of the statistic data
+	PeriodicAccountStatistic data = new PeriodicAccountStatistic(totalAccountNumber, numActivatedAccounts, numVisitorsBelowTreshold, numVisitorsAboveTreshold, numVisits);
+
+	return data;
+    }
+    
     /**
      * Retrieves data and creates the statistic data for a specified :
      * <ul>
@@ -229,8 +287,8 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	
 	// Retrieval of the statistics visitors with a number of portal connections below / above a treshold
 	Integer treshold = ServicesConstants.NUM_CONNECTIONS_TRESHOLD;
-	Integer numVisitorsAboveTreshold = portalConnectionStatisticService.findMonthlyNumVisitorsAboveTreshold(establishmentUai, userProfile, month, year, treshold);
-	Integer numVisitorsBelowTreshold = portalConnectionStatisticService.findMonthlyNumVisitorsBelowTreshold(establishmentUai, userProfile, month, year, treshold);
+	Integer numVisitorsAboveTreshold = portalConnectionStatisticService.findMonthlyNumVisitorsAboveTresholdByProfile(establishmentUai, userProfile, month, year, treshold);
+	Integer numVisitorsBelowTreshold = portalConnectionStatisticService.findMonthlyNumVisitorsBelowTresholdByProfile(establishmentUai, userProfile, month, year, treshold);
 	
 	// Creation of the statistic data
 	PunctualAccountStatistic data = new PunctualAccountStatistic(totalAccountNumber, numActivatedAccounts, numVisitorsBelowTreshold, numVisitorsAboveTreshold);
@@ -268,8 +326,8 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	
 	// Retrieval of the statistics visitors with a number of portal connections below / above a treshold
 	Integer treshold = ServicesConstants.NUM_CONNECTIONS_TRESHOLD;
-	Integer numVisitorsAboveTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsAboveTreshold(establishmentUai, userProfile, week, year, treshold);
-	Integer numVisitorsBelowTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTreshold(establishmentUai, userProfile, week, year, treshold);
+	Integer numVisitorsAboveTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsAboveTresholdByProfile(establishmentUai, userProfile, week, year, treshold);
+	Integer numVisitorsBelowTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTresholdByProfile(establishmentUai, userProfile, week, year, treshold);
 	
 	// Creation of the statistic data
 	PunctualAccountStatistic data = new PunctualAccountStatistic(totalAccountNumber, numActivatedAccounts, numVisitorsBelowTreshold, numVisitorsAboveTreshold);

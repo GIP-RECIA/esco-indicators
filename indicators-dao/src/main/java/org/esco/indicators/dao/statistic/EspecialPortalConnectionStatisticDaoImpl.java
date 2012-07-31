@@ -3,7 +3,8 @@
  */
 package org.esco.indicators.dao.statistic;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -47,6 +48,26 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
     // WEEKLY STATISTICS
     ///////////////////////////////////////////////////////
     
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findWeeklyNumConnections(java.lang.String, java.sql.Date)
+     */
+    @Override
+    public Integer findWeeklyNumConnections(String establishmentUai, Date firstWeekDay) {
+	// Name of the query to execute
+	String namedQuery = "EspecialWeeklyPortalConnectionStatistic.findNumConnections";
+	
+	// Setting of the parameters
+	Parameters parameters = new Parameters();
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("firstWeekDay", firstWeekDay);
+	
+	// Retrieval of the result
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Integer numConnections = (result != null ? result.intValue() : 0);
+	
+	return numConnections;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -74,13 +95,35 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findWeeklyNumVisitorsAboveTreshold(java.lang.String, java.util.Date, java.lang.String, java.lang.Integer)
+     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findWeeklyNumVisitorsAboveTreshold(java.lang.String, java.sql.Date, java.lang.Integer)
      */
     @Override
     public Integer findWeeklyNumVisitorsAboveTreshold(String establishmentUai, Date firstWeekDay,
-            String userProfile, Integer treshold) {
+            Integer treshold) {
 	// Name of the query to execute
 	String namedQuery = "EspecialWeeklyPortalConnectionStatistic.findNumVisitorsAboveTreshold";
+	
+	// Setting of the parameters
+	Parameters parameters = new Parameters();
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("firstWeekDay", firstWeekDay);
+	parameters.put("treshold", treshold);
+	
+	// Retrieval of the result
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Integer numVisitors = (result != null ? result.intValue() : 0);
+	
+	return numVisitors;
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findWeeklyNumVisitorsAboveTreshold(java.lang.String, java.util.Date, java.lang.String, java.lang.Integer)
+     */
+    @Override
+    public Integer findWeeklyNumVisitorsAboveTresholdByProfile(String establishmentUai, Date firstWeekDay,
+            String userProfile, Integer treshold) {
+	// Name of the query to execute
+	String namedQuery = "EspecialWeeklyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfile";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
@@ -97,13 +140,35 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findWeeklyNumVisitorsBelowTreshold(java.lang.String, java.util.Date, java.lang.String, java.lang.Integer)
+     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findWeeklyNumVisitorsBelowTreshold(java.lang.String, java.sql.Date, java.lang.Integer)
      */
     @Override
     public Integer findWeeklyNumVisitorsBelowTreshold(String establishmentUai, Date firstWeekDay,
-	    String userProfile, Integer treshold) {
+            Integer treshold) {
 	// Name of the query to execute
 	String namedQuery = "EspecialWeeklyPortalConnectionStatistic.findNumVisitorsBelowTreshold";
+	
+	// Setting of the parameters
+	Parameters parameters = new Parameters();
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("firstWeekDay", firstWeekDay);
+	parameters.put("treshold", treshold);
+	
+	// Retrieval of the result
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Integer numVisitors = (result != null ? result.intValue() : 0);
+	
+	return numVisitors;
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findWeeklyNumVisitorsBelowTreshold(java.lang.String, java.util.Date, java.lang.String, java.lang.Integer)
+     */
+    @Override
+    public Integer findWeeklyNumVisitorsBelowTresholdByProfile(String establishmentUai, Date firstWeekDay,
+	    String userProfile, Integer treshold) {
+	// Name of the query to execute
+	String namedQuery = "EspecialWeeklyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfile";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
@@ -123,6 +188,26 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
     ///////////////////////////////////////////////////////
     // MONTHLY STATISTICS
     ///////////////////////////////////////////////////////
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findMonthlyNumConnections(java.lang.String, java.sql.Date)
+     */
+    @Override
+    public Integer findMonthlyNumConnections(String establishmentUai, Date firstMonthDay) {
+	// Name of the query to execute
+	String namedQuery = "EspecialMonthlyPortalConnectionStatistic.findNumConnectionsByProfile";
+	
+	// Setting of the parameters
+	Parameters parameters = new Parameters();
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("firstMonthDay", firstMonthDay);
+	
+	// Retrieval of the result
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Integer numConnections = (result != null ? result.intValue() : 0);
+	
+	return numConnections;
+    }
+    
     /* (non-Javadoc)
      * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findMonthlyNumConnectionsByProfile(java.lang.String, java.util.Date, java.lang.String)
      */
@@ -146,13 +231,34 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findMonthlyNumVisitorsAboveTreshold(java.lang.String, java.util.Date, java.lang.String, java.lang.Integer)
+     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findMonthlyNumVisitorsAboveTreshold(java.lang.String, java.sql.Date, java.lang.Integer)
      */
     @Override
     public Integer findMonthlyNumVisitorsAboveTreshold(String establishmentUai, Date firstMonthDay,
+            Integer treshold) {
+	String namedQuery = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsAboveTreshold";
+	
+	// Setting of the parameters
+	Parameters parameters = new Parameters();
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("firstMonthDay", firstMonthDay);
+	parameters.put("treshold", treshold);
+	
+	// Retrieval of the result
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Integer numVisitors = (result != null ? result.intValue() : 0);
+	
+	return numVisitors;
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findMonthlyNumVisitorsAboveTreshold(java.lang.String, java.util.Date, java.lang.String, java.lang.Integer)
+     */
+    @Override
+    public Integer findMonthlyNumVisitorsAboveTresholdByProfile(String establishmentUai, Date firstMonthDay,
 	    String userProfile, Integer treshold) {
 	// Name of the query to execute
-	String namedQuery = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsAboveTreshold";
+	String namedQuery = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfile";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
@@ -169,13 +275,35 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findMonthlyNumVisitorsBelowTreshold(java.lang.String, java.util.Date, java.lang.String, java.lang.Integer)
+     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findMonthlyNumVisitorsBelowTreshold(java.lang.String, java.sql.Date, java.lang.Integer)
      */
     @Override
     public Integer findMonthlyNumVisitorsBelowTreshold(String establishmentUai, Date firstMonthDay,
-	    String userProfile, Integer treshold) {
+            Integer treshold) {
 	// Name of the query to execute
 	String namedQuery = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsBelowTreshold";
+	
+	// Setting of the parameters
+	Parameters parameters = new Parameters();
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("firstMonthDay", firstMonthDay);
+	parameters.put("treshold", treshold);
+	
+	// Retrieval of the result
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Integer numVisitors = (result != null ? result.intValue() : 0);
+	
+	return numVisitors;
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findMonthlyNumVisitorsBelowTreshold(java.lang.String, java.util.Date, java.lang.String, java.lang.Integer)
+     */
+    @Override
+    public Integer findMonthlyNumVisitorsBelowTresholdByProfile(String establishmentUai, Date firstMonthDay,
+	    String userProfile, Integer treshold) {
+	// Name of the query to execute
+	String namedQuery = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfile";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();

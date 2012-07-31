@@ -58,6 +58,17 @@ public class EstablishmentVisitStatisticServiceImpl implements EstablishmentVisi
 	    EstablishmentVisitStatisticDao establishmentVisitStatisticDao) {
 	this.establishmentVisitStatisticDao = establishmentVisitStatisticDao;
     }
+    
+
+    /**
+     * Sets the DAO providing access to establishment data.
+     * 
+     * @param establishmentDao 
+     * 			the DAO, providing access to establishment data, to set.
+     */
+    public void setEstablishmentDao(EstablishmentDao establishmentDao) {
+        this.establishmentDao = establishmentDao;
+    }
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     ///////////////////////////////////////////////////////

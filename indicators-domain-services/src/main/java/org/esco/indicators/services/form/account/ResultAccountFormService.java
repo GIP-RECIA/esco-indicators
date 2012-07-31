@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
 import org.esco.indicators.domain.beans.result.BasicResultRow;
+import org.esco.indicators.services.constants.ServicesConstants;
 
 /**
  * Interface providing functions for retrieving the result data to put into the result web page
@@ -30,7 +31,8 @@ public interface ResultAccountFormService {
      * 	<li>The statistic data  (number of active accounts,...) indexed by user profile</li>
      * </ul>
      * In fact, in each result row, there is one statistic data per user profile.<br/>
-     * Moreover, each result row contains a statistic data that represents a global statistic on all the accounts of the establishment.<br/>
+     * Moreover, each result row contains a statistic data that represents a global statistic on all the accounts of the establishment.
+     * This global statistic is indexed by the string : {@link ServicesConstants#GLOBAL_STATISTIC}.<br/>
      * For more informations on the result row content, see {@link BasicResultRow}.
      * 
      * @param establishmentsUai

@@ -68,7 +68,7 @@ public class PortalConnectionStatisticServiceTest {
     }
     
     /**
-     * Test method for {@link org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumVisitorsBelowTreshold(String, String, Integer, Integer, Integer)}.<br/>
+     * Test method for {@link org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumVisitorsBelowTresholdByProfile(String, String, Integer, Integer, Integer)}.<br/>
      *
      * Tests the number of visitors on the portal for a specified :
      * <ul>
@@ -97,13 +97,13 @@ public class PortalConnectionStatisticServiceTest {
 	String userProfile = "Teacher";
 	Integer treshold = 8;
 	
-	Integer actual = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTreshold(establishmentUai, userProfile, weekNumber, year, treshold);
+	Integer actual = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTresholdByProfile(establishmentUai, userProfile, weekNumber, year, treshold);
 	
 	Assert.assertEquals(expected, actual);
     }
     
     /**
-     * Test method for {@link org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumVisitorsBelowTreshold(String, String, Integer, Integer, Integer)}.<br/>
+     * Test method for {@link org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumVisitorsBelowTresholdByProfile(String, String, Integer, Integer, Integer)}.<br/>
      *
      * Tests the number of visitors on the portal for a specified :
      * <ul>
@@ -132,7 +132,7 @@ public class PortalConnectionStatisticServiceTest {
 	String userProfile = "Teacher";
 	Integer treshold = 12;
 	
-	Integer actual = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTreshold(establishmentUai, userProfile, weekNumber, year, treshold);
+	Integer actual = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTresholdByProfile(establishmentUai, userProfile, weekNumber, year, treshold);
 	
 	Assert.assertEquals(expected, actual);
     }
