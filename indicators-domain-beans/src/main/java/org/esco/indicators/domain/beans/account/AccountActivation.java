@@ -24,10 +24,20 @@ import org.apache.log4j.Logger;
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 @Entity
-@NamedQueries({
+@NamedQueries({    
+    @NamedQuery(
+	    name = "AccountActivation.findNumActivatedAccounts",
+	    query = "SELECT COUNT( aa.userUid ) FROM AccountActivation aa, ProfileLink pl"
+	    	+ " WHERE aa.activationStart <= :activationStart"
+		+ " AND ( aa.activationEnd >= :activationEnd OR aa.activationEnd IS NULL)"
+	    	+ " AND aa.userUid = pl.userUid"
+		+ " AND pl.establishmentUai = :establishmentUai"
+	    	+ " AND pl.linkStart <= :activationStart"
+		+ " AND ( pl.linkEnd >= :activationEnd OR pl.linkEnd IS NULL)"
+	    ),
     @NamedQuery(
 	    name = "AccountActivation.findNumActivatedAccountsForProfiles",
-	    query = "SELECT COUNT( aa ) FROM AccountActivation aa, ProfileLink pl"
+	    query = "SELECT COUNT( aa.userUid ) FROM AccountActivation aa, ProfileLink pl"
 	    	+ " WHERE aa.activationStart <= :activationStart"
 		+ " AND ( aa.activationEnd >= :activationEnd OR aa.activationEnd IS NULL)"
 	    	+ " AND aa.userUid = pl.userUid"
