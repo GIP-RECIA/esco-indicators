@@ -37,11 +37,25 @@ import org.apache.log4j.Logger;
 	    query = "SELECT SUM(wpcs.numUsers) FROM WeeklyPortalConnectionStatistic wpcs"
 	    	+ " WHERE wpcs.establishmentUai = :establishmentUai"
 		+ " AND wpcs.firstWeekDay = :firstWeekDay "
+		+ " AND wpcs.numConnections <= :treshold"
+	    ),	    
+    @NamedQuery(
+	    name = "WeeklyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfile",
+	    query = "SELECT SUM(wpcs.numUsers) FROM WeeklyPortalConnectionStatistic wpcs"
+	    	+ " WHERE wpcs.establishmentUai = :establishmentUai"
+		+ " AND wpcs.firstWeekDay = :firstWeekDay "
 	    	+ " AND wpcs.userProfile = :userProfile"
 		+ " AND wpcs.numConnections <= :treshold"
 	    ),
     @NamedQuery(
-	name = "WeeklyPortalConnectionStatistic.findNumVisitorsAboveTreshold",
+	    name = "WeeklyPortalConnectionStatistic.findNumVisitorsAboveTreshold",
+	    query = "SELECT SUM(wpcs.numUsers) FROM WeeklyPortalConnectionStatistic wpcs"
+		+ " WHERE wpcs.establishmentUai = :establishmentUai"
+		+ " AND wpcs.firstWeekDay = :firstWeekDay "
+		+ " AND wpcs.numConnections > :treshold"
+	),
+    @NamedQuery(
+	name = "WeeklyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfile",
 	query = "SELECT SUM(wpcs.numUsers) FROM WeeklyPortalConnectionStatistic wpcs"
 		+ " WHERE wpcs.establishmentUai = :establishmentUai"
 		+ " AND wpcs.firstWeekDay = :firstWeekDay "

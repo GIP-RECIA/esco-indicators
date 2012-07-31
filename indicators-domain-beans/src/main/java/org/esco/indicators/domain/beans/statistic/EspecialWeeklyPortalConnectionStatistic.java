@@ -26,7 +26,13 @@ import org.apache.log4j.Logger;
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 @Entity
-@NamedQueries({
+@NamedQueries({    
+    @NamedQuery(
+	    name = "EspecialWeeklyPortalConnectionStatistic.findNumConnections",
+	    query = "SELECT SUM(ewpcs.numConnections) FROM EspecialWeeklyPortalConnectionStatistic ewpcs"
+	    	+ " WHERE ewpcs.establishmentUai = :establishmentUai"
+		+ " AND ewpcs.firstWeekDay = :firstWeekDay"
+	    ),
     @NamedQuery(
 	    name = "EspecialWeeklyPortalConnectionStatistic.findNumConnectionsByProfile",
 	    query = "SELECT SUM(ewpcs.numConnections) FROM EspecialWeeklyPortalConnectionStatistic ewpcs"
@@ -34,15 +40,29 @@ import org.apache.log4j.Logger;
 		+ " AND ewpcs.firstWeekDay = :firstWeekDay AND ewpcs.userProfile = :userProfile"
 	    ),
     @NamedQuery(
-	    name = "EspecialWeeklyPortalConnectionStatistic.findNumVisitorsBelowTreshold",
+	    name = "EspecialWeeklyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfile",
 	    query = "SELECT COUNT( DISTINCT ewpcs.userUid ) FROM EspecialWeeklyPortalConnectionStatistic ewpcs"
 	    	+ " WHERE ewpcs.establishmentUai = :establishmentUai"
 		+ " AND ewpcs.firstWeekDay = :firstWeekDay " 
 	    	+ " AND ewpcs.userProfile = :userProfile"
 		+ " AND ewpcs.numConnections <= :treshold"
+	    ),    
+    @NamedQuery(
+	    name = "EspecialWeeklyPortalConnectionStatistic.findNumVisitorsBelowTreshold",
+	    query = "SELECT COUNT( DISTINCT ewpcs.userUid ) FROM EspecialWeeklyPortalConnectionStatistic ewpcs"
+	    	+ " WHERE ewpcs.establishmentUai = :establishmentUai"
+		+ " AND ewpcs.firstWeekDay = :firstWeekDay " 
+		+ " AND ewpcs.numConnections <= :treshold"
+	    ),    
+    @NamedQuery(
+	    name = "EspecialWeeklyPortalConnectionStatistic.findNumVisitorsAboveTreshold",
+	    query = "SELECT COUNT( DISTINCT ewpcs.userUid ) FROM EspecialWeeklyPortalConnectionStatistic ewpcs"
+		+ " WHERE ewpcs.establishmentUai = :establishmentUai"
+		+ " AND ewpcs.firstWeekDay = :firstWeekDay " 
+		+ " AND ewpcs.numConnections > :treshold"
 	    ),
     @NamedQuery(
-	name = "EspecialWeeklyPortalConnectionStatistic.findNumVisitorsAboveTreshold",
+	name = "EspecialWeeklyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfile",
 	query = "SELECT COUNT( DISTINCT ewpcs.userUid ) FROM EspecialWeeklyPortalConnectionStatistic ewpcs"
 		+ " WHERE ewpcs.establishmentUai = :establishmentUai"
 		+ " AND ewpcs.firstWeekDay = :firstWeekDay " 

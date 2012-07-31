@@ -26,15 +26,28 @@ import org.apache.log4j.Logger;
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 @Entity
-@NamedQueries({
+@NamedQueries({    
+    @NamedQuery(
+	    name = "EspecialMonthlyPortalConnectionStatistic.findNumConnections",
+	    query = "SELECT SUM(empcs.numConnections) FROM EspecialMonthlyPortalConnectionStatistic empcs"
+	    	+ " WHERE empcs.establishmentUai = :establishmentUai"
+		+ " AND empcs.firstMonthDay = :firstMonthDay"
+    	    ),
     @NamedQuery(
 	    name = "EspecialMonthlyPortalConnectionStatistic.findNumConnectionsByProfile",
 	    query = "SELECT SUM(empcs.numConnections) FROM EspecialMonthlyPortalConnectionStatistic empcs"
 	    	+ " WHERE empcs.establishmentUai = :establishmentUai"
 		+ " AND empcs.firstMonthDay = :firstMonthDay AND empcs.userProfile = :userProfile"
     	    ),
+     @NamedQuery(
+ 	    name = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsBelowTreshold",
+	    query = "SELECT COUNT( DISTINCT empcs.userUid ) FROM EspecialMonthlyPortalConnectionStatistic empcs"
+		+ " WHERE empcs.establishmentUai = :establishmentUai"
+		+ " AND empcs.firstMonthDay = :firstMonthDay" 
+		+ " AND empcs.numConnections <= :treshold"
+	    ),
     @NamedQuery(
-	    name = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsBelowTreshold",
+	    name = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfile",
 	    query = "SELECT COUNT( DISTINCT empcs.userUid ) FROM EspecialMonthlyPortalConnectionStatistic empcs"
 		+ " WHERE empcs.establishmentUai = :establishmentUai"
 		+ " AND empcs.firstMonthDay = :firstMonthDay" 
@@ -42,7 +55,14 @@ import org.apache.log4j.Logger;
 		+ " AND empcs.numConnections <= :treshold"
 	    ),
     @NamedQuery(
-	name = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsAboveTreshold",
+	    name = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsAboveTreshold",
+	    query = "SELECT COUNT( DISTINCT empcs.userUid ) FROM EspecialMonthlyPortalConnectionStatistic empcs"
+		+ " WHERE empcs.establishmentUai = :establishmentUai"
+		+ " AND empcs.firstMonthDay = :firstMonthDay" 
+		+ " AND empcs.numConnections > :treshold"
+	    ),
+    @NamedQuery(
+	name = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfile",
 	query = "SELECT COUNT( DISTINCT empcs.userUid ) FROM EspecialMonthlyPortalConnectionStatistic empcs"
 		+ " WHERE empcs.establishmentUai = :establishmentUai"
 		+ " AND empcs.firstMonthDay = :firstMonthDay" 

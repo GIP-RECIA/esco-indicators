@@ -37,11 +37,25 @@ import org.apache.log4j.Logger;
 	    query = "SELECT SUM(mpcs.numUsers) FROM MonthlyPortalConnectionStatistic mpcs"
 	    	+ " WHERE mpcs.establishmentUai = :establishmentUai"
 		+ " AND mpcs.firstMonthDay = :firstMonthDay "
+		+ " AND mpcs.numConnections <= :treshold"
+	    ),
+    @NamedQuery(
+	    name = "MonthlyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfile",
+	    query = "SELECT SUM(mpcs.numUsers) FROM MonthlyPortalConnectionStatistic mpcs"
+	    	+ " WHERE mpcs.establishmentUai = :establishmentUai"
+		+ " AND mpcs.firstMonthDay = :firstMonthDay "
 	    	+ " AND mpcs.userProfile = :userProfile"
 		+ " AND mpcs.numConnections <= :treshold"
 	    ),
     @NamedQuery(
-	name = "MonthlyPortalConnectionStatistic.findNumVisitorsAboveTreshold",
+	    name = "MonthlyPortalConnectionStatistic.findNumVisitorsAboveTreshold",
+	    query = "SELECT SUM(mpcs.numUsers) FROM MonthlyPortalConnectionStatistic mpcs"
+		+ " WHERE mpcs.establishmentUai = :establishmentUai"
+		+ " AND mpcs.firstMonthDay = :firstMonthDay "
+		+ " AND mpcs.numConnections > :treshold"
+	    ),
+    @NamedQuery(
+	name = "MonthlyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfile",
 	query = "SELECT SUM(mpcs.numUsers) FROM MonthlyPortalConnectionStatistic mpcs"
 		+ " WHERE mpcs.establishmentUai = :establishmentUai"
 		+ " AND mpcs.firstMonthDay = :firstMonthDay "
