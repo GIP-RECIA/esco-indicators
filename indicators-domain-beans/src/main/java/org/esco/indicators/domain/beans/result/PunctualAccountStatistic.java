@@ -83,6 +83,26 @@ public class PunctualAccountStatistic {
     }
     
     /**
+     * Gets the number of visitors having made a number of visits greater than a treshold.
+     * 
+     * @return
+     * 	the number of visitors having made a number of visits greater than a treshold.
+     */
+    public Integer getNumVisitorsAboveTreshold() {
+	return statisticOnVisitors.getNumVisitorsAboveTreshold();
+    }
+    
+    /**
+     * Gets the number of visitors having made a number of visits lesser than a treshold.
+     * 
+     * @return
+     * 	the number of visitors having made a number of visits lesser than a treshold.
+     */
+    public Integer getNumVisitorsBelowTreshold() {
+	return statisticOnVisitors.getNumVisitorsBelowTreshold();
+    }
+    
+    /**
      * Gets the percentage of visitors having made a number of visits greater than a treshold.
      * 
      * @return the percentage of visitors having made a number of visits greater than a treshold.
