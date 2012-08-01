@@ -40,7 +40,7 @@ public class WhenActivatedEvent {
     private List<EntryValueRef> entryValuesToEnable;
     
     /** The county number to filter */
-    private Integer filterCountyNumber;
+    private List<Integer> filterCountyNumber;
     
     /** The establishment type to filter */
     private String filterEstablishmentType;
@@ -97,7 +97,7 @@ public class WhenActivatedEvent {
      * 	the county number to filter.
      */
     @XmlElement(name = "filter-county-number")
-    public Integer getFilterCountyNumber() {
+    public List<Integer> getFilterCountyNumber() {
         return filterCountyNumber;
     }
 
@@ -107,7 +107,7 @@ public class WhenActivatedEvent {
      * @param filterCountyNumber 
      * 			The county number (to filter) to set.
      */
-    public void setFilterCountyNumber(Integer filterCountyNumber) {
+    public void setFilterCountyNumber(List<Integer> filterCountyNumber) {
         this.filterCountyNumber = filterCountyNumber;
     }
 

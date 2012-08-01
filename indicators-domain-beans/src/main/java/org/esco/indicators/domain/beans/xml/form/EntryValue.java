@@ -221,6 +221,17 @@ public class EntryValue {
      * 	the county number to filter.
      */
     public Integer getCountyNumberToFilter() {
+	List<Integer> numbers =  getWhenActivatedEvent().getFilterCountyNumber();
+	return (numbers == null ? null : numbers.get(0));
+    }
+    
+    /**
+     * Gets the county numbers to filter when this entry value is activated.
+     * 
+     * @return 
+     * 	the county numbers to filter.
+     */
+    public List<Integer> getCountyNumbersToFilter() {
 	return getWhenActivatedEvent().getFilterCountyNumber();
     }
     
