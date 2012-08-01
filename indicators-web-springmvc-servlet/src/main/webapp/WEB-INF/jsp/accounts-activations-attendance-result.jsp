@@ -45,6 +45,11 @@
                     ${i18n}
                 </th>
             </c:forEach>        
+            
+            <!-- Global statistic -->
+            <th colspan="8">
+                <spring:message code="result.table.total" />
+            </th>
         </tr>        
         
         <!-- Headers : Second level -->
@@ -53,8 +58,7 @@
                 <th>
                 </th>
             </c:forEach>
-            
-            <c:forEach var="item" items="${usersProfilesItems}">
+            <c:forEach var="i" begin="1" end="${fn:length(usersProfilesItems) + 1}">
                 <th>
                     <spring:message code="result.table.totalAccount" />
                 </th>
@@ -65,6 +69,11 @@
                     <spring:message code="result.table.consultationFrequency" />
                 </th>
             </c:forEach>
+            
+            <!-- For global stats -->
+            <th>
+                <spring:message code="result.table.numVisit" />
+            </th>
         </tr>
         
         <!-- Headers : Third level -->
@@ -74,7 +83,7 @@
                 </th>
             </c:forEach>
             
-            <c:forEach var="item" items="${usersProfilesItems}">
+            <c:forEach var="i" begin="1" end="${fn:length(usersProfilesItems) + 1}">
                 <th>
                 </th>
                 <th>
@@ -91,6 +100,8 @@
                 </th>
             </c:forEach>
 
+            <!-- Global statistic -->
+            <th></th>
         </tr>
         
         <!-- Headers : Fourth level -->
@@ -100,7 +111,7 @@
                 </th>
             </c:forEach>
             
-            <c:forEach var="item" items="${usersProfilesItems}">
+            <c:forEach var="i" begin="1" end="${fn:length(usersProfilesItems) + 1}">
                 <c:forEach var="i" begin="1" end="3">
                     <th>
                     </th>
@@ -119,6 +130,10 @@
                     <spring:message code="result.table.percentTotalAccount" />
                 </th>       
             </c:forEach>
+            
+            <!-- Global statistic -->
+            <th></th>
+        
         </tr>
         
         <!-- Data of the table -->
