@@ -99,7 +99,7 @@ public class EstablishmentVisitStatisticServiceImpl implements EstablishmentVisi
 	Establishment establishment = establishmentDao.findEstablishmentByUai(establishmentUai);
 	if(establishment == null) {
 	    LOGGER.warn("The weekly number of visits can be retrieved, because there is no establishment associated to the UAI : [" + establishmentUai+ "]");
-	    return null;
+	    return 0;
 	}
 	String establishmentType = establishment.getType();
 	
@@ -107,7 +107,11 @@ public class EstablishmentVisitStatisticServiceImpl implements EstablishmentVisi
 	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
 	Date lastWeekDay = DateUtils.addDays(firstWeekDay, 6);
 	
-	return establishmentVisitStatisticDao.findNumVisits(establishmentUai, firstWeekDay, lastWeekDay, establishmentType, typeStat);
+	// Gets the number of visits
+	Integer numVisits = establishmentVisitStatisticDao.findNumVisits(establishmentUai, firstWeekDay, lastWeekDay, establishmentType, typeStat);
+	numVisits = (numVisits == null ? 0 : numVisits);
+	
+	return numVisits;
     }
 
     ///////////////////////////////////////////////////////
@@ -125,7 +129,7 @@ public class EstablishmentVisitStatisticServiceImpl implements EstablishmentVisi
 	Establishment establishment = establishmentDao.findEstablishmentByUai(establishmentUai);
 	if(establishment == null) {
 	    LOGGER.warn("The monthly number of visits can be retrieved, because there is no establishment associated to the UAI : [" + establishmentUai+ "]");
-	    return null;
+	    return 0;
 	}
 	String establishmentType = establishment.getType();
 	
@@ -133,7 +137,11 @@ public class EstablishmentVisitStatisticServiceImpl implements EstablishmentVisi
 	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
 	Date lastMonthDay = DateUtils.getLastMonthDay(month, year);
 	
-	return establishmentVisitStatisticDao.findNumVisits(establishmentUai, firstMonthDay, lastMonthDay, establishmentType, typeStat);
+	// Gets the number of visits
+	Integer numVisits = establishmentVisitStatisticDao.findNumVisits(establishmentUai, firstMonthDay, lastMonthDay, establishmentType, typeStat);
+	numVisits = (numVisits == null ? 0 : numVisits);
+	
+	return numVisits;
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
