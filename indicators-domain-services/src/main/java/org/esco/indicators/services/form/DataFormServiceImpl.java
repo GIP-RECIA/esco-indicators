@@ -143,15 +143,25 @@ public class DataFormServiceImpl implements DataFormService {
      */
     @Override
     public Integer getCountyNumberToFilter(String jspKey) {
-	       // Retrieval of the entry value
-	       EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
-	       
-	        return entryValue.getCountyNumberToFilter();
+       // Retrieval of the entry value
+       EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
+        return entryValue.getCountyNumberToFilter();
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.DataFormService#getCountyNumbersToFilter(java.lang.String)
+     */
+    @Override
+    public List<Integer> getCountyNumbersToFilter(String jspKey) {
+	// Retrieval of the entry value
+	EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
+	return entryValue.getCountyNumbersToFilter();
     }
 
     /* (non-Javadoc)
      * @see org.esco.indicators.services.form.DataFormService#getCountyNumbersToFilter(java.util.List)
      */
+    @Override
     public List<Integer> getCountyNumbersToFilter(List<String> checkedJspKeys) {
 	// Final result
 	List<Integer> countyNumbers = new ArrayList<Integer>();

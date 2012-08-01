@@ -79,6 +79,17 @@ public interface DataFormService {
     public Integer getCountyNumberToFilter(String jspKey);
     
     /**
+     * Gets the county numbers to filter when the specified JSP key is checked in the user view.
+     * 
+     * @param jspKey
+     * 			The JSP key to test.
+     * @return
+     * 	the county numbers to filter.<br/>
+     * 	<code>null</code> if no county number has to be filtered.
+     */
+    public  List<Integer> getCountyNumbersToFilter(String jspKey);
+    
+    /**
      * Gets the county numbers to filter when the specified JSP keys are checked in the user view.
      * 
      * @param checkedJspKeys
