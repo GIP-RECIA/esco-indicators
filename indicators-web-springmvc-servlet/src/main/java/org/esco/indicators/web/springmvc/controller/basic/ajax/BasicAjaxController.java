@@ -98,10 +98,15 @@ public abstract class BasicAjaxController  {
 	parameters = removeUnknownJspKeys(parameters);
 	
 	// Keeping the parameters that have influence on the establishments list
-	parameters = keepInfluentialJspKeys(parameters);
+	List<String> influentialParameters = keepInfluentialJspKeys(parameters);
 	
-	// Creation of the new establisments list
-	List<FormField> establishmentsFields = createNewEstablishmentsList(parameters);
+	// Creation of the new establishment list
+	List<FormField> establishmentsFields = new ArrayList<FormField>();
+	if(!parameters.contains(DataFormConstants.JSP_KEY_SUM_ON_COUNTIES)) {
+	    // If the sum on counties is not checked
+	    // Creation of the new establisments list
+	    establishmentsFields.addAll(createNewEstablishmentsList(influentialParameters));
+	}
 	
 	// Creation of the map returned to the Ajax caller
 	Map<String,List<FormField>> response = new HashMap<String, List<FormField>>();
