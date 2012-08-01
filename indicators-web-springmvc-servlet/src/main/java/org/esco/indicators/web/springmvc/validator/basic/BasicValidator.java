@@ -89,7 +89,9 @@ public class BasicValidator implements Validator {
 	Integer maxEstablishments = FormValidationConstants.MAX_SELECTED_ESTABLISHMENTS;
 	if(establishments != null && establishments.length > maxEstablishments) {
 	    errors.rejectValue(DataFormConstants.ESTABLISHMENTS, "error.form.establishments.maxValue", new Object [ ] { maxEstablishments }, "error.form.establishments.maxValue");
-	} else {
+	} else if(form.getSumOnCounties() == null) {
+	    // If the sum on counties has not be checked
+	    // At least one establishment has to be checked 
 	    ValidationUtils.rejectIfEmpty(errors, DataFormConstants.ESTABLISHMENTS, "error.form.establishments.empty");
 	}
     }
