@@ -146,6 +146,8 @@ public class DataFormConstants {
     /** County 45 */
     public static final  String JSP_KEY_COUNTY_45 = "county.COUNTY_45";
 
+    /** Sum on counties */
+    public static final  String JSP_KEY_SUM_ON_COUNTIES = "sumOnCounties.DEFAULT";
     
     ///////////////////////////////////
     // Lycees types
