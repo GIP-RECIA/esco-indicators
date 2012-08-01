@@ -85,6 +85,16 @@ public class PeriodicAccountStatistic {
     public Integer getNumVisits() {
         return statisticOnVisits.getNumVisits();
     }
+
+    /**
+     * Gets the percentage of active accounts.
+     * 
+     * @return
+     * 	the percentage of active accounts.
+     */
+    public Float getPercentageActiveAccount() {
+	return statisticOnAccounts.getPercentageActiveAccount();
+    }
     
     /**
      * Gets the percentage of visitors having made a number of visits greater than a treshold.
@@ -112,10 +122,22 @@ public class PeriodicAccountStatistic {
     public Integer getTotalAccountNumber() {
 	return statisticOnAccounts.getTotalAccountNumber();
     }
-    
-    
-    //------------------------------------------------------------------------------ PUBLIC METHODS
 
+    //------------------------------------------------------------------------------ PUBLIC METHODS
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+	return "PeriodicAccountStatistic [getActiveAccountNumber()=" + getActiveAccountNumber()
+		+ ", getNumVisitorsBelowTreshold()=" + getNumVisitorsBelowTreshold()
+		+ ", getNumVisitorsAboveTreshold()=" + getNumVisitorsAboveTreshold() + ", getNumVisits()="
+		+ getNumVisits() + ", getPercentageActiveAccount()=" + getPercentageActiveAccount()
+		+ ", getPercentageNumVisitorsAboveTreshold()=" + getPercentageNumVisitorsAboveTreshold()
+		+ ", getPercentageNumVisitorsBelowTreshold()=" + getPercentageNumVisitorsBelowTreshold()
+		+ ", getTotalAccountNumber()=" + getTotalAccountNumber() + "]";
+    }
+    
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
     //------------------------------------------------------------------------------ STATIC METHODS
