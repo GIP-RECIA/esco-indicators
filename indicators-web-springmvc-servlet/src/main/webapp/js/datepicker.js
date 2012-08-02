@@ -102,7 +102,13 @@ $(document).ready(function() {
             $("#endDatePicker").datepicker("option", "dateFormat", 'MM yy');
         }
     });
-    
+        
+    ///////////////////////////////////////////////////////
+    // Call of the change method for properly intializing
+    // the date formats
+    ///////////////////////////////////////////////////////
+    $("[name='" + ESTAB_TYPES.name + "']").change();
+
 });
 
 
