@@ -23,20 +23,12 @@
         <!-- Headers : First level -->
         <tr>
             <th>
-                <spring:message code="result.table.establishment" />
+                <spring:message code="result.table.detail" />
+                <c:set var="monitoring" value="true" />
             </th>
-            <th>
-                <spring:message code="result.table.rne" />
-            </th>
-            <th>
-                <spring:message code="result.table.county" />
-            </th>
-            <th>
-                <spring:message code="result.table.establishmentType" />
-            </th>
-            <th>
-                <spring:message code="result.table.lyceeType" />
-            </th>
+
+            <!-- Establishlment part -->
+            <%@ include file="/WEB-INF/jsp/include/common/table-header-establishment.jsp"%>
 
             <c:forEach var="item" items="${statisticDataKeys}">
                 <th colspan="7">
@@ -47,7 +39,7 @@
         
         <!-- Headers : Second level -->
         <tr>
-            <c:forEach var="i" begin="1" end="5">
+            <c:forEach var="i" begin="1" end="6">
                 <th>
                 </th>
             </c:forEach>
@@ -67,7 +59,7 @@
         
         <!-- Headers : Third level -->
         <tr>
-            <c:forEach var="i" begin="1" end="5">
+            <c:forEach var="i" begin="1" end="6">
                 <th>
                 </th>
             </c:forEach>
@@ -93,7 +85,7 @@
         
         <!-- Headers : Fourth level -->
         <tr>
-            <c:forEach var="i" begin="1" end="5">
+            <c:forEach var="i" begin="1" end="6">
                 <th>
                 </th>
             </c:forEach>
@@ -120,7 +112,7 @@
         </tr>
         
         <!-- Data of the table -->
-        <%@ include file="/WEB-INF/jsp/include/account/table-data.jsp"%>
+        <%@ include file="/WEB-INF/jsp/include/account/table-data-monitoring.jsp"%>
             
     </table>
 
