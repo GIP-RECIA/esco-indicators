@@ -41,6 +41,18 @@ public class BasicResultRow {
 	super();
 	statisticDataByKey = new HashMap<Object, Object>();
     }
+    
+    /**
+     * Copy constructor of the {@link BasicResultRow} class.
+     * 
+     * @param original
+     * 			The original basic result row to copy.
+     */
+    public BasicResultRow(BasicResultRow original) {
+	super();
+	statisticDataByKey = original.getStatisticDataByKey();
+	establishmentData = original.getEstablishmentData();
+    }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
