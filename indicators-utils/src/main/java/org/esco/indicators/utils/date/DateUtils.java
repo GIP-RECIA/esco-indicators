@@ -190,7 +190,7 @@ public class DateUtils {
      */
     public static Integer getNumWeeksInYear(Integer year) {
 	DateTime dateTime = new DateTime().withYear(year);
-	return dateTime.weekOfWeekyear().getMinimumValue();
+	return dateTime.weekOfWeekyear().getMaximumValue();
     }
     
     /**
@@ -266,7 +266,7 @@ public class DateUtils {
 	if(diffYears == 0) {
 	    maxMonth = endMonth;
 	} else {
-	    maxMonth = 11;
+	    maxMonth = 12;
 	}
 	
 	// Creation of the pairs (month - year)
@@ -280,6 +280,11 @@ public class DateUtils {
         	maxMonth = (currentYear + 1 == endYear) ? endMonth :  12;
 	}
 
+    	// Debug informations
+	LOGGER.debug("The period starting with [month : " + startMonth + ", year : " + startYear
+		+ "] and ending with [month : " + endMonth + ", year :" + endYear + "] has been split into : "
+		+ monthsAndYears);
+	
     	return monthsAndYears;
     }
     
@@ -328,7 +333,7 @@ public class DateUtils {
 	if(diffYears == 0) {
 	    maxWeek = endWeek;
 	} else {
-	    maxWeek = DateUtils.getNumWeeksInYear(startWeek);
+	    maxWeek = DateUtils.getNumWeeksInYear(startYear);
 	}
 	
 	// Creation of the pairs (week - year)
@@ -342,6 +347,11 @@ public class DateUtils {
         	maxWeek = (currentYear + 1 == endYear) ? endWeek :  DateUtils.getNumWeeksInYear(currentYear + 1);
 	}
 
+    	// Debug informations
+	LOGGER.debug("The period starting with [week : " + startWeek + ", year : " + startYear
+		+ "] and ending with [week : " + endWeek + ", year :" + endYear + "] has been split into : "
+		+ weeksAndYears);
+    	
     	return weeksAndYears;
     }
     
