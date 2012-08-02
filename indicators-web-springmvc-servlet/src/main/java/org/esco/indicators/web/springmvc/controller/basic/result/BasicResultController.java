@@ -93,8 +93,6 @@ public abstract class BasicResultController {
 	    return "redirect:welcome";
 	}
 	
-        // Cleaning of the session
-	request.getSession().setAttribute(formSessionAttribute, null);
 	return viewName;
     }
 
