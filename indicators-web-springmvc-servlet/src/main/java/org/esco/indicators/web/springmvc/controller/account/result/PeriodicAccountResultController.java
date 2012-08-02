@@ -55,10 +55,21 @@ public class PeriodicAccountResultController extends BasicResultController {
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
      * Constructor of the {@link PeriodicAccountResultController} class.
-     * @param viewName
      */
     public PeriodicAccountResultController() {
 	super("accounts-activations-monitoring-attendance-result", SessionConstants.ACCOUNT_FORM_ATTR);
+    }
+   
+    /**
+     * Constructor of the {@link PeriodicAccountResultController} class.
+     * 
+     * @param viewName
+     * 			The view name associated to the controller.
+     * @param formSessionAttribute
+     * 			The session attribute containing the submitted form.
+     */
+    public PeriodicAccountResultController(String viewName, String formSessionAttribute) {
+	super(viewName, formSessionAttribute);
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
@@ -99,12 +110,12 @@ public class PeriodicAccountResultController extends BasicResultController {
     @ModelAttribute("statisticDataKeys")
     public List<IntegerPair> populateStatisticDataKeys(HttpServletRequest request) {
         // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+        if(!containsForm(request.getSession(), formSessionAttribute)) {
             return null;
         }
         
         // Retrieval of the submitted monitoring type value
-        AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
+        AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), formSessionAttribute);
         
 	// Retrieval of the establishments types
 	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(aaForm.getEstablishmentsTypes()));
@@ -127,12 +138,12 @@ public class PeriodicAccountResultController extends BasicResultController {
     @ModelAttribute("endDateItem")
     public String populateEndDate(HttpServletRequest request) {
         // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+        if(!containsForm(request.getSession(), formSessionAttribute)) {
             return null;
         }
         
         // Retrieval of the submitted monitoring type value
-        AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
+        AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), formSessionAttribute);
         
         // Retrieval of the end date
         String endDate = aaForm.getEndDatePicker();
@@ -149,14 +160,14 @@ public class PeriodicAccountResultController extends BasicResultController {
      * 	the data rows of the table used to display the result of the submitted form.
      */
     @ModelAttribute("tableRowsItems")
-    public List<BasicResultRow> populateTableRows(HttpServletRequest request) {
+    public List<? extends BasicResultRow> populateTableRows(HttpServletRequest request) {
 	// Checks if the there is a valid submitted form to process
-	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
+	if(!containsForm(request.getSession(), formSessionAttribute)) {
 	    return null;
 	}
 	
 	// Retrieval of the submitted form
-	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
+	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), formSessionAttribute);
 	
 	// Retrieval of the establishments uai
 	List<String> establishmentsUai = new ArrayList<String>(Arrays.asList(aaForm.getEstablishments()));
@@ -178,7 +189,7 @@ public class PeriodicAccountResultController extends BasicResultController {
 	return basicResultRows;
     }
     
-    //----------------------------------------------------------------------------- PRIVATE METHODS
+    //--------------------------------------------------------------------------- PROTECTED METHODS
     /**
      * Creates the result rows; each result row containing the following data :
      * <ul>
@@ -208,7 +219,7 @@ public class PeriodicAccountResultController extends BasicResultController {
      * @return
      * 	the result rows containing the data to display.
      */
-    private List<BasicResultRow> createResultRows( List<String> establishmentsTypes, List<String> establishmentsUai,String userProfile, Date startDate, Date endDate) {
+    protected List<BasicResultRow> createResultRows( List<String> establishmentsTypes, List<String> establishmentsUai,String userProfile, Date startDate, Date endDate) {
 	// Retrieval of the start and end years
 	Integer startYear = DateUtils.getYear(startDate);
 	Integer endYear = DateUtils.getYear(endDate);
@@ -227,6 +238,8 @@ public class PeriodicAccountResultController extends BasicResultController {
 	Integer endMonth = DateUtils.getMonthOfYear(endDate);
 	return resultAccountFormService.getPeriodicMonthResultRows(establishmentsUai, userProfile, startMonth, startYear, endMonth, endYear);
     }
+
+    //----------------------------------------------------------------------------- PRIVATE METHODS
     
     //------------------------------------------------------------------------------ STATIC METHODS
 }
