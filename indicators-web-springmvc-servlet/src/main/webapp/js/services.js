@@ -53,6 +53,8 @@ $(document).ready(function() {
     sortKeysAndValues(mastersAndSlaves);
     var mastersAndSlavesIds = keepValuesIds(mastersAndSlaves);
     itemsIds = flattenArray(mastersAndSlavesIds);
+    sortList(AVAILABLE_SERVICES_ID);
+    sortList(WANTED_SERVICES_ID);
 
     // //////////////////////////////////////////////////////////////
     // When an element is drop into the list of wanted elements
@@ -93,6 +95,12 @@ $(document).ready(function() {
                   if(master) {
                     updateInputName($(master).prop("id"), newDependencyName);
                   }
+
+                  // //////////////////////////////////////
+                  // Sort the lists
+                  // //////////////////////////////////////
+                  sortList(AVAILABLE_SERVICES_ID);
+                  sortList(WANTED_SERVICES_ID);
               }
     });
     
@@ -226,6 +234,26 @@ function dropWantedServiceHandler(droppableList, event, ui) {
 }
 
 /**
+ * Function that put into a new list, all the elements
+ * that are present in the sepcified list, and that are
+ * before the specified element.
+ */
+function elementsBefore(list, element) {
+    // Final result
+    var elements = new Array( );
+
+    // Append to the list all the elements before the searched one
+    for(var i=0; 
+        i < list.length && list[i] != element; 
+        i++) 
+    {
+       elements.push(list[i]); 
+    }
+
+    return elements;
+}
+
+/**
  * Function that flattens an array.
  */
 function flattenArray(array) {
@@ -240,6 +268,34 @@ function flattenArray(array) {
     }
     return flatArray;
 }
+
+/**
+ * Function that inserts the list item associated to elementId
+ * after the list items associated to the previousElementsIds.
+ * All these items are manipulated insede the list associated to
+ * the listId.
+ */
+function insertAfter(listId, elementId, previousElementsIds) {
+    // Get the element to insert
+    var element = $('#' + listId + ' li[id="' + elementId + '"]');
+
+    // Insert the element after the first previous element found
+    for(var i=previousElementsIds.length - 1; 
+        i > 0;
+        i--)
+    {
+        var previousId = previousElementsIds[i];
+        var previousElement = $('#' + listId + ' li[id="' + previousId + '"]');
+        if(previousElement) {
+            previousElement.after(element);
+            return;
+        }
+    }
+    
+    // If no previous element has been found
+    $('#' + listId).prepend(element);
+}
+
 /**
  * Function that creates an associative array from an original associative array.
  * All the values contained in the original array represent html elements.
@@ -291,6 +347,21 @@ function sortKeysAndValues(arrayToSort) {
         var arrayValues = arrayToSort[key];
         arrayValues.sort(compareElementsContent);
         arrayToSort[key] = arrayValues;
+    }
+}
+
+/**
+ * Sorts the items of the list associated to the listId,
+ * regarding to the order present in the itemsId list.
+ */
+function sortList(listId) {
+    // Sort each item of the list
+    for(var i=0; i<itemsIds.length; i++) {
+        var id = itemsIds[i];
+        var element = $('#' + listId + ' li[id="' + id + '"]');
+        if(element) {
+            $('#' + listId).append(element);
+        }
     }
 }
 
