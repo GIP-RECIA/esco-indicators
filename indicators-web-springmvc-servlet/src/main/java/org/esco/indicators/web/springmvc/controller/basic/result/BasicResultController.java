@@ -154,6 +154,34 @@ public abstract class BasicResultController {
         
         return i18nKeys;
     }
+    
+    /**
+     * Indicates if the periods are weekly.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * 
+     * @return
+     * 	<code>true</code> if the periods are weekly.<br/>
+     * 	<code>false</code> in other cases.
+     */
+    @ModelAttribute("isWeekly")
+    public Boolean populateIsWeekly(HttpServletRequest request) {
+        // Checks if the there is a valid submitted form to process
+        if(!containsForm(request.getSession(), formSessionAttribute)) {
+            return false;
+        }
+        
+        // Retrieval of the submitted monitoring type value
+        BasicForm form =  getSessionForm(request.getSession(), formSessionAttribute);
+        
+        // Retrieval of the i18n key
+        String [] establishmentsTypes = form.getEstablishmentsTypes();
+        List<String> jspKeys = new ArrayList<String>(Arrays.asList(establishmentsTypes));
+        
+        // Only CFA establishment type is selected ?
+        return (jspKeys.size() == 1 && jspKeys.contains(DataFormConstants.JSP_KEY_CFA));
+    }
 
     /**
      * Populate the 'lycees' types field.
@@ -388,8 +416,6 @@ public abstract class BasicResultController {
 	return DateUtils.splitMonths(startMonth, startYear, endMonth, endYear);
     }
     
-    //----------------------------------------------------------------------------- PRIVATE METHODS
-
     /**
      * Checks if the specified session contains a form associated to the session attribute <code>formAttribute</code>.<br/>
      * 
@@ -410,6 +436,10 @@ public abstract class BasicResultController {
 	}
 	return true;
     }
+    
+    //----------------------------------------------------------------------------- PRIVATE METHODS
+
+
     
     //------------------------------------------------------------------------------ STATIC METHODS
 }
