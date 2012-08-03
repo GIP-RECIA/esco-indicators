@@ -267,12 +267,18 @@ public class PeriodicServiceResultController extends BasicResultController {
 	if(	establishmentsTypes.contains(DataFormConstants.JSP_KEY_CFA) 
 		&& establishmentsTypes.size() == 1
 	) {
+	    // Debug informations
+	    LOGGER.debug("Creation of rows for weekly periods");
+	    
 	    // If the only selected establishment type is : CFA
 	    Integer startWeek = DateUtils.getWeekOfYear(startDate);
 	    Integer endWeek = DateUtils.getWeekOfYear(endDate);
 	    return resultServiceFormService.getPeriodicWeekResultRows(establishmentsUai, services, userProfile, startWeek, startYear, endWeek, endYear);
 	}
-			
+
+	// Debug informations
+	LOGGER.debug("Creation of rows for monthly periods");
+	    
 	Integer startMonth = DateUtils.getMonthOfYear(startDate);
 	Integer endMonth = DateUtils.getMonthOfYear(endDate);
 	return resultServiceFormService.getPeriodicMonthResultRows(establishmentsUai, services, userProfile, startMonth, startYear, endMonth, endYear);
