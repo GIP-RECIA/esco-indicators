@@ -25,11 +25,24 @@
     <!-- For each period -->
     <c:forEach var="period" items="${statisticPeriodsItems}">
         <c:set var="periodRow" value="${item.statisticDataByKey[period]}" />
-        <tr>
-        
-            <td>
-                ${period.first} - ${period.second}
-            </td>
+        <tr>            
+            <!-- #################################################### -->
+            <!-- WEEKLY OR MONTHLY PERIODS ? -->
+            <!-- #################################################### -->
+            <!-- If the periods are weekly -->
+            <c:if test="${isWeekly}">
+                <td>
+                    <spring:message code="result.table.week" /> ${period.first} - ${period.second}
+                </td>
+            </c:if>
+            
+            <!-- If the periods are monthly -->
+            <c:if test="${!isWeekly}">
+                <td>
+                    <spring:message code="result.table.month.${period.first}" />  - ${period.second}
+                </td>
+            </c:if>
+            <!-- #################################################### -->
             
             <!-- Establishment data columns are empty -->
             <c:forEach var="i" begin="1" end="4">

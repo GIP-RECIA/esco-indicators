@@ -51,9 +51,20 @@
             <ul id="availableServicesList" class="connectedServices">
                 <c:forEach var="item" items="${availableServicesItems}">
                     <spring:message code="${item.label}" var="i18n"/> 
-                    <li class="ui-state-default" id="${item.value}">
-                        ${i18n}
-                    </li> 
+                    <c:set var="itemId" value="${item.value}" />
+                                        
+                    <c:if test="${fn:contains(itemId, 'SUM')}">
+                        <li class="ui-state-highlight" id="${itemId}">
+                            ${i18n}
+                        </li>
+                    </c:if>
+                    <c:if test="${!fn:contains(itemId, 'SUM')}">
+                        <li class="ui-state-default" id="${itemId}">
+                            ${i18n}
+                        </li>
+                    </c:if>
+                    
+                     
                 </c:forEach> 
             </ul>
             

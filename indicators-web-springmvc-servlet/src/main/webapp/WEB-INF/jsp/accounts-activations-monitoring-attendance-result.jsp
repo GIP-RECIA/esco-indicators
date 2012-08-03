@@ -30,11 +30,28 @@
             <!-- Establishlment part -->
             <%@ include file="/WEB-INF/jsp/include/common/table-header-establishment.jsp"%>
 
-            <c:forEach var="item" items="${statisticDataKeys}">
-                <th colspan="7">
-                    ${item.first} - ${item.second}
-                </th>
-            </c:forEach>        
+            <!-- #################################################### -->
+            <!-- WEEKLY OR MONTHLY PERIODS ? -->
+            <!-- #################################################### -->
+            <!-- If the periods are weekly -->
+            <c:if test="${isWeekly}">
+                <c:forEach var="item" items="${statisticDataKeys}">
+                    <th colspan="7">
+                        <spring:message code="result.table.week" /> ${item.first} - ${item.second}
+                    </th>
+                </c:forEach>
+            </c:if>
+            
+            <!-- If the periods are weekly -->
+            <c:if test="${!isWeekly}">
+                <c:forEach var="item" items="${statisticDataKeys}">
+                    <th colspan="7">
+                        <spring:message code="result.table.month.${item.first}" /> - ${item.second}
+                    </th>
+                </c:forEach>
+            </c:if>
+            <!-- #################################################### -->
+            
         </tr>        
         
         <!-- Headers : Second level -->
