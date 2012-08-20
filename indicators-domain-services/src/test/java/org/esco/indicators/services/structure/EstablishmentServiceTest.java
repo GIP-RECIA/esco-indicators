@@ -3,7 +3,9 @@
  */
 package org.esco.indicators.services.structure;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.esco.indicators.domain.beans.structure.Establishment;
@@ -105,7 +107,7 @@ public class EstablishmentServiceTest extends EstablishmentServiceBaseTest {
     }
     
     /**
-     * Test method for {@link org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsByCountyNumber(Integer)}.
+     * Test method for {@link org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsByCountyNumber(String)}.
      * 
      * Tests if the retrieved establishments has the good UAIs.
      */
@@ -115,17 +117,17 @@ public class EstablishmentServiceTest extends EstablishmentServiceBaseTest {
 	String uai1 = "0453456A";
 	String uai2 = "0456782B";
 	
-	Set<Establishment> expectedEstablishments = new HashSet<Establishment>();
+	List<Establishment> expectedEstablishments = new ArrayList<Establishment>();
 	expectedEstablishments.add(testedEstablishments.get(uai1));
 	expectedEstablishments.add(testedEstablishments.get(uai2));
 	
-	Set<String> expectedUais = extractUais(expectedEstablishments);
+	List<String> expectedUais = extractUais(expectedEstablishments);
 	
 	// Actual result
-	Integer countyNumber = 45;
-	Set<Establishment> actualEstablishments = establishmentService.findEstablishmentsByCountyNumber(countyNumber);
+	String countyNumber = "45";
+	List<Establishment> actualEstablishments = establishmentService.findEstablishmentsByCountyNumber(countyNumber);
 	
-	Set<String> actualUais = extractUais(actualEstablishments);
+	List<String> actualUais = extractUais(actualEstablishments);
 	
 	// Test
 	Assert.assertEquals(expectedUais, actualUais);
@@ -133,7 +135,7 @@ public class EstablishmentServiceTest extends EstablishmentServiceBaseTest {
     
     
     /**
-     * Test method for {@link org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsByCountyNumber(Integer)}.
+     * Test method for {@link org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsByCountyNumber(String)}.
      * 
      * Tests if the retrieved establishments has the good types.
      */
@@ -143,24 +145,24 @@ public class EstablishmentServiceTest extends EstablishmentServiceBaseTest {
 	String uai1 = "0453456A";
 	String uai2 = "0456782B";
 	
-	Set<Establishment> expectedEstablishments = new HashSet<Establishment>();
+	List<Establishment> expectedEstablishments = new ArrayList<Establishment>();
 	expectedEstablishments.add(testedEstablishments.get(uai1));
 	expectedEstablishments.add(testedEstablishments.get(uai2));
 	
-	Set<String> expectedTypes = extractTypes(expectedEstablishments);
+	List<String> expectedTypes = extractTypes(expectedEstablishments);
 	
 	// Actual result
-	Integer countyNumber = 45;
-	Set<Establishment> actualEstablishments = establishmentService.findEstablishmentsByCountyNumber(countyNumber);
+	String countyNumber = "45";
+	List<Establishment> actualEstablishments = establishmentService.findEstablishmentsByCountyNumber(countyNumber);
 	
-	Set<String> actualTypes = extractTypes(actualEstablishments);
+	List<String> actualTypes = extractTypes(actualEstablishments);
 	
 	// Test
 	Assert.assertEquals(expectedTypes, actualTypes);
     }
     
     /**
-     * Test method for {@link org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsByCountyNumber(Integer)}.
+     * Test method for {@link org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsByCountyNumber(String)}.
      * 
      * Tests if the retrieved establishments has the good county numbers.
      */
@@ -170,17 +172,17 @@ public class EstablishmentServiceTest extends EstablishmentServiceBaseTest {
 	String uai1 = "0453456A";
 	String uai2 = "0456782B";
 	
-	Set<Establishment> expectedEstablishments = new HashSet<Establishment>();
+	List<Establishment> expectedEstablishments = new ArrayList<Establishment>();
 	expectedEstablishments.add(testedEstablishments.get(uai1));
 	expectedEstablishments.add(testedEstablishments.get(uai2));
 	
-	Set<Integer> expectedCountyNumbers = extractCountyNumbers(expectedEstablishments);
+	List<String> expectedCountyNumbers = extractCountyNumbers(expectedEstablishments);
 	
 	// Actual result
-	Integer countyNumber = 45;
-	Set<Establishment> actualEstablishments = establishmentService.findEstablishmentsByCountyNumber(countyNumber);
+	String countyNumber = "45";
+	List<Establishment> actualEstablishments = establishmentService.findEstablishmentsByCountyNumber(countyNumber);
 	
-	Set<Integer> actualCountyNumbers = extractCountyNumbers(actualEstablishments);
+	List<String> actualCountyNumbers = extractCountyNumbers(actualEstablishments);
 	
 	// Test
 	Assert.assertEquals(expectedCountyNumbers, actualCountyNumbers);
@@ -198,20 +200,21 @@ public class EstablishmentServiceTest extends EstablishmentServiceBaseTest {
 	String uai1 = "0453456A";
 	String uai2 = "0362903S";
 	
-	Set<Establishment> expectedEstablishments = new HashSet<Establishment>();
+	List<Establishment> expectedEstablishments = new ArrayList<Establishment>();
 	expectedEstablishments.add(testedEstablishments.get(uai1));
 	expectedEstablishments.add(testedEstablishments.get(uai2));
 	
-	Set<String> expectedUais = extractUais(expectedEstablishments);
+	List<String> expectedUais = extractUais(expectedEstablishments);
 	
 	// Actual result
-	Set<Establishment> actualEstablishments = establishmentService
+	List<Establishment> actualEstablishments = establishmentService
 		.findEstablishmentsByType(EstablishmentConstants.ESTABLISHMENT_TYPE_CFA);
 
-	Set<String> actualUais = extractUais(actualEstablishments);
+	List<String> actualUais = extractUais(actualEstablishments);
 	
 	// Test
-	Assert.assertEquals(expectedUais, actualUais);
+	Assert.assertTrue(expectedUais.containsAll(actualUais));
+	Assert.assertTrue(actualUais.containsAll(expectedUais));
     }
     
     /**
@@ -225,20 +228,21 @@ public class EstablishmentServiceTest extends EstablishmentServiceBaseTest {
 	String uai1 = "0453456A";
 	String uai2 = "0362903S";
 	
-	Set<Establishment> expectedEstablishments = new HashSet<Establishment>();
+	List<Establishment> expectedEstablishments = new ArrayList<Establishment>();
 	expectedEstablishments.add(testedEstablishments.get(uai1));
 	expectedEstablishments.add(testedEstablishments.get(uai2));
 	
-	Set<String> expectedTypes = extractTypes(expectedEstablishments);
+	List<String> expectedTypes = extractTypes(expectedEstablishments);
 	
 	// Actual result
 	String type = "CFA";
-	Set<Establishment> actualEstablishments = establishmentService.findEstablishmentsByType(type);
+	List<Establishment> actualEstablishments = establishmentService.findEstablishmentsByType(type);
 	
-	Set<String> actualTypes = extractTypes(actualEstablishments);
+	List<String> actualTypes = extractTypes(actualEstablishments);
 	
 	// Test
-	Assert.assertEquals(expectedTypes, actualTypes);
+	Assert.assertTrue(expectedTypes.containsAll(actualTypes));
+	Assert.assertTrue(actualTypes.containsAll(expectedTypes));
     }
     
     /**
@@ -252,36 +256,37 @@ public class EstablishmentServiceTest extends EstablishmentServiceBaseTest {
 	String uai1 = "0453456A";
 	String uai2 = "0362903S";
 	
-	Set<Establishment> expectedEstablishments = new HashSet<Establishment>();
+	List<Establishment> expectedEstablishments = new ArrayList<Establishment>();
 	expectedEstablishments.add(testedEstablishments.get(uai1));
 	expectedEstablishments.add(testedEstablishments.get(uai2));
 	
-	Set<Integer> expectedCountyNumbers = extractCountyNumbers(expectedEstablishments);
+	List<String> expectedCountyNumbers = extractCountyNumbers(expectedEstablishments);
 	
 	// Actual result
 	String type = "CFA";
-	Set<Establishment> actualEstablishments = establishmentService.findEstablishmentsByType(type);
+	List<Establishment> actualEstablishments = establishmentService.findEstablishmentsByType(type);
 	
-	Set<Integer> actualCountyNumbers = extractCountyNumbers(actualEstablishments);
+	List<String> actualCountyNumbers = extractCountyNumbers(actualEstablishments);
 	
 	// Test
-	Assert.assertEquals(expectedCountyNumbers, actualCountyNumbers);
+	Assert.assertTrue(expectedCountyNumbers.containsAll(actualCountyNumbers));
+	Assert.assertTrue(actualCountyNumbers.containsAll(expectedCountyNumbers));
     }
     
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
     
     /**
-     * Extracts all the county numbers  of the specified <code>Set</code> of <code>establishments</code>.
+     * Extracts all the county numbers  of the specified <code>List</code> of <code>establishments</code>.
      * 
      * @param establishments
      * 			The concerned establishments.
      * @return
-     * 	the <code>Set</code> contianing the county numbers of the establishments.<br/>
-     * 	an empty <code>Set</code> if no county numbers has been extracted.
+     * 	the <code>List</code> contianing the county numbers of the establishments.<br/>
+     * 	an empty <code>List</code> if no county numbers has been extracted.
      */
-    private Set<Integer> extractCountyNumbers(Set<Establishment> establishments) {
-	Set<Integer> countyNumbers = new HashSet<Integer>();
+    private List<String> extractCountyNumbers(List<Establishment> establishments) {
+	List<String> countyNumbers = new ArrayList<String>();
 	for (Establishment establishment : establishments) {
 	    countyNumbers.add(establishment.getCountyNumber());
 	}
@@ -289,16 +294,16 @@ public class EstablishmentServiceTest extends EstablishmentServiceBaseTest {
     }
     
     /**
-     * Extracts all the types  of the specified <code>Set</code> of <code>establishments</code>.
+     * Extracts all the types  of the specified <code>List</code> of <code>establishments</code>.
      * 
      * @param establishments
      * 			The concerned establishments.
      * @return
-     * 	the <code>Set</code> contianing the types of the establishments.<br/>
-     * 	an empty <code>Set</code> if no types has been extracted.
+     * 	the <code>List</code> contianing the types of the establishments.<br/>
+     * 	an empty <code>List</code> if no types has been extracted.
      */
-    private Set<String> extractTypes(Set<Establishment> establishments) {
-	Set<String> types = new HashSet<String>();
+    private List<String> extractTypes(List<Establishment> establishments) {
+	List<String> types = new ArrayList<String>();
 	for (Establishment establishment : establishments) {
 	    types.add(establishment.getType());
 	}
@@ -306,16 +311,16 @@ public class EstablishmentServiceTest extends EstablishmentServiceBaseTest {
     }
     
     /**
-     * Extracts all the UAIs of the specified <code>Set</code> of <code>establishments</code>.
+     * Extracts all the UAIs of the specified <code>List</code> of <code>establishments</code>.
      * 
      * @param establishments
      * 			The concerned establishments.
      * @return
-     * 	the <code>Set</code> contianing the UAIs of the establishments.<br/>
-     * 	an empty <code>Set</code> if no UAIs has been extracted.
+     * 	the <code>List</code> contianing the UAIs of the establishments.<br/>
+     * 	an empty <code>List</code> if no UAIs has been extracted.
      */
-    private Set<String> extractUais(Set<Establishment> establishments) {
-	Set<String> uais = new HashSet<String>();
+    private List<String> extractUais(List<Establishment> establishments) {
+	List<String> uais = new ArrayList<String>();
 	for (Establishment establishment : establishments) {
 	    uais.add(establishment.getUai());
 	}

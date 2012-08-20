@@ -42,7 +42,7 @@ import org.apache.log4j.Logger;
     @NamedQuery(
 	    name = "EspecialWeeklyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfile",
 	    query = "SELECT COUNT( DISTINCT ewpcs.userUid ) FROM EspecialWeeklyPortalConnectionStatistic ewpcs"
-	    	+ " WHERE ewpcs.establishmentUai = :establishmentUai"
+	    	+ " WHERE ewpcs.establishmentUai IN ( :establishmentUaiList )"
 		+ " AND ewpcs.firstWeekDay = :firstWeekDay " 
 	    	+ " AND ewpcs.userProfile = :userProfile"
 		+ " AND ewpcs.numConnections <= :treshold"
@@ -50,21 +50,21 @@ import org.apache.log4j.Logger;
     @NamedQuery(
 	    name = "EspecialWeeklyPortalConnectionStatistic.findNumVisitorsBelowTreshold",
 	    query = "SELECT COUNT( DISTINCT ewpcs.userUid ) FROM EspecialWeeklyPortalConnectionStatistic ewpcs"
-	    	+ " WHERE ewpcs.establishmentUai = :establishmentUai"
+	    	+ " WHERE ewpcs.establishmentUai IN ( :establishmentUaiList )"
 		+ " AND ewpcs.firstWeekDay = :firstWeekDay " 
 		+ " AND ewpcs.numConnections <= :treshold"
 	    ),    
     @NamedQuery(
 	    name = "EspecialWeeklyPortalConnectionStatistic.findNumVisitorsAboveTreshold",
 	    query = "SELECT COUNT( DISTINCT ewpcs.userUid ) FROM EspecialWeeklyPortalConnectionStatistic ewpcs"
-		+ " WHERE ewpcs.establishmentUai = :establishmentUai"
+		+ " WHERE ewpcs.establishmentUai IN ( :establishmentUaiList )"
 		+ " AND ewpcs.firstWeekDay = :firstWeekDay " 
 		+ " AND ewpcs.numConnections > :treshold"
 	    ),
     @NamedQuery(
 	name = "EspecialWeeklyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfile",
 	query = "SELECT COUNT( DISTINCT ewpcs.userUid ) FROM EspecialWeeklyPortalConnectionStatistic ewpcs"
-		+ " WHERE ewpcs.establishmentUai = :establishmentUai"
+		+ " WHERE ewpcs.establishmentUai IN ( :establishmentUaiList )"
 		+ " AND ewpcs.firstWeekDay = :firstWeekDay " 
 		+ " AND ewpcs.userProfile = :userProfile"
 		+ " AND ewpcs.numConnections > :treshold"

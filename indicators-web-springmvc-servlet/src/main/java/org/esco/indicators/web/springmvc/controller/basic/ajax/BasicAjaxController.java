@@ -280,7 +280,7 @@ public abstract class BasicAjaxController  {
 	List<String> establishmentsTypes = getDataFormService().getEstablishmentsTypesToFilter(checkedJspKeys);
 	
 	// Retrieval of the authorized county numbers
-	List<Integer> countyNumbers = getDataFormService().getCountyNumbersToFilter(checkedJspKeys);
+	List<String> countyNumbers = getDataFormService().getCountyNumbersToFilter(checkedJspKeys);
 	
 	// Retrieval of the establishements form fields by type and county
 	List<FormField> establishments = getEstablishmentsByCountyNumbersAndTypes(countyNumbers, establishmentsTypes);
@@ -300,10 +300,10 @@ public abstract class BasicAjaxController  {
      * 	the list of form fields containing the establishments informations.<br/>
      * 	an empty list if no establishments has been retrieved.
      */
-    private List<FormField> getEstablishmentsByCountyNumbersAndTypes(List<Integer> countyNumbers,
+    private List<FormField> getEstablishmentsByCountyNumbersAndTypes(List<String> countyNumbers,
 	    List<String> establishmentsTypes) {
 	// Retrieval of the establishments with the specified filters
-	Set<Establishment> establishments = getEstablishmentService().findEstablishmentsByCountyNumbersAndTypes(countyNumbers, establishmentsTypes);
+	List<Establishment> establishments = getEstablishmentService().findEstablishmentsByCountyNumbersAndTypes(countyNumbers, establishmentsTypes);
 	
 	// Translate the establishments into form fields
 	List<FormField> formFields = new ArrayList<FormField>();

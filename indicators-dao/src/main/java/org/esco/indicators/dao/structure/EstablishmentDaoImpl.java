@@ -100,9 +100,9 @@ public class EstablishmentDaoImpl extends AbstractGenericJPADaoService implement
      * org.esco.indicators.dao.structure.EstablishmentDao#getEstablishmentsByCountyNumber(java.lang.String)
      */
     @Override
-    public Set<Establishment> findEstablishmentsByCountyNumber(Integer countyNumber) {
+    public List<Establishment> findEstablishmentsByCountyNumber(String countyNumber) {
 	// Creation of the list of county numbers
-	List<Integer> countyNumbers = new ArrayList<Integer>();
+	List<String> countyNumbers = new ArrayList<String>();
 	countyNumbers.add(countyNumber);
 	
 	return findEstablishmentsByCountyNumbers(countyNumbers);
@@ -113,13 +113,13 @@ public class EstablishmentDaoImpl extends AbstractGenericJPADaoService implement
      */
     @Override
     @SuppressWarnings("unchecked")
-    public Set<Establishment> findEstablishmentsByCountyNumbers(List<Integer> countyNumbers) {
+    public List<Establishment> findEstablishmentsByCountyNumbers(List<String> countyNumbers) {
 	// Create the query and sets the parameters
 	Query query = entityManager.createNamedQuery("Establishment.findByCountyNumbers");
 	query.setParameter("countyNumberList", countyNumbers);
 
 	// Try to retrieve the establishments associated to the county numbers
-	Set<Establishment> establishments = new HashSet<Establishment>();
+	List<Establishment> establishments = new ArrayList<Establishment>();
 	try {
 	    List<Establishment> result = query.getResultList();
 	    establishments.addAll(result);
@@ -140,7 +140,7 @@ public class EstablishmentDaoImpl extends AbstractGenericJPADaoService implement
      */
     @Override
     @SuppressWarnings("unchecked")
-    public Set<Establishment> findEstablishmentsByCountyNumbersAndTypes(List<Integer> countyNumbers,
+    public List<Establishment> findEstablishmentsByCountyNumbersAndTypes(List<String> countyNumbers,
 	    List<String> types) {
 	// Create the query and sets the parameters
 	Query query = entityManager.createNamedQuery("Establishment.findByCountyNumbersAndTypes");
@@ -148,7 +148,7 @@ public class EstablishmentDaoImpl extends AbstractGenericJPADaoService implement
 	query.setParameter("typeList", types);
 
 	// Try to retrieve the establishments
-	Set<Establishment> establishments = new HashSet<Establishment>();
+	List<Establishment> establishments = new ArrayList<Establishment>();
 	try {
 	    List<Establishment> result = query.getResultList();
 	    establishments.addAll(result);
@@ -166,7 +166,7 @@ public class EstablishmentDaoImpl extends AbstractGenericJPADaoService implement
      * @see org.esco.indicators.dao.structure.EstablishmentDao#getEstablishmentsByType(java.lang.String)
      */
     @Override
-    public Set<Establishment> findEstablishmentsByType(String type) {
+    public List<Establishment> findEstablishmentsByType(String type) {
 	// Creation of the list of the establishments types
 	List<String> types = new ArrayList<String>();
 	types.add(type);
@@ -179,13 +179,13 @@ public class EstablishmentDaoImpl extends AbstractGenericJPADaoService implement
      */
     @Override
     @SuppressWarnings("unchecked")
-    public Set<Establishment> findEstablishmentsByTypes(List<String> types) {
+    public List<Establishment> findEstablishmentsByTypes(List<String> types) {
 	// Create the query and sets the parameters
 	Query query = entityManager.createNamedQuery("Establishment.findByTypes");
 	query.setParameter("typeList", types);
 
 	// Try to retrieve the establishments associated to the type
-	Set<Establishment> establishments = new HashSet<Establishment>();
+	List<Establishment> establishments = new ArrayList<Establishment>();
 	try {
 	    List<Establishment> result = query.getResultList();
 	    establishments.addAll(result);

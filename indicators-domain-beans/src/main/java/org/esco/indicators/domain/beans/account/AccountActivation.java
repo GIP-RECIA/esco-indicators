@@ -31,7 +31,7 @@ import org.apache.log4j.Logger;
 	    	+ " WHERE aa.activationStart <= :activationStart"
 		+ " AND ( aa.activationEnd >= :activationEnd OR aa.activationEnd IS NULL)"
 	    	+ " AND aa.userUid = pl.userUid"
-		+ " AND pl.establishmentUai = :establishmentUai"
+		+ " AND pl.establishmentUai IN ( :establishmentUaiList )"
 	    	+ " AND pl.linkStart <= :activationStart"
 		+ " AND ( pl.linkEnd >= :activationEnd OR pl.linkEnd IS NULL)"
 	    ),
@@ -41,7 +41,7 @@ import org.apache.log4j.Logger;
 	    	+ " WHERE aa.activationStart <= :activationStart"
 		+ " AND ( aa.activationEnd >= :activationEnd OR aa.activationEnd IS NULL)"
 	    	+ " AND aa.userUid = pl.userUid"
-		+ " AND pl.establishmentUai = :establishmentUai"
+		+ " AND pl.establishmentUai IN ( :establishmentUaiList )"
 	    	+ " AND pl.userProfile IN ( :userProfileList )"
 	    	+ " AND pl.linkStart <= :activationStart"
 		+ " AND ( pl.linkEnd >= :activationEnd OR pl.linkEnd IS NULL)"

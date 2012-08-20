@@ -37,7 +37,7 @@ public interface EstablishmentDao {
      * 	a set containing the establishments geographically localised in the specified 
      * 	county.
      */
-    public Set<Establishment> findEstablishmentsByCountyNumber(Integer countyNumber);
+    public List<Establishment> findEstablishmentsByCountyNumber(String countyNumber);
     
     /**
      * Retrieves the establishements, in the statistics database, that are geographically localised
@@ -50,7 +50,7 @@ public interface EstablishmentDao {
      * 	a set containing the establishments geographically localised in the specified 
      * 	counties.
      */
-    public Set<Establishment> findEstablishmentsByCountyNumbers(List<Integer> countyNumbers);
+    public List<Establishment> findEstablishmentsByCountyNumbers(List<String> countyNumbers);
     
     /**
      * Retrieves the establishements, in the statistics database, that are geographically localised
@@ -64,10 +64,10 @@ public interface EstablishmentDao {
      * 			The types of the establishments.
      * 
      * @return 
-     * 	a set containing the establishments geographically localised in the specified 
+     * 	a list containing the establishments geographically localised in the specified 
      * 	county numbers and with a type among the specified ones.
      */
-    public Set<Establishment> findEstablishmentsByCountyNumbersAndTypes(List<Integer> countyNumbers, List<String> types);
+    public List<Establishment> findEstablishmentsByCountyNumbersAndTypes(List<String> countyNumbers, List<String> types);
     
     /**
      * Retrieves the establishments, in the statistics database, having the same type as the 
@@ -75,9 +75,9 @@ public interface EstablishmentDao {
      * @param type
      * 			The type of establishment.
      * @return
-     * 	a set containing the establishments having a type equal to the specified <code>type</code>.
+     * 	a list containing the establishments having a type equal to the specified <code>type</code>.
      */
-    public Set<Establishment> findEstablishmentsByType(String type);
+    public List<Establishment> findEstablishmentsByType(String type);
     
     /**
      * Retrieves the establishments, in the statistics database, having the same type as one contained 
@@ -85,7 +85,7 @@ public interface EstablishmentDao {
      * @param types
      * 			The establishments types.
      * @return
-     * 	a set containing the establishments having a type equal to one of the specified <code>types</code>.
+     * 	a list containing the establishments having a type equal to one of the specified <code>types</code>.
      */
-    public Set<Establishment> findEstablishmentsByTypes(List<String> types);
+    public List<Establishment> findEstablishmentsByTypes(List<String> types);
 }

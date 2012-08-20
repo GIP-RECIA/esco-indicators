@@ -4,6 +4,7 @@
 package org.esco.indicators.dao.statistic;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -78,7 +79,7 @@ public class EstablishmentVisitStatisticDaoImpl implements EstablishmentVisitSta
      * @see org.esco.indicators.dao.statistic.EstablishmentVisitStatisticDao#findWeeklyNumVisits(java.lang.String, java.util.Date, java.util.Date, java.lang.String, java.lang.String)
      */
     @Override
-    public Integer findNumVisits(String establishmentUai, Date startDay, Date endDay,
+    public Integer findNumVisits(String establishmentUai, Date startDate, Date endDate,
 	    String establishmentType, String typeStat) {
 	// Name of the query to execute
 	String namedQuery = "EstablishmentVisitStatistic.findNumVisits";
@@ -86,9 +87,33 @@ public class EstablishmentVisitStatisticDaoImpl implements EstablishmentVisitSta
 	// Parameters of the query
 	Parameters parameters = new Parameters();
 	parameters.put("establishmentUai", establishmentUai);
-	parameters.put("startDate", startDay);
-	parameters.put("endDate", endDay);
+	parameters.put("startDate", startDate);
+	parameters.put("endDate", endDate);
 	parameters.put("establishmentType", establishmentType);
+	parameters.put("typeStat", typeStat);
+	
+	// Try to retrieve the daily statistic
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);	
+	Integer numVisits = (result == null ? null : result.intValue());
+	
+	return numVisits;
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.statistic.EstablishmentVisitStatisticDao#findNumVisitsByCountyAndTypes(java.lang.String, java.util.List, java.util.Date, java.util.Date, java.lang.String)
+     */
+    @Override
+    public Integer findNumVisitsByCountyAndTypes(String countyNumber, List<String> establishmentsTypes,
+	    Date startDate, Date endDate, String typeStat) {
+	// Name of the query to execute
+	String namedQuery = "EstablishmentVisitStatistic.findNumVisitsByCountyAndTypes";
+
+	// Parameters of the query
+	Parameters parameters = new Parameters();
+	parameters.put("countyNumber", countyNumber);
+	parameters.put("establishmentTypeList", establishmentsTypes);
+	parameters.put("startDate", startDate);
+	parameters.put("endDate", endDate);
 	parameters.put("typeStat", typeStat);
 	
 	// Try to retrieve the daily statistic

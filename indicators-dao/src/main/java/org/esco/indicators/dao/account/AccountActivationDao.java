@@ -17,10 +17,10 @@ import org.esco.indicators.domain.beans.account.AccountActivation;
  */
 public interface AccountActivationDao extends StatisticDao {
     /**
-     * Retrieves the number of activated accounts in the specified establishment between the start date (<code>startDate</code>) and the end date (<code>endDate</code>).<br/>
+     * Retrieves the number of activated accounts in the specified establishments between the start date (<code>startDate</code>) and the end date (<code>endDate</code>).<br/>
      * 
-     * @param establishmentUai
-     * 			UAI of the establishment.
+     * @param establishmentsUai
+     * 			UAI of the establishments.
      * @param startDate
      * 			The start date of account activation.
      * @param endDate
@@ -30,14 +30,14 @@ public interface AccountActivationDao extends StatisticDao {
      * 	the number of actived accounts in the establishment, during the specified period.<br/>
      * 	<code>null</code> if no data has been retrieved.
      */
-    public Integer findNumActivatedAccounts(String establishmentUai, Date startDate, Date endDate);
+    public Integer findNumActivatedAccounts(List<String> establishmentsUai, Date startDate, Date endDate);
     
     /**
-     * Retrieves the number of activated accounts in the specified establishment between the start date (<code>startDate</code>) and the end date (<code>endDate</code>).<br/>
+     * Retrieves the number of activated accounts in the specified establishments between the start date (<code>startDate</code>) and the end date (<code>endDate</code>).<br/>
      * These activated accounts have to be associated to one of the specified users profiles.
      * 
-     * @param establishmentUai
-     * 			UAI of the establishment.
+     * @param establishmentsUai
+     * 			UAI of the establishments.
      * @param usersProfiles
      * 			The profiles of the users.
      * @param startDate
@@ -46,9 +46,9 @@ public interface AccountActivationDao extends StatisticDao {
      * 			The end date of account activation.
      * 
      * @return
-     * 	the number of actived accounts in the establishment, during the specified period.<br/>
+     * 	the number of actived accounts in the establishments, during the specified period.<br/>
      * 	<code>null</code> if no data has been retrieved.
      */
-    public Integer findNumActivatedAccountsForProfiles(String establishmentUai, List<String> usersProfiles, Date startDate, Date endDate);
+    public Integer findNumActivatedAccountsForProfiles(List<String> establishmentsUai, List<String> usersProfiles, Date startDate, Date endDate);
     
 }

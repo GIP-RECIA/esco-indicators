@@ -5,14 +5,9 @@ package org.esco.indicators.services.form;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.xml.form.EntryValue;
-import org.esupportail.commons.services.i18n.I18nService;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.sun.syndication.feed.atom.Entry;
 
 /**
  * Implementation of the {@link DataFormService} interface.
@@ -142,7 +137,7 @@ public class DataFormServiceImpl implements DataFormService {
      * @see org.esco.indicators.services.form.DataFormService#getCountyNumberToFilter(java.lang.String)
      */
     @Override
-    public Integer getCountyNumberToFilter(String jspKey) {
+    public String getCountyNumberToFilter(String jspKey) {
        // Retrieval of the entry value
        EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
         return entryValue.getCountyNumberToFilter();
@@ -152,7 +147,7 @@ public class DataFormServiceImpl implements DataFormService {
      * @see org.esco.indicators.services.form.DataFormService#getCountyNumbersToFilter(java.lang.String)
      */
     @Override
-    public List<Integer> getCountyNumbersToFilter(String jspKey) {
+    public List<String> getCountyNumbersToFilter(String jspKey) {
 	// Retrieval of the entry value
 	EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
 	return entryValue.getCountyNumbersToFilter();
@@ -162,13 +157,13 @@ public class DataFormServiceImpl implements DataFormService {
      * @see org.esco.indicators.services.form.DataFormService#getCountyNumbersToFilter(java.util.List)
      */
     @Override
-    public List<Integer> getCountyNumbersToFilter(List<String> checkedJspKeys) {
+    public List<String> getCountyNumbersToFilter(List<String> checkedJspKeys) {
 	// Final result
-	List<Integer> countyNumbers = new ArrayList<Integer>();
+	List<String> countyNumbers = new ArrayList<String>();
 	
 	// Retrieval of the county numbers to filter
 	for (String jspKey : checkedJspKeys) {
-	    Integer countyNumber = getCountyNumberToFilter(jspKey);
+	    String countyNumber = getCountyNumberToFilter(jspKey);
 	    if(countyNumber != null) {
 		countyNumbers.add(countyNumber);
 	    }
@@ -288,7 +283,7 @@ public class DataFormServiceImpl implements DataFormService {
         EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
         
         // Retrieval of the possible filters to apply when the entry value is selected
-        Integer countyNumberToFilter = entryValue.getCountyNumberToFilter();
+        String countyNumberToFilter = entryValue.getCountyNumberToFilter();
         String establishmentTypeToFilter = entryValue.getEstablishmentTypeToFilter();
         
         return (countyNumberToFilter != null || establishmentTypeToFilter != null);

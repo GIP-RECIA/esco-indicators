@@ -60,7 +60,7 @@ public class Establishment extends Structure implements Serializable {
      * This county number depends on the geographical localisation of the establishment.
      */
     @Column(name = "departement", nullable = false)
-    private Integer countyNumber;
+    private String countyNumber;
 
     /** Type of the establishment */
     @Column(name = "typeetablissement", nullable = false)
@@ -93,7 +93,7 @@ public class Establishment extends Structure implements Serializable {
      * @param type
      * 			The type of the establishment.
      */
-    public Establishment(Integer countyNumber, String uai, String type) {
+    public Establishment(String countyNumber, String uai, String type) {
 	super();
 	this.uai = uai;
 	this.countyNumber = countyNumber;
@@ -107,7 +107,7 @@ public class Establishment extends Structure implements Serializable {
      * 
      * @return the county number of the establishment.
      */
-    public Integer getCountyNumber() {
+    public String getCountyNumber() {
         return countyNumber;
     }
     
@@ -118,7 +118,7 @@ public class Establishment extends Structure implements Serializable {
      * @param countyNumber
      * 			The county number to set.
      */
-    public void setCountyNumber(Integer countyNumber) {
+    public void setCountyNumber(String countyNumber) {
         this.countyNumber = countyNumber;
     }
 

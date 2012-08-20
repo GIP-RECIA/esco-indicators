@@ -27,7 +27,7 @@ public class EstablishmentUserTest {
     public void testLinkEstablishment1() {
 	EstablishmentUser establishmentUser = new EstablishmentUser();
 	
-	Establishment establishment = new Establishment(45, "0360111A", "lycee");
+	Establishment establishment = new Establishment("45", "0360111A", "lycee");
 	establishmentUser.linkEstablishment(establishment);
 	
 	assertTrue(establishmentUser.getLinkedEstablishments().contains(establishment));
@@ -40,10 +40,10 @@ public class EstablishmentUserTest {
     public void testLinkEstablishment2() {
 	EstablishmentUser establishmentUser = new EstablishmentUser();
 	
-	Establishment establishment = new Establishment(45, "0360111A", "lycee");
+	Establishment establishment = new Establishment("45", "0360111A", "lycee");
 	establishmentUser.linkEstablishment(establishment);
 	
-	Establishment establishment2 = new Establishment(41, "0456781AB", "college");
+	Establishment establishment2 = new Establishment("41", "0456781AB", "college");
 	establishmentUser.linkEstablishment(establishment2);
 	
 	assertTrue(establishmentUser.getLinkedEstablishments().size() == 2);

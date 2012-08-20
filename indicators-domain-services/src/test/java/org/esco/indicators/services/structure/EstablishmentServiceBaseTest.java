@@ -55,9 +55,9 @@ public class EstablishmentServiceBaseTest {
 	// Establishments county 
 	// numbers
 	///////////////////////////////
-	Integer county36 = 36;
-	Integer county37 = 37;
-	Integer county45 = 45;
+	String county36 = "36";
+	String county37 = "37";
+	String county45 = "45";
 	
 	///////////////////////////////
 	// CFA

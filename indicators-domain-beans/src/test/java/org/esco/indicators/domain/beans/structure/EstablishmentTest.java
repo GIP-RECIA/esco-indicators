@@ -25,7 +25,7 @@ public class EstablishmentTest {
     @Test
     public void testEstablishment1() {
 	String escouai = "0123456A";
-	Integer countyNumber = new Integer(45);
+	String countyNumber = "45";
 	String type = "lycee";
 	
 	Establishment establishment = new Establishment(countyNumber, escouai, type);
@@ -39,7 +39,7 @@ public class EstablishmentTest {
     @Test
     public void testEstablishment2() {
 	String escouai = "0123456A";
-	Integer countyNumber = new Integer(45);
+	String countyNumber = "45";
 	String type = "lycee";
 	
 	Establishment establishment = new Establishment(countyNumber, escouai, type);
@@ -53,7 +53,7 @@ public class EstablishmentTest {
     @Test
     public void testEstablishment3() {
 	String escouai = "0123456A";
-	Integer countyNumber = new Integer(45);
+	String countyNumber = "45";
 	String type = "lycee";
 	
 	Establishment establishment = new Establishment(countyNumber, escouai, type);

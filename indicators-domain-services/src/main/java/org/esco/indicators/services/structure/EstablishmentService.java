@@ -4,7 +4,6 @@
 package org.esco.indicators.services.structure;
 
 import java.util.List;
-import java.util.Set;
 
 import org.esco.indicators.domain.beans.structure.Establishment;
 
@@ -31,10 +30,10 @@ public interface EstablishmentService {
      * 
      * @param countyNumber
      *            The county number of the searched establishments.
-     * @return the <code>Set</code> of establishments associated to the specified <code>countyNumber</code>. <br/>
-     *         an empty <code>Set</code> if no estbalishment has been retrieved.
+     * @return the <code>List</code> of establishments associated to the specified <code>countyNumber</code>. <br/>
+     *         an empty <code>List</code> if no estbalishment has been retrieved.
      */
-    public Set<Establishment> findEstablishmentsByCountyNumber(Integer countyNumber);
+    public List<Establishment> findEstablishmentsByCountyNumber(String countyNumber);
 
     /**
      * Retrieves the establishements, in database, that are geographically localised in the counties
@@ -47,11 +46,11 @@ public interface EstablishmentService {
      * @param types
      *            The establishment types of the searched establishments.
      * 
-     * @return a <code>Set</code> containing the establishments geographically localised in the specified county numbers
+     * @return a <code>List</code> containing the establishments geographically localised in the specified county numbers
      *         and with a type among the specified ones.<br/>
-     *         an empty <code>Set</code> if no estbalishment has been retrieved.
+     *         an empty <code>List</code> if no estbalishment has been retrieved.
      */
-    public Set<Establishment> findEstablishmentsByCountyNumbersAndTypes(List<Integer> countyNumbers,
+    public List<Establishment> findEstablishmentsByCountyNumbersAndTypes(List<String> countyNumbers,
 	    List<String> types);
 
     /**
@@ -59,9 +58,9 @@ public interface EstablishmentService {
      * 
      * @param type
      *            The type of the searched establishments.
-     * @return the <code>Set</code> of establishments associated to the specified <code>type</code>. <br/>
-     *         an empty <code>Set</code> if no estbalishment has been retrieved.
+     * @return the <code>List</code> of establishments associated to the specified <code>type</code>. <br/>
+     *         an empty <code>List</code> if no estbalishment has been retrieved.
      */
-    public Set<Establishment> findEstablishmentsByType(String type);
+    public List<Establishment> findEstablishmentsByType(String type);
 
 }

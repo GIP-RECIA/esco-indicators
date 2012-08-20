@@ -4,6 +4,7 @@
 package org.esco.indicators.services.statistic;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.dao.statistic.EstablishmentVisitStatisticDao;
@@ -88,7 +89,27 @@ public class EstablishmentVisitStatisticServiceImpl implements EstablishmentVisi
     // WEEKLY STATISTICS
     ///////////////////////////////////////////////////////
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.EstablishmentVisitStatisticService#findWeeklyNumVisits(java.lang.String, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.EstablishmentVisitStatisticService#findCountyWeeklyNumVisits(java.lang.String, java.util.List, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Integer findCountyWeeklyNumVisits(String countyNumber, List<String> establishmentsTypes,
+            Integer week, Integer year) {
+	// The type of statistic required : Statistic concerning only one establishment 
+	String typeStat = StatisticConstants.TYPE_STAT_SUM_ONE_COUNTY_ONE_ESTABLISHMENT_TYPE;
+	
+	// Gets the first and last days of the week
+	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
+	Date lastWeekDay = DateUtils.addDays(firstWeekDay, 6);
+	
+	// Gets the number of visits
+	Integer numVisits = establishmentVisitStatisticDao.findNumVisitsByCountyAndTypes(countyNumber, establishmentsTypes, firstWeekDay, lastWeekDay, typeStat);
+	numVisits = (numVisits == null ? 0 : numVisits);
+	
+	return numVisits;
+    }
+    
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.EstablishmentVisitStatisticService#findWeeklyNumVisits(java.util.List, java.lang.Integer, java.lang.Integer)
      */
     @Override
     public Integer findEstablishmentWeeklyNumVisits(String establishmentUai, Integer week, Integer year) {

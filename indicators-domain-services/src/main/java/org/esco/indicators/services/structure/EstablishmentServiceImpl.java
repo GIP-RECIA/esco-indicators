@@ -3,9 +3,8 @@
  */
 package org.esco.indicators.services.structure;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.dao.structure.EstablishmentDao;
@@ -86,8 +85,8 @@ public class EstablishmentServiceImpl implements EstablishmentService {
      * @see org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsByCountyNumber(java.lang.Integer)
      */
     @Override
-    public Set<Establishment> findEstablishmentsByCountyNumber(Integer countyNumber) {
-	Set<Establishment> establishments = establishmentDao.findEstablishmentsByCountyNumber(countyNumber);
+    public List<Establishment> findEstablishmentsByCountyNumber(String countyNumber) {
+	List<Establishment> establishments = establishmentDao.findEstablishmentsByCountyNumber(countyNumber);
 	for (Establishment establishment : establishments) {
 	    fillEstablishmentName(establishment);
 	}
@@ -98,14 +97,14 @@ public class EstablishmentServiceImpl implements EstablishmentService {
      * @see org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsByCountyNumbersAndTypes(java.util.List, java.util.List)
      */
     @Override
-    public Set<Establishment> findEstablishmentsByCountyNumbersAndTypes(List<Integer> countyNumbers,
+    public List<Establishment> findEstablishmentsByCountyNumbersAndTypes(List<String> countyNumbers,
 	    List<String> types) {
 	// Final result
-	Set<Establishment> establishments = new HashSet<Establishment>();
+	List<Establishment> establishments = new ArrayList<Establishment>();
 	
 	// If at least one county number, and one type are provided
 	if(!countyNumbers.isEmpty() && !types.isEmpty()) {
-	    LOGGER.debug("At least one country number, and one establishment type, have been provided..");
+	    LOGGER.debug("At least one country number, and one establishment type, have been provided.");
 	    establishments = establishmentDao.findEstablishmentsByCountyNumbersAndTypes(countyNumbers, types);
 	} 
 	// If no county number is provided, and at least one type is provided
@@ -128,6 +127,8 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	    fillEstablishmentName(establishment);
 	}
 	
+	LOGGER.debug("Establishments found : " + establishments);
+	
 	return establishments;
     }
     
@@ -135,8 +136,8 @@ public class EstablishmentServiceImpl implements EstablishmentService {
      * @see org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsByType(java.lang.String)
      */
     @Override
-    public Set<Establishment> findEstablishmentsByType(String type) {
-	Set<Establishment> establishments = establishmentDao.findEstablishmentsByType(type);
+    public List<Establishment> findEstablishmentsByType(String type) {
+	List<Establishment> establishments = establishmentDao.findEstablishmentsByType(type);
 	for (Establishment establishment : establishments) {
 	    fillEstablishmentName(establishment);
 	}

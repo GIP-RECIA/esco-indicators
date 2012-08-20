@@ -274,9 +274,13 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
      * 	the exented result row containing informations on the establishment and the accounts.
      */
     private ExtendedResultRow createWeeklyExtendedResultRow(String establishmentUai, String userProfile, Integer week, Integer year) {
+	// New list for the UAI
+	List<String> establishmentsUai = new ArrayList<String>();
+	establishmentsUai.add(establishmentUai);
+	
 	// Gets the informations on the accounts
-	Integer numTotalAccounts = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentUai, userProfile, week, year);
-	Integer numActivatedAccounts = accountStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentUai, userProfile, week, year);
+	Integer numTotalAccounts = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentsUai, userProfile, week, year);
+	Integer numActivatedAccounts = accountStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentsUai, userProfile, week, year);
 	
 	// Gets the informations on the establishment
 	EstablishmentData establishmentData = getEstablishmentData(establishmentUai);
@@ -361,8 +365,12 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
 	// Retrieval of the simple services concerned by the statistic
 	List<String> services = getSimpleServices(service);
 	
+	// New list for the UAI
+	List<String> establishmentsUai = new ArrayList<String>();
+	establishmentsUai.add(establishmentUai);
+	
 	// Retrieval of the total account number
-	Integer totalAccountNumber = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentUai, userProfile, week, year);
+	Integer totalAccountNumber = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentsUai, userProfile, week, year);
 	
 	// Retrieval of the service visitors statistics with a number of connections below / above a treshold
 	Integer treshold = ServicesConstants.NUM_CONNECTIONS_TRESHOLD;
@@ -396,7 +404,7 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
 	}
 	
 	// Map establishment to establishment data
-	String countyNumber = establishment.getCountyNumber().toString();
+	String countyNumber = establishment.getCountyNumber();
 	String name = establishment.getName();
 	String establishmentType = establishment.getType();
 	EstablishmentData data = new EstablishmentData(countyNumber, name, establishmentType, uai);

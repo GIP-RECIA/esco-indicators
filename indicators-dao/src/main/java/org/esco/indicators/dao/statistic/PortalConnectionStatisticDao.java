@@ -4,6 +4,7 @@
 package org.esco.indicators.dao.statistic;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  * Interface providing functions to access statistical data on the connections to the portal.<br/>
@@ -55,11 +56,11 @@ public interface PortalConnectionStatisticDao extends StatisticDao {
 	    String userProfile);
     
     /**
-     * Retrieves the number of visitors that made more than <code>treshold</code> connections on the portal of the specified <code>establishmentUai</code>.
+     * Retrieves the number of visitors that made more than <code>treshold</code> connections on the portal of the specified <code>establishmentsUai</code>.
      * This number of connections only concerns the week beggining with the day <code>firstWeekDay</code>.<br/>
      * 
-     * @param establishmentUai
-     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param establishmentsUai
+     * 			The UAI of the establishments associated to the statistic to retrieve.
      * @param firstWeekDay
      * 			he first day of the week associated to the statistic.
      * @param year
@@ -71,15 +72,15 @@ public interface PortalConnectionStatisticDao extends StatisticDao {
      * 	the number of visitors who made more than <code>treshold</code> connections on the portal.<br/>
      * 	<code>null</code> if no statistic has been retrieved.
      */
-    public Integer findWeeklyNumVisitorsAboveTreshold(String establishmentUai, Date firstWeekDay, Integer treshold);
+    public Integer findWeeklyNumVisitorsAboveTreshold(List<String> establishmentsUai, Date firstWeekDay, Integer treshold);
     
     /**
      * Retrieves the number of visitors that made more than <code>treshold</code> connections on the portal, and who has the specified 
-     * <code>userProfile</code> the specified <code>establishmentUai</code>.
+     * <code>userProfile</code> the specified <code>establishmentsUai</code>.
      * This number of connections only concerns the week beggining with the day <code>firstWeekDay</code>.<br/>
      * 
-     * @param establishmentUai
-     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param establishmentsUai
+     * 			The UAI of the establishments associated to the statistic to retrieve.
      * @param userProfile
      * 			The user profile of the statistic to retrieve.
      * @param firstWeekDay
@@ -93,15 +94,15 @@ public interface PortalConnectionStatisticDao extends StatisticDao {
      * 	the number of visitors who made more than <code>treshold</code> connections on the portal.<br/>
      * 	<code>null</code> if no statistic has been retrieved.
      */
-    public Integer findWeeklyNumVisitorsAboveTresholdByProfile(String establishmentUai, Date firstWeekDay,
+    public Integer findWeeklyNumVisitorsAboveTresholdByProfile(List<String> establishmentsUai, Date firstWeekDay,
 	    String userProfile, Integer treshold);
     
     /**
-     * Retrieves the number of visitors that made less than <code>treshold</code> connections on the portal of the specified <code>establishmentUai</code>.
+     * Retrieves the number of visitors that made less than <code>treshold</code> connections on the portal of the specified <code>establishmentsUai</code>.
      * This number of connections only concerns the week beggining with the day <code>firstWeekDay</code>.<br/>
      * 
-     * @param establishmentUai
-     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param establishmentsUai
+     * 			The UAI of the establishments associated to the statistic to retrieve.
      * @param firstWeekDay
      * 			he first day of the week associated to the statistic.
      * @param year
@@ -113,15 +114,15 @@ public interface PortalConnectionStatisticDao extends StatisticDao {
      * 	the number of visitors who made less than <code>treshold</code> connections on the portal.<br/>
      * 	<code>null</code> if no statistic has been retrieved.
      */
-    public Integer findWeeklyNumVisitorsBelowTreshold(String establishmentUai, Date firstWeekDay, Integer treshold);
+    public Integer findWeeklyNumVisitorsBelowTreshold(List<String> establishmentsUai, Date firstWeekDay, Integer treshold);
     
     /**
      * Retrieves the number of visitors that made less than <code>treshold</code> connections on the portal, and who has the specified 
-     * <code>userProfile</code> the specified <code>establishmentUai</code>.
+     * <code>userProfile</code> the specified <code>establishmentsUai</code>.
      * This number of connections only concerns the week beggining with the day <code>firstWeekDay</code>.<br/>
      * 
-     * @param establishmentUai
-     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param establishmentsUai
+     * 			The UAI of the establishments associated to the statistic to retrieve.
      * @param userProfile
      * 			The user profile of the statistic to retrieve.
      * @param firstWeekDay
@@ -135,7 +136,7 @@ public interface PortalConnectionStatisticDao extends StatisticDao {
      * 	the number of visitors who made less than <code>treshold</code> connections on the portal.<br/>
      * 	<code>null</code> if no statistic has been retrieved.
      */
-    public Integer findWeeklyNumVisitorsBelowTresholdByProfile(String establishmentUai, Date firstWeekDay,
+    public Integer findWeeklyNumVisitorsBelowTresholdByProfile(List<String> establishmentsUai, Date firstWeekDay,
 	    String userProfile, Integer treshold);
     
     // /////////////////////////////////////////////////////

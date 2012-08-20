@@ -220,8 +220,8 @@ public class EntryValue {
      * @return 
      * 	the county number to filter.
      */
-    public Integer getCountyNumberToFilter() {
-	List<Integer> numbers =  getWhenActivatedEvent().getFilterCountyNumber();
+    public String getCountyNumberToFilter() {
+	List<String> numbers =  getWhenActivatedEvent().getFilterCountyNumber();
 	return (numbers == null ? null : numbers.get(0));
     }
     
@@ -231,7 +231,7 @@ public class EntryValue {
      * @return 
      * 	the county numbers to filter.
      */
-    public List<Integer> getCountyNumbersToFilter() {
+    public List<String> getCountyNumbersToFilter() {
 	return getWhenActivatedEvent().getFilterCountyNumber();
     }
     

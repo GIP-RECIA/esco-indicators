@@ -34,12 +34,19 @@ import org.apache.log4j.Logger;
 	    ),
   @NamedQuery(
     name = "EstablishmentVisitStatistic.findNumVisits",
-    query = "SELECT SUM(evs.numVisits) FROM EstablishmentVisitStatistic evs"
+    query = "SELECT SUM( evs.numVisits ) FROM EstablishmentVisitStatistic evs"
     		+ " WHERE evs.establishmentUai = :establishmentUai" 
     		+ " AND evs.day BETWEEN :startDate AND :endDate"
     		+ " AND evs.establishmentType = :establishmentType"
     		+ " AND evs.typeStat = :typeStat"
-
+	  ) ,
+    @NamedQuery(
+    name = "EstablishmentVisitStatistic.findNumVisitsByCountyAndTypes",
+    query = "SELECT SUM( evs.numVisits ) FROM EstablishmentVisitStatistic evs"
+    		+ " WHERE evs.establishmentUai = :countyNumber" 
+    		+ " AND evs.day BETWEEN :startDate AND :endDate"
+    		+ " AND evs.establishmentType IN ( :establishmentTypeList )"
+    		+ " AND evs.typeStat = :typeStat"
     )
 })
 @Table(name = "nombredevisiteurs")

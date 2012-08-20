@@ -3,6 +3,8 @@
  */
 package org.esco.indicators.services.statistic;
 
+import java.util.List;
+
 
 /**
  * Interface providing functions to access statistical data on the portal connections.
@@ -20,11 +22,11 @@ public interface PortalConnectionStatisticService {
     // WEEKLY STATISTICS
     ///////////////////////////////////////////////////////
     /**
-     * Retrieves the number of visitors that made more than <code>treshold</code> connections on the portal of the  <code>establishmentUai</code>.
+     * Retrieves the number of visitors that made more than <code>treshold</code> connections on the portal of the  <code>establishmentsUai</code>.
      * This number of visitors only concerns the week having the number <code>week</code> in the year <code>year</code>.
      * 
-     * @param establishmentUai
-     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param establishmentsUai
+     * 			The UAI of the establishments associated to the statistic to retrieve.
      * @param userProfile
      * 			The user profile of the statistic to retrieve.
      * @param week
@@ -38,7 +40,7 @@ public interface PortalConnectionStatisticService {
      * 	the number of visitors who made more than <code>treshold</code> connections on the portal.<br/>
      * 	the number 0 if no statistic has been retrieved.
      */
-    public Integer findWeeklyNumVisitorsAboveTreshold(String establishmentUai, Integer week, Integer year,
+    public Integer findWeeklyNumVisitorsAboveTreshold(List<String> establishmentsUai, Integer week, Integer year,
             Integer treshold);
     
     /**
@@ -64,11 +66,33 @@ public interface PortalConnectionStatisticService {
     public Integer findWeeklyNumVisitorsAboveTresholdByProfile(String establishmentUai, String userProfile, Integer week, Integer year, Integer treshold);
     
     /**
-     * Retrieves the number of visitors that made less than <code>treshold</code> connections on the portal of the specified <code>establishmentUai</code>.
+     * Retrieves the number of visitors that made more than <code>treshold</code> connections on the portal, and who has the specified 
+     * <code>userProfile</code> the specified <code>establishmenstUai</code>.
      * This number of visitors only concerns the week having the number <code>week</code> in the year <code>year</code>.
      * 
-     * @param establishmentUai
-     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param establishmentsUai
+     * 			The UAI of the establishments associated to the statistic to retrieve.
+     * @param userProfile
+     * 			The user profile of the statistic to retrieve.
+     * @param week
+     * 			The week number of the statistic to retrieve.
+     * @param year
+     * 			The year of the statistic to retrieve.
+     * @param treshold
+     * 			The minimum number of connections treshold.
+     * 
+     * @return
+     * 	the number of visitors who made more than <code>treshold</code> connections on the portal.<br/>
+     * 	the number 0 if no statistic has been retrieved.
+     */
+    public Integer findWeeklyNumVisitorsAboveTresholdByProfile(List<String> establishmentsUai, String userProfile, Integer week, Integer year, Integer treshold);
+    
+    /**
+     * Retrieves the number of visitors that made less than <code>treshold</code> connections on the portal of the specified <code>establishmentsUai</code>.
+     * This number of visitors only concerns the week having the number <code>week</code> in the year <code>year</code>.
+     * 
+     * @param establishmentsUai
+     * 			The UAI of the establishments associated to the statistic to retrieve.
      * @param userProfile
      * 			The user profile of the statistic to retrieve.
      * @param week
@@ -82,7 +106,7 @@ public interface PortalConnectionStatisticService {
      * 	the number of visitors who made less than <code>treshold</code> connections on the portal.<br/>
      * 	the number 0 if no statistic has been retrieved.
      */
-    public Integer findWeeklyNumVisitorsBelowTreshold(String establishmentUai, Integer week, Integer year, Integer treshold);
+    public Integer findWeeklyNumVisitorsBelowTreshold(List<String> establishmentsUai, Integer week, Integer year, Integer treshold);
     
     /**
      * Retrieves the number of visitors that made less than <code>treshold</code> connections on the portal, and who has the specified 
@@ -105,6 +129,28 @@ public interface PortalConnectionStatisticService {
      * 	the number 0 if no statistic has been retrieved.
      */
     public Integer findWeeklyNumVisitorsBelowTresholdByProfile(String establishmentUai, String userProfile, Integer week, Integer year, Integer treshold);
+    
+    /**
+     * Retrieves the number of visitors that made less than <code>treshold</code> connections on the portal, and who has the specified 
+     * <code>userProfile</code> the specified <code>establishmentsUai</code>.
+     * This number of visitors only concerns the week having the number <code>week</code> in the year <code>year</code>.
+     * 
+     * @param establishmentsUai
+     * 			The UAI of the establishments associated to the statistic to retrieve.
+     * @param userProfile
+     * 			The user profile of the statistic to retrieve.
+     * @param week
+     * 			The week number of the statistic to retrieve.
+     * @param year
+     * 			The year of the statistic to retrieve.
+     * @param treshold
+     * 			The maximum number of connections treshold.
+     * 
+     * @return
+     * 	the number of visitors who made less than <code>treshold</code> connections on the portal.<br/>
+     * 	the number 0 if no statistic has been retrieved.
+     */
+    public Integer findWeeklyNumVisitorsBelowTresholdByProfile(List<String> establishmentsUai, String userProfile, Integer week, Integer year, Integer treshold);
     
     /**
      * Retrieves the number of connections made on the portal for the specified user profile

@@ -30,7 +30,17 @@
     </p>
     
     <p>
-        <spring:message code="filter.title.county" /> : <spring:message code="${countyItem}" />
+        <!-- #################################################### -->
+        <!-- SUM ON COUNTIES ? -->
+        <!-- #################################################### -->
+        <!-- If the sum on counties has been asked -->
+        <c:if test="${not empty sumOnCountiesItem}">
+            <spring:message code="filter.title.county" /> : <spring:message code="filter.title.sumOnCounties" />
+        </c:if>
+        <!-- #################################################### -->
+        <c:if test="${empty sumOnCountiesItem}">
+            <spring:message code="filter.title.county" /> : <spring:message code="${countyItem}" />
+        </c:if>
     </p>    
 
     <p>

@@ -76,7 +76,7 @@ public interface DataFormService {
      * 	the county number to filter.<br/>
      * 	<code>null</code> if no county number has to be filtered.
      */
-    public Integer getCountyNumberToFilter(String jspKey);
+    public String getCountyNumberToFilter(String jspKey);
     
     /**
      * Gets the county numbers to filter when the specified JSP key is checked in the user view.
@@ -87,7 +87,7 @@ public interface DataFormService {
      * 	the county numbers to filter.<br/>
      * 	<code>null</code> if no county number has to be filtered.
      */
-    public  List<Integer> getCountyNumbersToFilter(String jspKey);
+    public  List<String> getCountyNumbersToFilter(String jspKey);
     
     /**
      * Gets the county numbers to filter when the specified JSP keys are checked in the user view.
@@ -99,7 +99,7 @@ public interface DataFormService {
      * 	the list of the county numbers to filter.<br/>
      * 	an empty list if no county number has to be filtered.
      */
-    public List<Integer> getCountyNumbersToFilter(List<String> checkedJspKeys);    
+    public List<String> getCountyNumbersToFilter(List<String> checkedJspKeys);    
     
     /**
      * Gets the establishment type to filter when the specified JSP key is checked in the user view.
