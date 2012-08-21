@@ -253,11 +253,11 @@ public interface EspecialPortalConnectionStatisticDao extends StatisticDao {
     
     /**
      * Retrieves the number of visitors that made less than <code>treshold</code> connections on the portal, and who has the specified 
-     * <code>userProfile</code> the specified <code>establishmentUai</code>.
+     * <code>userProfile</code> the specified <code>establishmentsUai</code>.
      * This number of connections only concerns the month beginning with the day <code>firstMonthDay</code>.<br/>
      * 
-     * @param establishmentUai
-     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param establishmentsUai
+     * 			The UAI of the establishments associated to the statistic to retrieve.
      * @param userProfile
      * 			The user profile of the statistic to retrieve.
      * @param firstMonthDay
@@ -271,7 +271,7 @@ public interface EspecialPortalConnectionStatisticDao extends StatisticDao {
      * 	the number of visitors who made less than <code>treshold</code> connections on the portal.<br/>
      * 	<code>null</code> if no statistic has been retrieved.
      */
-    public Integer findMonthlyNumVisitorsBelowTresholdByProfile(String establishmentUai, Date firstMonthDay,
+    public Integer findMonthlyNumVisitorsBelowTresholdByProfile(List<String> establishmentsUai, Date firstMonthDay,
 	    String userProfile, Integer treshold);
 
 }
