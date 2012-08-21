@@ -6,10 +6,12 @@
 <!-- If the sum on counties has been asked -->
 <c:if test="${not empty sumOnCountiesItem}">
     <td>
-        ${item.establishmentData.countyNumber}
+        <spring:message code="result.table.county.${item.establishmentData.countyNumber}" />
     </td>
     <td> </td>
-    <td> </td>
+    <td> 
+        ${item.establishmentData.countyNumber}
+    </td>
     <td> </td>
     <td> </td>
 </c:if>
