@@ -224,14 +224,14 @@ public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatist
      * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findMonthlyNumVisitorsAboveTreshold(java.lang.String, java.util.Date, java.lang.String, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumVisitorsAboveTresholdByProfile(String establishmentUai, Date firstMonthDay,
+    public Integer findMonthlyNumVisitorsAboveTresholdByProfile(List<String> establishmentsUai, Date firstMonthDay,
             String userProfile, Integer treshold) {
         // Name of the query to execute
 	String namedQuery = "MonthlyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfile";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
-	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("establishmentUaiList", establishmentsUai);
 	parameters.put("firstMonthDay", firstMonthDay);
 	parameters.put("userProfile", userProfile);
 	parameters.put("treshold", treshold);
@@ -269,14 +269,14 @@ public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatist
      * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findMonthlyNumVisitorsBelowTreshold(java.lang.String, java.util.Date, java.lang.String, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumVisitorsBelowTresholdByProfile(String establishmentUai, Date firstMonthDay,
+    public Integer findMonthlyNumVisitorsBelowTresholdByProfile(List<String> establishmentUai, Date firstMonthDay,
             String userProfile, Integer treshold) {
         // Name of the query to execute
 	String namedQuery = "MonthlyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfile";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
-	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("establishmentUaiList", establishmentUai);
 	parameters.put("firstMonthDay", firstMonthDay);
 	parameters.put("userProfile", userProfile);
 	parameters.put("treshold", treshold);

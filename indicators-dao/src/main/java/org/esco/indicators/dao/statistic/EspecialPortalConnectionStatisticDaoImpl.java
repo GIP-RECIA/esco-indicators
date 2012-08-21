@@ -260,14 +260,14 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
      * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findMonthlyNumVisitorsAboveTreshold(java.lang.String, java.util.Date, java.lang.String, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumVisitorsAboveTresholdByProfile(String establishmentUai, Date firstMonthDay,
+    public Integer findMonthlyNumVisitorsAboveTresholdByProfile(List<String> establishmentsUai, Date firstMonthDay,
 	    String userProfile, Integer treshold) {
 	// Name of the query to execute
 	String namedQuery = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfile";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
-	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("establishmentUaiList", establishmentsUai);
 	parameters.put("firstMonthDay", firstMonthDay);
 	parameters.put("userProfile", userProfile);
 	parameters.put("treshold", treshold);
