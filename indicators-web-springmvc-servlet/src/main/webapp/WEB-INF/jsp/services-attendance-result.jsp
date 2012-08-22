@@ -31,7 +31,7 @@
                 <spring:message code="result.table.accountActivation" />
             </th>
 
-            <c:forEach var="item" items="${servicesItems}">
+            <c:forEach var="item" items="${wantedServicesItems}">
                 <spring:message code="${item}" var="i18n"/> 
                 <th colspan="5">
                     ${i18n}
@@ -55,7 +55,7 @@
             </th>
             
             
-            <c:forEach var="item" items="${servicesItems}">
+            <c:forEach var="item" items="${wantedServicesItems}">
                 <th colspan="4">
                     <spring:message code="result.table.consultationFrequency" />
                 </th>
@@ -80,7 +80,7 @@
                 <spring:message code="result.table.percent" />
             </th>
             
-            <c:forEach var="item" items="${servicesItems}">
+            <c:forEach var="item" items="${wantedServicesItems}">
                 <th colspan="2">
                     <spring:message code="result.table.maxTimes" arguments="4" /> 
                 </th>
@@ -102,7 +102,7 @@
                 </th>
             </c:forEach>
             
-            <c:forEach var="item" items="${servicesItems}">
+            <c:forEach var="item" items="${wantedServicesItems}">
                 <th>
                     <spring:message code="result.table.numVisitor" />
                 </th>
