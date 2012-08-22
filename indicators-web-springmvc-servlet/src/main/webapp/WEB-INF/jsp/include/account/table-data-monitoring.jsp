@@ -3,16 +3,20 @@
     <!-- Result row -->
     <tr>
         <!-- #################################################### -->
-        <!-- DETAIL VIEW ? -->
+        <!-- DETAIL VIEW / SUM ON COUNTIES ? -->
         <!-- #################################################### -->
-        <!-- If this is not a detail view -->
-        <c:if test="${empty detail}">
+        <!-- If this is not a detail view and the sum on counties has not been asked -->
+        <c:if test="${(empty detail) && (empty sumOnCountiesItem)}">
             <td>
                 <a href="accounts-activations-monitoring-detail?uai=${item.establishmentData.uai}">
                     <spring:message code="result.table.detail" />
                 </a>
             </td>
             
+
+        </c:if>
+        
+        <c:if test="${empty detail}">
             <!-- Establishment data -->
             <%@ include file="/WEB-INF/jsp/include/common/table-data-establishment.jsp"%>
         </c:if>

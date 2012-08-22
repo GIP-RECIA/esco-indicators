@@ -1,6 +1,13 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
 <%@ page import="java.util.*" %>
 
+<!-- #################################################### -->
+<!-- VARIABLES SETTINGS -->
+<!-- #################################################### -->
+
+<c:set var="monitoring" value="true" />
+
+<!-- #################################################### -->
 
 <h1><spring:message code="header.title"/></h1>
 
@@ -22,10 +29,16 @@
     <table>
         <!-- Headers : First level -->
         <tr>
-            <th>
-                <spring:message code="result.table.detail" />
-                <c:set var="monitoring" value="true" />
-            </th>
+            <!-- #################################################### -->
+            <!-- SUM ON COUNTIES ? -->
+            <!-- #################################################### -->
+            <!-- If the sum on counties has not been asked -->
+            <c:if test="${empty sumOnCountiesItem}">
+                <th>
+                    <spring:message code="result.table.detail" />
+                </th>
+            </c:if>
+            <!-- #################################################### -->
 
             <!-- Establishlment part -->
             <%@ include file="/WEB-INF/jsp/include/common/table-header-establishment.jsp"%>
