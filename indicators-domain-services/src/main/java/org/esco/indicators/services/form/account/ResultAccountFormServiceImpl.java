@@ -7,13 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.esco.indicators.domain.beans.result.DetailResultRow;
+import org.esco.indicators.domain.beans.result.BasicResultRow;
 import org.esco.indicators.domain.beans.result.EstablishmentData;
-import org.esco.indicators.domain.beans.result.ExtendedResultRow;
 import org.esco.indicators.domain.beans.result.PeriodicAccountStatistic;
 import org.esco.indicators.domain.beans.result.PunctualAccountStatistic;
-import org.esco.indicators.domain.beans.result.BasicResultRow;
-import org.esco.indicators.domain.beans.statistic.EstablishmentVisitStatistic;
 import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.services.constants.ServicesConstants;
 import org.esco.indicators.services.statistic.AccountStatisticService;
@@ -190,6 +187,41 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	return rows;
     }
 
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.account.ResultAccountFormService#getPeriodicWeekResultRows(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public List<BasicResultRow> getPeriodicWeekResultRows(List<String> countyNumbers,
+            List<String> establishmentsTypes, String userProfile, Integer startWeek, Integer startYear,
+            Integer endWeek, Integer endYear) {
+	// Final result
+	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();
+	
+	// Splits the specified period into weeks
+	List<IntegerPair> weeksAndYears = DateUtils.splitWeeks(startWeek, startYear, endWeek, endYear);
+	
+	// For each county number :
+	//	Creation of the corresponding result row
+	//	Addition of the county data in the result row
+	//	Addition of the statistic data in the result row (for each period)
+	// 	Addition of the global statistic
+	for(String countyNumber : countyNumbers) {
+	    BasicResultRow basicResultRow = new BasicResultRow();
+	    basicResultRow.setEstablishmentData(createCountyData(countyNumber));
+	    List<String> establishmentsUai = getEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
+	    if(!establishmentsUai.isEmpty()) {
+		    LOGGER.debug("The aggregated establishments for the county [" + countyNumber +"] are " + establishmentsUai );
+		    for (IntegerPair weekAndYear : weeksAndYears) {
+        		PunctualAccountStatistic statistic = createPunctualWeekStatisticData(establishmentsUai,  userProfile, weekAndYear.getFirst(), weekAndYear.getSecond());
+        		basicResultRow.putStatisticData(weekAndYear, statistic);
+        	    }
+        	    rows.add(basicResultRow);
+	    }
+	}
+	
+        return rows;
+    }
+    
     
     ///////////////////////////////////////////////////////
     // MONTHLY RESULTS
@@ -280,6 +312,41 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	}
 	
 	return rows;
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.account.ResultAccountFormService#getPeriodicMonthResultRows(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public List<BasicResultRow> getPeriodicMonthResultRows(List<String> countyNumbers,
+            List<String> establishmentsTypes, String userProfile, Integer startMonth, Integer startYear,
+            Integer endMonth, Integer endYear) {
+	// Final result
+	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();
+	
+	// Splits the specified period into months
+	List<IntegerPair> monthsAndYears = DateUtils.splitMonths(startMonth, startYear, endMonth, endYear);
+			
+	// For each county number :
+	//	Creation of the corresponding result row
+	//	Addition of the county data in the result row
+	//	Addition of the statistic data in the result row (for each period)
+	// 	Addition of the global statistic
+	for(String countyNumber : countyNumbers) {
+	    BasicResultRow basicResultRow = new BasicResultRow();
+	    basicResultRow.setEstablishmentData(createCountyData(countyNumber));
+	    List<String> establishmentsUai = getEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
+	    if(!establishmentsUai.isEmpty()) {
+		    LOGGER.debug("The aggregated establishments for the county [" + countyNumber +"] are " + establishmentsUai );
+		    for (IntegerPair monthAndYear : monthsAndYears) {
+        		PunctualAccountStatistic statistic = createPunctualMonthStatisticData(establishmentsUai,  userProfile, monthAndYear.getFirst(), monthAndYear.getSecond());
+        		basicResultRow.putStatisticData(monthAndYear, statistic);
+        	    }
+        	    rows.add(basicResultRow);
+	    }
+	}
+	
+        return rows;
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS

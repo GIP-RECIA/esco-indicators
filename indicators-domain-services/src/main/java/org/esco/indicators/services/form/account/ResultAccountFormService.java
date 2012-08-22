@@ -3,10 +3,8 @@
  */
 package org.esco.indicators.services.form.account;
 
-import java.util.Date;
 import java.util.List;
 
-import org.esco.indicators.domain.beans.form.AccountActivationForm;
 import org.esco.indicators.domain.beans.result.BasicResultRow;
 import org.esco.indicators.services.constants.ServicesConstants;
 
@@ -109,6 +107,41 @@ public interface ResultAccountFormService {
      */
     public List<BasicResultRow> getPeriodicWeekResultRows(List<String> establishmentsUai, String userProfile, Integer startWeek, Integer startYear, Integer endWeek, Integer endYear);
     
+    /**
+     * Gets the result rows containing aggregated data on establishments and users profiles.<br/>
+     * The establishments are aggregated by county number. 
+     * All the establishments located into the county number, and having a type contained into the specified ones, are aggregated.<br/>
+     * These data only concern the the period beginning with the specified <code>startWeek</code> of the <code>startYear</code>, and finishing with the <code>endWeek</code> of the <code>endYear</code>.<br/>
+     * Each result row is associated to one county number, and contained two kinds of data :
+     * <ul>
+     * 	<li>The county data (county number)</li>
+     * 	<<li>The statistic data  (number of active accounts,...) indexed by week and year</li>
+     * </ul>
+     * In fact, in each result row, there is one statistic data per week contained in the period.<br/>
+     * For more informations on the result row content, see {@link BasicResultRow}.
+     * 
+     * @param countyNumbers
+     * 			The numbers of the counties containing the establishments aggregated.
+     * @param establishmentsTypes
+     * 			The types of the establishments aggregated.
+     * @param userProfile
+     * 			The user profile.
+     * @param startWeek
+     * 			The number of the beginning week (in the beginning year).
+     * @param startYear
+     * 			The beginning year.
+     * @param endWeek
+     * 			The number of the finishing week (in the finishing year).
+     * @param endYear
+     * 			The number of the finishing year.
+     * 
+     * @return
+     * 	the result rows containing county data, and statistics data, for each period of one week in each county.
+     */
+    public List<BasicResultRow> getPeriodicWeekResultRows(List<String> countyNumbers,
+            List<String> establishmentsTypes, String userProfile, Integer startWeek, Integer startYear,
+            Integer endWeek, Integer endYear);
+
     ///////////////////////////////////////////////////////
     // MONTHLY RESULTS
     ///////////////////////////////////////////////////////
@@ -193,8 +226,43 @@ public interface ResultAccountFormService {
      * 			The number of the finishing year.
      * 
      * @return
-     * 	the result rows containing establishment data, and statistics data, for each period of one week in each establishment.
+     * 	the result rows containing establishment data, and statistics data, for each period of one month in each establishment.
      */
     public List<BasicResultRow> getPeriodicMonthResultRows(List<String> establishmentsUai, String userProfile, Integer startMonth, Integer startYear, Integer endMonth, Integer endYear);
+
+    /**
+     * Gets the result rows containing aggregated data on establishments and users profiles.<br/>
+     * The establishments are aggregated by county number. 
+     * All the establishments located into the county number, and having a type contained into the specified ones, are aggregated.<br/>
+     * These data only concern the period beginning with the specified <code>startMonth</code> of the <code>startYear</code>, and finishing with the <code>endMonth</code> of the <code>endYear</code>.<br/>
+     * Each result row is associated to one county number, and contained two kinds of data :
+     * <ul>
+     * 	<li>The county data (county number)</li>
+     * 	<li>The statistic data  (number of active accounts,...) indexed by month and year</li>
+     * </ul>
+     * In fact, in each result row, there is one statistic data per month contained in the period.<br/>
+     * For more informations on the result row content, see {@link BasicResultRow}.
+     * 
+     * @param countyNumbers
+     * 			The numbers of the counties containing the establishments aggregated.
+     * @param establishmentsTypes
+     * 			The types of the establishments aggregated.
+          * @param userProfile
+     * 			The user profile.
+     * @param startMonth
+     * 			The number of the beginning month (in the beginning year).
+     * @param startYear
+     * 			The beginning year.
+     * @param endMonth
+     * 			The number of the finishing month (in the finishing year).
+     * @param endYear
+     * 			The number of the finishing year.
+     * 
+     * @return
+     * 	the result rows containing county data, and statistics data, for each period of one month in each county.
+     */
+    public List<BasicResultRow> getPeriodicMonthResultRows(List<String> countyNumbers,
+	    List<String> establishmentsTypes, String userProfile, Integer startMonth, Integer startYear,
+	    Integer endMonth, Integer endYear);
     
 }

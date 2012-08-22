@@ -156,8 +156,26 @@ public class PeriodicAccountResultController extends BasicAccountResultControlle
     protected List<BasicResultRow> createSumOnCountiesResultRows(List<String> checkedEstablishmentTypes,
 	    List<String> countyNumbers, List<String> establishmentsTypes, List<String> usersProfiles,
 	    Date startDate, Date endDate) {
-	// TODO Auto-generated method stub
-	return null;
+	// Retrieval of the only selected user profile
+	String userProfile = usersProfiles.get(0);
+	
+	// Retrieval of the start and end years
+	Integer startYear = DateUtils.getYear(startDate);
+	Integer endYear = DateUtils.getYear(endDate);
+	
+	// Retrieval of the month / or week
+	if(	checkedEstablishmentTypes.contains(DataFormConstants.JSP_KEY_CFA) 
+		&& establishmentsTypes.size() == 1
+	) {
+	    // If the only selected establishment type is : CFA
+	    Integer startWeek = DateUtils.getWeekOfYear(startDate);
+	    Integer endWeek = DateUtils.getWeekOfYear(endDate);
+	    return resultAccountFormService.getPeriodicWeekResultRows(countyNumbers, establishmentsTypes, userProfile, startWeek, startYear, endWeek, endYear);
+	} 
+	
+	Integer startMonth = DateUtils.getMonthOfYear(startDate);
+	Integer endMonth = DateUtils.getMonthOfYear(endDate);
+	return resultAccountFormService.getPeriodicMonthResultRows(countyNumbers, establishmentsTypes, userProfile, startMonth, startYear, endMonth, endYear);
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
