@@ -187,7 +187,9 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
 	List<DetailResultRow> resultRows = new ArrayList<DetailResultRow>();
 	for (String userProfile : usersProfiles) {
 	    String userProfileToFilter = dataAccountFormService.getUserProfileToFilter(userProfile);
-	    List<BasicResultRow> basicResultRows = super.createResultRows(establishmentsTypes, establishmentsUai, userProfileToFilter, startDate, endDate);
+	    List<String> usersProfilesToFilter = new ArrayList<String>();
+	    usersProfilesToFilter.add(userProfileToFilter);
+	    List<BasicResultRow> basicResultRows = super.createEstablishmentsResultRows(establishmentsTypes, establishmentsUai, usersProfilesToFilter, startDate, endDate);
 	    resultRows.addAll(convertToDetailResultRows(basicResultRows, userProfile));
 	}
 	

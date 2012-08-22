@@ -34,22 +34,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/accounts-activations-attendance-result")
-public class PunctualAccountResultController extends BasicResultController {
+public class PunctualAccountResultController extends BasicAccountResultController {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(PunctualAccountResultController.class);
-    
-    /** Data form service providing information on the data from for the accounts */
-    @Autowired
-    protected DataFormService dataAccountFormService;
-    
-    /** Establishment service providing access to establishments data */
-    @Autowired
-    protected EstablishmentService establishmentService;
-    
-    /** Service providing access to result data */
-    @Autowired
-    protected ResultAccountFormService resultAccountFormService;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
@@ -60,21 +48,6 @@ public class PunctualAccountResultController extends BasicResultController {
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController#getDataFormService()
-     */
-    @Override
-    public DataFormService getDataFormService() {
-        return dataAccountFormService;
-    }
-
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController#getEstablishmentService()
-     */
-    @Override
-    public EstablishmentService getEstablishmentService() {
-        return establishmentService;
-    }
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**
@@ -103,74 +76,12 @@ public class PunctualAccountResultController extends BasicResultController {
         return usersProfilesToFilter;
     }
     
-    /**
-     * Populates the data rows of the table used to display the result of the submitted form.
-     * 
-     * @param request
-     * 			The request made by the user.
-     * @return
-     * 	the data rows of the table used to display the result of the submitted form.
+    //--------------------------------------------------------------------------- PROTECTED METHODS
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.account.result.BasicAccountResultController#createEstablishmentsResultRows(java.util.List, java.util.List, java.util.List, java.util.Date, java.util.Date)
      */
-    @ModelAttribute("tableRowsItems")
-    public List<BasicResultRow> populateTableRows(HttpServletRequest request) {
-	// Checks if the there is a valid submitted form to process
-	if(!containsForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR)) {
-	    return null;
-	}
-	
-	// Retrieval of the submitted form
-	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
-	
-	// Retrieval of the establishments types
-	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(aaForm.getEstablishmentsTypes()));
-	
-	// Retrieval of the users profiles to filter
-	List<String> checkedProfiles = new ArrayList<String>(Arrays.asList(aaForm.getUsersProfiles()));
-	List<String> usersProfilesToFilter = dataAccountFormService.getUsersProfilesToFilter(checkedProfiles);
-	
-	// Retrieval of the start date
-	Date startDate = aaForm.getStartDate();
-	
-	// If the sum on counties has to be made on the result rows
-	String sumOnCounties = aaForm.getSumOnCounties();
-	if(sumOnCounties != null) {
-	    // Retrieval of the county numbers and types to filter
-	    List<String> countyNumbersToFilter = dataAccountFormService.getCountyNumbersToFilter(sumOnCounties);
-	    List<String> establishmentsTypesToFilter = getDataFormService().getEstablishmentsTypesToFilter(establishmentsTypes);
-	    LOGGER.debug("The sum on counties has been asked. The result rows will concern the counties : " + countyNumbersToFilter + " and the establishments types : " + establishmentsTypesToFilter);
-	    return createSumOnCountiesResultRows(establishmentsTypes, countyNumbersToFilter, establishmentsTypesToFilter, usersProfilesToFilter, startDate);
-	}
-	
-	// If the sum on counties has not to be made on the result rows
-	List<String> establishmentsUai = new ArrayList<String>(Arrays.asList(aaForm.getEstablishments()));
-	LOGGER.debug("The sum on counties has not been asked. The result rows will concer the establishments : " + establishmentsUai);
-	return createEstablishmentsResultRows(establishmentsTypes, establishmentsUai, usersProfilesToFilter, startDate);
-    }
-    
-    
-
-    //----------------------------------------------------------------------------- PRIVATE METHODS
-    
-    /**
-     * Creates the result row; each result row containing the following data :
-     * <ul>
-     * 	<li>The establishment data (name, UAI,..)</li>
-     * 	<li>The statistic data (number of connections,...)</li>
-     * </ul>
-     * 
-     * @param establishmentsTypes
-     * 			The types of the establishments checked in the user view.
-     * @param establishmentsUai
-     * 			The UAI of the establishments.
-     * @param usersProfiles
-     * 			The users profiles concerned by the statistics.
-     * @param startDate
-     * 			The start date of the statistics.
-     * 
-     * @return
-     * 	the result rows containing the data to display.
-     */
-    private List<BasicResultRow> createEstablishmentsResultRows( List<String> establishmentsTypes, List<String> establishmentsUai,List<String> usersProfiles, Date startDate) {
+    @Override
+    protected List<BasicResultRow> createEstablishmentsResultRows( List<String> establishmentsTypes, List<String> establishmentsUai,List<String> usersProfiles, Date startDate, Date endDate) {
 	// Retrieval of the year
 	Integer year = DateUtils.getYear(startDate);
 	
@@ -187,28 +98,11 @@ public class PunctualAccountResultController extends BasicResultController {
 	return resultAccountFormService.getPunctualMonthResultRows(establishmentsUai, usersProfiles, month, year);
     }
     
-    /**
-     * Creates the result row; each result row containing the following data :
-     * <ul>
-     * 	<li>The county data (county number)</li>
-     * 	<li>The statistic data (number of connections,...)</li>
-     * </ul>
-     * 
-     * @param checkedEstablishmentTypes
-     * 			The establishments types checked in the user view.
-     * @param countyNumbers
-     * 			The numbers of the counties concerned by the statistics.
-     * @param establishmentsTypes
-     * 			The types of the establishments concerned by the statistics.
-     * @param usersProfiles
-     * 			The users profiles concerned by the statistics.
-     * @param startDate
-     * 			The start date of the statistics.
-     * 
-     * @return
-     * 	the result rows containing the data to display.
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.account.result.BasicAccountResultController#createSumOnCountiesResultRows(java.util.List, java.util.List, java.util.List, java.util.List, java.util.Date, java.util.Date)
      */
-    private List<BasicResultRow> createSumOnCountiesResultRows( List<String> checkedEstablishmentTypes, List<String> countyNumbers, List<String> establishmentsTypes, List<String> usersProfiles, Date startDate) {
+    @Override
+    protected List<BasicResultRow> createSumOnCountiesResultRows( List<String> checkedEstablishmentTypes, List<String> countyNumbers, List<String> establishmentsTypes, List<String> usersProfiles, Date startDate, Date endDate) {
 	// Retrieval of the year
 	Integer year = DateUtils.getYear(startDate);
 	
@@ -224,5 +118,8 @@ public class PunctualAccountResultController extends BasicResultController {
 	Integer month = DateUtils.getMonthOfYear(startDate);
 	return resultAccountFormService.getPunctualMonthResultRows(countyNumbers, establishmentsTypes, usersProfiles, month, year);
     }
+    
+    //----------------------------------------------------------------------------- PRIVATE METHODS
+    
     //------------------------------------------------------------------------------ STATIC METHODS
 }
