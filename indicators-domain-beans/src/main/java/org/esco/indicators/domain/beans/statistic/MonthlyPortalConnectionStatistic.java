@@ -35,7 +35,7 @@ import org.apache.log4j.Logger;
     @NamedQuery(
 	    name = "MonthlyPortalConnectionStatistic.findNumVisitorsBelowTreshold",
 	    query = "SELECT SUM(mpcs.numUsers) FROM MonthlyPortalConnectionStatistic mpcs"
-	    	+ " WHERE mpcs.establishmentUai = :establishmentUai"
+	    	+ " WHERE mpcs.establishmentUai IN ( :establishmentUaiList )"
 		+ " AND mpcs.firstMonthDay = :firstMonthDay "
 		+ " AND mpcs.numConnections <= :treshold"
 	    ),
@@ -50,7 +50,7 @@ import org.apache.log4j.Logger;
     @NamedQuery(
 	    name = "MonthlyPortalConnectionStatistic.findNumVisitorsAboveTreshold",
 	    query = "SELECT SUM(mpcs.numUsers) FROM MonthlyPortalConnectionStatistic mpcs"
-		+ " WHERE mpcs.establishmentUai = :establishmentUai"
+		+ " WHERE mpcs.establishmentUai IN ( :establishmentUaiList )"
 		+ " AND mpcs.firstMonthDay = :firstMonthDay "
 		+ " AND mpcs.numConnections > :treshold"
 	    ),

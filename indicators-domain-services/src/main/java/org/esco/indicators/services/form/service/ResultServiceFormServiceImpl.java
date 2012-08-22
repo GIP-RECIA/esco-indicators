@@ -242,9 +242,13 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
      * 	the exented result row containing informations on the establishment and the accounts.
      */
     private ExtendedResultRow createMonthlyExtendedResultRow(String establishmentUai, String userProfile, Integer month, Integer year) {
+	// Put the UAI into a list
+	List<String> establishmentsUAI = new ArrayList<String>();
+	establishmentsUAI.add(establishmentUai);
+	
 	// Gets the informations on the accounts
-	Integer numTotalAccounts = accountStatisticService.findMonthlyTotalNumAccountsForProfile(establishmentUai, userProfile, month, year);
-	Integer numActivatedAccounts = accountStatisticService.findMonthlyNumActivatedAccountsForProfile(establishmentUai, userProfile, month, year);
+	Integer numTotalAccounts = accountStatisticService.findMonthlyTotalNumAccountsForProfile(establishmentsUAI, userProfile, month, year);
+	Integer numActivatedAccounts = accountStatisticService.findMonthlyNumActivatedAccountsForProfile(establishmentsUAI, userProfile, month, year);
 	
 	// Gets the informations on the establishment
 	EstablishmentData establishmentData = getEstablishmentData(establishmentUai);
@@ -320,8 +324,12 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
 	// Retrieval of the simple services concerned by the statistic
 	List<String> services = getSimpleServices(service);
 	
+	// New list for the UAI
+	List<String> establishmentsUai = new ArrayList<String>();
+	establishmentsUai.add(establishmentUai);
+	
 	// Retrieval of the total account number
-	Integer totalAccountNumber = accountStatisticService.findMonthlyTotalNumAccountsForProfile(establishmentUai, userProfile, month, year);
+	Integer totalAccountNumber = accountStatisticService.findMonthlyTotalNumAccountsForProfile(establishmentsUai, userProfile, month, year);
 	
 	// Retrieval of the service visitors statistics with a number of connections below / above a treshold
 	Integer treshold = ServicesConstants.NUM_CONNECTIONS_TRESHOLD;

@@ -20,10 +20,6 @@ import org.esco.indicators.utils.dao.QueryManager;
  * @since 2012/06/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-/**
- * @since  
- * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
- */
 public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalConnectionStatisticDao {
     // ---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
@@ -239,13 +235,13 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
      * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findMonthlyNumVisitorsAboveTreshold(java.lang.String, java.sql.Date, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumVisitorsAboveTreshold(String establishmentUai, Date firstMonthDay,
+    public Integer findMonthlyNumVisitorsAboveTreshold(List<String> establishmentsUai, Date firstMonthDay,
             Integer treshold) {
 	String namedQuery = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsAboveTreshold";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
-	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("establishmentUaiList", establishmentsUai);
 	parameters.put("firstMonthDay", firstMonthDay);
 	parameters.put("treshold", treshold);
 	
@@ -283,14 +279,14 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
      * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findMonthlyNumVisitorsBelowTreshold(java.lang.String, java.sql.Date, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumVisitorsBelowTreshold(String establishmentUai, Date firstMonthDay,
+    public Integer findMonthlyNumVisitorsBelowTreshold(List<String> establishmentsUai, Date firstMonthDay,
             Integer treshold) {
 	// Name of the query to execute
 	String namedQuery = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsBelowTreshold";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
-	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("establishmentUaiList", establishmentsUai);
 	parameters.put("firstMonthDay", firstMonthDay);
 	parameters.put("treshold", treshold);
 	

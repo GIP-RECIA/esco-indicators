@@ -42,7 +42,7 @@ import org.apache.log4j.Logger;
      @NamedQuery(
  	    name = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsBelowTreshold",
 	    query = "SELECT COUNT( DISTINCT empcs.userUid ) FROM EspecialMonthlyPortalConnectionStatistic empcs"
-		+ " WHERE empcs.establishmentUai = :establishmentUai"
+		+ " WHERE empcs.establishmentUai IN ( :establishmentUaiList )"
 		+ " AND empcs.firstMonthDay = :firstMonthDay" 
 		+ " AND empcs.numConnections <= :treshold"
 	    ),
@@ -57,7 +57,7 @@ import org.apache.log4j.Logger;
     @NamedQuery(
 	    name = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsAboveTreshold",
 	    query = "SELECT COUNT( DISTINCT empcs.userUid ) FROM EspecialMonthlyPortalConnectionStatistic empcs"
-		+ " WHERE empcs.establishmentUai = :establishmentUai"
+		+ " WHERE empcs.establishmentUai IN ( :establishmentUaiList )"
 		+ " AND empcs.firstMonthDay = :firstMonthDay" 
 		+ " AND empcs.numConnections > :treshold"
 	    ),

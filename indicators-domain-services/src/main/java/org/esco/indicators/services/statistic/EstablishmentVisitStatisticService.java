@@ -80,6 +80,27 @@ public interface EstablishmentVisitStatisticService {
     // MONTHLY STATISTICS
     ///////////////////////////////////////////////////////
     /**
+     * Retrieves the number of visits made on the establishments located in the <code>countyNumber</code>
+     * and having a type contained in the specified <code>establishmentsTypes</code>.<br/>
+     * This number of visits only concerns the month having the number <code>month</code> in the year <code>year</code>.
+     * 
+     * @param countyNumber
+     * 			The number of the county associated to the establishments.
+     * @param establishmentsTypes
+     * 			The establishments types.
+     * @param month
+     * 			The month in the year.
+     * @param year
+     * 			The year.
+     * 
+     * @return
+     * 	the number of visits made on the establishments  portal.<br/>
+     * 	the number 0 if no statistic has been retrieved.
+     */
+    public Integer findCountyMonthlyNumVisits(String countyNumber, List<String> establishmentsTypes,
+            Integer month, Integer year);
+    
+    /**
      * Retrieves the number of visits made  on the <code>establishmentUai</code> portal.<br/>
      * This number of visits only concerns the month having the number <code>month</code> in the year <code>year</code>.
      * 

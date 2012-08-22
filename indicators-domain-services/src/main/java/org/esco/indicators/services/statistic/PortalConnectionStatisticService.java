@@ -176,11 +176,11 @@ public interface PortalConnectionStatisticService {
     // MONTHLY STATISTICS
     ///////////////////////////////////////////////////////
     /**
-     * Retrieves the number of visitors that made more than <code>treshold</code> connections on the portal of the <code>establishmentUai</code>.
+     * Retrieves the number of visitors that made more than <code>treshold</code> connections on the portal of the <code>establishmentsUai</code>.
      * This number of connections only concerns the month having the number <code>month</code> of the year <code>year</code>.
      * 
-     * @param establishmentUai
-     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param establishmentsUai
+     * 			The UAI of the establishments associated to the statistic to retrieve.
      * @param month
      * 			The week month of the statistic to retrieve.
      * @param year
@@ -192,15 +192,15 @@ public interface PortalConnectionStatisticService {
      * 	the number of visitors who made more than <code>treshold</code> connections on the portal.<br/>
      * 	the number 0 if no statistic has been retrieved.
      */
-    public Integer findMonthlyNumVisitorsAboveTreshold(String establishmentUai, Integer month, Integer year, Integer treshold);
+    public Integer findMonthlyNumVisitorsAboveTreshold(List<String> establishmentsUai, Integer month, Integer year, Integer treshold);
     
     /**
      * Retrieves the number of visitors that made more than <code>treshold</code> connections on the portal, and who has the specified 
-     * <code>userProfile</code> the specified <code>establishmentUai</code>.
+     * <code>userProfile</code> the specified <code>establishmentsUai</code>.
      * This number of connections only concerns the month having the number <code>month</code> of the year <code>year</code>.
      * 
-     * @param establishmentUai
-     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param establishmentsUai
+     * 			The UAI of the establishment sassociated to the statistic to retrieve.
      * @param userProfile
      * 			The user profile of the statistic to retrieve.
      * @param month
@@ -214,13 +214,13 @@ public interface PortalConnectionStatisticService {
      * 	the number of visitors who made more than <code>treshold</code> connections on the portal.<br/>
      * 	the number 0 if no statistic has been retrieved.
      */
-    public Integer findMonthlyNumVisitorsAboveTresholdByProfile(String establishmentUai, String userProfile, Integer month, Integer year, Integer treshold);
+    public Integer findMonthlyNumVisitorsAboveTresholdByProfile(List<String> establishmentsUai, String userProfile, Integer month, Integer year, Integer treshold);
     
     /**
      * Retrieves the number of visitors that made less than <code>treshold</code> connections on the portal of the specified <code>establishmentUai</code>.
      * This number of connections only concerns the month having the number <code>month</code> of the year <code>year</code>.
      * 
-     * @param establishmentUai
+     * @param establishmentsUai
      * 			The UAI of the establishment associated to the statistic to retrieve.
      * @param month
      * 			The week month of the statistic to retrieve.
@@ -233,15 +233,15 @@ public interface PortalConnectionStatisticService {
      * 	the number of visitors who made more than <code>treshold</code> connections on the portal.<br/>
      * 	the number 0 if no statistic has been retrieved.
      */
-    public Integer findMonthlyNumVisitorsBelowTreshold(String establishmentUai, Integer month, Integer year, Integer treshold);
+    public Integer findMonthlyNumVisitorsBelowTreshold(List<String> establishmentsUai, Integer month, Integer year, Integer treshold);
     
     /**
      * Retrieves the number of visitors that made less than <code>treshold</code> connections on the portal, and who has the specified 
-     * <code>userProfile</code> the specified <code>establishmentUai</code>.
+     * <code>userProfile</code> the specified <code>establishmentsUai</code>.
      * This number of connections only concerns the month having the number <code>month</code> of the year <code>year</code>.
      * 
-     * @param establishmentUai
-     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param establishmentsUai
+     * 			The UAI of the establishments associated to the statistic to retrieve.
      * @param userProfile
      * 			The user profile of the statistic to retrieve.
      * @param month
@@ -255,7 +255,7 @@ public interface PortalConnectionStatisticService {
      * 	the number of visitors who made more than <code>treshold</code> connections on the portal.<br/>
      * 	the number 0 if no statistic has been retrieved.
      */
-    public Integer findMonthlyNumVisitorsBelowTresholdByProfile(String establishmentUai, String userProfile, Integer month, Integer year, Integer treshold);
+    public Integer findMonthlyNumVisitorsBelowTresholdByProfile(List<String> establishmentsUai, String userProfile, Integer month, Integer year, Integer treshold);
     
     /**
      * Retrieves the number of connections made on the portal for the specified user profile

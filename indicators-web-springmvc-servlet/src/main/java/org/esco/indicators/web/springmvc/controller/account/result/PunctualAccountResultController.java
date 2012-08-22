@@ -138,12 +138,10 @@ public class PunctualAccountResultController extends BasicResultController {
 	    List<String> countyNumbersToFilter = dataAccountFormService.getCountyNumbersToFilter(sumOnCounties);
 	    List<String> establishmentsTypesToFilter = getDataFormService().getEstablishmentsTypesToFilter(establishmentsTypes);
 	    LOGGER.debug("The sum on counties has been asked. The result rows will concern the counties : " + countyNumbersToFilter + " and the establishments types : " + establishmentsTypesToFilter);
-	    
 	    return createSumOnCountiesResultRows(establishmentsTypes, countyNumbersToFilter, establishmentsTypesToFilter, usersProfilesToFilter, startDate);
 	}
 	
-	
-	// Retrieval of the establishments uai
+	// If the sum on counties has not to be made on the result rows
 	List<String> establishmentsUai = new ArrayList<String>(Arrays.asList(aaForm.getEstablishments()));
 	LOGGER.debug("The sum on counties has not been asked. The result rows will concer the establishments : " + establishmentsUai);
 	return createEstablishmentsResultRows(establishmentsTypes, establishmentsUai, usersProfilesToFilter, startDate);
@@ -224,7 +222,7 @@ public class PunctualAccountResultController extends BasicResultController {
 	} 
 	
 	Integer month = DateUtils.getMonthOfYear(startDate);
-	return null;
+	return resultAccountFormService.getPunctualMonthResultRows(countyNumbers, establishmentsTypes, usersProfiles, month, year);
     }
     //------------------------------------------------------------------------------ STATIC METHODS
 }

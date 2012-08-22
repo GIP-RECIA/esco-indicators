@@ -101,13 +101,9 @@ public class EstablishmentVisitStatisticServiceImpl implements EstablishmentVisi
 	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
 	Date lastWeekDay = DateUtils.addDays(firstWeekDay, 6);
 	
-	// Gets the number of visits
-	Integer numVisits = establishmentVisitStatisticDao.findNumVisitsByCountyAndTypes(countyNumber, establishmentsTypes, firstWeekDay, lastWeekDay, typeStat);
-	numVisits = (numVisits == null ? 0 : numVisits);
-	
-	return numVisits;
+	return findNumVisitsByCountyAndTypes(countyNumber, establishmentsTypes, typeStat, firstWeekDay, lastWeekDay);
     }
-    
+
     /* (non-Javadoc)
      * @see org.esco.indicators.services.statistic.EstablishmentVisitStatisticService#findWeeklyNumVisits(java.util.List, java.lang.Integer, java.lang.Integer)
      */
@@ -135,9 +131,26 @@ public class EstablishmentVisitStatisticServiceImpl implements EstablishmentVisi
 	return numVisits;
     }
 
+
     ///////////////////////////////////////////////////////
     // MONTHLY STATISTICS
     ///////////////////////////////////////////////////////
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.EstablishmentVisitStatisticService#findCountyMonthlyNumVisits(java.lang.String, java.util.List, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Integer findCountyMonthlyNumVisits(String countyNumber, List<String> establishmentsTypes,
+            Integer month, Integer year) {
+	// The type of statistic required : Statistic concerning only one establishment 
+	String typeStat = StatisticConstants.TYPE_STAT_SUM_ONE_COUNTY_ONE_ESTABLISHMENT_TYPE;
+	
+	// Gets the first and last days of the month
+	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
+	Date lastMonthDay = DateUtils.getLastMonthDay(month, year);
+	
+	return findNumVisitsByCountyAndTypes(countyNumber, establishmentsTypes, typeStat, firstMonthDay, lastMonthDay);
+    }
+    
     /* (non-Javadoc)
      * @see org.esco.indicators.services.statistic.EstablishmentVisitStatisticService#findMonthlyNumVisits(java.lang.String, java.lang.Integer, java.lang.Integer)
      */
@@ -166,6 +179,32 @@ public class EstablishmentVisitStatisticServiceImpl implements EstablishmentVisi
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
+    /**
+     * Retrieves a the number of visits made on the establishments located in the specified <code>countyNumber</code> having a type contained in the specified  <code>establishmentsTypes</code> .<br/>
+     * This statistic only concerns the period contained between the specified <code>startDay</code> and <code>endDay</code>.<br/>
+     * Moreover, the statistic used to retrieve the number of visits has to have the specified type <code>typeStat</code>.
+     * 
+     * @param countyNumber
+     * 			The county number associated to the establishments.
+     * @param establishmentsTypes
+     * 			The establishments types.
+     * @param startDate
+     * 			The start day of the statistic to retrieve.
+     * @param endDate
+     * 			The end day of the statistic to retrieve.
+     * @param typeStat
+     * 			The type of the statistic.
+     * 
+     * @return
+     * 	the number of visits retrieved.<br/>
+     * 	<code>0</code> if no statistic has been retrieved.
+     */
+    private Integer findNumVisitsByCountyAndTypes(String countyNumber, List<String> establishmentsTypes,
+	    String typeStat, Date startDate, Date endDate) {
+	Integer numVisits = establishmentVisitStatisticDao.findNumVisitsByCountyAndTypes(countyNumber, establishmentsTypes, startDate, endDate, typeStat);
+	numVisits = (numVisits == null ? 0 : numVisits);
+	return numVisits;
+    }
 
     //------------------------------------------------------------------------------ STATIC METHODS
 }

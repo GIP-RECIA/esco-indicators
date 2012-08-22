@@ -202,14 +202,14 @@ public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatist
      * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findMonthlyNumVisitorsAboveTreshold(java.lang.String, java.sql.Date, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumVisitorsAboveTreshold(String establishmentUai, Date firstMonthDay,
+    public Integer findMonthlyNumVisitorsAboveTreshold(List<String> establishmentsUai, Date firstMonthDay,
             Integer treshold) {
         // Name of the query to execute
 	String namedQuery = "MonthlyPortalConnectionStatistic.findNumVisitorsAboveTreshold";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
-	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("establishmentUaiList", establishmentsUai);
 	parameters.put("firstMonthDay", firstMonthDay);
 	parameters.put("treshold", treshold);
 	
@@ -247,14 +247,14 @@ public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatist
      * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findMonthlyNumVisitorsBelowTreshold(java.lang.String, java.sql.Date, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumVisitorsBelowTreshold(String establishmentUai, Date firstMonthDay,
+    public Integer findMonthlyNumVisitorsBelowTreshold(List<String> establishmentsUai, Date firstMonthDay,
             Integer treshold) {
         // Name of the query to execute
 	String namedQuery = "MonthlyPortalConnectionStatistic.findNumVisitorsBelowTreshold";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
-	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("establishmentUaiList", establishmentsUai);
 	parameters.put("firstMonthDay", firstMonthDay);
 	parameters.put("treshold", treshold);
 	
