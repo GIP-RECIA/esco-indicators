@@ -121,7 +121,7 @@ public abstract class BasicAccountResultController extends BasicResultController
 	
 	// If the sum on counties has not to be made on the result rows
 	List<String> establishmentsUai = new ArrayList<String>(Arrays.asList(aaForm.getEstablishments()));
-	LOGGER.debug("The sum on counties has not been asked. The result rows will concer the establishments : " + establishmentsUai);
+	LOGGER.debug("The sum on counties has not been asked. The result rows will concern the establishments : " + establishmentsUai);
 	return createEstablishmentsResultRows(establishmentsTypes, establishmentsUai, usersProfilesToFilter, startDate, endDate);
     }
     
