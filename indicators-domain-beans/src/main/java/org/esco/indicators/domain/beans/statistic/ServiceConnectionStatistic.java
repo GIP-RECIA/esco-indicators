@@ -35,7 +35,7 @@ import org.hibernate.annotations.NaturalId;
    @NamedQuery(
 	    name = "ServiceConnectionStatistic.findNumVisitorsAboveTreshold",
 	    query = "SELECT COUNT( DISTINCT scs.userUid ) FROM ServiceConnectionStatistic scs"
-	    		+ " WHERE scs.establishmentUai = :establishmentUai"
+	    		+ " WHERE scs.establishmentUai IN ( :establishmentUaiList )"
 	    		+ " AND scs.serviceName IN ( :serviceNameList ) AND scs.userProfile = :userProfile"
 	    		+ " AND scs.numConnections > :treshold"
 	    		+ " AND scs.day BETWEEN :startDate AND :endDate"
@@ -43,7 +43,7 @@ import org.hibernate.annotations.NaturalId;
     @NamedQuery(
 	    name = "ServiceConnectionStatistic.findNumVisitorsBelowTreshold",
 	    query = "SELECT COUNT( DISTINCT scs.userUid ) FROM ServiceConnectionStatistic scs"
-	    		+ " WHERE scs.establishmentUai = :establishmentUai"
+	    		+ " WHERE scs.establishmentUai IN ( :establishmentUaiList )"
 	    		+ " AND scs.serviceName IN ( :serviceNameList ) AND scs.userProfile = :userProfile"
 	    		+ " AND scs.numConnections <= :treshold"
 	    		+ " AND scs.day BETWEEN :startDate AND :endDate"
@@ -51,7 +51,7 @@ import org.hibernate.annotations.NaturalId;
   @NamedQuery(
 	    name = "ServiceConnectionStatistic.findNumVisits",
 	    query = "SELECT SUM(scs.numConnections) FROM ServiceConnectionStatistic scs"
-	    		+ " WHERE scs.establishmentUai = :establishmentUai"
+	    		+ " WHERE scs.establishmentUai IN ( :establishmentUaiList )"
 	    		+ " AND scs.serviceName IN ( :serviceNameList ) AND scs.userProfile = :userProfile"
 	    		+ " AND scs.day BETWEEN :startDate AND :endDate"
 	    )
