@@ -86,6 +86,38 @@ public interface ResultServiceFormService {
      */
     public List<ExtendedResultRow> getPunctualWeekResultRows(List<String> establishmentsUai, List<String> services, String userProfile, Integer week, Integer year);
 
+    /**
+     * Gets the result rows containing the data on the establishements, the services and the user profile.<br/>
+     * The data on the establishments are aggregated by county numbers.<br/>
+     * These data only concern the specified <code>week</code> of the specified <code>year</code>.<br/>
+     * Each result row is associated to one establishment, and contained two kinds of data :
+     * <ul>
+     * 	<li>The county data (county number)</li>
+     * 	<li>The statistic data  (number of visits,...) indexed by service</li>
+     * </ul>
+     * In fact, in each result row, there is one statistic data per service.<br/>
+     * For more informations on the result row content, see {@link BasicResultRow}.
+     * 
+     * @param countyNumbers
+     * 			The county numbers used to aggregate establishments.
+     * @param establishmentsTypes
+     * 			The establishments types.
+     * @param services
+     * 			The services.
+     * @param userProfile
+     * 			The user profile.
+     * @param week
+     * 			The week number.
+     * @param year
+     * 			The year.
+     * 
+     * @return
+     * 	the result rows containing county data, and statistics data, for each user profile in each county.
+     */
+    public List<ExtendedResultRow> getPunctualWeekResultRows(List<String> countyNumbers,
+            List<String> establishmentsTypes, List<String> services, String userProfile, Integer week,
+            Integer year);
+
     ///////////////////////////////////////////////////////
     // MONTHLY RESULTS
     ///////////////////////////////////////////////////////

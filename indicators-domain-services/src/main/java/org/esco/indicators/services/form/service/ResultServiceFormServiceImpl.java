@@ -114,11 +114,12 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
 	for (String uai : establishmentsUai) {
 	    // First level row : Establishment data
 	    ExtendedResultRow firstLevelRow = new ExtendedResultRow();
-	    firstLevelRow.setEstablishmentData(getEstablishmentData(uai));
+	    firstLevelRow.setEstablishmentData(createEstablishmentData(uai));
 	    
 	    for (IntegerPair weekAndYear : weeksAndYears) {
 		// Second level row : Statistic data for a period and a service
 		ExtendedResultRow secondLevelRow = createWeeklyExtendedResultRow(uai, userProfile, weekAndYear.getFirst(), weekAndYear.getSecond());
+		secondLevelRow.setEstablishmentData(createEstablishmentData(uai));
 		for (String service : services) {
 		    ServiceStatistic statistic = createPunctualWeekStatisticData(uai, service, userProfile, weekAndYear.getFirst(), weekAndYear.getSecond());
 		    secondLevelRow.putStatisticData(service, statistic);
@@ -146,6 +147,7 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
 	//	Addition of the statistic data in the result row (for each service)
 	for (String uai : establishmentsUai) {
 	    ExtendedResultRow resultRow = createWeeklyExtendedResultRow(uai, userProfile, week, year);
+	    resultRow.setEstablishmentData(createEstablishmentData(uai));
 	    for (String service : services) {
 		ServiceStatistic statistic = createPunctualWeekStatisticData(uai, service, userProfile, week, year);
 		resultRow.putStatisticData(service, statistic);
@@ -156,6 +158,37 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
 	return rows;
     }
 
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.service.ResultServiceFormService#getPunctualWeekResultRows(java.util.List, java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public List<ExtendedResultRow> getPunctualWeekResultRows(List<String> countyNumbers,
+            List<String> establishmentsTypes, List<String> services, String userProfile, Integer week,
+            Integer year) {
+	// Final result
+	List<ExtendedResultRow> rows = new ArrayList<ExtendedResultRow>();
+	
+	// For each county number :
+	//	Creation of the corresponding result row
+	//	Addition of the county data in the result row
+	//	Addition of the statistic data in the result row (for each service)
+	for(String countyNumber : countyNumbers) {
+	    List<String> establishmentsUai = establishmentService.findEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
+	    if(!establishmentsUai.isEmpty()) {
+		ExtendedResultRow resultRow = createWeeklyExtendedResultRow(establishmentsUai, userProfile, week, year);
+		resultRow.setEstablishmentData(createCountyData(countyNumber));
+		LOGGER.debug("The aggregated establishments for the county [" + countyNumber +"] are " + establishmentsUai );
+        	    for(String service : services) {
+        		ServiceStatistic statistic = createPunctualWeekStatisticData(establishmentsUai, service, userProfile, week, year);
+        		resultRow.putStatisticData(service, statistic);
+        	    }
+        	    rows.add(resultRow);
+	    }
+	}
+	
+        return rows;
+    }
+    
     ///////////////////////////////////////////////////////
     // MONTHLY RESULTS
     ///////////////////////////////////////////////////////
@@ -180,7 +213,7 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
 	for (String uai : establishmentsUai) {
 	    // First level row : Establishment data
 	    ExtendedResultRow firstLevelRow = new ExtendedResultRow();
-	    firstLevelRow.setEstablishmentData(getEstablishmentData(uai));
+	    firstLevelRow.setEstablishmentData(createEstablishmentData(uai));
 	    
 	    for (IntegerPair monthAndYear : monthsAndYears) {
 		// Second level row : Statistic data for a period and a service
@@ -225,6 +258,45 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
     /**
+     * Creates an establishment data only containing a county number.
+     * 
+     * @param countyNumber
+     * 			The county number to put in the establishment data.
+     * 
+     * @return
+     * 	the establishment data containing a county number set.
+     */
+    private EstablishmentData createCountyData(String countyNumber) {
+	return (new EstablishmentData(countyNumber, null, null, null));
+    }
+    
+    /**
+     * Gets the establishment data for the specified UAI.
+     * 
+     * @param uai
+     * 			The UAI of the establishment.
+     * 
+     * @return
+     * 	the result data associated to the establishment.<br/>
+     * 	<code>null</code> if no establishment data has been retrieved.
+     */
+    private EstablishmentData createEstablishmentData(String uai) {
+        // Gets the establishment
+        Establishment establishment = establishmentService.findEstablishmentByUai(uai);
+        if(establishment == null) {
+            return null;
+        }
+        
+        // Map establishment to establishment data
+        String countyNumber = establishment.getCountyNumber();
+        String name = establishment.getName();
+        String establishmentType = establishment.getType();
+        EstablishmentData data = new EstablishmentData(countyNumber, name, establishmentType, uai);
+        
+        return data;
+    }
+
+    /**
      * Creates an extended result row containing the all the data on the establishment, and the accounts.<br/>
      * The accounts data only concerned the the accounts having the specified user profile in the specified period.
      * 
@@ -251,7 +323,7 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
 	Integer numActivatedAccounts = accountStatisticService.findMonthlyNumActivatedAccountsForProfile(establishmentsUAI, userProfile, month, year);
 	
 	// Gets the informations on the establishment
-	EstablishmentData establishmentData = getEstablishmentData(establishmentUai);
+	EstablishmentData establishmentData = createEstablishmentData(establishmentUai);
 	
 	// Creation of the result row
 	ExtendedResultRow resultRow = new ExtendedResultRow(numTotalAccounts, numActivatedAccounts);
@@ -261,7 +333,7 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
     }
     
     /**
-     * Creates an extended result row containing the all the data on the establishment, and the accounts.<br/>
+     * Creates an extended result row containing the all the data the accounts in the establishment.<br/>
      * The accounts data only concerned the the accounts having the specified user profile in the specified period.
      * 
      * The statistics data are not filled.
@@ -278,22 +350,36 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
      * 	the exented result row containing informations on the establishment and the accounts.
      */
     private ExtendedResultRow createWeeklyExtendedResultRow(String establishmentUai, String userProfile, Integer week, Integer year) {
-	// New list for the UAI
+	// Put the establishment UAI into a list
 	List<String> establishmentsUai = new ArrayList<String>();
 	establishmentsUai.add(establishmentUai);
-	
+	return createWeeklyExtendedResultRow(establishmentsUai, userProfile, week, year);
+    }
+    
+    /**
+     * Creates an extended result row containing the all the data the accounts in the establishments.<br/>
+     * The accounts data only concerned the the accounts having the specified user profile in the specified period.
+     * 
+     * The statistics data are not filled.
+     * 
+     * @param establishmentsUai
+     * 			The UAI of the establishments associated to the created row.
+     * @param userProfile
+     * 			The user profile.
+     * @param week
+     * 			The number of the week.
+     * @param year 
+     * 			The year.
+     * @return
+     * 	the exented result row containing informations on the establishment and the accounts.
+     */
+    private ExtendedResultRow createWeeklyExtendedResultRow(List<String> establishmentsUai, String userProfile, Integer week, Integer year) {
 	// Gets the informations on the accounts
 	Integer numTotalAccounts = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentsUai, userProfile, week, year);
 	Integer numActivatedAccounts = accountStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentsUai, userProfile, week, year);
 	
-	// Gets the informations on the establishment
-	EstablishmentData establishmentData = getEstablishmentData(establishmentUai);
-	
 	// Creation of the result row
-	ExtendedResultRow resultRow = new ExtendedResultRow(numTotalAccounts, numActivatedAccounts);
-	resultRow.setEstablishmentData(establishmentData);
-	
-	return resultRow;
+	return ( new ExtendedResultRow(numTotalAccounts, numActivatedAccounts) );
     }
     
     /**
@@ -370,52 +456,53 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
      * 	the statistic data.
      */
     private ServiceStatistic createPunctualWeekStatisticData(String establishmentUai, String service, String userProfile, Integer week, Integer year) {
-	// Retrieval of the simple services concerned by the statistic
-	List<String> services = getSimpleServices(service);
-	
 	// New list for the UAI
 	List<String> establishmentsUai = new ArrayList<String>();
 	establishmentsUai.add(establishmentUai);
+	return createPunctualWeekStatisticData(establishmentsUai, service, userProfile, week, year);
+    }
+    
+    /**
+     * Retrieves data and creates the statistic data for a specified :
+     * <ul>
+     * 	<li>establishments</li>
+     * 	<li>service</li>
+     * 	<li>user profile</li>
+     * 	<li>week</li>
+     * 	<li>year</li>
+     * </ul>
+     * 
+     * @param establishmentsUai
+     * 			The UAI of the establishments.
+     * @param service
+     * 			The service.
+     * @param userProfile
+     * 			The user profile.
+     * @param week
+     * 			The number of the week in the year.
+     * @param year
+     * 			The year.
+     * 
+     * @return
+     * 	the statistic data.
+     */
+    private ServiceStatistic createPunctualWeekStatisticData(List<String> establishmentsUai, String service, String userProfile, Integer week, Integer year) {
+	// Retrieval of the simple services concerned by the statistic
+	List<String> services = getSimpleServices(service);
 	
 	// Retrieval of the total account number
 	Integer totalAccountNumber = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentsUai, userProfile, week, year);
 	
 	// Retrieval of the service visitors statistics with a number of connections below / above a treshold
 	Integer treshold = ServicesConstants.NUM_CONNECTIONS_TRESHOLD;
-	Integer numVisitorsAboveTreshold = serviceConnectionStatisticService.findWeeklyNumVisitorsAboveTreshold(establishmentUai, services, userProfile, treshold, week, year);
-	Integer numVisitorsBelowTreshold = serviceConnectionStatisticService.findWeeklyNumVisitorsBelowTreshold(establishmentUai, services, userProfile, treshold, week, year);
+	Integer numVisitorsAboveTreshold = serviceConnectionStatisticService.findWeeklyNumVisitorsAboveTreshold(establishmentsUai, services, userProfile, treshold, week, year);
+	Integer numVisitorsBelowTreshold = serviceConnectionStatisticService.findWeeklyNumVisitorsBelowTreshold(establishmentsUai, services, userProfile, treshold, week, year);
 	
 	// Retrieval of the number of visits realized on the service
-	Integer numVisits = serviceConnectionStatisticService.findWeeklyNumVisits(establishmentUai, services, userProfile, week, year);
+	Integer numVisits = serviceConnectionStatisticService.findWeeklyNumVisits(establishmentsUai, services, userProfile, week, year);
 	
 	// Creation of the statistic data
 	ServiceStatistic data = new ServiceStatistic(totalAccountNumber, numVisitorsBelowTreshold, numVisitorsAboveTreshold, numVisits);
-	
-	return data;
-    }
-    
-    /**
-     * Gets the establishment data for the specified UAI.
-     * 
-     * @param uai
-     * 			The UAI of the establishment.
-     * 
-     * @return
-     * 	the result data associated to the establishment.<br/>
-     * 	<code>null</code> if no establishment data has been retrieved.
-     */
-    private EstablishmentData getEstablishmentData(String uai) {
-	// Gets the establishment
-	Establishment establishment = establishmentService.findEstablishmentByUai(uai);
-	if(establishment == null) {
-	    return null;
-	}
-	
-	// Map establishment to establishment data
-	String countyNumber = establishment.getCountyNumber();
-	String name = establishment.getName();
-	String establishmentType = establishment.getType();
-	EstablishmentData data = new EstablishmentData(countyNumber, name, establishmentType, uai);
 	
 	return data;
     }
