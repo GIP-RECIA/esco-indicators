@@ -3,30 +3,7 @@
     <!-- Result row -->
     <tr>
         <!-- Establishment data -->
-        <td>
-            ${item.establishmentData.establishmentName}
-        </td>
-        <td>
-            ${item.establishmentData.uai}
-        </td>
-        <td>
-            ${item.establishmentData.countyNumber}
-        </td>
-        <td>
-            ${item.establishmentData.establishmentType}
-        </td>
-        <td>
-            ${item.establishmentData.lyceeType}
-        </td>
-        <td>
-            ${item.totalAccountNumber}
-        </td>
-        <td>
-            ${item.activeAccountNumber}
-        </td>
-        <td>
-            ${item.percentageActiveAccount}
-        </td>
+        <%@ include file="/WEB-INF/jsp/include/common/table-data-establishment.jsp"%>
         
         <!-- Statistic data -->
         <c:forEach var="key" items="${statisticDataKeys}">
