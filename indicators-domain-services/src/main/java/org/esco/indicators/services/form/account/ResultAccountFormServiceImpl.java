@@ -143,7 +143,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	for(String countyNumber : countyNumbers) {
 	    BasicResultRow basicResultRow = new BasicResultRow();
 	    basicResultRow.setEstablishmentData(createCountyData(countyNumber));
-	    List<String> establishmentsUai = getEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
+	    List<String> establishmentsUai = establishmentService.findEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
 	    if(!establishmentsUai.isEmpty()) {
 		    LOGGER.debug("The aggregated establishments for the county [" + countyNumber +"] are " + establishmentsUai );
         	    for(String profile : usersProfiles) {
@@ -208,7 +208,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	for(String countyNumber : countyNumbers) {
 	    BasicResultRow basicResultRow = new BasicResultRow();
 	    basicResultRow.setEstablishmentData(createCountyData(countyNumber));
-	    List<String> establishmentsUai = getEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
+	    List<String> establishmentsUai = establishmentService.findEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
 	    if(!establishmentsUai.isEmpty()) {
 		    LOGGER.debug("The aggregated establishments for the county [" + countyNumber +"] are " + establishmentsUai );
 		    for (IntegerPair weekAndYear : weeksAndYears) {
@@ -270,7 +270,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	for(String countyNumber : countyNumbers) {
 	    BasicResultRow basicResultRow = new BasicResultRow();
 	    basicResultRow.setEstablishmentData(createCountyData(countyNumber));
-	    List<String> establishmentsUai = getEstablishmentsUaiByCounty(countyNumber, establishmentTypes);
+	    List<String> establishmentsUai = establishmentService.findEstablishmentsUaiByCounty(countyNumber, establishmentTypes);
 	    if(!establishmentsUai.isEmpty()) {
 		    LOGGER.debug("The aggregated establishments for the county [" + countyNumber +"] are " + establishmentsUai );
         	    for(String profile : usersProfiles) {
@@ -335,7 +335,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	for(String countyNumber : countyNumbers) {
 	    BasicResultRow basicResultRow = new BasicResultRow();
 	    basicResultRow.setEstablishmentData(createCountyData(countyNumber));
-	    List<String> establishmentsUai = getEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
+	    List<String> establishmentsUai = establishmentService.findEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
 	    if(!establishmentsUai.isEmpty()) {
 		    LOGGER.debug("The aggregated establishments for the county [" + countyNumber +"] are " + establishmentsUai );
 		    for (IntegerPair monthAndYear : monthsAndYears) {
@@ -646,35 +646,6 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	EstablishmentData data = new EstablishmentData(countyNumber, name, establishmentType, uai);
 	
 	return data;
-    }
-    
-    /**
-     * Gets the UAI of the establishments located in the county and having one of the specified type.
-     * 
-     * @param countyNumber
-     * 			The number of the county.
-     * @param establishmentsTypes 
-     * 			The types of the establishments.
-     * 
-     * @return
-     * 	the list containing the UAI of the establishments located in the county.<br/>
-     * 	an empty list if no establishments UAI has been retrieved.
-     */
-    private List<String> getEstablishmentsUaiByCounty(String countyNumber, List<String> establishmentsTypes) {
-	// Final result
-	List<String> establishmentsUai = new ArrayList<String>();
-	
-	// New list for the county number
-	List<String> countyNumbers = new ArrayList<String>();
-	countyNumbers.add(countyNumber);
-	
-	// Retrieval of the establishments of the county
-	List<Establishment> establishments = establishmentService.findEstablishmentsByCountyNumbersAndTypes(countyNumbers, establishmentsTypes);
-	for (Establishment establishment : establishments) {
-	    establishmentsUai.add(establishment.getUai());
-	}
-	
-	return establishmentsUai;
     }
     
     //------------------------------------------------------------------------------ STATIC METHODS
