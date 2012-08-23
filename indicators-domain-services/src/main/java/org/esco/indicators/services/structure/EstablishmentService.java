@@ -3,6 +3,7 @@
  */
 package org.esco.indicators.services.structure;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.esco.indicators.domain.beans.structure.Establishment;
@@ -62,5 +63,19 @@ public interface EstablishmentService {
      *         an empty <code>List</code> if no estbalishment has been retrieved.
      */
     public List<Establishment> findEstablishmentsByType(String type);
+    
+    /**
+     * Gets the UAI of the establishments located in the county and having one of the specified type.
+     * 
+     * @param countyNumber
+     * 			The number of the county.
+     * @param establishmentsTypes 
+     * 			The types of the establishments.
+     * 
+     * @return
+     * 	the list containing the UAI of the establishments located in the county.<br/>
+     * 	an empty list if no establishments UAI has been retrieved.
+     */
+    public List<String> findEstablishmentsUaiByCounty(String countyNumber, List<String> establishmentsTypes);
 
 }

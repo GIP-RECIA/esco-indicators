@@ -144,6 +144,26 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	return establishments;
     }
     
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsUaiByCounty(java.lang.String, java.util.List)
+     */
+    @Override
+    public List<String> findEstablishmentsUaiByCounty(String countyNumber, List<String> establishmentsTypes) {
+	// Final result
+	List<String> establishmentsUai = new ArrayList<String>();
+	
+	// New list for the county number
+	List<String> countyNumbers = new ArrayList<String>();
+	countyNumbers.add(countyNumber);
+	
+	// Retrieval of the establishments of the county
+	List<Establishment> establishments = findEstablishmentsByCountyNumbersAndTypes(countyNumbers, establishmentsTypes);
+	for (Establishment establishment : establishments) {
+	    establishmentsUai.add(establishment.getUai());
+	}
+	
+	return establishmentsUai;
+    }
     
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
