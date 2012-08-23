@@ -324,6 +324,7 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
 	//	Addition of the statistic data in the result row (for each service)
 	for (String uai : establishmentsUai) {
 	    ExtendedResultRow resultRow = createMonthlyExtendedResultRow(uai, userProfile, month, year);
+	    resultRow.setEstablishmentData(createEstablishmentData(uai));
 	    for (String service : services) {
 		ServiceStatistic statistic = createPunctualMonthStatisticData(uai, service, userProfile, month, year);
 		resultRow.putStatisticData(service, statistic);
