@@ -152,8 +152,7 @@ public class PeriodicServiceResultController extends BasicServiceResultControlle
 
 		Integer startMonth = DateUtils.getMonthOfYear(startDate);
 		Integer endMonth = DateUtils.getMonthOfYear(endDate);
-		//return resultServiceFormService.getPeriodicMonthResultRows(countyNumbers, establishmentsTypes, services, userProfile, startMonth, startYear, endMonth, endYear);
-		return null;
+		return resultServiceFormService.getPeriodicMonthResultRows(countyNumbers, establishmentsTypes, services, userProfile, startMonth, startYear, endMonth, endYear);
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS

@@ -270,6 +270,46 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
     }
 
     /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.service.ResultServiceFormService#getPeriodicMonthResultRows(java.util.List, java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public List<ExtendedResultRow> getPeriodicMonthResultRows(List<String> countyNumbers,
+            List<String> establishmentsTypes, List<String> services, String userProfile, Integer startMonth,
+            Integer startYear, Integer endMonth, Integer endYear) {
+	// Final result
+	List<ExtendedResultRow> rows = new ArrayList<ExtendedResultRow>();
+	
+	// Splits the specified period into months
+	List<IntegerPair> monthsAndYears = DateUtils.splitMonths(startMonth, startYear, endMonth, endYear);
+	
+	// For each county :
+	//	Creation of the corresponding result row
+	//	Addition of the county data in the result row
+	//	Addition of result rows into the the created row (one row per period)
+	for(String countyNumber : countyNumbers) {
+	    List<String> establishmentsUai = establishmentService.findEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
+	    if(!establishmentsUai.isEmpty()) {
+        	    // First level row : Establishment data
+        	    ExtendedResultRow firstLevelRow = new ExtendedResultRow();
+        	    firstLevelRow.setEstablishmentData(createCountyData(countyNumber));
+        	    
+        	    for (IntegerPair monthAndYear : monthsAndYears) {
+        		// Second level row : Statistic data for a period and a service
+        		ExtendedResultRow secondLevelRow = createMonthlyExtendedResultRow(establishmentsUai, userProfile, monthAndYear.getFirst(), monthAndYear.getSecond());
+        		secondLevelRow.setEstablishmentData(createCountyData(countyNumber));
+        		for (String service : services) {
+        		    ServiceStatistic statistic = createPunctualMonthStatisticData(establishmentsUai, service, userProfile, monthAndYear.getFirst(), monthAndYear.getSecond());
+        		    secondLevelRow.putStatisticData(service, statistic);
+        		}
+        		firstLevelRow.putStatisticData(monthAndYear, secondLevelRow);
+        	    }
+        	    rows.add(firstLevelRow);
+	    }
+	}
+	return rows;
+    }
+
+    /* (non-Javadoc)
      * @see org.esco.indicators.services.form.service.ResultServiceFormService#getPunctualMonthResultRows(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     @Override
