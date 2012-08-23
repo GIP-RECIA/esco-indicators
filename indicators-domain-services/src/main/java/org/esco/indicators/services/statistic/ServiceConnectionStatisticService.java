@@ -40,11 +40,11 @@ public interface ServiceConnectionStatisticService {
     ///////////////////////////////////////////////////////
     /**
      * Retrieves the number of visitors that made more than <code>treshold</code> connections on the <code>service</code>, and who has the specified 
-     * <code>userProfile</code> in the specified <code>establishmentUai</code>.<br/>
+     * <code>userProfile</code> in the specified <code>establishmentsUai</code>.<br/>
      * This number of visitors only concerns the week having the number <code>week</code> in the year <code>year</code>.
      * 
-     * @param establishmentUai
-     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param establishmentsUai
+     * 			The UAI of the establishments associated to the statistic to retrieve.
      * @param services
      * 			The services associated to the statistic to retireve.
      * @param userProfile
@@ -56,17 +56,17 @@ public interface ServiceConnectionStatisticService {
      * @param year
      * 			The year of the statistic to retrieve.
      * @return
-     * 	the number of visitors who made more than <code>treshold</code> connections on the service.<br/>
+     * 	the number of visitors who made more than <code>treshold</code> connections on the services.<br/>
      * 	the number 0 if no statistic has been retrieved.
      */
-    public Integer findWeeklyNumVisitorsAboveTreshold(String establishmentUai, List<String> services, String userProfile, Integer treshold, Integer week, Integer year);
+    public Integer findWeeklyNumVisitorsAboveTreshold(List<String> establishmentsUai, List<String> services, String userProfile, Integer treshold, Integer week, Integer year);
     
     /**
      * Retrieves the number of visitors that made less than <code>treshold</code> connections on the <code>service</code>, and who has the specified 
      * <code>userProfile</code> in the specified <code>establishmentUai</code>.<br/>
      * This number of visitors only concerns the week having the number <code>week</code> in the year <code>year</code>.
      * 
-     * @param establishmentUai
+     * @param establishmentsUai
      * 			The UAI of the establishment associated to the statistic to retrieve.
      * @param services
      * 			The services associated to the statistic to retireve.
@@ -82,7 +82,7 @@ public interface ServiceConnectionStatisticService {
      * 	the number of visitors who made less than <code>treshold</code> connections on the service.<br/>
      * 	the number 0 if no statistic has been retrieved.
      */
-    public Integer findWeeklyNumVisitorsBelowTreshold(String establishmentUai, List<String> services, String userProfile, Integer treshold, Integer week, Integer year);
+    public Integer findWeeklyNumVisitorsBelowTreshold(List<String> establishmentsUai, List<String> services, String userProfile, Integer treshold, Integer week, Integer year);
     
     /**
      * Retrieves the number of visits made on the <code>service</code> for the specified <code>userProfile</code> in the specified <code>establishmentUai</code>.<br/>
@@ -103,7 +103,7 @@ public interface ServiceConnectionStatisticService {
      * 	the number of visits made on the service.<br/>
      * 	the number 0 if no statistic has been retrieved.
      */
-    public Integer findWeeklyNumVisits(String establishmentUai, List<String> services, String userProfile, Integer week, Integer year);
+    public Integer findWeeklyNumVisits(List<String> establishmentUai, List<String> services, String userProfile, Integer week, Integer year);
 
 
     ///////////////////////////////////////////////////////
