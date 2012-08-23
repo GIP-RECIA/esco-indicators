@@ -59,7 +59,7 @@ public class PunctualServiceResultController extends BasicServiceResultControlle
      * @see org.esco.indicators.web.springmvc.controller.service.result.BasicServiceResultController#createResultRows(java.util.List, java.util.List, java.util.List, java.lang.String, java.util.Date, java.util.Date)
      */
     @Override
-    protected List<ExtendedResultRow> createResultRows( List<String> establishmentsTypes, List<String> establishmentsUai, List<String> services, String userProfile, Date startDate, Date endDate) {
+    protected List<ExtendedResultRow> createEstablishmentsResultRows( List<String> establishmentsTypes, List<String> establishmentsUai, List<String> services, String userProfile, Date startDate, Date endDate) {
 	// Retrieval of the year
 	Integer year = DateUtils.getYear(startDate);
 	
@@ -74,6 +74,30 @@ public class PunctualServiceResultController extends BasicServiceResultControlle
 	
 	Integer month = DateUtils.getMonthOfYear(startDate);
 	return resultServiceFormService.getPunctualMonthResultRows(establishmentsUai, services, userProfile, month, year);
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.service.result.BasicServiceResultController#createSumOnCountiesResultRows(java.util.List, java.util.List, java.util.List, java.util.List, java.lang.String, java.util.Date, java.util.Date)
+     */
+    @Override
+    protected List<ExtendedResultRow> createSumOnCountiesResultRows(List<String> checkedEstablishmentTypes,
+	    List<String> countyNumbers, List<String> establishmentsTypes, List<String> services,
+	    String userProfile, Date startDate, Date endDate) {
+	// Retrieval of the year
+	Integer year = DateUtils.getYear(startDate);
+	
+	// Retrieval of the month / or week
+	if(	checkedEstablishmentTypes.contains(DataFormConstants.JSP_KEY_CFA) 
+		&& establishmentsTypes.size() == 1
+	) {
+	    // If the only selected establishment type is : CFA
+	    Integer week = DateUtils.getWeekOfYear(startDate);
+	    return resultServiceFormService.getPunctualWeekResultRows(countyNumbers, establishmentsTypes, services, userProfile, week, year);
+	} 
+	
+	Integer month = DateUtils.getMonthOfYear(startDate);
+	//return resultServiceFormService.getPunctualMonthResultRows(countyNumbers, establishmentsTypes, services, userProfile, month, year);
+	return null;
     }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
