@@ -1,24 +1,7 @@
 <c:forEach var="item" items="${tableRowsItems}">
 
     <!-- First level row : Establishment Data -->
-    <tr>
-        <!-- Establishment data -->
-        <td>
-            ${item.establishmentData.establishmentName}
-        </td>
-        <td>
-            ${item.establishmentData.uai}
-        </td>
-        <td>
-            ${item.establishmentData.countyNumber}
-        </td>
-        <td>
-            ${item.establishmentData.establishmentType}
-        </td>
-        <td>
-            ${item.establishmentData.lyceeType}
-        </td>
-    <tr>
+    <%@ include file="/WEB-INF/jsp/include/common/table-data-establishment.jsp"%>
     
     <!-- Second level row : Statistics for each period -->
     
