@@ -183,7 +183,41 @@ public abstract class BasicServiceResultController extends BasicResultController
         return i18nKeys;
     }
 
-    //--------------------------------------------------------------------------- PROTECTED METHODS
+    /**
+     * Creates the result rows; each result row containing the following data :
+     * <ul>
+     * 	<li>The establishment data (name, UAI,..)</li>
+     * 	<li>The statistic data (number of connections,...)</li>
+     * </ul>
+     * 
+     * The statistic data are indexed by a {@link String} or an {@link IntegerPair}.<br/>
+     * When the statistics are punctual, the index is a string and represents : the name of a service.<br/>
+     * When the statistics are periodic, the index is an Integer pair containing : 
+     * <ul>
+     * 	<li>First value : the number of a week / month</li>
+     * 	<li>Second value : the year of the week</li>
+     * </ul>
+     * The periods (week/month and year) represented by the pairs are extracted from the original period
+     * specified by the <code>startDate</code> and the <code>endDate</code>.
+     * 
+     * @param establishmentsTypes
+     * 			The types of the establishments.
+     * @param establishmentsUai
+     * 			The UAI of the establishments.
+     * @param services
+     * 			The services concerned by the statistics.
+     * @param userProfile
+     * 			The user profile concerned by the statistics.
+     * @param startDate
+     * 			The start date of the statistics.
+     * @param endDate
+     * 			The end date of the statistics (can be <code>null</code>).
+     * 
+     * @return
+     * 	the result rows containing the data to display.
+     */
+    protected abstract List<ExtendedResultRow> createEstablishmentsResultRows( List<String> establishmentsTypes, List<String> establishmentsUai, List<String> services, String userProfile, Date startDate, Date endDate);
+
     /**
      * Creates the result rows; each result row containing the following data :
      * <ul>
@@ -221,40 +255,7 @@ public abstract class BasicServiceResultController extends BasicResultController
      */
     protected abstract List<ExtendedResultRow> createSumOnCountiesResultRows( List<String> checkedEstablishmentTypes, List<String> countyNumbers, List<String> establishmentsTypes, List<String> services, String userProfile, Date startDate, Date endDate);
     
-    /**
-     * Creates the result rows; each result row containing the following data :
-     * <ul>
-     * 	<li>The establishment data (name, UAI,..)</li>
-     * 	<li>The statistic data (number of connections,...)</li>
-     * </ul>
-     * 
-     * The statistic data are indexed by a {@link String} or an {@link IntegerPair}.<br/>
-     * When the statistics are punctual, the index is a string and represents : the name of a service.<br/>
-     * When the statistics are periodic, the index is an Integer pair containing : 
-     * <ul>
-     * 	<li>First value : the number of a week / month</li>
-     * 	<li>Second value : the year of the week</li>
-     * </ul>
-     * The periods (week/month and year) represented by the pairs are extracted from the original period
-     * specified by the <code>startDate</code> and the <code>endDate</code>.
-     * 
-     * @param establishmentsTypes
-     * 			The types of the establishments.
-     * @param establishmentsUai
-     * 			The UAI of the establishments.
-     * @param services
-     * 			The services concerned by the statistics.
-     * @param userProfile
-     * 			The user profile concerned by the statistics.
-     * @param startDate
-     * 			The start date of the statistics.
-     * @param endDate
-     * 			The end date of the statistics (can be <code>null</code>).
-     * 
-     * @return
-     * 	the result rows containing the data to display.
-     */
-    protected abstract List<ExtendedResultRow> createEstablishmentsResultRows( List<String> establishmentsTypes, List<String> establishmentsUai, List<String> services, String userProfile, Date startDate, Date endDate);
+    //--------------------------------------------------------------------------- PROTECTED METHODS
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
     
