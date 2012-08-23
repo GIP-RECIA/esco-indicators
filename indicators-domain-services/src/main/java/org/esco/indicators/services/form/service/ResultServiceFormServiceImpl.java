@@ -177,7 +177,6 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
 	    if(!establishmentsUai.isEmpty()) {
 		ExtendedResultRow resultRow = createWeeklyExtendedResultRow(establishmentsUai, userProfile, week, year);
 		resultRow.setEstablishmentData(createCountyData(countyNumber));
-		LOGGER.debug("The aggregated establishments for the county [" + countyNumber +"] are " + establishmentsUai );
         	    for(String service : services) {
         		ServiceStatistic statistic = createPunctualWeekStatisticData(establishmentsUai, service, userProfile, week, year);
         		resultRow.putStatisticData(service, statistic);
@@ -255,6 +254,35 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
 	return rows;
     }
     
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.service.ResultServiceFormService#getPunctualMonthResultRows(java.util.List, java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public List<ExtendedResultRow> getPunctualMonthResultRows(List<String> countyNumbers,
+            List<String> establishmentsTypes, List<String> services, String userProfile, Integer month,
+            Integer year) {
+	// Final result
+	List<ExtendedResultRow> rows = new ArrayList<ExtendedResultRow>();
+	
+	// For each county number :
+	//	Creation of the corresponding result row
+	//	Addition of the county data in the result row
+	//	Addition of the statistic data in the result row (for each service)
+	for(String countyNumber : countyNumbers) {
+	    List<String> establishmentsUai = establishmentService.findEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
+	    if(!establishmentsUai.isEmpty()) {
+		ExtendedResultRow resultRow = createMonthlyExtendedResultRow(establishmentsUai, userProfile, month, year);
+		resultRow.setEstablishmentData(createCountyData(countyNumber));
+        	    for(String service : services) {
+        		ServiceStatistic statistic = createPunctualMonthStatisticData(establishmentsUai, service, userProfile, month, year);
+        		resultRow.putStatisticData(service, statistic);
+        	    }
+        	    rows.add(resultRow);
+	    }
+	}
+	
+        return rows;
+    }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
     /**
@@ -314,20 +342,36 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
      * 	the exented result row containing informations on the establishment and the accounts.
      */
     private ExtendedResultRow createMonthlyExtendedResultRow(String establishmentUai, String userProfile, Integer month, Integer year) {
-	// Put the UAI into a list
-	List<String> establishmentsUAI = new ArrayList<String>();
-	establishmentsUAI.add(establishmentUai);
-	
+	// Put the establishment UAI into a list
+	List<String> establishmentsUai = new ArrayList<String>();
+	establishmentsUai.add(establishmentUai);
+	return createMonthlyExtendedResultRow(establishmentsUai, userProfile, month, year);
+    }
+    
+    /**
+     * Creates an extended result row containing the all the data on the establishments, and the accounts.<br/>
+     * The accounts data only concerned the the accounts having the specified user profile in the specified period.
+     * 
+     * The statistics data are not filled.
+     * 
+     * @param establishmentsUai
+     * 			The UAI of the establishments associated to the created row.
+     * @param userProfile
+     * 			The user profile.
+     * @param month
+     * 			The number of the month.
+     * @param year 
+     * 			The year.
+     * @return
+     * 	the exented result row containing informations on the establishment and the accounts.
+     */
+    private ExtendedResultRow createMonthlyExtendedResultRow(List<String> establishmentsUai, String userProfile, Integer month, Integer year) {
 	// Gets the informations on the accounts
-	Integer numTotalAccounts = accountStatisticService.findMonthlyTotalNumAccountsForProfile(establishmentsUAI, userProfile, month, year);
-	Integer numActivatedAccounts = accountStatisticService.findMonthlyNumActivatedAccountsForProfile(establishmentsUAI, userProfile, month, year);
-	
-	// Gets the informations on the establishment
-	EstablishmentData establishmentData = createEstablishmentData(establishmentUai);
+	Integer numTotalAccounts = accountStatisticService.findMonthlyTotalNumAccountsForProfile(establishmentsUai, userProfile, month, year);
+	Integer numActivatedAccounts = accountStatisticService.findMonthlyNumActivatedAccountsForProfile(establishmentsUai, userProfile, month, year);
 	
 	// Creation of the result row
 	ExtendedResultRow resultRow = new ExtendedResultRow(numTotalAccounts, numActivatedAccounts);
-	resultRow.setEstablishmentData(establishmentData);
 	
 	return resultRow;
     }
@@ -407,23 +451,50 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
      * 	the statistic data.
      */
     private ServiceStatistic createPunctualMonthStatisticData(String establishmentUai, String service, String userProfile, Integer month, Integer year) {
-	// Retrieval of the simple services concerned by the statistic
-	List<String> services = getSimpleServices(service);
-	
 	// New list for the UAI
 	List<String> establishmentsUai = new ArrayList<String>();
 	establishmentsUai.add(establishmentUai);
+	return createPunctualMonthStatisticData(establishmentsUai, service, userProfile, month, year);
+    }
+    
+    /**
+     * Retrieves data and creates the statistic data for a specified :
+     * <ul>
+     * 	<li>establishments</li>
+     * 	<li>service</li>
+     * 	<li>user profile</li>
+     * 	<li>month</li>
+     * 	<li>year</li>
+     * </ul>
+     * 
+     * @param establishmentsUai
+     * 			The UAI of the establishments.
+     * @param service
+     * 			The service.
+     * @param userProfile
+     * 			The user profile.
+     * @param month
+     * 			The number of the month in the year.
+     * @param year
+     * 			The year.
+     * 
+     * @return
+     * 	the statistic data.
+     */
+    private ServiceStatistic createPunctualMonthStatisticData(List<String> establishmentsUai, String service, String userProfile, Integer month, Integer year) {
+	// Retrieval of the simple services concerned by the statistic
+	List<String> services = getSimpleServices(service);
 	
 	// Retrieval of the total account number
 	Integer totalAccountNumber = accountStatisticService.findMonthlyTotalNumAccountsForProfile(establishmentsUai, userProfile, month, year);
 	
 	// Retrieval of the service visitors statistics with a number of connections below / above a treshold
 	Integer treshold = ServicesConstants.NUM_CONNECTIONS_TRESHOLD;
-	Integer numVisitorsAboveTreshold = serviceConnectionStatisticService.findMonthlyNumVisitorsAboveTreshold(establishmentUai, services, userProfile, treshold, month, year);
-	Integer numVisitorsBelowTreshold = serviceConnectionStatisticService.findMonthlyNumVisitorsBelowTreshold(establishmentUai, services, userProfile, treshold, month, year);
+	Integer numVisitorsAboveTreshold = serviceConnectionStatisticService.findMonthlyNumVisitorsAboveTreshold(establishmentsUai, services, userProfile, treshold, month, year);
+	Integer numVisitorsBelowTreshold = serviceConnectionStatisticService.findMonthlyNumVisitorsBelowTreshold(establishmentsUai, services, userProfile, treshold, month, year);
 	
 	// Retrieval of the number of visits realized on the service
-	Integer numVisits = serviceConnectionStatisticService.findMonthlyNumVisits(establishmentUai, services, userProfile, month, year);
+	Integer numVisits = serviceConnectionStatisticService.findMonthlyNumVisits(establishmentsUai, services, userProfile, month, year);
 	
 	// Creation of the statistic data
 	ServiceStatistic data = new ServiceStatistic(totalAccountNumber, numVisitorsBelowTreshold, numVisitorsAboveTreshold, numVisits);

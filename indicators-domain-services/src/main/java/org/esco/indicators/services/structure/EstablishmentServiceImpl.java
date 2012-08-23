@@ -161,7 +161,9 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	for (Establishment establishment : establishments) {
 	    establishmentsUai.add(establishment.getUai());
 	}
-	
+	// Debug message
+	LOGGER.debug("The establishments UAIs for the county [" + countyNumber +"] are " + establishmentsUai );
+
 	return establishmentsUai;
     }
     

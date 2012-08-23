@@ -145,7 +145,6 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    basicResultRow.setEstablishmentData(createCountyData(countyNumber));
 	    List<String> establishmentsUai = establishmentService.findEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
 	    if(!establishmentsUai.isEmpty()) {
-		    LOGGER.debug("The aggregated establishments for the county [" + countyNumber +"] are " + establishmentsUai );
         	    for(String profile : usersProfiles) {
         		PunctualAccountStatistic statistic = createPunctualWeekStatisticData(establishmentsUai,  profile, week, year);
         		basicResultRow.putStatisticData(profile, statistic);
@@ -210,7 +209,6 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    basicResultRow.setEstablishmentData(createCountyData(countyNumber));
 	    List<String> establishmentsUai = establishmentService.findEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
 	    if(!establishmentsUai.isEmpty()) {
-		    LOGGER.debug("The aggregated establishments for the county [" + countyNumber +"] are " + establishmentsUai );
 		    for (IntegerPair weekAndYear : weeksAndYears) {
         		PunctualAccountStatistic statistic = createPunctualWeekStatisticData(establishmentsUai,  userProfile, weekAndYear.getFirst(), weekAndYear.getSecond());
         		basicResultRow.putStatisticData(weekAndYear, statistic);
@@ -272,7 +270,6 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    basicResultRow.setEstablishmentData(createCountyData(countyNumber));
 	    List<String> establishmentsUai = establishmentService.findEstablishmentsUaiByCounty(countyNumber, establishmentTypes);
 	    if(!establishmentsUai.isEmpty()) {
-		    LOGGER.debug("The aggregated establishments for the county [" + countyNumber +"] are " + establishmentsUai );
         	    for(String profile : usersProfiles) {
         		PunctualAccountStatistic statistic = createPunctualMonthStatisticData(establishmentsUai,  profile, month, year);
         		basicResultRow.putStatisticData(profile, statistic);
@@ -337,7 +334,6 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    basicResultRow.setEstablishmentData(createCountyData(countyNumber));
 	    List<String> establishmentsUai = establishmentService.findEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
 	    if(!establishmentsUai.isEmpty()) {
-		    LOGGER.debug("The aggregated establishments for the county [" + countyNumber +"] are " + establishmentsUai );
 		    for (IntegerPair monthAndYear : monthsAndYears) {
         		PunctualAccountStatistic statistic = createPunctualMonthStatisticData(establishmentsUai,  userProfile, monthAndYear.getFirst(), monthAndYear.getSecond());
         		basicResultRow.putStatisticData(monthAndYear, statistic);

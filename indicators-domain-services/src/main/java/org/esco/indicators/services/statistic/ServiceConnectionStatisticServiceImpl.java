@@ -128,14 +128,10 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
     // MONTHLY STATISTICS
     ///////////////////////////////////////////////////////
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findMonthlyNumVisitorsAboveTreshold(java.lang.String, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findMonthlyNumVisitorsAboveTreshold(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumVisitorsAboveTreshold(String establishmentUai, List<String> services, String userProfile, Integer treshold, Integer month, Integer year) {
-	// Put the establishment UAI into a list
-	List<String> establishmentsUai = new ArrayList<String>();
-	establishmentsUai.add(establishmentUai);
-	
+    public Integer findMonthlyNumVisitorsAboveTreshold(List<String> establishmentsUai, List<String> services, String userProfile, Integer treshold, Integer month, Integer year) {
 	// Gets the start day and end day of the month
 	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
 	Date lastMonthDay = DateUtils.getLastMonthDay(month, year);
@@ -147,17 +143,12 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
 	return numVisitors;
     }
 
-
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findMonthlyNumVisitorsBelowTreshold(java.lang.String, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findMonthlyNumVisitorsBelowTreshold(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumVisitorsBelowTreshold(String establishmentUai, List<String> services,
+    public Integer findMonthlyNumVisitorsBelowTreshold(List<String> establishmentsUai, List<String> services,
 	    String userProfile, Integer treshold, Integer month, Integer year) {
-	// Put the establishment UAI into a list
-	List<String> establishmentsUai = new ArrayList<String>();
-	establishmentsUai.add(establishmentUai);
-	
 	// Gets the start day and end day of the month
 	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
 	Date lastMonthDay = DateUtils.getLastMonthDay(month, year);
@@ -169,17 +160,12 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
 	return numVisitors;
     }
 
-
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findMonthlyNumVisits(java.lang.String, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findMonthlyNumVisits(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumVisits(String establishmentUai, List<String> services, String userProfile,
+    public Integer findMonthlyNumVisits(List<String> establishmentsUai, List<String> services, String userProfile,
 	    Integer month, Integer year) {
-	// Put the establishment UAI into a list
-	List<String> establishmentsUai = new ArrayList<String>();
-	establishmentsUai.add(establishmentUai);
-	
 	// Gets the start day and end day of the month
 	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
 	Date lastMonthDay = DateUtils.getLastMonthDay(month, year);
