@@ -133,6 +133,46 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
     }
 
     /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.service.ResultServiceFormService#getPeriodicWeekResultRows(java.util.List, java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public List<ExtendedResultRow> getPeriodicWeekResultRows(List<String> countyNumbers,
+            List<String> establishmentsTypes, List<String> services, String userProfile, Integer startWeek,
+            Integer startYear, Integer endWeek, Integer endYear) {
+	// Final result
+	List<ExtendedResultRow> rows = new ArrayList<ExtendedResultRow>();
+	
+	// Splits the specified period into weeks
+	List<IntegerPair> weeksAndYears = DateUtils.splitWeeks(startWeek, startYear, endWeek, endYear);
+	
+	// For each county :
+	//	Creation of the corresponding result row
+	//	Addition of the county data in the result row
+	//	Addition of result rows into the the created row (one row per period)
+	for(String countyNumber : countyNumbers) {
+	    List<String> establishmentsUai = establishmentService.findEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
+	    if(!establishmentsUai.isEmpty()) {
+        	    // First level row : Establishment data
+        	    ExtendedResultRow firstLevelRow = new ExtendedResultRow();
+        	    firstLevelRow.setEstablishmentData(createCountyData(countyNumber));
+        	    
+        	    for (IntegerPair weekAndYear : weeksAndYears) {
+        		// Second level row : Statistic data for a period and a service
+        		ExtendedResultRow secondLevelRow = createWeeklyExtendedResultRow(establishmentsUai, userProfile, weekAndYear.getFirst(), weekAndYear.getSecond());
+        		secondLevelRow.setEstablishmentData(createCountyData(countyNumber));
+        		for (String service : services) {
+        		    ServiceStatistic statistic = createPunctualWeekStatisticData(establishmentsUai, service, userProfile, weekAndYear.getFirst(), weekAndYear.getSecond());
+        		    secondLevelRow.putStatisticData(service, statistic);
+        		}
+        		firstLevelRow.putStatisticData(weekAndYear, secondLevelRow);
+        	    }
+        	    rows.add(firstLevelRow);
+	    }
+	}
+	return rows;
+    }
+
+    /* (non-Javadoc)
      * @see org.esco.indicators.services.form.service.ResultServiceFormService#getPunctualWeekResultRows(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     @Override
