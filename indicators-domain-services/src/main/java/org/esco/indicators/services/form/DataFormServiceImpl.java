@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.xml.form.EntryValue;
+import org.springframework.beans.factory.InitializingBean;
 
 /**
  * Implementation of the {@link DataFormService} interface.
@@ -20,7 +21,7 @@ public class DataFormServiceImpl implements DataFormService {
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(DataFormServiceImpl.class);
 
-    /** Provider of the data form contained in a XML file (see {@link DataFormProvider}) */
+    /** Provider of the data form contained in a XML file (see {@link DataFormProviderImpl}) */
     private DataFormProvider dataFormProvider;
 
     // -------------------------------------------------------------------------------- CONSTRUCTORS
@@ -127,7 +128,7 @@ public class DataFormServiceImpl implements DataFormService {
 	// If no values has been retrieved for this entry
 	if (entryValues.isEmpty()) {
 	    LOGGER.warn("No value has been retrieved for the entry : [" + entryName + "] in the file : ["
-		    + dataFormProvider.getDataFormFileUrl() + "]");
+		    + dataFormProvider.getDataFormFile() + "]");
 	}
 	
 	return entryValues;
