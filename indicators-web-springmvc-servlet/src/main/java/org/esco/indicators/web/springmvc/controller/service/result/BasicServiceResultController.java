@@ -53,7 +53,7 @@ public abstract class BasicServiceResultController extends BasicResultController
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
-     * Constructor of {@link BasicServiceResultController}.
+     * Constructor of {@link UserController}.
      * 
      * @param viewName
      * 			The view name associated to the controller.
