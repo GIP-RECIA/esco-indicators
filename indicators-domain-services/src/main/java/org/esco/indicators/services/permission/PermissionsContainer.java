@@ -18,9 +18,6 @@ class PermissionsContainer {
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(PermissionsContainer.class);
 
-    /** Single instance of the class */
-    private static PermissionsContainer instance;
-    
     /** Groups permissions */
     private GroupsPermissions groupsPermissions;
     
@@ -32,7 +29,7 @@ class PermissionsContainer {
     /**
      * Private constructor of the {@link PermissionsContainer} class.
      */
-    private PermissionsContainer() {
+    public PermissionsContainer() {
 	super();
     }
     
@@ -84,16 +81,4 @@ class PermissionsContainer {
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
     //------------------------------------------------------------------------------ STATIC METHODS
-    /**
-     * Gets the {@link PermissionsContainer} singleton.
-     * 
-     * @return
-     * 	the {@link PermissionsContainer} singleton
-     */
-    public static PermissionsContainer getInstance() {
-	if(instance == null) {
-	    instance = new PermissionsContainer();
-	}
-	return instance;
-    }
 }
