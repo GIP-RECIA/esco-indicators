@@ -9,9 +9,6 @@ import java.util.List;
 import junit.framework.Assert;
 
 import org.esco.indicators.domain.beans.xml.form.EntryValue;
-import org.esco.indicators.domain.beans.xml.form.OnActivationEvent;
-import org.hibernate.mapping.Array;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * Tests of the {@link DataFormProvider} class.
+ * Tests of the {@link DataFormProviderImpl} class.
  * 
  * @since  2012/06/18
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
@@ -28,7 +25,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations="classpath*:META-INF/testApplicationContext.xml")
 public class DataFormProviderTest {
     //---------------------------------------------------------------------------------- ATTRIBUTES
-    /** {@link DataFormProvider} under tests */
+    /** {@link DataFormProviderImpl} under tests */
     @Autowired
     private DataFormProvider dataAccountFormProvider;
     
@@ -36,7 +33,7 @@ public class DataFormProviderTest {
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
-     * Test method for {@link org.esco.indicators.utils.web.DataFormProvider#getEntriesForm()}.
+     * Test method for {@link org.esco.indicators.utils.PermissionProvider.DataFormProvider#getEntriesForm()}.
      * 
      * Tests if the number of entries is the expected one.
      */
@@ -53,7 +50,7 @@ public class DataFormProviderTest {
     }
 
     /**
-     * Test method for {@link org.esco.indicators.utils.web.DataFormProvider#getEntriesNames()}.
+     * Test method for {@link org.esco.indicators.utils.PermissionProvider.DataFormProvider#getEntriesNames()}.
      * 
      * Tests if the names of the entries are the expected ones.
      */
@@ -72,7 +69,7 @@ public class DataFormProviderTest {
     }
 
     /**
-     * Test method for {@link org.esco.indicators.utils.web.DataFormProvider#getEntryValues(java.lang.String)}.
+     * Test method for {@link org.esco.indicators.utils.PermissionProvider.DataFormProvider#getEntryValues(java.lang.String)}.
      * 
      * Tests if the possible values names of an entry are the expected ones.
      */
