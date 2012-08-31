@@ -3,220 +3,85 @@
  */
 package org.esco.indicators.services.form;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.crypto.Data;
-
-import org.apache.log4j.Logger;
-import org.esco.indicators.domain.beans.xml.form.DataForm;
 import org.esco.indicators.domain.beans.xml.form.EntryForm;
 import org.esco.indicators.domain.beans.xml.form.EntryValue;
+import org.springframework.core.io.Resource;
 
 /**
- * Class providing functions to access the data that have to be displayed in the forms of the application.<br/>
- * These data are loaded from the file located at the URL : <code>dataFormFileUrl</code>.
+ * Service providing the content data of a form.
  * 
- * @since  2012/06/18
+ * @since  2012/08/24
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public class DataFormProvider {
-    //---------------------------------------------------------------------------------- ATTRIBUTES
-    /** Logger of the class */
-    private static final Logger LOGGER = Logger.getLogger(DataFormProvider.class);
-
-    /** URL of the file containing the data form */
-    private String dataFormFileUrl;
-    
-    /** Data form extracted from the above file */
-    private DataForm dataForm;
-
-    //-------------------------------------------------------------------------------- CONSTRUCTORS
+public interface DataFormProvider {
     /**
-     * Defautl constructor of the {@link DataFormProvider} class.
-     */
-    public DataFormProvider() {
-	super();
-    }
-    
-    /**
-     * Constructor of the {@link DataFormProvider} class.
-     * 
-     * @param dataFormFileUrl
-     * 			The URL of the file containing the data form.
-     */
-    public DataFormProvider(String dataFormFileUrl) {
-	super();
-	this.dataFormFileUrl = dataFormFileUrl;
-	feedDataForm();
-    }
-    
-    //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /**
-     * Gets the URL of the file containing the data form.
+     * Gets the file containing the data form.
      * 
      * @return 
-     * 	the URL of the file containing the data form.
+     * 	the file containing the data form.
      */
-    public String getDataFormFileUrl() {
-        return dataFormFileUrl;
-    }
+    public Resource getDataFormFile();
     
     /**
-     * Sets the URL of the file containing the data form.
-     * 
-     * @param dataFormFileUrl 
-     * 			The URL of the file containing the data form.
-     */
-    public void setDataFormFileUrl(String dataFormFileUrl) {
-        this.dataFormFileUrl = dataFormFileUrl;
-    }
-    
-    /**
-     * Sets the data form.
-     * 
-     * @param dataForm 
-     * 			The data form to set.
-     */
-    public void setDataForm(DataForm dataForm) {
-        this.dataForm = dataForm;
-    }
-    
-    
-    /**
-     * Gets the entries of the form.
-     * 
-     * @return
-     * 	The entries of the form.
-     */
-    public List<EntryForm> getEntriesForm() {
-	return dataForm.getEntriesForm();
-    }
-    
-    /**
-     * Gets the names of the entries of the form.
-     * 
-     * @return
-     * 	The names of the entries of the form.<br/>
-     * 	An empty list if no is retrieved.
-     */
-    public List<String> getEntriesNames() {
-	List<EntryForm> entries = getEntriesForm();
-	List<String> names = new ArrayList<String>();
-	for (EntryForm entry : entries) {
-	    names.add(entry.getName());
-	}
-	return names;
-    }
-    
-    /**
-     * Gets the entry value associated with the specified JSP key.
-     * 
-     * @param jspKey
-     * 			The JSP key of the entry value.
-     * @return
-     * 	The first entry value found having the specified JSP Key.<br/>
-     * 	<code>null</code> if no entry value has been retrieved.
-     */
-    public EntryValue getEntryValueByJspKey(String jspKey) {
-	// Retrieval of all the entries
-	List<EntryValue> allEntryValues = dataForm.getAllEntryValues();
-	
-	// Retrieval of the entries having this JSP key
-	List<EntryValue> foundEntries = new ArrayList<EntryValue>();
-	for (EntryValue entryValue : allEntryValues) {
-	    if(entryValue.getJspKey().equals(jspKey)) {
-		foundEntries.add(entryValue);
-	    }
-	}
-	
-	// Test if there is no more than one entry with this JSP key
-	if(foundEntries.isEmpty()) {
-	    LOGGER.warn("No entry value associated to the JSP key : [" + jspKey + "]");
-	    return null;
-	} else if (foundEntries.size() > 1) {
-	    LOGGER.warn("More than one entry value associated to the JSP key : [" + jspKey + "]");
-	}
-	 return foundEntries.get(0);
-    }
-    
-    /**
-     * Gets the possible values for the entry having the specified <code>name</code>.
-     * 
-     * @param entryName
-     * 			The name of the entry
-     * @return
-     * 	the possible values for the entry.<br/>
-     * 	an empty list if no values has been retrieved.
-     */
-    public List<EntryValue> getEntryValues(String entryName) {
-	List<EntryForm> entries = getEntriesForm();
-	List<EntryValue> values = new ArrayList<EntryValue>();
-	for (EntryForm entry : entries) {
-	    if(entry.getName().equals(entryName)) {
-		values.addAll(entry.getEntryValues());
-	    }
-	}
-	return values;
-    }
-    
-    /**
-     * Gets the entry values that are disabled by default in the user view.
-     * 
-     * @return
-     * 	the entry values that are disabled by default in the user view.
-     */
-    public List<EntryValue> getEntryValuesDisabledByDefault() {
-	return dataForm.getEntryValuesDisabledByDefault();
-    }
-    
-    /**
-     * Gets the entry values that are enabled by default in the user view.
-     * 
-     * @return
-     * 	the entry values that are enabled by default in the user view.
-     */
-    public List<EntryValue> getEntryValuesEnabledByDefault() {
-	return dataForm.getEntryValuesEnabledByDefault();
-    }
-    
-    //------------------------------------------------------------------------------ PUBLIC METHODS
-    
-    /**
-     * Reloads the data present in the file containing the data form descriptions.
-     */
-    public void reloadDataForm() {
-	feedDataForm();
-    }
+    * Gets the entries of the form.
+    * 
+    * @return
+    * 	The entries of the form.
+    */
+   public List<EntryForm> getEntriesForm();
+   
+   /**
+    * Gets the names of the entries of the form.
+    * 
+    * @return
+    * 	The names of the entries of the form.<br/>
+    * 	An empty list if no is retrieved.
+    */
+   public List<String> getEntriesNames();
+   
+   /**
+    * Gets the entry value associated with the specified JSP key.
+    * 
+    * @param jspKey
+    * 			The JSP key of the entry value.
+    * @return
+    * 	The first entry value found having the specified JSP Key.<br/>
+    * 	<code>null</code> if no entry value has been retrieved.
+    */
+   public EntryValue getEntryValueByJspKey(String jspKey);
+   
+   /**
+    * Gets the possible values for the entry having the specified <code>name</code>.
+    * 
+    * @param entryName
+    * 			The name of the entry
+    * @return
+    * 	the possible values for the entry.<br/>
+    * 	an empty list if no values has been retrieved.
+    */
+   public List<EntryValue> getEntryValues(String entryName);
+   
+   /**
+    * Gets the entry values that are disabled by default in the user view.
+    * 
+    * @return
+    * 	the entry values that are disabled by default in the user view.
+    */
+   public List<EntryValue> getEntryValuesDisabledByDefault();
+   
+   /**
+    * Gets the entry values that are enabled by default in the user view.
+    * 
+    * @return
+    * 	the entry values that are enabled by default in the user view.
+    */
+   public List<EntryValue> getEntryValuesEnabledByDefault();
 
-    //----------------------------------------------------------------------------- PRIVATE METHODS
-    
-    /**
-     * Feeds the data form by loading the content of the file set via the setDataFormFileUrl method.
-     */
-    private void feedDataForm() {
-		try {
-	        	// Construction of the context with the "root" classes
-	        	JAXBContext jaxbContext = JAXBContext.newInstance(DataForm.class);
-	        	
-	        	// Creation of the unmarshaller
-	        	Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-	        	
-	        	// Mapping of the XML files into the classes
-	        	File dataFormFile = new File(dataFormFileUrl);
-	        	
-	        	DataForm data = (DataForm) unmarshaller.unmarshal(dataFormFile);
-	        	
-	        	// Feeding of the container
-	        	setDataForm(data);
-		} catch (JAXBException e) {
-		    LOGGER.error("An error occured during the mapping of XML data form file : " + e.getMessage());
-		}
-    }
+   /**
+    * Reloads the data present in the file containing the data form descriptions.
+    */
+   public void reloadDataForm();
 
-    //------------------------------------------------------------------------------ STATIC METHODS
 }

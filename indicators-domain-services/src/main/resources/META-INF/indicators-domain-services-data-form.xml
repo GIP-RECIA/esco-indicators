@@ -5,54 +5,50 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-    <!-- ///////////////////////////////////////////////// --> 
-    <!-- DATA FORM SERVICES -->      
-    <!-- ///////////////////////////////////////////////// --> 
-    
-    <!-- Service for the page containing the form about accounts statistics -->
-    <bean   id="dataAccountFormProvider"
-            class="org.esco.indicators.services.form.DataFormProvider">
-        <constructor-arg index="0" value="${dataFormAccount.url}" />
-    </bean>
-    
-    <bean   id="dataAccountFormService" 
-            class="org.esco.indicators.services.form.DataFormServiceImpl">
-           <property name="dataFormProvider" ref="dataAccountFormProvider" /> 
-    </bean>
-    
-    <!-- Service for the page containing the form about services statistics -->
-    <bean   id="dataServiceFormProvider"
-            class="org.esco.indicators.services.form.DataFormProvider">
-        <constructor-arg index="0" value="${dataFormService.url}" />
-    </bean>
-    
-    <bean   id="dataServiceFormService" 
-            class="org.esco.indicators.services.form.DataFormServiceImpl">
-           <property name="dataFormProvider" ref="dataServiceFormProvider" /> 
-    </bean>
-    
-    
-    <!-- ///////////////////////////////////////////////// --> 
-    <!-- RESULT SERVICES -->      
-    <!-- ///////////////////////////////////////////////// --> 
-    
-    <!-- Service for the result page of the account form -->
-    <bean   id="resultAccountFormService" 
-            class="org.esco.indicators.services.form.account.ResultAccountFormServiceImpl">
-            <property name="accountStatisticService" ref="accountStatisticService"/>
-            <property name="establishmentService" ref="establishmentService"/>
-            <property name="portalConnectionStatisticService" ref="portalConnectionStatisticService"/>
-            <property name="establishmentVisitStatisticService" ref="establishmentVisitStatisticService" />
-    </bean>  
-    
-        <!-- Service for the result page of the service form -->
-    <bean   id="resultServiceFormService" 
-            class="org.esco.indicators.services.form.service.ResultServiceFormServiceImpl">
-            <property name="accountStatisticService" ref="accountStatisticService"/>
-            <property name="establishmentService" ref="establishmentService"/>
-            <property name="serviceConnectionStatisticService" ref="serviceConnectionStatisticService"/>
-            <property name="sumServicesManager" ref="sumServicesManager"/>
-    </bean>  
-    
-    
+	<!-- ///////////////////////////////////////////////// -->
+	<!-- DATA FORM SERVICES -->
+	<!-- ///////////////////////////////////////////////// -->
+
+	<!-- Service for the page containing the form about accounts statistics -->
+	<bean id="dataAccountFormProvider" class="org.esco.indicators.services.form.DataFormProviderImpl" scope="singleton">
+		<property name="dataFormFile" value="${dataFormAccount.url}" />
+	</bean>
+
+	<bean id="dataAccountFormService" class="org.esco.indicators.services.form.DataFormServiceImpl" scope="singleton">
+		<property name="dataFormProvider" ref="dataAccountFormProvider" />
+	</bean>
+
+	<!-- Service for the page containing the form about services statistics -->
+	<bean id="dataServiceFormProvider" class="org.esco.indicators.services.form.DataFormProviderImpl" scope="singleton">
+		<property name="dataFormFile" value="${dataFormService.url}" />
+	</bean>
+
+	<bean id="dataServiceFormService" class="org.esco.indicators.services.form.DataFormServiceImpl" scope="singleton">
+		<property name="dataFormProvider" ref="dataServiceFormProvider" />
+	</bean>
+
+
+	<!-- ///////////////////////////////////////////////// -->
+	<!-- RESULT SERVICES -->
+	<!-- ///////////////////////////////////////////////// -->
+
+	<!-- Service for the result page of the account form -->
+	<bean id="resultAccountFormService"
+		class="org.esco.indicators.services.form.account.ResultAccountFormServiceImpl">
+		<property name="accountStatisticService" ref="accountStatisticService" />
+		<property name="establishmentService" ref="establishmentService" />
+		<property name="portalConnectionStatisticService" ref="portalConnectionStatisticService" />
+		<property name="establishmentVisitStatisticService" ref="establishmentVisitStatisticService" />
+	</bean>
+
+	<!-- Service for the result page of the service form -->
+	<bean id="resultServiceFormService"
+		class="org.esco.indicators.services.form.service.ResultServiceFormServiceImpl">
+		<property name="accountStatisticService" ref="accountStatisticService" />
+		<property name="establishmentService" ref="establishmentService" />
+		<property name="serviceConnectionStatisticService" ref="serviceConnectionStatisticService" />
+		<property name="sumServicesManager" ref="sumServicesManager" />
+	</bean>
+
+
 </beans>
