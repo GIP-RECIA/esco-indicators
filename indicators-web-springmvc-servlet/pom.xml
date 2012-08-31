@@ -68,6 +68,11 @@
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+		    <groupId>jstl</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
+		</dependency>
         
         <!-- Spring Web MVC -->
 		<dependency>
@@ -76,6 +81,13 @@
 		    <version>3.0.6.RELEASE</version>
 		</dependency>
 		
+		<!-- CAS dependency -->
+        <dependency>
+            <groupId>org.jasig.cas.client</groupId>
+            <artifactId>cas-client-core</artifactId>
+            <version>3.1.12</version>
+        </dependency>
+        	    
         <!-- Test dependencies -->
         <dependency>
             <groupId>junit</groupId>
