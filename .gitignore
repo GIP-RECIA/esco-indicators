@@ -28,9 +28,10 @@ target/
 .vim
 
 ###################
-# Config files
+# Production files
 ###################
 *.prod.xml
+*.prod.sh
 *.prod.properties
 
 ###################
