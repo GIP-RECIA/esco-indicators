@@ -1,4 +1,4 @@
-<h2>
+<h2 class="filterTitle">
     <spring:message code="result.title.appliedFilter" />
 </h2>
 

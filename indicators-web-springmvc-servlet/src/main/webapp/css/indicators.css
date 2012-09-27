@@ -15,8 +15,64 @@
 /****************************
 * 1. GENERAL CONFIGURATION
 ****************************/
+
+/****************
+* Basic elements 
+****************/
 div {
 	clear: both;
+}
+
+h2 {
+	font-size: 1.4em;
+}
+
+h3 {
+	font-size: 1.2em;
+}
+
+/************** 
+* Identifiers 
+**************/
+#mainMessage p {
+	font-size: 24;
+	color: #666666;
+	margin: 0 0 0.7em;
+}
+
+#ariadneThread hr {
+	margin: 0;
+}
+#ariadneThread p {
+	margin: 0.4em 0 0.4em;
+}
+
+/*********
+* Classes 
+*********/
+.filterTitle {
+	background: none repeat scroll 0 0 #4366AC;
+	border: none;
+	color: white;
+  margin: 0.5em 0 0;
+  padding: 0 0 0 15px;
+}
+
+.filterErrors {
+	margin: 1.3em;
+}
+
+.filterOptions {
+	margin: 1.3em;
+}
+
+.subFilterTitle {
+	background: none repeat scroll 0 0 #7385AB;
+	border: none;
+	color: white;
+	font-style: italic;
+  margin: 0.5em 0 0;
+  padding: 0.2em 0 0.2em 1.3em;
 }
 
 /****************************
@@ -31,6 +87,14 @@ div.welcome {
 * 3. SERVICES PAGE
 ****************************/
 
+.simpleService {
+	margin-left: 1.5em;
+}
+
+.sumService {
+	
+}
+
 ul.connectedServices {
 	width: 40%;
 	border:1px solid black;
@@ -42,9 +106,8 @@ ul.connectedServices {
 }
 
 ul.connectedServices li {
-	border:1px solid black;
 	list-style: none;
- 	margin: 0 5px 5px 5px; 
-	padding: 5px; 
-	width: 120px;
+ 	margin-bottom: 0.4em; 
+	margin-top: 0.4em;
+	padding: 0.3em; 
 }
