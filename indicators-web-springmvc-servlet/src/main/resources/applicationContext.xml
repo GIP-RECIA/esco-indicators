@@ -32,6 +32,7 @@
     <import resource="classpath*:META-INF/indicators-domain-services-manager.prod.xml"/>
     <import resource="classpath*:META-INF/indicators-domain-services-permissions.xml"/>
     <import resource="classpath*:META-INF/indicators-domain-services-statistic.xml"/>
+    <import resource="classpath*:META-INF/indicators-domain-services-user.xml"/>
     
     <!-- dao -->
     <import resource="classpath*:META-INF/indicators-dao-dao.xml"/>
@@ -59,6 +60,14 @@
             class="org.esco.indicators.web.springmvc.validator.service.ServiceValidator" />            
             
     <bean   id="userController" 
-            class="org.esco.indicators.web.springmvc.controller.user.UserController" />                
+            class="org.esco.indicators.web.springmvc.controller.user.UserController" />
             
+    <bean   id="welcomeController"
+            class="org.esco.indicators.web.springmvc.controller.WelcomeController"
+            scope="session">
+        <description>
+            A bean to store the context of the application.
+        </description>
+    </bean>
+
 </beans>

@@ -25,6 +25,10 @@
     <!-- ////////////////////////// -->
     <!-- IMPORTS -->
     <!-- ////////////////////////// -->
+    <!-- domain-services -->
+    <import resource="classpath*:properties/cache/cache.xml" />
+    <import resource="classpath*:properties/i18n/i18n.xml" />
+    
     <import resource="classpath:META-INF/indicators-domain-services-data-form.xml" />
     <import resource="classpath:META-INF/indicators-domain-services-domain.xml"/>
     <import resource="classpath:META-INF/indicators-domain-services-ldap.xml"/>
@@ -32,9 +36,9 @@
     <import resource="classpath:META-INF/indicators-domain-services-permissions.xml"/>
     <import resource="classpath:META-INF/indicators-domain-services-manager.example.xml"/>
     <import resource="classpath:META-INF/indicators-domain-services-statistic.xml"/>
-    
+    <import resource="classpath:META-INF/indicators-domain-services-user.xml"/>
+        
+    <!-- dao -->
     <import resource="classpath*:META-INF/indicators-dao-dao.xml"/>
-
-
     
 </beans>
