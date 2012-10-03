@@ -8,6 +8,8 @@
 
   <p id="welcomePart"><spring:message code="welcome.welcomeString"/></p>
   
+  <p> Welcome : ${username} </p>
+  
 </div>
 
 <%@ include file="/WEB-INF/jsp/include/common/navigation.jsp"%>
