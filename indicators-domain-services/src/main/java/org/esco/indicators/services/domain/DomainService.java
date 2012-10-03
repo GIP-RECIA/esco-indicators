@@ -1,6 +1,3 @@
-/**
- * ESUP-Portail Blank Application - Copyright (c) 2010 ESUP-Portail consortium.
- */
 package org.esco.indicators.services.domain;
 
 import java.io.Serializable;
@@ -8,15 +5,22 @@ import java.io.Serializable;
 import org.esco.indicators.domain.beans.people.User;
 
 /**
- * @author Yves Deschamps (Universite de Lille 1) - 2010
+ * Interface providing functions to retrieve informations on the domain.
  * 
+ * @since  2012/10/02
+ * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public interface DomainService extends Serializable {
 	
 	/**
+	 * Get the user associated to the uid.
+	 * 
 	 * @param uid
-	 * @return a user.
+	 * 			The UID of the user.
+	 * 
+	 * @return 
+	 * 		the user assocuiated to the UID.
 	 */
-	User getUser(String uid);
+	public User getUser(String uid);
 
 }

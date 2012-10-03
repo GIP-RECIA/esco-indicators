@@ -5,16 +5,14 @@ package org.esco.indicators.services.auth;
 
 import java.io.Serializable;
 
+import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.people.User;
+import org.esco.indicators.services.domain.DomainService;
 import org.esupportail.commons.services.authentication.AuthUtils;
 import org.esupportail.commons.services.authentication.AuthenticationService;
 import org.esupportail.commons.services.authentication.info.AuthInfo;
-import org.esupportail.commons.services.i18n.I18nUtils;
-import org.esupportail.commons.services.ldap.LdapAttributesMapper;
 import org.esupportail.commons.services.ldap.LdapUser;
 import org.esupportail.commons.services.ldap.LdapUserService;
-import org.esupportail.commons.services.logging.Logger;
-import org.esupportail.commons.services.logging.LoggerImpl;
 import org.esupportail.commons.utils.Assert;
 import org.esupportail.commons.utils.ContextUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -26,6 +24,9 @@ import org.springframework.beans.factory.InitializingBean;
 public class AuthenticatorImpl implements Serializable, InitializingBean,
 		Authenticator {
     //---------------------------------------------------------------------------------- ATTRIBUTES
+    /** Logger of the class */
+    private static final Logger LOGGER = Logger.getLogger(AuthenticatorImpl.class);
+    
 	/**
 	 * The serialization id.
 	 */
@@ -46,20 +47,15 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 			+ ".user";
 
 	/**
-	 * A logger.
+	 * see  {@link DomainService} .
 	 */
-	private final Logger logger = new LoggerImpl(this.getClass());
-
+	private DomainService domainService;
+	
 	/**
 	 * The external authenticator.
 	 */
 	private AuthenticationService authenticationService;
 
-	/**
-	 * The service to retrieve user ldap informations.
-	 */
-	private LdapUserService ldapUserService;
-	
 	//-------------------------------------------------------------------------------- CONSTRUCTORS
 
 	/**
@@ -70,80 +66,31 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	}
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet()  {
 		Assert.notNull(authenticationService, "property authenticationService of class "
 				+ this.getClass().getName() + " can not be null");
+		Assert.notNull(domainService, 
+			"property domainService of class " + this.getClass().getName() + " can not be null");
+		LOGGER.debug("The authentication service set is : [" + authenticationService.getClass() +"]");
 	}
 
 	//--------------------------------------------------------------------------- GETTERS / SETTERS
 
-	//------------------------------------------------------------------------------ PUBLIC METHODS
-	@Override
-	public User getUser() throws Exception {
-		try {
-			AuthInfo authInfo = (AuthInfo) ContextUtils
-					.getSessionAttribute(AUTH_INFO_ATTRIBUTE);
-			if (authInfo != null) {
-				User user = (User) ContextUtils
-						.getSessionAttribute(USER_ATTRIBUTE);
-				if (logger.isDebugEnabled()) {
-					logger.debug("found auth info in session: " + user);
-				}
-				return user;
-			}
-			if (logger.isDebugEnabled()) {
-				logger.debug("no auth info found in session");
-			}
-			authInfo = authenticationService.getAuthInfo();
-			if (authInfo == null) {
-				if (logger.isDebugEnabled()) {
-					logger.debug("authInfo is null");
-				}
-				return null;
-			}
-			if (AuthUtils.SHIBBOLETH.equals(authInfo.getType())) {
-				if (logger.isDebugEnabled()) {
-					logger.debug("Shibboleth authentication");
-				}
-				User user = new User();
-				user.setLogin(authInfo.getId());
-
-				storeToSession(authInfo, user);
-				return user;
-			}
-			if (AuthUtils.CAS.equals(authInfo.getType())) {
-				if (logger.isDebugEnabled()) {
-					logger.debug("CAS authentication");
-				}
-				User user = new User();
-				user.setLogin(authInfo.getId()); 
-				// Fill user fields with LDAP informations
-				fillUserInformations(user);
-				storeToSession(authInfo, user);
-				return user;
-			}
-		} catch (Exception e) {
-			String[] args = { e.getMessage() };
-			throw new Exception(I18nUtils.createI18nService().getString(
-					"AUTHENTICATION_EXCEPTION.TITLE", args));
-		}
-		return null;
+	/**
+	 * @return  the domainService
+	 */
+	public DomainService getDomainService() {
+		return domainService;
 	}
+	
 
 	/**
-	 * Store the authentication information to the session.
-	 * 
-	 * @param authInfo
-	 * @param user
+	 * @param domainService  the domainService to set
 	 */
-	protected void storeToSession(final AuthInfo authInfo, final User user) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("storing to session: " + authInfo);
-		}
-		ContextUtils.setSessionAttribute(AUTH_INFO_ATTRIBUTE, authInfo);
-		ContextUtils.setSessionAttribute(USER_ATTRIBUTE, user);
+	public void setDomainService(final DomainService domainService) {
+		this.domainService = domainService;
 	}
-
+	
 	/**
 	 * @param authenticationService
 	 *            the authenticationService to set
@@ -156,31 +103,72 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	/**
 	 * @return the authenticationService
 	 */
-	protected AuthenticationService getAuthenticationService() {
+	public AuthenticationService getAuthenticationService() {
 		return authenticationService;
 	}
 
-	/**
-	 * @return the ldapUserService
+	//------------------------------------------------------------------------------ PUBLIC METHODS
+	/* (non-Javadoc)
+	 * @see org.esco.indicators.services.auth.Authenticator#getUser()
 	 */
-	public LdapUserService getLdapUserService() {
-		return ldapUserService;
+	@Override
+	public User getUser() throws Exception {
+		AuthInfo authInfo = (AuthInfo) ContextUtils.getSessionAttribute(AUTH_INFO_ATTRIBUTE);
+		if (authInfo != null) {
+			User user = (User) ContextUtils.getSessionAttribute(USER_ATTRIBUTE);
+			if (LOGGER.isDebugEnabled()) {
+			    LOGGER.debug("Authentication info has been found in session: " + user);
+			}
+			return user;
+		}
+		if (LOGGER.isDebugEnabled()) {
+		    LOGGER.debug("No authentication info has been found in session");
+		}
+		authInfo = authenticationService.getAuthInfo();
+		if (authInfo == null) {
+		    	LOGGER.debug("Authentication info is null");
+			unsetUser();
+			return null;
+		}
+		if (AuthUtils.CAS.equals(authInfo.getType())) {
+		    	LOGGER.debug("Authentication made by CAS");
+		    	LOGGER.debug("The authentication info contains the id : " + authInfo.getId());
+		    	LOGGER.debug("The domain service : " + getDomainService());
+		    	User user = getDomainService().getUser(authInfo.getId());
+			//storeToSession(authInfo, user);
+			return user;
+		}
+		if (AuthUtils.SHIBBOLETH.equals(authInfo.getType())) {
+		    	LOGGER.debug("Authentication made by Shibboleth");
+			User user = getDomainService().getUser(authInfo.getId());
+			storeToSession(authInfo, user);
+			return user;
+		}
+		return null;
 	}
-
+	
 	/**
-	 * @param ldapUserService
-	 *				 the ldapUserService to set
+	 * @see org.esupportail.helpdesk.services.authentication.Authenticator#unsetUser()
 	 */
-	public void setLdapUserService(LdapUserService ldapUserService) {
-		this.ldapUserService = ldapUserService;
+	public void unsetUser() {
+		storeToSession(null, null);
+	}
+	
+	/**
+	 * Store the authentication information to the session.
+	 * 
+	 * @param authInfo
+	 * @param user
+	 */
+	protected void storeToSession(final AuthInfo authInfo, final User user) {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("storing to session: " + authInfo);
+		}
+		ContextUtils.setSessionAttribute(AUTH_INFO_ATTRIBUTE, authInfo);
+		ContextUtils.setSessionAttribute(USER_ATTRIBUTE, user);
 	}
 
 	//----------------------------------------------------------------------------- PRIVATE METHODS
-	
-	private void fillUserInformations(User user) {
-	    // Retrieval of the LDAP informations of the user
-	    LdapUser ldapUser = ldapUserService.getLdapUser(user.getLogin());
-	}
 
 	//------------------------------------------------------------------------------ STATIC METHODS
 	

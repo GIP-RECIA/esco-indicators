@@ -6,14 +6,16 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-    <bean id="authenticator" lazy-init="true"
-        class="org.esco.indicators.services.auth.AuthenticatorImpl"> 
+    <bean   id="authenticator" 
+            lazy-init="true"
+            class="org.esco.indicators.services.auth.AuthenticatorImpl"> 
         <property name="authenticationService" ref="${auth.bean}"/>
-        <property name="ldapUserService" ref="ldapUserService"/>
+        <property name="domainService" ref="domainService"/>
     </bean>
 
     <bean id="servletAuthenticationService" lazy-init="true"
-        class="org.esupportail.commons.services.authentication.CasFilterAuthenticationService">
+          class="org.esupportail.commons.services.authentication.CasFilterAuthenticationService">
+        <property name="enabled" value="${auth.useCas}" />
     </bean>
 
     <bean id="portletAuthenticationService" lazy-init="true"

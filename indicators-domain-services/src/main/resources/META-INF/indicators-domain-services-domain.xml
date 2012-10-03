@@ -8,8 +8,10 @@
 	                   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 	                   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
 
-<!-- 	<bean id="domainService" class="org.esco.indicators.domain.DomainServiceImpl"> -->
-<!-- 	</bean> -->
+	<bean id="domainService" class="org.esco.indicators.services.domain.DomainServiceImpl">
+	   <property name="ldapUserService" ref="ldapUserService"/>
+	   <property name="userService" ref="userService"/>
+	</bean>
 
     <aop:config>
         <aop:pointcut   id="establishmentMethods" 

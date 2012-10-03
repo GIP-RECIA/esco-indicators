@@ -15,6 +15,6 @@ public interface Authenticator {
 	 * @return the authenticated user.
 	 * @throws Exception 
 	 */
-	User getUser() throws Exception;
-
+	public User getUser() throws Exception;
+	
 }
