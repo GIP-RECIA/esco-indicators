@@ -37,8 +37,13 @@
     <import resource="classpath:META-INF/indicators-domain-services-manager.example.xml"/>
     <import resource="classpath:META-INF/indicators-domain-services-statistic.xml"/>
     <import resource="classpath:META-INF/indicators-domain-services-user.xml"/>
-        
+    
+    <import resource="classpath*:META-INF/test-indicators-domain-services-permissions.xml"/>
+    
     <!-- dao -->
     <import resource="classpath*:META-INF/indicators-dao-dao.xml"/>
+
+    <!-- domain-beans -->
+    <import resource="classpath*:META-INF/test-indicators-domain-beans-permission.xml"/>
     
 </beans>

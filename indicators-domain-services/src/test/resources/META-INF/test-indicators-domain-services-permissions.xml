@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+    
+    
+        
+    <!-- ////////////////////////// -->
+    <!-- BEANS -->
+    <!-- ////////////////////////// -->
+    <bean   id="establishmentViewPermission1"
+            class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
+            <property name="patternToMatch" value="establishment:administrator:([0-9]+)"/>
+            <property name="attributesAndValues">
+                <map>
+                    <entry key="uai">
+                        <list>
+                            <value>id_$1</value>
+                            <value>short_id_$1</value>
+                        </list>
+                    </entry>
+                    <entry key="type">
+                        <list>
+                            <value>elementary</value>
+                            <value>college</value>
+                            <value>university</value>
+                        </list>
+                    </entry>
+                </map>
+            </property>
+    </bean>
+    
+        <bean   id="establishmentViewPermission2"
+                class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
+            <property name="patternToMatch" value="college:teacher:establishment_([a-z]+)_([0-4]+)"/>
+            <property name="attributesAndValues">
+                <map>
+                    <entry key="name">
+                        <list>
+                            <value>name:name_$1:complete</value>
+                            <value>name:short_$2:uncomplete</value>
+                        </list>
+                    </entry>
+                    <entry key="uai">
+                        <list>
+                            <value>uai_$2</value>
+                            <value>rne_$2</value>
+                        </list>
+                    </entry>
+                </map>
+            </property>
+    </bean>
+
+    
+</beans>
