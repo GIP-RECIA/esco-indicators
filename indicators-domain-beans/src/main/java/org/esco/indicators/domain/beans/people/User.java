@@ -1,12 +1,12 @@
 package org.esco.indicators.domain.beans.people;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
 import org.esco.indicators.domain.beans.group.Group;
-import org.esco.indicators.domain.beans.structure.Structure;
 
 /**
  * Class representing an authentified user which can interact with this
@@ -18,14 +18,11 @@ import org.esco.indicators.domain.beans.structure.Structure;
 public class User {
 
     // --------------------------------------------------------------------------------- ATTRIBUTES
-    /**True for administrators */
-    private boolean admin;
-
     /** Display Name of the user */
     private String displayName;
     
     /** User groups */
-    private Set<Group> groups;
+    private List<Group> groups;
     
     /** Prefered language */
      private String language;
@@ -33,32 +30,53 @@ public class User {
      /** User login */
      private String login;
      
-     /** Main attachment structure of the user */
-     private Structure mainStructure;
+     /** User UID */
+     private String uid;
 
      //-------------------------------------------------------------------------------- CONSTRUCTORS
      /**
-      * Bean constructor.
+      * Default constructor of the {@link User} class.<br/>
+      * The user created is considered as a guest user.
       */
      public User() {
- 	super();
+	 this.groups = new ArrayList<Group>();
+     }
+     
+     /**
+      * Constructor of the {@link User} class.<br/>
+      * The user created is not consiedred a guest user.
+      * 
+     * @param displayName
+     * 			The display name of the user.
+     * @param login
+     * 			The login of the user.
+     * @param uid
+     * 			The UID of the user.
+      */
+    public User(String displayName, String login, String uid) {
+	 this.displayName = displayName;
+	 this.login = login;
+	 this.uid = uid;
+	 this.groups = new ArrayList<Group>();
      }
      
     //--------------------------------------------------------------------------- GETTERS / SETTERS
      /**
-      * @return Returns the admin.
+      * Indicates if the user is a guest.<br/>
+      * A user is considered as a guest if he has no attribute set among :
+      * <ul>
+      * 	<li>The display name attribute</li>
+      * 	<li>The login attribute</li>
+      * 	<li>The UID attribute</li>
+      * </ul>
+      * 
+      * @return 
+      * 	<code>true</code> if the user is a guest<br/>
+      * 	<code>false</code> in other cases.
       */
-     public boolean isAdmin() {
-        return this.admin;
-     }
-     
-     /**
-      * @param admin
-      *            The admin to set.
-      */
-     public void setAdmin(boolean admin) {
-        this.admin = admin;
-     }
+    public boolean isGuest() {
+        return (displayName == null && login == null && uid == null);
+    }
 
     /**
       * @return the user display language.
@@ -86,100 +104,121 @@ public class User {
      
      /**
       * Gets the groups of the user.
-      * @return the groups of the user
+      * 
+      * @return 
+      * 	the groups of the user
       */
-    public Set<Group> getGroups() {
+    public List<Group> getGroups() {
         return groups;
     }
-    
-
 
     /**
-      * @return the language
-      */
-     public String getLanguage() {
-        return language;
-     }
-
-    /**
-      * @param language
-      *            the language to set
-      */
-     public void setLanguage(String language) {
-        this.language = language;
-     }
-
-    /**
-      * @return the login of the user.
+     * Gets the login of the user.
+     * 
+      * @return 
+      * 	the login of the user.
       */
      public String getLogin() {
  	return login;
      }
 
      /**
+      * Sets the login of the user.
+      * 
       * @param login
+      * 	The login of the user.
       */
      public void setLogin(String login) {
  	this.login = login;
      }
      
-     /**
-      * Gets the main attachment structure of the user.
-      * @return the main attachment structure of the user.
-      */
-     public Structure getMainStructure() {
-        return mainStructure;
-    }
-
-     /**
-      * Sets the main attachment structure of the user.
-      * @param mainStructure
-      * 			The main attachment structure to set.
-      */
-    public void setMainStructure(Structure mainStructure) {
-        this.mainStructure = mainStructure;
-    }
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
      /**
-      * Adds a group to the user set of group.
+      * Adds a group to the user set of groups.
+      * 
       * @param group
-      *            		The group to add to the user set of groups.
+      *            		The group to add to the user groups.
       */
      public void addGroup(Group group) {
-	 // Create an empty set of groups if necessary
-	 Set<Group> currentGroups = getGroups();
-	 if(currentGroups == null) {
-             currentGroups = new HashSet<Group>();
-             setGroups(currentGroups);
-         }
-	 
-	 // Add a new group
-         currentGroups.add(group);
+         groups.add(group);
+     }
+     
+     /**
+      * Adds groups to the user set of groups.
+      * 
+      * @param groups
+      *            		The groups to add to the user groups.
+      */
+     @SuppressWarnings("hiding")
+     public void addGroups(List<Group> groups) {
+         this.groups.addAll(groups);
      }
      
      
-     @Override
-     public boolean equals(Object obj) {
- 	if (obj == null) {
- 	    return false;
- 	}
- 	if (!(obj instanceof User)) {
- 	    return false;
- 	}
- 	return login.equals(((User) obj).getLogin());
-     }
+     /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	User other = (User) obj;
+	if (displayName == null) {
+	    if (other.displayName != null)
+		return false;
+	} else if (!displayName.equals(other.displayName))
+	    return false;
+	if (groups == null) {
+	    if (other.groups != null)
+		return false;
+	} else if (!groups.equals(other.groups))
+	    return false;
+	if (language == null) {
+	    if (other.language != null)
+		return false;
+	} else if (!language.equals(other.language))
+	    return false;
+	if (login == null) {
+	    if (other.login != null)
+		return false;
+	} else if (!login.equals(other.login))
+	    return false;
+	if (uid == null) {
+	    if (other.uid != null)
+		return false;
+	} else if (!uid.equals(other.uid))
+	    return false;
+	return true;
+    }
 
-     @Override
-     public int hashCode() {
- 	return super.hashCode();
-     }
+     /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((displayName == null) ? 0 : displayName.hashCode());
+	result = prime * result + ((groups == null) ? 0 : groups.hashCode());
+	result = prime * result + ((language == null) ? 0 : language.hashCode());
+	result = prime * result + ((login == null) ? 0 : login.hashCode());
+	result = prime * result + ((uid == null) ? 0 : uid.hashCode());
+	return result;
+    }
 
-     @Override
-     public String toString() {
- 	return "User#" + hashCode() + "[login=[" + login + "], displayName=[" + displayName
- 		+ "], admin=[" + admin + "], language=[" + language + "]]";
-     }
+     /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+	return "User [displayName=" + displayName + ", groups=" + groups + ", language=" + language
+		+ ", login=" + login + ", uid=" + uid + "]";
+    }
 
      //----------------------------------------------------------------------------- PRIVATE METHODS
      /**
@@ -187,7 +226,7 @@ public class User {
       * @param groups
       * 			The set of groups to set.
       */
-    private void setGroups(Set<Group> groups) {
+    private void setGroups(List<Group> groups) {
         this.groups= groups ;
     }
      
