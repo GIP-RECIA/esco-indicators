@@ -10,7 +10,9 @@ package org.esco.indicators.services.constants;
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class ServicesConstants {
-
+    ///////////////////////////////////////////////////////
+    // STATISTICS CONSTANTS
+    ///////////////////////////////////////////////////////
     /** 
      * The treshold used to split the set of visitors in two groups :
      * <ul>
@@ -24,5 +26,29 @@ public class ServicesConstants {
      * Constant used to index global statistic data in the result rows.
      */
     public static final String GLOBAL_STATISTIC = "GLOBAL_STATISTIC";
+    
+    
+    ///////////////////////////////////////////////////////
+    // LDAP CONSTANTS
+    ///////////////////////////////////////////////////////
+    /**
+     * LDAP attribute containing the user display name.
+     */
+    public static final String LDAP_USER_DISPLAY_NAME = "displayName";
+    
+    /**
+     * LDAP attribute containing the user login.
+     */
+    public static final String LDAP_USER_LOGIN = "ENTPersonLogin";
+    
+    /**
+     * LDAP attribute containing the user UID.
+     */
+    public static final String LDAP_USER_UID = "uid";
+    
+    /**
+     * LDAP attribute containing the user groups.
+     */
+    public static final String LDAP_USER_GROUPS = "isMemberOf";
     
 }
