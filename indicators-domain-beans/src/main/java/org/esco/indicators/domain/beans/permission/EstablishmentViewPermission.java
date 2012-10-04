@@ -54,8 +54,11 @@ public class EstablishmentViewPermission implements InitializingBean {
     /** Pattern that has to be matched */
     private String patternToMatch;
     
-    /** Etablishments that can be viewed if the pattern is matched */
-    private HashMap<String, List<String>> attributesAndValues;
+    /** 
+     * Filter used to filter the establishments when the pattern is matched.<br/>
+     * This filter contains properties values that can contain references to the matching groups of the pattern to match.
+     */
+    private GenericFilter patternFilter;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /* (non-Javadoc)
@@ -65,8 +68,8 @@ public class EstablishmentViewPermission implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
 	Assert.notNull(patternToMatch, 
 		"property patternToMatch of class " + this.getClass().getName() + " can not be null");
-	Assert.notNull(attributesAndValues, 
-		"property attributesAndValues of class " + this.getClass().getName() + " can not be null");
+	Assert.notNull(patternFilter, 
+		"property patternFilter of class " + this.getClass().getName() + " can not be null");
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
@@ -91,36 +94,38 @@ public class EstablishmentViewPermission implements InitializingBean {
     }
 
     /**
-     * Gets the attributes names available. 
+     * Gets all the properties names that can be used to filter.
      * 
-     * @return 
-     * 	the attributes names.
+     * @return
+     * 	the available properties names which can be used to filter.
      */
     public Set<String> getAttributesNames() {
-        return attributesAndValues.keySet();
+        return patternFilter.getPropertiesNames();
     }
     
     /**
-     * Gets the attributes values associated to an attribute name of the allowed establishments. 
+     * Gets the property values associated to a property name. 
      * 
-     * @param attributeName
-     * 			The name of the attribute.
+     * @param propertyName
+     * 			The name of the property.
+     * 
      * @return 
-     * 	the attributes and values.
+     * 	the property values used for filtering.
      */
-    public List<String> getValuesByAttribute(String attributeName) {
-        return attributesAndValues.get(attributeName);
+    public List<String> getPropertyValues(String propertyName) {
+        return  patternFilter.getPropertyValues(propertyName);
     }
 
     /**
-     * Sets the attributes and values of the allowed establishments.
+     * Sets the generic filter ciontaining properties names and values used to filter.
      * 
-     * @param attributesAndValues 
-     * 			The attributes and values to set.
+     * @param patternFilter 
+     * 			the patternFilter to set
      */
-    public void setAttributesAndValues(HashMap<String, List<String>> attributesAndValues) {
-        this.attributesAndValues = attributesAndValues;
+    public void setPatternFilter(GenericFilter genericFilter) {
+        this.patternFilter = genericFilter;
     }
+
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
 

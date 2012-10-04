@@ -13,7 +13,12 @@
     <bean   id="establishmentViewPermission"
             class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
             <property name="patternToMatch" value="establishment:administrator:([0-9]+)"/>
-            <property name="attributesAndValues">
+            <property name="patternFilter" ref="patternFilter"/>
+    </bean>
+    
+    <bean   id="patternFilter"
+            class="org.esco.indicators.domain.beans.permission.GenericFilter">
+        <property name="propertiesNamesAndValues">
                 <map>
                     <entry key="uai">
                         <list>
@@ -29,7 +34,7 @@
                         </list>
                     </entry>
                 </map>
-            </property>
+        </property>
     </bean>
 
     

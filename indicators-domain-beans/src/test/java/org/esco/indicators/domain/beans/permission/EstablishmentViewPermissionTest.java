@@ -75,7 +75,7 @@ public class EstablishmentViewPermissionTest {
 	expected.add("short_id_$1");
 	
 	// Actual result
-	List<String> actual = establishmentViewPermission.getValuesByAttribute("uai");
+	List<String> actual = establishmentViewPermission.getPropertyValues("uai");
 	
 	
 	Assert.assertEquals(expected, actual);
@@ -93,7 +93,7 @@ public class EstablishmentViewPermissionTest {
 	expected.add("university");
 	
 	// Actual result
-	List<String> actual = establishmentViewPermission.getValuesByAttribute("type");
+	List<String> actual = establishmentViewPermission.getPropertyValues("type");
 	
 	
 	Assert.assertEquals(expected, actual);

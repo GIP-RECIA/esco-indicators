@@ -13,7 +13,11 @@
     <bean   id="establishmentViewPermission1"
             class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
             <property name="patternToMatch" value="establishment:administrator:([0-9]+)"/>
-            <property name="attributesAndValues">
+            <property name="patternFilter" ref="patternFilter1"/>
+    </bean>
+    <bean   id="patternFilter1"
+            class="org.esco.indicators.domain.beans.permission.GenericFilter">
+        <property name="propertiesNamesAndValues">
                 <map>
                     <entry key="uai">
                         <list>
@@ -29,28 +33,33 @@
                         </list>
                     </entry>
                 </map>
-            </property>
+        </property>
     </bean>
     
-        <bean   id="establishmentViewPermission2"
-                class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
-            <property name="patternToMatch" value="college:teacher:establishment_([a-z]+)_([0-4]+)"/>
-            <property name="attributesAndValues">
-                <map>
-                    <entry key="name">
-                        <list>
-                            <value>name:name_$1:complete</value>
-                            <value>name:short_$2:uncomplete</value>
-                        </list>
-                    </entry>
-                    <entry key="uai">
-                        <list>
-                            <value>uai_$2</value>
-                            <value>rne_$2</value>
-                        </list>
-                    </entry>
-                </map>
-            </property>
+    
+    <bean   id="establishmentViewPermission2"
+            class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
+        <property name="patternToMatch" value="college:teacher:establishment_([a-z]+)_([0-4]+)"/>
+        <property name="patternFilter" ref="patternFilter2"/>
+    </bean>
+    <bean   id="patternFilter2"
+            class="org.esco.indicators.domain.beans.permission.GenericFilter">
+        <property name="propertiesNamesAndValues">
+            <map>
+                <entry key="name">
+                    <list>
+                        <value>name:name_$1:complete</value>
+                        <value>name:short_$2:uncomplete</value>
+                    </list>
+                </entry>
+                <entry key="uai">
+                    <list>
+                        <value>uai_$2</value>
+                        <value>rne_$2</value>
+                    </list>
+                </entry>
+            </map>
+        </property>
     </bean>
 
     
