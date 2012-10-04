@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
+import org.esco.indicators.domain.beans.reflexive.ReflexiveObject;
 
 /**
  * Class representing a physical establishment.
@@ -44,7 +45,7 @@ import org.apache.log4j.Logger;
 		)
 })
 @Table(name = "etablissement")
-public class Establishment extends Structure implements Serializable {
+public class Establishment extends Structure implements ReflexiveObject, Serializable {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     @Transient
@@ -54,7 +55,6 @@ public class Establishment extends Structure implements Serializable {
     @Transient
     private static final long serialVersionUID = -126963287110560981L;
 
-    
     /** 
      * County number of the establishment
      * This county number depends on the geographical localisation of the establishment.
@@ -142,6 +142,26 @@ public class Establishment extends Structure implements Serializable {
         this.name = name;
     }
     
+    /* (non-Javadoc)
+     * @see org.esco.indicators.domain.beans.reflexive.ReflexiveObject#getPropertyValue(java.lang.String)
+     */
+    @Override
+    public Object getPropertyValue(String propertyName) {
+        // Gets the value of the wanted property
+	if(propertyName.equalsIgnoreCase("countyNumber")) {
+	    return getCountyNumber();
+	} else if(propertyName.equalsIgnoreCase("name")) {
+	    return getName();
+	} else if (propertyName.equalsIgnoreCase("uai")) {
+	    return getUai();
+	} else if(propertyName.equalsIgnoreCase("type")) {
+	    return getType();
+	} else if (propertyName.equalsIgnoreCase("siren")) {
+	    return getSiren();
+	}
+	return null;
+    }
+
     /**
      * Gets the type of the estalishment.
      * A type establishment can be something like : college, university, and so on.
