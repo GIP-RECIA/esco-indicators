@@ -3,6 +3,7 @@
  */
 package org.esco.indicators.domain.beans.permission;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -26,21 +27,15 @@ public class GenericFilter {
     private HashMap<String, List<String>> propertiesNamesAndValues;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
-
-    //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
-     * Sets the properties names and values which are used to filter {@link ReflexiveObject}s.
-     * 
-     * @param propertiesNamesAndValues 
-     * 				the properties names, and their associated values, to set.
+     * Default constructor of the {@link GenericFilter} class.
      */
-    public void setPropertiesNamesAndValues(HashMap<String, List<String>> propertiesNamesAndValues) {
-        this.propertiesNamesAndValues = propertiesNamesAndValues;
+    public GenericFilter() {
+	super();
+	propertiesNamesAndValues = new HashMap<String, List<String>>();
     }
-
-    //------------------------------------------------------------------------------ PUBLIC METHODS
     
-
+    //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
      * Gets all the properties names that can be used to filter.
      * 
@@ -63,7 +58,90 @@ public class GenericFilter {
     public List<String> getPropertyValues(String propertyName) {
 	return propertiesNamesAndValues.get(propertyName);
     }
+    
+    /**
+     * Sets the properties names and values which are used to filter {@link ReflexiveObject}s.
+     * 
+     * @param propertiesNamesAndValues 
+     * 				the properties names, and their associated values, to set.
+     */
+    public void setPropertiesNamesAndValues(HashMap<String, List<String>> propertiesNamesAndValues) {
+        this.propertiesNamesAndValues = propertiesNamesAndValues;
+    }
+    
+    //------------------------------------------------------------------------------ PUBLIC METHODS
+    
+    /**
+     * Associates properties values to a property name.<br/>
+     * If the property name was already associated to properties values, the new properties values will be added to the previous ones.<br/>
+     * In other cases, the property name will be associated to the new properties values.
+     * 
+     * @param propertyName
+     * 			The name of the property to filter.
+     * @param propertyValues
+     * 			The authorized property values to associate to the property name.
+     */
+    public void addPropertyValues(String propertyName, List<String> propertyValues) {
+	// Checks if the property name is  already associated to values
+	List<String> currentValues = getPropertyValues(propertyName);
+	
+	// If there is no value associated to the property name
+	if(currentValues == null) {
+	    currentValues = new ArrayList<String>();
+	}
+	
+	// Add the new values to the current ones
+	currentValues.addAll(propertyValues);
+	
+	// Associates the new values to the property name
+	propertiesNamesAndValues.put(propertyName, currentValues);
+    }
 
+
+    
+    /**
+     * Indicates if the filter is empty.
+     * 
+     * @return
+     * 	<code>true</code> if the filter is empty.<br/>
+     * 	<code>false</code> in other cases.
+     */
+    public boolean isEmpty() {
+	return propertiesNamesAndValues.isEmpty();
+    }
+
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result
+		+ ((propertiesNamesAndValues == null) ? 0 : propertiesNamesAndValues.hashCode());
+	return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	GenericFilter other = (GenericFilter) obj;
+	if (propertiesNamesAndValues == null) {
+	    if (other.propertiesNamesAndValues != null)
+		return false;
+	} else if (!propertiesNamesAndValues.equals(other.propertiesNamesAndValues))
+	    return false;
+	return true;
+    }
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
     //------------------------------------------------------------------------------ STATIC METHODS
