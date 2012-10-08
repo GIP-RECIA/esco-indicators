@@ -4,6 +4,7 @@
 package org.esco.indicators.services.permission;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -13,7 +14,6 @@ import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.permission.EstablishmentViewPermission;
 import org.esco.indicators.domain.beans.permission.GenericFilter;
 import org.esupportail.commons.utils.Assert;
-import org.esupportail.commons.utils.strings.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
@@ -105,7 +105,7 @@ public class EstablishmentPermissionServiceImpl implements PermissionService, In
      * 	<li>List of properties and values of the filter :</li>
      * 		<ul>
      * 			<li>Property name  = "uai"</li>
-     * 			<li>Property value = "id_$1"</li>
+     * 			<li>Property value = "id_%1%"</li>
      * 		</ul>
      * 	</li>
      * </ul>
@@ -139,8 +139,8 @@ public class EstablishmentPermissionServiceImpl implements PermissionService, In
 	for (EstablishmentViewPermission permission : permissions) {
 	    Set<String> propertiesNames = permission.getPropertiesNames();
 	    for (String propertyName : propertiesNames) {
-		List<String> propertiesValuesWithRef = permission.getPropertyValues(propertyName);
-		List<String> propertiesValuesWithoutRef = replacePatternReferences(permission.getPatternToMatch(), matchingString, propertiesValuesWithRef);
+		Set<String> propertiesValuesWithRef = permission.getPropertyValues(propertyName);
+		Set<String> propertiesValuesWithoutRef = replacePatternReferences(permission.getPatternToMatch(), matchingString, propertiesValuesWithRef);
 		filter.addPropertyValues(propertyName, propertiesValuesWithoutRef);
 	    }
 	}
@@ -197,7 +197,7 @@ public class EstablishmentPermissionServiceImpl implements PermissionService, In
      * 	<ul>
      * 		<li><code>pattern</code> is : "pattern_to_match_([a-z]+)"
      * 		<li><code>matchingString</code> is : "pattern_to_match_hello"</li>
-     * 		<li><code>stringsWithRef</code> only contains the string : "my_matched_string_is_$1"</li>
+     * 		<li><code>stringsWithRef</code> only contains the string : "my_matched_string_is_%1%"</li>
      * 	</ul>
      * 
      * Applying this method on the previous values will return a new list containing only one element which is :<br/>
@@ -211,11 +211,11 @@ public class EstablishmentPermissionServiceImpl implements PermissionService, In
      * 			The strings containing groups references to the pattern.
      * 
      * @return
-     * 	a copy of the given list where each string has been modified to replace the groups references by the matching groups.
+     * 	a copy of the given set where each string has been modified to replace the groups references by the matching groups.
      */
-    private List<String> replacePatternReferences(String pattern, String matchingString, List<String> stringsWithRef) {
+    private Set<String> replacePatternReferences(String pattern, String matchingString, Set<String> stringsWithRef) {
 	// Final result
-	List<String> stringsWithoutRef = new ArrayList<String>();
+	Set<String> stringsWithoutRef = new HashSet<String>();
 	
 	// Matches the string against the pattern
 	Pattern p = Pattern.compile(pattern);
@@ -229,9 +229,9 @@ public class EstablishmentPermissionServiceImpl implements PermissionService, In
 
 	// Replaces the groups references in each string
 	for (String stringWithRef : stringsWithRef) {
-	    String stringWithoutRef = "";
+	    String stringWithoutRef = stringWithRef;
 	    for(int i = 1; i <= matcher.groupCount(); i++) {
-		stringWithoutRef = stringWithRef.replaceAll("%" + i +"%", matcher.group(i));
+		stringWithoutRef = stringWithoutRef.replaceAll("%" + i +"%", matcher.group(i));
 	    }
 	    stringsWithoutRef.add(stringWithoutRef);
 	}

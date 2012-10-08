@@ -20,17 +20,17 @@
         <property name="propertiesNamesAndValues">
                 <map>
                     <entry key="uai">
-                        <list>
+                        <set>
                             <value>id_%1%</value>
                             <value>short_id_%1%</value>
-                        </list>
+                        </set>
                     </entry>
                     <entry key="type">
-                        <list>
+                        <set>
                             <value>elementary</value>
                             <value>college</value>
                             <value>university</value>
-                        </list>
+                        </set>
                     </entry>
                 </map>
         </property>
@@ -47,16 +47,41 @@
         <property name="propertiesNamesAndValues">
             <map>
                 <entry key="name">
-                    <list>
+                    <set>
                         <value>name:name_%1%:complete</value>
                         <value>name:short_%2%:uncomplete</value>
-                    </list>
+                    </set>
                 </entry>
                 <entry key="uai">
-                    <list>
+                    <set>
                         <value>uai_%2%</value>
                         <value>rne_%2%</value>
-                    </list>
+                    </set>
+                </entry>
+            </map>
+        </property>
+    </bean>
+    
+    <bean   id="establishmentViewPermission3"
+            class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
+        <property name="patternToMatch" value="college:teacher:establishment_([\p{L} ]+)_([0-9]+)"/>
+        <property name="patternFilter" ref="patternFilter3"/>
+    </bean>
+    <bean   id="patternFilter3"
+            class="org.esco.indicators.domain.beans.permission.GenericFilter">
+        <property name="propertiesNamesAndValues">
+            <map>
+                <entry key="name">
+                    <set>
+                        <value>name:name_%1%:complete</value>
+                        <value>name:short_%2%:uncomplete</value>
+                    </set>
+                </entry>
+                <entry key="uai">
+                    <set>
+                        <value>uai_%2%</value>
+                        <value>rne_%2%</value>
+                    </set>
                 </entry>
             </map>
         </property>

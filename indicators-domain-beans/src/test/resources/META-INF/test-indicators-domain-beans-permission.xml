@@ -21,17 +21,17 @@
         <property name="propertiesNamesAndValues">
                 <map>
                     <entry key="uai">
-                        <list>
+                        <set>
                             <value>id_%1%</value>
                             <value>short_id_%1%</value>
-                        </list>
+                        </set>
                     </entry>
                     <entry key="type">
-                        <list>
+                        <set>
                             <value>elementary</value>
                             <value>college</value>
                             <value>university</value>
-                        </list>
+                        </set>
                     </entry>
                 </map>
         </property>

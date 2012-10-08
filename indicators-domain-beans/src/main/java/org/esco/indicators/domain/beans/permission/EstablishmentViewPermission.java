@@ -111,7 +111,7 @@ public class EstablishmentViewPermission implements InitializingBean {
      * @return 
      * 	the property values used for filtering.
      */
-    public List<String> getPropertyValues(String propertyName) {
+    public Set<String> getPropertyValues(String propertyName) {
         return  patternFilter.getPropertyValues(propertyName);
     }
 

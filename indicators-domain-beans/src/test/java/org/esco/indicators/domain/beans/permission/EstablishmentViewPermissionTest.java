@@ -70,12 +70,12 @@ public class EstablishmentViewPermissionTest {
     @Test
     public void testGetValuesByAttribute1() {
 	// Expected result
-	List<String> expected = new ArrayList<String>();
+	Set<String> expected = new HashSet<String>();
 	expected.add("id_%1%");
 	expected.add("short_id_%1%");
 	
 	// Actual result
-	List<String> actual = establishmentViewPermission.getPropertyValues("uai");
+	Set<String> actual = establishmentViewPermission.getPropertyValues("uai");
 	
 	
 	Assert.assertEquals(expected, actual);
@@ -87,13 +87,13 @@ public class EstablishmentViewPermissionTest {
     @Test
     public void testGetValuesByAttribute2() {
 	// Expected result
-	List<String> expected = new ArrayList<String>();
+	Set<String> expected = new HashSet<String>();
 	expected.add("elementary");
 	expected.add("college");
 	expected.add("university");
 	
 	// Actual result
-	List<String> actual = establishmentViewPermission.getPropertyValues("type");
+	Set<String> actual = establishmentViewPermission.getPropertyValues("type");
 	
 	
 	Assert.assertEquals(expected, actual);

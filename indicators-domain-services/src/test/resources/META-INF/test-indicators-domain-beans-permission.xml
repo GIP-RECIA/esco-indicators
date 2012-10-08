@@ -16,6 +16,7 @@
             <list>
                 <ref bean="establishmentViewPermission1"/>
                 <ref bean="establishmentViewPermission2"/>
+                <ref bean="establishmentViewPermission3"/>
             </list>
         </property>
     </bean>  

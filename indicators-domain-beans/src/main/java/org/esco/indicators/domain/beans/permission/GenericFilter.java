@@ -3,8 +3,8 @@
  */
 package org.esco.indicators.domain.beans.permission;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +24,7 @@ public class GenericFilter {
     private static final Logger LOGGER = Logger.getLogger(GenericFilter.class);
 
     /** The properties names and values used to filter the {@link ReflexiveObject}s */
-    private HashMap<String, List<String>> propertiesNamesAndValues;
+    private HashMap<String, Set<String>> propertiesNamesAndValues;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
@@ -32,7 +32,7 @@ public class GenericFilter {
      */
     public GenericFilter() {
 	super();
-	propertiesNamesAndValues = new HashMap<String, List<String>>();
+	propertiesNamesAndValues = new HashMap<String, Set<String>>();
     }
     
     //--------------------------------------------------------------------------- GETTERS / SETTERS
@@ -55,7 +55,7 @@ public class GenericFilter {
      * @return
      * 	the properties values associate to the property name.
      */
-    public List<String> getPropertyValues(String propertyName) {
+    public Set<String> getPropertyValues(String propertyName) {
 	return propertiesNamesAndValues.get(propertyName);
     }
     
@@ -65,7 +65,7 @@ public class GenericFilter {
      * @param propertiesNamesAndValues 
      * 				the properties names, and their associated values, to set.
      */
-    public void setPropertiesNamesAndValues(HashMap<String, List<String>> propertiesNamesAndValues) {
+    public void setPropertiesNamesAndValues(HashMap<String, Set<String>> propertiesNamesAndValues) {
         this.propertiesNamesAndValues = propertiesNamesAndValues;
     }
     
@@ -74,20 +74,21 @@ public class GenericFilter {
     /**
      * Associates properties values to a property name.<br/>
      * If the property name was already associated to properties values, the new properties values will be added to the previous ones.<br/>
-     * In other cases, the property name will be associated to the new properties values.
+     * In other cases, the property name will be associated to the new properties values.</br>
+     * 
      * 
      * @param propertyName
      * 			The name of the property to filter.
      * @param propertyValues
-     * 			The authorized property values to associate to the property name.
+     * 			The property values to associate to the property name.
      */
-    public void addPropertyValues(String propertyName, List<String> propertyValues) {
+    public void addPropertyValues(String propertyName, Set<String> propertyValues) {
 	// Checks if the property name is  already associated to values
-	List<String> currentValues = getPropertyValues(propertyName);
+	Set<String> currentValues = getPropertyValues(propertyName);
 	
 	// If there is no value associated to the property name
 	if(currentValues == null) {
-	    currentValues = new ArrayList<String>();
+	    currentValues = new HashSet<String>();
 	}
 	
 	// Add the new values to the current ones
@@ -143,6 +144,14 @@ public class GenericFilter {
 	return true;
     }
     //----------------------------------------------------------------------------- PRIVATE METHODS
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "GenericFilter [propertiesNamesAndValues=" + propertiesNamesAndValues + "]";
+    }
 
     //------------------------------------------------------------------------------ STATIC METHODS
 }
