@@ -45,7 +45,7 @@ public class EstablishmentViewPermissionTest {
 	expected.add("type");
 	
 	// Actual result
-	Set<String> actual = establishmentViewPermission.getAttributesNames();
+	Set<String> actual = establishmentViewPermission.getPropertiesNames();
 	
 	Assert.assertEquals(expected, actual);
     }
@@ -71,8 +71,8 @@ public class EstablishmentViewPermissionTest {
     public void testGetValuesByAttribute1() {
 	// Expected result
 	List<String> expected = new ArrayList<String>();
-	expected.add("id_$1");
-	expected.add("short_id_$1");
+	expected.add("id_%1%");
+	expected.add("short_id_%1%");
 	
 	// Actual result
 	List<String> actual = establishmentViewPermission.getPropertyValues("uai");

@@ -21,8 +21,8 @@
                 <map>
                     <entry key="uai">
                         <list>
-                            <value>id_$1</value>
-                            <value>short_id_$1</value>
+                            <value>id_%1%</value>
+                            <value>short_id_%1%</value>
                         </list>
                     </entry>
                     <entry key="type">
@@ -48,14 +48,14 @@
             <map>
                 <entry key="name">
                     <list>
-                        <value>name:name_$1:complete</value>
-                        <value>name:short_$2:uncomplete</value>
+                        <value>name:name_%1%:complete</value>
+                        <value>name:short_%2%:uncomplete</value>
                     </list>
                 </entry>
                 <entry key="uai">
                     <list>
-                        <value>uai_$2</value>
-                        <value>rne_$2</value>
+                        <value>uai_%2%</value>
+                        <value>rne_%2%</value>
                     </list>
                 </entry>
             </map>

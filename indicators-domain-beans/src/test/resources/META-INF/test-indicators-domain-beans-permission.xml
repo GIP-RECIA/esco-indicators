@@ -22,8 +22,8 @@
                 <map>
                     <entry key="uai">
                         <list>
-                            <value>id_$1</value>
-                            <value>short_id_$1</value>
+                            <value>id_%1%</value>
+                            <value>short_id_%1%</value>
                         </list>
                     </entry>
                     <entry key="type">
