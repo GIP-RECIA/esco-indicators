@@ -3,7 +3,6 @@
  */
 package org.esco.indicators.domain.beans.permission;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -28,15 +27,15 @@ import org.springframework.beans.factory.InitializingBean;
  * <u>For instance :</u> if the permission is defined as follows :
  * <ul>
  * 	<li>Pattern = "user.admin.establishment.([0-9]+)"</li>
- * 	<li>List of attributes and values :</li>
+ * 	<li>List of properties and values :</li>
  * 		<ul>
  * 			<li>Establishment attribute = "uai"</li>
- * 			<li>Attribute value = "id_$1"</li>
- * 			<li>Attribute value = "short_id_$1"</li>
+ * 			<li>Property value = "id_$1"</li>
+ * 			<li>Property value = "short_id_$1"</li>
  * 		</ul>
  * 		<ul>
  * 			<li>Establishment attribute = "type"</li>
- * 			<li>Attribute value = "college"</li>
+ * 			<li>Property value = "college"</li>
  * 		</ul>
  * </ul>
  *
@@ -99,7 +98,7 @@ public class EstablishmentViewPermission implements InitializingBean {
      * @return
      * 	the available properties names which can be used to filter.
      */
-    public Set<String> getAttributesNames() {
+    public Set<String> getPropertiesNames() {
         return patternFilter.getPropertiesNames();
     }
     

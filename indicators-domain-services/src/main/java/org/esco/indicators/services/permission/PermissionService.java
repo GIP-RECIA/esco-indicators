@@ -3,6 +3,10 @@
  */
 package org.esco.indicators.services.permission;
 
+import java.util.List;
+
+import org.esco.indicators.domain.beans.permission.GenericFilter;
+
 /**
  * Interface providing functions to access permissions informations.
  * 
@@ -12,7 +16,7 @@ package org.esco.indicators.services.permission;
 public interface PermissionService {
     
     /**
-     * Function indicating if the provided string match at least one permission pattern.
+     * Indicates if the provided string match at least one permission pattern.
      * 
      * @param stringToMatch
      * 			The string which is tested against the permissions patterns.
@@ -22,5 +26,17 @@ public interface PermissionService {
      * 	<code>false</code> in other cases.
      */
     public boolean matchAtLeastOnePermission(String stringToMatch);
-
+    
+    /**
+     * Retrieves the filter associated to permissions which have a pattern that has been 
+     * matched by the given string.
+     * 
+     * @param stringToMatch
+     * 			The string to match against the permissions patterns.
+     * 
+     * @return
+     * 	the filter aggregating the filters of the matched permissions.<br/>
+     * 	an empty filter if no permission pattern has been matched by the given string.
+     */
+    public GenericFilter getPermissionFilter(String stringToMatch);
 }
