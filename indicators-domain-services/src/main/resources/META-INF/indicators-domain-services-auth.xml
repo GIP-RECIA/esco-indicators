@@ -11,6 +11,7 @@
             class="org.esco.indicators.services.auth.AuthenticatorImpl"> 
         <property name="authenticationService" ref="${auth.bean}"/>
         <property name="domainService" ref="domainService"/>
+        <property name="establishmentPermissionService" ref="establishmentPermissionService"/>
     </bean>
 
     <bean id="servletAuthenticationService" lazy-init="true"

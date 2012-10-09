@@ -15,4 +15,96 @@
     
     <bean id="permissionsContainer" class="org.esco.indicators.services.permission.PermissionsContainer" scope="singleton" />
     
+    
+    <!-- Bean for the permissions on establishments -->
+    <bean   id="establishmentPermissionService"
+            class="org.esco.indicators.services.permission.EstablishmentPermissionServiceImpl">
+        <property name="establishmentViewPermissions">
+            <list>
+                <ref bean="localEstablishmentViewPermission"/>
+                <ref bean="centralCfaEstablishmentViewPermission"/>
+                <ref bean="centralEscoEstablishmentViewPermission"/>
+                <ref bean="centralAgriEstablishmentViewPermission"/>
+            </list>
+        </property>
+    </bean>  
+    
+    <bean   id="localEstablishmentViewPermission"
+            class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
+            <property name="patternToMatch" value="[a-z]+:Applications:Indicateurs:[\p{L} ]+_([0-9]+[A-Z])"/>
+            <property name="patternFilter" ref="localPatternFilter"/>
+    </bean>
+    <bean   id="localPatternFilter"
+            class="org.esco.indicators.domain.beans.permission.GenericFilter">
+        <property name="propertiesNamesAndValues">
+                <map>
+                    <entry key="uai">
+                        <set>
+                            <value>%1%</value>
+                        </set>
+                    </entry>
+                </map>
+        </property>
+    </bean>
+    
+    
+    <bean   id="centralCfaEstablishmentViewPermission"
+            class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
+        <property name="patternToMatch" value="cfa:admin:Indicateurs:central"/>
+        <property name="patternFilter" ref="centralCfaPatternFilter"/>
+    </bean>
+    <bean   id="centralCfaPatternFilter"
+            class="org.esco.indicators.domain.beans.permission.GenericFilter">
+        <property name="propertiesNamesAndValues">
+            <map>
+                <entry key="type">
+                    <set>
+                        <value>CFA</value>
+                    </set>
+                </entry>
+            </map>
+        </property>
+    </bean>
+    
+        
+    <bean   id="centralEscoEstablishmentViewPermission"
+            class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
+        <property name="patternToMatch" value="esco:admin:Indicateurs:central"/>
+        <property name="patternFilter" ref="centralEscoPatternFilter"/>
+    </bean>
+    <bean   id="centralEscoPatternFilter"
+            class="org.esco.indicators.domain.beans.permission.GenericFilter">
+        <property name="propertiesNamesAndValues">
+            <map>
+                <entry key="type">
+                    <set>
+                        <value>LEGT</value>
+                        <value>EREA</value>
+                        <value>LP</value>
+                    </set>
+                </entry>
+            </map>
+        </property>
+    </bean>
+    
+    <bean   id="centralAgriEstablishmentViewPermission"
+            class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
+        <property name="patternToMatch" value="agri:admin:Indicateurs:central"/>
+        <property name="patternFilter" ref="centralAgriPatternFilter"/>
+    </bean>
+    <bean   id="centralAgriPatternFilter"
+            class="org.esco.indicators.domain.beans.permission.GenericFilter">
+        <property name="propertiesNamesAndValues">
+            <map>
+                <entry key="type">
+                    <set>
+                        <value>LEGTA</value>
+                        <value>LPA</value>
+                    </set>
+                </entry>
+            </map>
+        </property>
+    </bean>
+    
+    
 </beans>
