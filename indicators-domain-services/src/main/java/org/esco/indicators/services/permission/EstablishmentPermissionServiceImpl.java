@@ -67,11 +67,31 @@ public class EstablishmentPermissionServiceImpl implements PermissionService, In
 	// Creates final permissions from the matched permissions
 	// These final permissions are based on the matched ones
 	// In these final permission all the (pattern) groups references in the properties values are replaced by the matching groups
-	GenericFilter filter = createFinalFilter(stringToMatch, matchedPermissions);
+	GenericFilter filter = createFilter(stringToMatch, matchedPermissions);
 
         return filter;
     }
     
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.permission.PermissionService#getPermissionFilter(java.util.List)
+     */
+    @Override
+    public GenericFilter getPermissionFilter(List<String> stringsToMatch) {
+	// Gets the filters created for each string to match
+	List<GenericFilter> createdFilters = new ArrayList<GenericFilter>();
+	for (String stringToMatch : stringsToMatch) {
+	    createdFilters.add(getPermissionFilter(stringToMatch));
+	}
+	
+	// Fuses all the created filters into one filter
+	GenericFilter finalFilter = new GenericFilter();
+	for (GenericFilter createdFilter : createdFilters) {
+	    finalFilter.fuseWith(createdFilter);
+	}
+	
+        return finalFilter;
+    }
+
     /* (non-Javadoc)
      * @see org.esco.indicators.services.permission.PermissionService#matchAtLeastOnePermission(java.lang.String)
      */
@@ -90,6 +110,8 @@ public class EstablishmentPermissionServiceImpl implements PermissionService, In
 	// No pattern has been matched
 	return false;
     }
+    
+    //------------------------------------------------------------------------------ STATIC METHODS
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
     /**
@@ -131,7 +153,7 @@ public class EstablishmentPermissionServiceImpl implements PermissionService, In
      * 	a generic filter containing all the properties names and values contained into the given permissions.<br/>
      * 	All the (pattern) groups references properties values are replaced by the m(pattern) matching groups.
      */
-    private GenericFilter createFinalFilter(String matchingString, List<EstablishmentViewPermission> permissions) {
+    private GenericFilter createFilter(String matchingString, List<EstablishmentViewPermission> permissions) {
 	// Final result
 	GenericFilter filter = new GenericFilter();
 	

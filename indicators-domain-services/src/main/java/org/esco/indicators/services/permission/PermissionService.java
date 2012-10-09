@@ -39,4 +39,17 @@ public interface PermissionService {
      * 	an empty filter if no permission pattern has been matched by the given string.
      */
     public GenericFilter getPermissionFilter(String stringToMatch);
+    
+    /**
+     * Retrieves the filter associated to permissions which have a pattern that has been 
+     * matched by at least one of the given strings.
+     * 
+     * @param stringsToMatch
+     * 			The strings to match against the permissions patterns.
+     * 
+     * @return
+     * 	the filter aggregating the filters of the matched permissions.<br/>
+     * 	an empty filter if no permission pattern has been matched by the given strings.
+     */
+    public GenericFilter getPermissionFilter(List<String> stringsToMatch);
 }
