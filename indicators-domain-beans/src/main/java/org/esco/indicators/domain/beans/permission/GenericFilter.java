@@ -98,7 +98,23 @@ public class GenericFilter {
 	propertiesNamesAndValues.put(propertyName, currentValues);
     }
 
-
+    /**
+     * Fuses this filter with the given one.<br/>
+     * All the properties names and values of the other filter are inserted into this filter.<br/>
+     * If some properties names of the other filter are already present into this filter, then the properties values of the two filters are combined into on set of properties values.
+     * 
+     * @param anotherFilter
+     * 			The filter to fuse with this filter.
+     */
+    public void fuseWith(GenericFilter anotherFilter) {
+	// Gets the properties names of the other filter
+	Set<String> propertiesNames = anotherFilter.getPropertiesNames();
+	for (String propertyName : propertiesNames) {
+	    // Gets the associated values
+	    Set<String> propertyValues = anotherFilter.getPropertyValues(propertyName);
+	    this.addPropertyValues(propertyName, propertyValues);
+	}
+    }
     
     /**
      * Indicates if the filter is empty.
