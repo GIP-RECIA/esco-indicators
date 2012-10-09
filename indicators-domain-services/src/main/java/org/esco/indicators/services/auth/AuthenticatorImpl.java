@@ -4,15 +4,18 @@
 package org.esco.indicators.services.auth;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.esco.indicators.domain.beans.group.Group;
 import org.esco.indicators.domain.beans.people.User;
+import org.esco.indicators.domain.beans.permission.GenericFilter;
 import org.esco.indicators.services.domain.DomainService;
+import org.esco.indicators.services.permission.PermissionService;
 import org.esupportail.commons.services.authentication.AuthUtils;
 import org.esupportail.commons.services.authentication.AuthenticationService;
 import org.esupportail.commons.services.authentication.info.AuthInfo;
-import org.esupportail.commons.services.ldap.LdapUser;
-import org.esupportail.commons.services.ldap.LdapUserService;
 import org.esupportail.commons.utils.Assert;
 import org.esupportail.commons.utils.ContextUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -45,16 +48,28 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	private static final String USER_ATTRIBUTE = AuthenticatorImpl.class
 			.getName()
 			+ ".user";
+	
+	/**
+	 * The session attribute to store the establishment filter.
+	 */
+	private static final String FILTER_ATTRIBUTE = AuthenticatorImpl.class
+			.getName()
+			+ ".filter";
 
 	/**
-	 * see  {@link DomainService} .
+	 * Service providing access to authentication functions.
+	 */
+	private AuthenticationService authenticationService;
+	
+	/**
+	 * Service providing access to user informations.
 	 */
 	private DomainService domainService;
 	
-	/**
-	 * The external authenticator.
+	/** 
+	 * Service providing access to permissions concerning the establishments.
 	 */
-	private AuthenticationService authenticationService;
+	private PermissionService establishmentPermissionService;
 
 	//-------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -71,18 +86,12 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 				+ this.getClass().getName() + " can not be null");
 		Assert.notNull(domainService, 
 			"property domainService of class " + this.getClass().getName() + " can not be null");
+		Assert.notNull(establishmentPermissionService, 
+			"property establishmentPermissionService of class " + this.getClass().getName() + " can not be null");
 		LOGGER.debug("The authentication service set is : [" + authenticationService.getClass() +"]");
 	}
 
 	//--------------------------------------------------------------------------- GETTERS / SETTERS
-
-	/**
-	 * @return  the domainService
-	 */
-	public DomainService getDomainService() {
-		return domainService;
-	}
-	
 
 	/**
 	 * @param domainService  the domainService to set
@@ -107,23 +116,65 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 		return authenticationService;
 	}
 
+
+	/**
+	 * Sets the permission establishment service.
+	 * 
+	 * @param establishmentPermissionService 
+	 * 				the establishment permission service to set.
+	 */
+	public void setEstablishmentPermissionService(PermissionService establishmentPermissionService) {
+	    this.establishmentPermissionService = establishmentPermissionService;
+	}
+	
+
 	//------------------------------------------------------------------------------ PUBLIC METHODS
+
+	/* (non-Javadoc)
+	 * @see org.esco.indicators.services.auth.Authenticator#getEstablishmentFilter()
+	 */
+	@Override
+	public GenericFilter getEstablishmentFilter() {
+	    // If there is no authenticated user
+	    User user = getUser();
+	    if(user == null) {
+		LOGGER.debug("The establishment filter can be retrieved, because the user is not authenticated");
+		return null;
+	    }
+	    
+	   // If the filter has already been stored in session
+	    GenericFilter establishmentFilter = (GenericFilter) ContextUtils.getSessionAttribute(FILTER_ATTRIBUTE);
+	    if(establishmentFilter != null) {
+		LOGGER.debug("User establishment filter found in session : " + establishmentFilter);
+		return establishmentFilter;
+	    }
+	    
+	    // If the filter has not already been stored in session
+	    // Gets the establishment filter regarding to the user groups
+	    establishmentFilter = getEstablishmentFilterFromGroups(user.getGroups());
+	    
+	    // stores the filter in session
+	    LOGGER.debug("Storing to session : " + establishmentFilter);
+	    ContextUtils.setSessionAttribute(FILTER_ATTRIBUTE, establishmentFilter);
+	    
+	    return establishmentFilter;
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.esco.indicators.services.auth.Authenticator#getUser()
 	 */
 	@Override
-	public User getUser() throws Exception {
-		AuthInfo authInfo = (AuthInfo) ContextUtils.getSessionAttribute(AUTH_INFO_ATTRIBUTE);
+	public User getUser() {
+		// If the auth info and user are already stored in session
+	    	AuthInfo authInfo = (AuthInfo) ContextUtils.getSessionAttribute(AUTH_INFO_ATTRIBUTE);
 		if (authInfo != null) {
 			User user = (User) ContextUtils.getSessionAttribute(USER_ATTRIBUTE);
-			if (LOGGER.isDebugEnabled()) {
-			    LOGGER.debug("Authentication info has been found in session: " + user);
-			}
+			LOGGER.debug("Authentication info has been found in session: " + user);
 			return user;
 		}
-		if (LOGGER.isDebugEnabled()) {
-		    LOGGER.debug("No authentication info has been found in session");
-		}
+		
+		// If nothing has already been stored in session
+		LOGGER.debug("No authentication info has been found in session");
 		authInfo = authenticationService.getAuthInfo();
 		if (authInfo == null) {
 		    	LOGGER.debug("Authentication info is null");
@@ -133,14 +184,14 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 		if (AuthUtils.CAS.equals(authInfo.getType())) {
 		    	LOGGER.debug("Authentication made by CAS");
 		    	LOGGER.debug("The authentication info contains the id : " + authInfo.getId());
-		    	LOGGER.debug("The domain service : " + getDomainService());
-		    	User user = getDomainService().getUser(authInfo.getId());
-			//storeToSession(authInfo, user);
+		    	LOGGER.debug("The domain service : " + domainService);
+		    	User user = domainService.getUser(authInfo.getId());
+			storeToSession(authInfo, user);
 			return user;
 		}
 		if (AuthUtils.SHIBBOLETH.equals(authInfo.getType())) {
 		    	LOGGER.debug("Authentication made by Shibboleth");
-			User user = getDomainService().getUser(authInfo.getId());
+			User user = domainService.getUser(authInfo.getId());
 			storeToSession(authInfo, user);
 			return user;
 		}
@@ -151,6 +202,7 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	 * @see org.esupportail.helpdesk.services.authentication.Authenticator#unsetUser()
 	 */
 	public void unsetUser() {
+	    	LOGGER.debug("Unsetting the session for the auth info and the user");
 		storeToSession(null, null);
 	}
 	
@@ -161,14 +213,33 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	 * @param user
 	 */
 	protected void storeToSession(final AuthInfo authInfo, final User user) {
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("storing to session: " + authInfo);
-		}
+		LOGGER.debug("Storing to session: " + authInfo);
 		ContextUtils.setSessionAttribute(AUTH_INFO_ATTRIBUTE, authInfo);
 		ContextUtils.setSessionAttribute(USER_ATTRIBUTE, user);
 	}
 
 	//----------------------------------------------------------------------------- PRIVATE METHODS
+	
+	/**
+	 * Gets the filter created by matching groups names against available permissions patterns.
+	 * 
+	 * @param goups
+	 * 			The groups to match against permissions patterns.
+	 * 
+	 * @return
+	 * 		the filter created by matching groups names against the available permissions patterns.<br/>
+	 * 		An empty filter if no permissions patterns has been matched.
+	 */
+	private GenericFilter getEstablishmentFilterFromGroups(List<Group> goups) {
+	    // Gets the names of the groups
+	    List<String> groupsNames = new ArrayList<String>();
+	    for (Group group : goups) {
+		groupsNames.add(group.getName());
+	    }
+	    // Gets the establishment filter based on the groups names
+	    GenericFilter establishmentFilter = establishmentPermissionService.getPermissionFilter(groupsNames);
+	    return establishmentFilter;
+	}
 
 	//------------------------------------------------------------------------------ STATIC METHODS
 	
