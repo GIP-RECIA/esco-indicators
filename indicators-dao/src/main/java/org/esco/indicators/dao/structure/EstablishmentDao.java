@@ -88,4 +88,15 @@ public interface EstablishmentDao {
      * 	a list containing the establishments having a type equal to one of the specified <code>types</code>.
      */
     public List<Establishment> findEstablishmentsByTypes(List<String> types);
+
+    /**
+     * Retrieves the establishments, in the statistics database, having the same uai as one contained 
+     * in the specified <code>uais</code>.
+     * @param uais
+     * 			The establishments uais.
+     * @return
+     * 	a list containing the establishments having a uai equal to one of the specified <code>uais</code>.
+     */
+    public List<Establishment> findEstablishmentByUais(List<String> uais);
+    
 }

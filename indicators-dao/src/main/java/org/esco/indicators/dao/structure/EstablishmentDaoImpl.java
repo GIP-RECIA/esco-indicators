@@ -63,8 +63,7 @@ public class EstablishmentDaoImpl extends AbstractGenericJPADaoService implement
      */
     @Override
     public void afterPropertiesSet() throws Exception {
-	// TODO Auto-generated method stub
-
+	// Nothing to do
     }
 
     /*
@@ -197,6 +196,31 @@ public class EstablishmentDaoImpl extends AbstractGenericJPADaoService implement
 	return establishments;
     }
 
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.structure.EstablishmentDao#findEstablishmentByUais(java.util.List)
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Establishment> findEstablishmentByUais(List<String> uais) {
+	// Create the query and sets the parameters
+	Query query = entityManager.createNamedQuery("Establishment.findByUais");
+	query.setParameter("uaiList", uais);
+
+	// Try to retrieve the establishments associated to the uais
+	List<Establishment> establishments = new ArrayList<Establishment>();
+	try {
+	    List<Establishment> result = query.getResultList();
+	    establishments.addAll(result);
+	} catch (IllegalStateException e) {
+	    LOGGER.error("An error occured during the retrieval of the establishments with the uais : "
+		    + uais);
+	}
+
+	return establishments;
+    }
+    
+    // ----------------------------------------------------------------------------- PRIVATE METHODS
+    
     // --------------------------------------------------------------------------- PROTECTED METHODS
     /*
      * (non-Javadoc)
