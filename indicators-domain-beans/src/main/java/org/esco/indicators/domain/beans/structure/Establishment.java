@@ -15,6 +15,7 @@ import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.reflexive.ReflexiveObject;
+import org.esco.indicators.utils.constants.structure.EstablishmentConstants;
 
 /**
  * Class representing a physical establishment.
@@ -37,6 +38,10 @@ import org.esco.indicators.domain.beans.reflexive.ReflexiveObject;
 		name="Establishment.findByTypes",
 		query="SELECT e FROM Establishment e WHERE e.type IN ( :typeList )"
 		),
+	@NamedQuery(
+		name="Establishment.findByUais",
+		query="SELECT e FROM Establishment e WHERE e.uai IN ( :uaiList )"
+	),
 	@NamedQuery(
 		name="Establishment.findByCountyNumbersAndTypes",
 		query=	"SELECT e FROM Establishment e"
@@ -148,15 +153,15 @@ public class Establishment extends Structure implements ReflexiveObject, Seriali
     @Override
     public Object getPropertyValue(String propertyName) {
         // Gets the value of the wanted property
-	if(propertyName.equalsIgnoreCase("countyNumber")) {
+	if(propertyName.equalsIgnoreCase(EstablishmentConstants.ESTAB_PROPERTY_COUNTY_NUMBER)) {
 	    return getCountyNumber();
-	} else if(propertyName.equalsIgnoreCase("name")) {
+	} else if(propertyName.equalsIgnoreCase(EstablishmentConstants.ESTAB_PROPERTY_NAME)) {
 	    return getName();
-	} else if (propertyName.equalsIgnoreCase("uai")) {
+	} else if (propertyName.equalsIgnoreCase(EstablishmentConstants.ESTAB_PROPERTY_UAI)) {
 	    return getUai();
-	} else if(propertyName.equalsIgnoreCase("type")) {
+	} else if(propertyName.equalsIgnoreCase(EstablishmentConstants.ESTAB_PROPERTY_TYPE)) {
 	    return getType();
-	} else if (propertyName.equalsIgnoreCase("siren")) {
+	} else if (propertyName.equalsIgnoreCase(EstablishmentConstants.ESTAB_PROPERTY_SIREN)) {
 	    return getSiren();
 	}
 	return null;
