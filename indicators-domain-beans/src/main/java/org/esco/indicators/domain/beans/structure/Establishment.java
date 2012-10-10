@@ -252,6 +252,17 @@ public class Establishment extends Structure implements ReflexiveObject, Seriali
 	    return false;
 	return true;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+	return "Establishment [countyNumber=" + countyNumber + ", type=" + type + ", uai=" + uai + ", name="
+		+ name + "]";
+    }
+    
+    
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
     
