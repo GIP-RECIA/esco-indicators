@@ -3,8 +3,11 @@
  */
 package org.esco.indicators.services.auth;
 
+import java.util.List;
+
 import org.esco.indicators.domain.beans.people.User;
 import org.esco.indicators.domain.beans.permission.GenericFilter;
+import org.esco.indicators.domain.beans.structure.Establishment;
 
 /**
  * Interface providing function to retrieves informations on the authenticated users.
@@ -13,15 +16,22 @@ import org.esco.indicators.domain.beans.permission.GenericFilter;
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public interface Authenticator {
-
+	/**
+	 * Gets the establishments that the user is allowed to see.<br/>
+	 * These establishments are retrieved regarding to the user establishment filter.
+	 * 
+	 * @return
+	 * 		the list of allowed establishments (This list can be empty).<br/>
+	 * 		<code>null</code> if the user is not authenticated.
+	 */
+	public List<Establishment> getAllowedEstablishments();
+    
 	/**
 	 * Gets the authenticated user.
 	 * 
 	 * @return 
 	 * 		the authenticated user.<br/>
 	 * 		<code>null</code> if the user is not authenticated.
-	 * 
-	 * @throws Exception 
 	 */
 	public User getUser();
 	

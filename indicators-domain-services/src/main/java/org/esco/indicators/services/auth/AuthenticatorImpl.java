@@ -5,14 +5,18 @@ package org.esco.indicators.services.auth;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.group.Group;
 import org.esco.indicators.domain.beans.people.User;
 import org.esco.indicators.domain.beans.permission.GenericFilter;
+import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.services.domain.DomainService;
 import org.esco.indicators.services.permission.PermissionService;
+import org.esco.indicators.services.structure.EstablishmentService;
 import org.esupportail.commons.services.authentication.AuthUtils;
 import org.esupportail.commons.services.authentication.AuthenticationService;
 import org.esupportail.commons.services.authentication.info.AuthInfo;
@@ -50,6 +54,13 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 			+ ".user";
 	
 	/**
+	 * The session attribute to store the allowed establishments.
+	 */
+	private static final String ALLOWED_ESTAB_ATTRIBUTE = AuthenticatorImpl.class
+			.getName()
+			+ ".allowedEstablishments";
+	
+	/**
 	 * The session attribute to store the establishment filter.
 	 */
 	private static final String FILTER_ATTRIBUTE = AuthenticatorImpl.class
@@ -70,6 +81,11 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	 * Service providing access to permissions concerning the establishments.
 	 */
 	private PermissionService establishmentPermissionService;
+	
+	/** 
+	 * Service providing access to the establishments.
+	 */
+	private EstablishmentService establishmentService;
 
 	//-------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -88,6 +104,8 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 			"property domainService of class " + this.getClass().getName() + " can not be null");
 		Assert.notNull(establishmentPermissionService, 
 			"property establishmentPermissionService of class " + this.getClass().getName() + " can not be null");
+		Assert.notNull(establishmentService, 
+			"property establishmentService of class " + this.getClass().getName() + " can not be null");
 		LOGGER.debug("The authentication service set is : [" + authenticationService.getClass() +"]");
 	}
 
@@ -127,8 +145,48 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	    this.establishmentPermissionService = establishmentPermissionService;
 	}
 	
+	/**
+	 * Sets the establishment service.
+	 * 
+	 * @param establishmentService 
+	 * 			the establishment service to set.
+	 */
+	public void setEstablishmentService(EstablishmentService establishmentService) {
+	    this.establishmentService = establishmentService;
+	}
+	
 
 	//------------------------------------------------------------------------------ PUBLIC METHODS
+
+	/* (non-Javadoc)
+	 * @see org.esco.indicators.services.auth.Authenticator#getAllowedEstablishments()
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Establishment> getAllowedEstablishments() {
+	    // If there is no authenticated user
+	    User user = getUser();
+	    if(user == null) {
+		LOGGER.debug("The allowed establishments can be retrieved, because the user is not authenticated");
+		return null;
+	    }
+	    
+	    // Try to get the allowed establishments from the session
+	    List<Establishment> allowedEstablishments = (List<Establishment>) getSessionAttribute(ALLOWED_ESTAB_ATTRIBUTE);
+	    if(allowedEstablishments != null) {
+		return allowedEstablishments;
+	    }
+	    
+	    // Gets the allowed establishments regarding to the filter properties names and values
+	    GenericFilter filter = getEstablishmentFilter();
+	    HashMap<String, Set<String>> propertiesNamesAndValues = filter.getPropertiesNamesAndValues();
+	    allowedEstablishments = establishmentService.findEstablishmentsByPropertiesNamesAndValues(propertiesNamesAndValues);
+	    
+	    // Stores the establishments into the session
+	    setSessionAttribute(ALLOWED_ESTAB_ATTRIBUTE, allowedEstablishments);
+
+	    return allowedEstablishments;
+	}
 
 	/* (non-Javadoc)
 	 * @see org.esco.indicators.services.auth.Authenticator#getEstablishmentFilter()
@@ -142,23 +200,23 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 		return null;
 	    }
 	    
-	   // If the filter has already been stored in session
-	    GenericFilter establishmentFilter = (GenericFilter) ContextUtils.getSessionAttribute(FILTER_ATTRIBUTE);
-	    if(establishmentFilter != null) {
-		LOGGER.debug("User establishment filter found in session : " + establishmentFilter);
-		return establishmentFilter;
-	    }
+	   // Try to get the filter from the session
+	   GenericFilter establishmentFilter = (GenericFilter) getSessionAttribute(FILTER_ATTRIBUTE);
+	   if(establishmentFilter != null) {
+	       return establishmentFilter;
+	   }
 	    
 	    // If the filter has not already been stored in session
 	    // Gets the establishment filter regarding to the user groups
 	    establishmentFilter = getEstablishmentFilterFromGroups(user.getGroups());
 	    
 	    // stores the filter in session
-	    LOGGER.debug("Storing to session : " + establishmentFilter);
-	    ContextUtils.setSessionAttribute(FILTER_ATTRIBUTE, establishmentFilter);
+	   setSessionAttribute(FILTER_ATTRIBUTE, establishmentFilter);
 	    
 	    return establishmentFilter;
 	}
+
+
 	
 	/* (non-Javadoc)
 	 * @see org.esco.indicators.services.auth.Authenticator#getUser()
@@ -166,10 +224,9 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	@Override
 	public User getUser() {
 		// If the auth info and user are already stored in session
-	    	AuthInfo authInfo = (AuthInfo) ContextUtils.getSessionAttribute(AUTH_INFO_ATTRIBUTE);
+	    	AuthInfo authInfo = (AuthInfo) getSessionAttribute(AUTH_INFO_ATTRIBUTE);
 		if (authInfo != null) {
-			User user = (User) ContextUtils.getSessionAttribute(USER_ATTRIBUTE);
-			LOGGER.debug("Authentication info has been found in session: " + user);
+			User user = (User) getSessionAttribute(USER_ATTRIBUTE);
 			return user;
 		}
 		
@@ -186,13 +243,15 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 		    	LOGGER.debug("The authentication info contains the id : " + authInfo.getId());
 		    	LOGGER.debug("The domain service : " + domainService);
 		    	User user = domainService.getUser(authInfo.getId());
-			storeToSession(authInfo, user);
+			setSessionAttribute(AUTH_INFO_ATTRIBUTE, authInfo);
+			setSessionAttribute(USER_ATTRIBUTE, user);
 			return user;
 		}
 		if (AuthUtils.SHIBBOLETH.equals(authInfo.getType())) {
 		    	LOGGER.debug("Authentication made by Shibboleth");
 			User user = domainService.getUser(authInfo.getId());
-			storeToSession(authInfo, user);
+			setSessionAttribute(AUTH_INFO_ATTRIBUTE, authInfo);
+			setSessionAttribute(USER_ATTRIBUTE, user);
 			return user;
 		}
 		return null;
@@ -203,21 +262,10 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	 */
 	public void unsetUser() {
 	    	LOGGER.debug("Unsetting the session for the auth info and the user");
-		storeToSession(null, null);
+		setSessionAttribute(AUTH_INFO_ATTRIBUTE, null);
+		setSessionAttribute(USER_ATTRIBUTE, null);
 	}
 	
-	/**
-	 * Store the authentication information to the session.
-	 * 
-	 * @param authInfo
-	 * @param user
-	 */
-	protected void storeToSession(final AuthInfo authInfo, final User user) {
-		LOGGER.debug("Storing to session: " + authInfo);
-		ContextUtils.setSessionAttribute(AUTH_INFO_ATTRIBUTE, authInfo);
-		ContextUtils.setSessionAttribute(USER_ATTRIBUTE, user);
-	}
-
 	//----------------------------------------------------------------------------- PRIVATE METHODS
 	
 	/**
@@ -240,7 +288,41 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	    GenericFilter establishmentFilter = establishmentPermissionService.getPermissionFilter(groupsNames);
 	    return establishmentFilter;
 	}
-
+	
 	//------------------------------------------------------------------------------ STATIC METHODS
+	/**
+	 * Tries to retrieve an object stored in session by the attribute name.
+	 * 
+	 * @param attributeName
+	 * 				The name of the attribute stored in session.
+	 * 
+	 * @return
+	 * 		the object associated to the attribute name in session.<br/>
+	 * 		<code>null</code> if no object has been retrived in session.
+	 */
+	private static Object getSessionAttribute(String attributeName) {
+	    	// If the session attribute has already been set
+	        Object sessionAttribute = ContextUtils.getSessionAttribute(attributeName);
+	        if(sessionAttribute != null) {
+	    		LOGGER.debug("No object associated to [" + attributeName + "] has been found in the session");
+	        } else {
+	            	LOGGER.debug("One object associated to [" + attributeName + "] has been found in the session : [" + sessionAttribute + "]");
+	        }
+	        return sessionAttribute;
+	}
+	
+	/**
+	 * Store an object into the session.<br/>
+	 * The object will be associated to the given attribute name.
+	 * 
+	 * @param attributeName
+	 * 				The attribute name used to store the object in session.
+	 * @param value
+	 * 				The object to store into the session
+	 */
+	private static void setSessionAttribute(String attributeName, Object value) {
+		LOGGER.debug("Storing to session : [" + value +" ] with : [" + attributeName + "]");
+		ContextUtils.setSessionAttribute(attributeName, value);
+	}
 	
 }
