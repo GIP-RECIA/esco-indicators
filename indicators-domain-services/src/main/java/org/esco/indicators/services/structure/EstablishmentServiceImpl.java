@@ -147,13 +147,13 @@ public class EstablishmentServiceImpl implements EstablishmentService {
      */
     @Override
     public List<Establishment> findEstablishmentsByPropertiesNamesAndValues(
-            HashMap<String, List<String>> propertiesNamesAndValues) {
+            HashMap<String, Set<String>> propertiesNamesAndValues) {
 	 // Final result
 	Set<Establishment> establishments = new HashSet<Establishment>();
 	
 	// Retrieves the establishments by properties names and values
 	for (String propertyName : propertiesNamesAndValues.keySet()) {
-	    List<String> values = propertiesNamesAndValues.get(propertyName);
+	    Set<String> values = propertiesNamesAndValues.get(propertyName);
 	    establishments.addAll(findEstablishmentsByPropertyNameAndValues(propertyName, values));
 	}
 	
@@ -174,18 +174,21 @@ public class EstablishmentServiceImpl implements EstablishmentService {
      * 	An empty set if no establishments has been retrieved.
      */
     private Set<Establishment> findEstablishmentsByPropertyNameAndValues(
-	    String propertyName, List<String> propertyValues) {
+	    String propertyName, Set<String> propertyValues) {
 	// Final result
 	Set<Establishment> establishments = new HashSet<Establishment>();
+	
+	// Put the values into a list
+	List<String> valuesList = new ArrayList<String>(propertyValues);
 	
 	// Retrieves the establishments by property
 	List<Establishment> retrievedEstbalishments = new ArrayList<Establishment>();
 	if(propertyName.equalsIgnoreCase(EstablishmentConstants.ESTAB_PROPERTY_COUNTY_NUMBER)) {
-	    retrievedEstbalishments = establishmentDao.findEstablishmentsByCountyNumbers(propertyValues);
+	    retrievedEstbalishments = establishmentDao.findEstablishmentsByCountyNumbers(valuesList);
 	} else if (propertyName.equalsIgnoreCase(EstablishmentConstants.ESTAB_PROPERTY_TYPE)) {
-	    retrievedEstbalishments = establishmentDao.findEstablishmentsByTypes(propertyValues);
+	    retrievedEstbalishments = establishmentDao.findEstablishmentsByTypes(valuesList);
 	} else if (propertyName.equalsIgnoreCase(EstablishmentConstants.ESTAB_PROPERTY_UAI)) {
-	    retrievedEstbalishments = establishmentDao.findEstablishmentByUais(propertyValues);
+	    retrievedEstbalishments = establishmentDao.findEstablishmentByUais(valuesList);
 	} else {
 	    // If the property name is unknown
 	    LOGGER.warn("The establishment property [" + propertyName + "] is unknown and is cannot be used for retrieving establishments");

@@ -5,9 +5,9 @@ package org.esco.indicators.services.structure;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.esco.indicators.domain.beans.structure.Establishment;
-import org.esco.indicators.utils.constants.structure.EstablishmentConstants;
 
 /**
  * Interface providing wantedServices for access establishments data.
@@ -87,7 +87,7 @@ public interface EstablishmentService {
      * 	the list of estbalishments having at least one property name and value corresponding to the given ones.<br/>
      * 	An empty list if no establishment has been retrieved.
      */
-    public List<Establishment> findEstablishmentsByPropertiesNamesAndValues(HashMap<String, List<String>> propertiesNamesAndValues);
+    public List<Establishment> findEstablishmentsByPropertiesNamesAndValues(HashMap<String, Set<String>> propertiesNamesAndValues);
     
     /**
      * Retrieves the establishments associated to the specified <code>type</code>.
