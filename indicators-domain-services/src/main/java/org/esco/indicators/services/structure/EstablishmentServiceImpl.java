@@ -95,9 +95,7 @@ public class EstablishmentServiceImpl implements EstablishmentService {
     @Override
     public List<Establishment> findEstablishmentsByCountyNumber(String countyNumber) {
 	List<Establishment> establishments = establishmentDao.findEstablishmentsByCountyNumber(countyNumber);
-	for (Establishment establishment : establishments) {
-	    fillEstablishmentName(establishment);
-	}
+	fillEstablishmentsNames(establishments);
 	return establishments;
     }
 
@@ -131,16 +129,10 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	}
 
 	// Filling the names of the establishments
-	for (Establishment establishment : establishments) {
-	    fillEstablishmentName(establishment);
-	}
-	
-	LOGGER.debug("Establishments found : " + establishments);
+	fillEstablishmentsNames(establishments);
 	
 	return establishments;
     }
-    
-    //------------------------------------------------------------------------------ STATIC METHODS
     
     /* (non-Javadoc)
      * @see org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsByPropertiesNamesAndValues(java.util.HashMap)
@@ -157,8 +149,50 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	    establishments.addAll(findEstablishmentsByPropertyNameAndValues(propertyName, values));
 	}
 	
-	return (new ArrayList<Establishment>(establishments));
+	// Fill the names of the establishments
+	List<Establishment> establishmentsList = new ArrayList<Establishment>(establishments);
+	fillEstablishmentsNames(establishmentsList);
+	
+	return establishmentsList;
     }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsByType(java.lang.String)
+     */
+    @Override
+    public List<Establishment> findEstablishmentsByType(String type) {
+        List<Establishment> establishments = establishmentDao.findEstablishmentsByType(type);
+        fillEstablishmentsNames(establishments);
+        return establishments;
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsUaiByCounty(java.lang.String, java.util.List)
+     */
+    @Override
+    public List<String> findEstablishmentsUaiByCounty(String countyNumber, List<String> establishmentsTypes) {
+        // Final result
+        List<String> establishmentsUai = new ArrayList<String>();
+        
+        // New list for the county number
+        List<String> countyNumbers = new ArrayList<String>();
+        countyNumbers.add(countyNumber);
+        
+        // Retrieval of the establishments of the county
+        List<Establishment> establishments = findEstablishmentsByCountyNumbersAndTypes(countyNumbers, establishmentsTypes);
+        for (Establishment establishment : establishments) {
+            establishmentsUai.add(establishment.getUai());
+        }
+        // Debug message
+        LOGGER.debug("The establishments UAIs for the county [" + countyNumber +"] are " + establishmentsUai );
+    
+        return establishmentsUai;
+    }
+    
+    //------------------------------------------------------------------------------ STATIC METHODS
+    
+    
+    //----------------------------------------------------------------------------- PRIVATE METHODS
 
     /**
      * Retieves the establishments by property name and values.<br/>
@@ -199,45 +233,6 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	return establishments;
     }
 
-    /* (non-Javadoc)
-     * @see org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsByType(java.lang.String)
-     */
-    @Override
-    public List<Establishment> findEstablishmentsByType(String type) {
-	List<Establishment> establishments = establishmentDao.findEstablishmentsByType(type);
-	for (Establishment establishment : establishments) {
-	    fillEstablishmentName(establishment);
-	}
-	return establishments;
-    }
-    
-    /* (non-Javadoc)
-     * @see org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsUaiByCounty(java.lang.String, java.util.List)
-     */
-    @Override
-    public List<String> findEstablishmentsUaiByCounty(String countyNumber, List<String> establishmentsTypes) {
-	// Final result
-	List<String> establishmentsUai = new ArrayList<String>();
-	
-	// New list for the county number
-	List<String> countyNumbers = new ArrayList<String>();
-	countyNumbers.add(countyNumber);
-	
-	// Retrieval of the establishments of the county
-	List<Establishment> establishments = findEstablishmentsByCountyNumbersAndTypes(countyNumbers, establishmentsTypes);
-	for (Establishment establishment : establishments) {
-	    establishmentsUai.add(establishment.getUai());
-	}
-	// Debug message
-	LOGGER.debug("The establishments UAIs for the county [" + countyNumber +"] are " + establishmentsUai );
-
-	return establishmentsUai;
-    }
-    
-
-    //----------------------------------------------------------------------------- PRIVATE METHODS
-
-
     /**
      * Retrieves the name of an establishment by its UAI.
      * 
@@ -265,6 +260,19 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 		String name = findEstablishmentName(uai);
 		establishment.setName(name);
 	    }
+	}
+    }
+    
+    /**
+     * Fills the names of the specified <code>establishments</code>.
+     * 
+     * @param establishments
+     * 			The establishments to fill.
+     */
+    private void fillEstablishmentsNames(List<Establishment> establishments) {
+	// Fill the name of each establishment
+	for (Establishment establishment : establishments) {
+	    fillEstablishmentName(establishment);
 	}
     }
     //------------------------------------------------------------------------------ STATIC METHODS
