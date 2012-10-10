@@ -1,5 +1,6 @@
 package org.esco.indicators.domain.beans.people;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,9 +16,12 @@ import org.esco.indicators.domain.beans.group.Group;
  * @since 2012/05/24
  * @author Frapin Kevin <kevin.frapin@recia.fr>
  */
-public class User {
+public class User implements Serializable {
 
     // --------------------------------------------------------------------------------- ATTRIBUTES
+    /** Auto generated UID */
+    private static final long serialVersionUID = -1614824093751989094L;
+    
     /** Display Name of the user */
     private String displayName;
     

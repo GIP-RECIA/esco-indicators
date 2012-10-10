@@ -3,6 +3,7 @@
  */
 package org.esco.indicators.domain.beans.permission;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -18,8 +19,11 @@ import org.esco.indicators.domain.beans.reflexive.ReflexiveObject;
  * @since  2012/10/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public class GenericFilter {
+public class GenericFilter implements Serializable {
     //---------------------------------------------------------------------------------- ATTRIBUTES
+    /** Auto generated UID */
+    private static final long serialVersionUID = -3652294729160262603L;
+    
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(GenericFilter.class);
 
@@ -36,6 +40,7 @@ public class GenericFilter {
     }
     
     //--------------------------------------------------------------------------- GETTERS / SETTERS
+    
     /**
      * Gets all the properties names that can be used to filter.
      * 
@@ -46,6 +51,16 @@ public class GenericFilter {
 	return propertiesNamesAndValues.keySet();
     }
     
+    /**
+     * Gets all the properties names and their associated values.
+     * 
+     * @return 
+     * 	the properties names and values.
+     */
+    public HashMap<String, Set<String>> getPropertiesNamesAndValues() {
+        return propertiesNamesAndValues;
+    }
+
     /**
      * Gets the properties values, associated to the property name, which are used to filter.<br/>
      * 
