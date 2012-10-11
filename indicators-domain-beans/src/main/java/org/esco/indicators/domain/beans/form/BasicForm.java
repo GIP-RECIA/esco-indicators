@@ -3,10 +3,13 @@
  */
 package org.esco.indicators.domain.beans.form;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.esco.indicators.utils.list.ListUtils;
 
 /**
  * Form containing the basic form elements.
@@ -88,6 +91,32 @@ public class BasicForm {
         this.monitoringType = monitoringType;
     }
 
+    
+    /**
+     *  Gets all the establishments types.<br/>
+     *  This array contains :
+     *  <ul>
+     *  	<li>The establishments types</li>
+     *  	<li>The LA types</li>
+     *  	<li>The Lycees types</li>
+     *  <ul>
+     *  
+     * @return the establishmentsTypes
+     */
+    public String[] getAllEstablishmentsTypes() {
+	// Adds the principal establishments types
+	List<String> allTypes = new ArrayList<String>(Arrays.asList(establishmentsTypes));
+	// Adds the others establishments types
+	if(laTypes != null) {
+	    allTypes.addAll(new ArrayList<String>(Arrays.asList(laTypes)));
+	}
+	if(lyceesTypes != null) {
+	    allTypes.addAll(new ArrayList<String>(Arrays.asList(lyceesTypes)));
+	}
+	
+        return allTypes.toArray(new String [allTypes.size()]);
+    }
+    
     /**
      *  Gets the establishments types.
      *  
