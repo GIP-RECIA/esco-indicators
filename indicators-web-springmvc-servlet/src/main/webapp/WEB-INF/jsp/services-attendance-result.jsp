@@ -6,13 +6,16 @@
 
 <%@ include file="/WEB-INF/jsp/include/common/user.jsp"%>
 
-<hr/>
-
-<div id="mainMessage">
-
-  <p><spring:message code="menu.accounts-activations"/></p>
-  
+<div id="ariadneThread">
+    <hr/>
+        <p>
+            <a href="./welcome"><spring:message code="menu.home"/></a> > 
+            <a href="./services"><spring:message code="menu.services"/></a> >
+            <spring:message code="menu.accounts-activations"/>
+        </p>
+    <hr/>
 </div>
+
 
 
 <!-- Selected filters -->

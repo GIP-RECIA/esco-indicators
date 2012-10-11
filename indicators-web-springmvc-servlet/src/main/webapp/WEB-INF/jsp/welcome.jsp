@@ -12,6 +12,7 @@
     <hr/>
 </div>
 
+<br/>
 <div id="welcomeMessage">
 
   <p id="welcomePart"><spring:message code="welcome.welcomeString"/></p>
