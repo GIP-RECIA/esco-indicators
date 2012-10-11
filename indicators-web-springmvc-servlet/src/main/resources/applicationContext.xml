@@ -65,9 +65,6 @@
     <bean   id="welcomeController"
             class="org.esco.indicators.web.springmvc.controller.WelcomeController"
             scope="session">
-        <description>
-            A bean to store the context of the application.
-        </description>
     </bean>
 
 </beans>

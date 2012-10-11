@@ -39,7 +39,7 @@ public class FormServiceController extends BasicFormController {
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(FormServiceController.class);
 
-    /** Service providing the data for form presenting the wantedServices statistics options */
+    /** Service providing the data for the form presenting the wantedServices statistics options */
     @Autowired
     private DataFormService dataServiceFormService;
 
