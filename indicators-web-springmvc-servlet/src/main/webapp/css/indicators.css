@@ -23,6 +23,10 @@ div {
 	clear: both;
 }
 
+h1 {
+	margin-bottom: 0;
+}
+
 h2 {
 	font-size: 1.4em;
 }
@@ -45,6 +49,14 @@ h3 {
 }
 #ariadneThread p {
 	margin: 0.4em 0 0.4em;
+}
+#user {
+	background: none repeat scroll 0 0 #666666;
+	color: #FFFFFF;
+	margin-bottom: 0.5em;
+	padding-bottom: 0.7em;
+	padding-right: 0.7em;
+	text-align: right;
 }
 
 /*********
