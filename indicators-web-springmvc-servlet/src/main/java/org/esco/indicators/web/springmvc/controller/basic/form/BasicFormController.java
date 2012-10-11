@@ -17,6 +17,7 @@ import org.esco.indicators.domain.beans.xml.form.EntryValue;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
+import org.esco.indicators.web.springmvc.controller.basic.BasicController;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -26,12 +27,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.support.SessionStatus;
 
 /**
- * Class representing a basic form controller
+ * Basic form controller providing functions to populate data which are common to all the forms.
  * 
  * @since  2012/07/24
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public abstract class BasicFormController {
+public abstract class BasicFormController extends BasicController {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(BasicFormController.class);

@@ -10,6 +10,7 @@ import org.esco.indicators.domain.beans.form.BasicForm;
 import org.esco.indicators.domain.beans.form.ServiceForm;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.utils.constants.web.SessionConstants;
+import org.esco.indicators.web.springmvc.controller.basic.BasicController;
 import org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/services-usage")
 // TODO : Needs to extend BasicFormController
-public class FormServicesUsageController  {
+public class FormServicesUsageController  extends BasicController {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(FormServicesUsageController.class);

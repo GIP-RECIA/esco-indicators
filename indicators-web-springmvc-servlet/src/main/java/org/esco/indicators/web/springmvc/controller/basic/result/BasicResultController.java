@@ -19,6 +19,7 @@ import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.classes.IntegerPair;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.utils.date.DateUtils;
+import org.esco.indicators.web.springmvc.controller.basic.BasicController;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @since  2012/07/10
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public abstract class BasicResultController {
+public abstract class BasicResultController extends BasicController {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(BasicResultController.class);
