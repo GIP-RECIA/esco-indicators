@@ -99,7 +99,7 @@ public abstract class BasicAccountResultController extends BasicResultController
 	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), SessionConstants.ACCOUNT_FORM_ATTR);
 	
 	// Retrieval of the establishments types
-	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(aaForm.getEstablishmentsTypes()));
+	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(aaForm.getAllEstablishmentsTypes()));
 	
 	// Retrieval of the users profiles to filter
 	List<String> checkedProfiles = new ArrayList<String>(Arrays.asList(aaForm.getUsersProfiles()));
