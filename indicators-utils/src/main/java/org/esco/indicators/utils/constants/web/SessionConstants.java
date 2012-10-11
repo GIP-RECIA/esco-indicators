@@ -17,6 +17,9 @@ public class SessionConstants {
     /** Service form attribute in session */
     public static final String SERVICE_FORM_ATTR = "serviceForm";
     
+    /** Service usage form attribute in session */
+    public static final String SERVICE_USAGE_FORM_ATTR = "serviceUsageForm";
+    
     /** Session attribute containing the name of the (session) attribute containing the last submitted form */
     public static final String LAST_SUBMITTED_FORM_ATTR = "lastSubmittedForm";
 }
