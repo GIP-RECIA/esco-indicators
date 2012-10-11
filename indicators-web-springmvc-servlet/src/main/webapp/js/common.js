@@ -18,13 +18,21 @@
 ///////////////////////////////////////////////////////////
 $(document).ready(function() {
     // //////////////////////////////////////////////////////////////
+    // The readonly inputs should not be modified by the user
+    // //////////////////////////////////////////////////////////////
+    $("input").click(function(event) {
+        if($(this).prop("readonly")) {
+            event.preventDefault();
+        }   
+    });
+
+    // //////////////////////////////////////////////////////////////
     // When the LEN_INPUT becomes checked (resp. unchecked), its
     // dependencies inputs become checked (resp. unchecked).  
     // //////////////////////////////////////////////////////////////
     $("[value='" + LEN_INPUT.name + "']").change(function() {
-        if(!isChecked(CFA_INPUT.name)) {
-            changeCheckedProperty($(this).prop("checked"), LEN_INPUT.dependencies);
-        }
+        var element = $("[value='" + LEN_INPUT.name + "']");
+        changeCheckedProperty(element.prop("checked"), LEN_INPUT.dependencies);
     });
 
     // //////////////////////////////////////////////////////////////
@@ -32,34 +40,22 @@ $(document).ready(function() {
     // dependencies inputs become checked (resp. unchecked).  
     // //////////////////////////////////////////////////////////////
     $("[value='" + LA_INPUT.name + "']").change(function() {
-        if(!isChecked(CFA_INPUT.name)) {
-            changeCheckedProperty($(this).prop("checked"), LA_INPUT.dependencies);
-        }
+        var element = $("[value='" + LA_INPUT.name + "']");
+        changeCheckedProperty(element.prop("checked"), LA_INPUT.dependencies);
     });
 
     // //////////////////////////////////////////////////////////////
-    // When the CFA_INPUT becomes checked :
-    //  - the LEN_INPUT dependencies have to be updated with the
-    //    "checked" property set to false.
-    //  - the LA_INPUT dependencies have to be updated with the
-    //    "checked" property set to false.
-    //
-    // When the CFA_INPUT becomes unchecked :
+    // When the CFA_INPUT becomes (un)checked :
     //  - the LEN_INPUT dependencies have to be updated with the
     //    "checked" property than the LEN_INPUT itself.
     //  - the LA_INPUT dependencies have to be updated with the
     //    "checked" property than the LA_INPUT itself.
     // //////////////////////////////////////////////////////////////
     $("[value='" + CFA_INPUT.name + "']").change(function() {
-        if($(this).prop("checked")) {
-            changeCheckedProperty(false, LEN_INPUT.dependencies)    
-            changeCheckedProperty(false, LA_INPUT.dependencies)    
-        } else {
-            var element = $("[value='" + LEN_INPUT.name + "']");
-            changeCheckedProperty(element.prop("checked"), LEN_INPUT.dependencies)    
-            var element = $("[value='" + LA_INPUT.name + "']");
-            changeCheckedProperty(element.prop("checked"), LA_INPUT.dependencies)    
-        }
+		  var element = $("[value='" + LEN_INPUT.name + "']");
+		  changeCheckedProperty(element.prop("checked"), LEN_INPUT.dependencies)    
+		  var element = $("[value='" + LA_INPUT.name + "']");
+		  changeCheckedProperty(element.prop("checked"), LA_INPUT.dependencies)    
     });
 
 
@@ -184,7 +180,7 @@ function checkElementsByValues(elementValues) {
 function disableElementsByValues(elementValues) {
     // Disable elements one by one
     for(var i = 0; i < elementValues.length; i++) {
-        changeElementPropertyByValue(elementValues[i], "disabled", true);
+        changeElementPropertyByValue(elementValues[i], "readonly", true);
     }
 }
 
@@ -196,7 +192,7 @@ function disableElementsByValues(elementValues) {
 function enableElementsByValues(elementValues) {
     // Disable elements one by one
     for(var i = 0; i < elementValues.length; i++) {
-        changeElementPropertyByValue(elementValues[i], "disabled", false);
+        changeElementPropertyByValue(elementValues[i], "readonly", false);
     }
 }
 
