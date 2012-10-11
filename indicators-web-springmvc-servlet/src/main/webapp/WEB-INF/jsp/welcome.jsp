@@ -2,14 +2,20 @@
 
 <h1><spring:message code="header.title"/></h1>
 
-<hr/>
+<%@ include file="/WEB-INF/jsp/include/common/user.jsp"%>
+
+<div id="ariadneThread">
+    <hr/>
+        <p>
+            <spring:message code="menu.home"/></a>
+        </p>
+    <hr/>
+</div>
 
 <div id="welcomeMessage">
 
   <p id="welcomePart"><spring:message code="welcome.welcomeString"/></p>
-  
-  <p> Welcome : ${username} </p>
-  
+ 
 </div>
 
 <%@ include file="/WEB-INF/jsp/include/common/navigation.jsp"%>
