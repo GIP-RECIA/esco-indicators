@@ -72,7 +72,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
     /**
      * Sets the service providing statistics on establishment visits / visitors.
      * 
-     * @param establishmentVisitStatistic 
+     * @param establishmentVisitStatisticService 
      * 			The service to set.
      */
     public void setEstablishmentVisitStatisticService(EstablishmentVisitStatisticService establishmentVisitStatisticService) {
@@ -245,6 +245,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 		PunctualAccountStatistic statistic = createPunctualMonthStatisticDataForUai(uai, profile, month, year);
 		basicResultRow.putStatisticData(profile, statistic);
 	    }
+	    basicResultRow.putStatisticData(ServicesConstants.GLOBAL_STATISTIC, createGlobalMonthStatisticDataForUai(uai, month, year));
 	    rows.add(basicResultRow);
 	}
 	
@@ -379,6 +380,47 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	
 	// Retrieval of the statistics visits
 	Integer numVisits = establishmentVisitStatisticService.findCountyMonthlyNumVisits(countyNumber, establishmentsTypes, month, year);
+	
+	// Creation of the statistic data
+	PeriodicAccountStatistic data = new PeriodicAccountStatistic(totalAccountNumber, numActivatedAccounts, numVisitorsBelowTreshold, numVisitorsAboveTreshold, numVisits);
+
+	return data;
+    }
+    
+    /**
+     * Creates a global statistic concerning the specified establishment.<br/>
+     * This statistic only concerns the specified month and year.<br/>
+     * 
+     * This statistic gives informations about the accounts in the establishment without considering a particular user profile.
+     * 
+     * @param establishmentUai
+     * 			The UAI of the establishment.
+     * @param month
+     * 			The month number.
+     * @param year
+     * 			The year number.
+     * 
+     * @return
+     * 	the global statistic.
+     */
+    private PeriodicAccountStatistic createGlobalMonthStatisticDataForUai(String establishmentUai, Integer month, Integer year) {
+	// Put the establishment UAI into a list
+	List<String> establishmentsUai = new ArrayList<String>();
+	establishmentsUai.add(establishmentUai);
+	
+	// Retrieval of the total account number
+	Integer totalAccountNumber = accountStatisticService.findMonthlyTotalNumAccounts(establishmentsUai, month, year);
+	
+	// Retrieval of the number of activated accounts
+	Integer numActivatedAccounts = accountStatisticService.findMonthlyNumActivatedAccounts(establishmentsUai, month, year);
+	
+	// Retrieval of the statistics visitors with a number of portal connections below / above a treshold
+	Integer treshold = ServicesConstants.NUM_CONNECTIONS_TRESHOLD;
+	Integer numVisitorsAboveTreshold = portalConnectionStatisticService.findMonthlyNumVisitorsAboveTreshold(establishmentsUai, month, year, treshold);
+	Integer numVisitorsBelowTreshold = portalConnectionStatisticService.findMonthlyNumVisitorsBelowTreshold(establishmentsUai, month, year, treshold);
+	
+	// Retrieval of the statistics visits
+	Integer numVisits = establishmentVisitStatisticService.findEstablishmentMonthlyNumVisits(establishmentUai, month, year);
 	
 	// Creation of the statistic data
 	PeriodicAccountStatistic data = new PeriodicAccountStatistic(totalAccountNumber, numActivatedAccounts, numVisitorsBelowTreshold, numVisitorsAboveTreshold, numVisits);
