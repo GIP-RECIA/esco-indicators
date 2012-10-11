@@ -300,7 +300,7 @@ function insertAfter(listId, elementId, previousElementsIds) {
  * Function that creates an associative array from an original associative array.
  * All the values contained in the original array represent html elements.
  * The ids of these elements are retrieved and put into arrays.
- * These arrays are finally associated to the same key present inthe original array.
+ * These arrays are finally associated to the same key present in the original array.
  */
 function keepValuesIds(array) {
     // Final result
