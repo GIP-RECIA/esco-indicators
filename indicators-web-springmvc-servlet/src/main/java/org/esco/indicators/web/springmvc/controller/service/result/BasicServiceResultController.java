@@ -128,7 +128,7 @@ public abstract class BasicServiceResultController extends BasicResultController
 	ServiceForm serviceForm = (ServiceForm) getSessionForm(request.getSession(), formSessionAttribute);
 	
 	// Retrieval of the establishments types
-	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(serviceForm.getEstablishmentsTypes()));
+	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(serviceForm.getAllEstablishmentsTypes()));
 	
 	// Retrieval of the users profiles to filter
 	List<String> checkedProfiles = new ArrayList<String>(Arrays.asList(serviceForm.getUsersProfiles()));

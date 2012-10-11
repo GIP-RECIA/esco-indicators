@@ -34,7 +34,7 @@
         <div class="filterOptions">
             <c:forEach var="item" items="${lyceesTypesItems}">
                 <spring:message code="${item.label}" var="i18n"/> 
-                <form:checkbox cssClass="submit" value="${item.value}" label="${i18n}" disabled="${item.disabled}" path="lyceesTypes" /> 
+                <form:checkbox cssClass="submit" value="${item.value}" label="${i18n}" readonly="${item.disabled}" path="lyceesTypes" /> 
             </c:forEach>
         </div>
          <div class="filterErrors">
@@ -45,7 +45,7 @@
         <div class="filterOptions">
             <c:forEach var="item" items="${laTypesItems}">
                    <spring:message code="${item.label}" var="i18n"/>  
-                   <form:checkbox cssClass="submit" value="${item.value}" label="${i18n}" disabled="${item.disabled}" path="laTypes" /> 
+                   <form:checkbox cssClass="submit" value="${item.value}" label="${i18n}" readonly="${item.disabled}" path="laTypes" /> 
             </c:forEach>
         </div>
         <div class="filterErrors">
