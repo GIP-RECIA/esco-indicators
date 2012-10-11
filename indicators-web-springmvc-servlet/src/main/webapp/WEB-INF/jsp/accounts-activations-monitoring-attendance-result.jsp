@@ -20,7 +20,7 @@
 </div>
 
 <!-- Selected filters -->
-<%@ include file="/WEB-INF/jsp/include/account/filters.jsp"%>
+<%@ include file="/WEB-INF/jsp/include/common/result-filters.jsp"%>
 
 <h2>
     <spring:message code="result.title.selectedEstablishment" />
