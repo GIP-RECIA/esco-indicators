@@ -75,7 +75,7 @@
     
     <filter-mapping>
         <filter-name>CAS Authentication Filter</filter-name>
-        <url-pattern>/welcome</url-pattern>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
     
     <!-- Forces validation ticket on CAS server -->
