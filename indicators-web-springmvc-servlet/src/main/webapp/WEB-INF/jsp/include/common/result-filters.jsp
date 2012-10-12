@@ -13,7 +13,7 @@
         <spring:message code="filter.title.establishmentType" /> :
             <spring:message code="${estbalishmentsTypesItems[0]}" />
             <c:forEach var="item" items="${estbalishmentsTypesItems}" begin="1" end="${fn:length(estbalishmentsTypesItems)}">
-                , <spring:message code="${item}" />
+                + <spring:message code="${item}" />
             </c:forEach>
             
     </p>
@@ -36,7 +36,7 @@
         <spring:message code="filter.title.userProfile" /> : 
         <spring:message code="${usersProfilesItems[0]}" />
         <c:forEach var="item" items="${usersProfilesItems}" begin="1" end="${fn:length(usersProfilesItems)}">
-            , <spring:message code="${item}" />
+            + <spring:message code="${item}" />
         </c:forEach>
     </p>
     
@@ -62,7 +62,7 @@
             <spring:message code="filter.title.lyceeType" /> :
             <spring:message code="${lyceesTypesItems[0]}" />
             <c:forEach var="item" items="${lyceesTypesItems}" begin="1" end="${fn:length(lyceesTypesItems)}">
-                , <spring:message code="${item}" />
+                + <spring:message code="${item}" />
             </c:forEach>
         </p>
     </c:if>
@@ -76,7 +76,7 @@
             <spring:message code="filter.title.laType" /> :
             <spring:message code="${laTypesItems[0]}" />
             <c:forEach var="item" items="${laTypesItems}" begin="1" end="${fn:length(laTypesItems)}">
-                , <spring:message code="${item}" />
+                + <spring:message code="${item}" />
             </c:forEach>
         </p>
     </c:if>
