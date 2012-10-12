@@ -26,9 +26,8 @@
 <!-- Selected filters -->
 <%@ include file="/WEB-INF/jsp/include/common/result-filters.jsp"%>
 
-<h2>
-    <spring:message code="result.title.selectedEstablishment" />
-</h2>
+<!-- Selected establishments -->
+<%@ include file="/WEB-INF/jsp/include/common/result-selected-establishments.jsp"%>
    
     <table>
         <!-- Headers : First level -->
