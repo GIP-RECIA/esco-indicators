@@ -1,3 +1,4 @@
+<%@ page import="java.util.*" %>
 <h2 class="filterTitle">
     <spring:message code="result.title.appliedFilter" />
 </h2>
@@ -9,24 +10,34 @@
     </p> 
 
     <p>
-        <spring:message code="filter.title.establishmentType" /> : 
-        <c:forEach var="item" items="${estbalishmentsTypesItems}">
-            <spring:message code="${item}" />,
-        </c:forEach>     
+        <spring:message code="filter.title.establishmentType" /> :
+            <spring:message code="${estbalishmentsTypesItems[0]}" />
+            <c:forEach var="item" items="${estbalishmentsTypesItems}" begin="1" end="${fn:length(estbalishmentsTypesItems)}">
+                , <spring:message code="${item}" />
+            </c:forEach>
+            
     </p>
     
     <p>
        <spring:message code="form.startDate.DEFAULT" /> : ${startDateItem}
     </p>
-    <p>
-       <spring:message code="form.endDate.DEFAULT" /> : ${endDateItem}
-    </p>
+    
+    <!-- #################################################### -->
+    <!-- DEFINED END DATE ? -->
+    <!-- #################################################### -->
+    <c:if test="${not empty endDateItem}">
+        <p>
+           <spring:message code="form.endDate.DEFAULT" /> : ${endDateItem}
+        </p>
+    </c:if>
+    <!-- #################################################### -->
     
     <p>
         <spring:message code="filter.title.userProfile" /> : 
-        <c:forEach var="item" items="${usersProfilesItems}">
-            <spring:message code="${item}" />,
-        </c:forEach>     
+        <spring:message code="${usersProfilesItems[0]}" />
+        <c:forEach var="item" items="${usersProfilesItems}" begin="1" end="${fn:length(usersProfilesItems)}">
+            , <spring:message code="${item}" />
+        </c:forEach>
     </p>
     
     <p>
@@ -43,18 +54,32 @@
         </c:if>
     </p>    
 
-    <p>
-        <spring:message code="filter.title.lyceeType" /> :
-        <c:forEach var="item" items="${lyceesTypesItems}">
-            <spring:message code="${item}" />,
-        </c:forEach>  
-    </p>
+    <!-- #################################################### -->
+    <!-- DEFINED LYCEES TYPES ? -->
+    <!-- #################################################### -->
+    <c:if test="${not empty lyceesTypesItems}">
+        <p>
+            <spring:message code="filter.title.lyceeType" /> :
+            <spring:message code="${lyceesTypesItems[0]}" />
+            <c:forEach var="item" items="${lyceesTypesItems}" begin="1" end="${fn:length(lyceesTypesItems)}">
+                , <spring:message code="${item}" />
+            </c:forEach>
+        </p>
+    </c:if>
+    <!-- #################################################### -->
     
-    <p>
-        <spring:message code="filter.title.laType" /> :
-        <c:forEach var="item" items="${laTypesItems}">
-            <spring:message code="${item}" />,
-        </c:forEach>  
-    </p>    
+    <!-- #################################################### -->
+    <!-- DEFINED LA TYPES ? -->
+    <!-- #################################################### -->
+    <c:if test="${not empty laTypesItems}">
+        <p>
+            <spring:message code="filter.title.laType" /> :
+            <spring:message code="${laTypesItems[0]}" />
+            <c:forEach var="item" items="${laTypesItems}" begin="1" end="${fn:length(laTypesItems)}">
+                , <spring:message code="${item}" />
+            </c:forEach>
+        </p>
+    </c:if>
+    <!-- #################################################### -->
     
 </div>
