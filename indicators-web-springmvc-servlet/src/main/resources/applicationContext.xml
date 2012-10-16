@@ -66,5 +66,23 @@
             class="org.esco.indicators.web.springmvc.controller.WelcomeController"
             scope="session">
     </bean>
+    
+    
+    <!--  For the download controller -->
+    
+    <bean   id="contentTypesByExtension" 
+            class="java.util.HashMap">
+            <constructor-arg>
+                <map>
+                    <entry key="csv">
+                        <value>application/force-download</value>
+                    </entry>
+                </map>
+            </constructor-arg>
+    </bean>
+    <bean   id="defaultContentType" 
+            class="java.lang.String">
+            <constructor-arg value="application/force-download"/>
+    </bean>
 
 </beans>
