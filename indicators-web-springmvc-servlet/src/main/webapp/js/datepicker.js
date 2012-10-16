@@ -32,6 +32,7 @@ $(document).ready(function() {
     $("#startDatePicker").datepicker({
         changeMonth: true,
         changeYear: true,
+        showButtonPanel: true,
         dateFormat: 'MM yy',
         onClose: function(dateText, inst) {
                 var year = getSelectedYear();
@@ -54,6 +55,7 @@ $(document).ready(function() {
         changeMonth: true,
         changeYear: true,
         dateFormat: 'MM yy',
+        showButtonPanel: true,
         onClose: function(dateText, inst) {
                 var year = getSelectedYear();
                 var month = getSelectedMonth();
@@ -65,6 +67,8 @@ $(document).ready(function() {
                 $(this).datepicker("setDate", new Date(year,month,day));
             }
     });
+
+
 
     ///////////////////////////////////////////////////////
     // Toggle of the end date picker visibility
@@ -97,9 +101,18 @@ $(document).ready(function() {
         if(onlyCfaInputChecked()) {
             $("#startDatePicker").datepicker("option", "dateFormat", 'dd MM yy');
             $("#endDatePicker").datepicker("option", "dateFormat", 'dd MM yy');
+            // Show the days when the calendar is selected
+            $(".hasDatePicker").focus(function() {
+                  $(".ui-datepicker-calendar").show();
+            });
+            $(".ui-datepicker-calendar").css("display", "block");
         } else {
             $("#startDatePicker").datepicker("option", "dateFormat", 'MM yy');
             $("#endDatePicker").datepicker("option", "dateFormat", 'MM yy');
+            // Hide the days when the calendar is selected
+            $(".hasDatePicker").focus(function() {
+                  $(".ui-datepicker-calendar").hide();
+            });
         }
     });
         
@@ -112,11 +125,9 @@ $(document).ready(function() {
 });
 
 
-
 ///////////////////////////////////////////////////////////
 // FUNCTIONS
 ///////////////////////////////////////////////////////////
-
 function forceMinimumEndDate(year, month, day) {
     $("#endDatePicker").datepicker("option", "minDate", new Date(year, month, day));
 }
@@ -143,8 +154,13 @@ function getAppropriateDay(datePicker) {
  *  of this week : 10 
  */
 function getFirstWeekDay(datePicker) {
+    // Get the date
+    var date = datePicker.datepicker("getDate");
+    if(date == null) {
+        return 1;
+    }
     // Get the day of the month [1-31]
-    var day = datePicker.datepicker("getDate").getDate();
+    var day = date.getDate();
     // Get the day in the week [0-6] (Monday = 1)
     var dayWeek = datePicker.datepicker("getDate").getDay();
     if(dayWeek > 1) {
