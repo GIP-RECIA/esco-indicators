@@ -1,8 +1,6 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
 
-<h1><spring:message code="header.title"/></h1>
-
-<%@ include file="/WEB-INF/jsp/include/common/user.jsp"%>
+<%@ include file="/WEB-INF/jsp/include/common/title-and-menu.jsp"%>
 
 <div id="ariadneThread">
     <hr/>
@@ -19,6 +17,10 @@
  
 </div>
 
-<%@ include file="/WEB-INF/jsp/include/common/navigation.jsp"%>
+<form action="download-data-ajax" method="POST">
+        Data : <input type="text" name="data"/>
+        File Name : <input type="text" name="fileName" />
+        <input type="submit" value="csv" />
+</form>
 
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>

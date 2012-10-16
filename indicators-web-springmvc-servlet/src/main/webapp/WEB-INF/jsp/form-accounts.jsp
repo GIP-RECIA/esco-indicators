@@ -1,8 +1,7 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
 
-<h1><spring:message code="header.title"/></h1>
 
-<%@ include file="/WEB-INF/jsp/include/common/user.jsp"%>
+<%@ include file="/WEB-INF/jsp/include/common/title-and-menu.jsp"%>
 
 <div id="ariadneThread">
     <hr/>
@@ -32,7 +31,6 @@
     <input type="submit">
 </form:form>
 
-<%@ include file="/WEB-INF/jsp/include/common/navigation.jsp"%>
 
 <!-- SCRIPTS -->
 <script type="text/javascript" src="js/ajax.js"></script>
