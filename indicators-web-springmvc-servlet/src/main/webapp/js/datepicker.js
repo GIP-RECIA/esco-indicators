@@ -34,6 +34,14 @@ $(document).ready(function() {
         changeYear: true,
         showButtonPanel: true,
         dateFormat: 'MM yy',
+        beforeShow: function() {
+            // Gets the selected date
+            var selectedDate = $("#startDate").prop("value");
+            // Update the date picker with the good date 
+            if(selectedDate != "") {
+                setDefaultDate($(this),selectedDate);
+            }
+        },
         onClose: function(dateText, inst) {
                 var year = getSelectedYear();
                 var month = getSelectedMonth();
@@ -56,6 +64,14 @@ $(document).ready(function() {
         changeYear: true,
         dateFormat: 'MM yy',
         showButtonPanel: true,
+        beforeShow: function() {
+            // Gets the selected date
+            var selectedDate = $("#endDate").prop("value");
+            // Update the date picker with the good date 
+            if(selectedDate != "") {
+                setDefaultDate($(this),selectedDate);
+            }
+        },
         onClose: function(dateText, inst) {
                 var year = getSelectedYear();
                 var month = getSelectedMonth();
@@ -67,7 +83,6 @@ $(document).ready(function() {
                 $(this).datepicker("setDate", new Date(year,month,day));
             }
     });
-
 
 
     ///////////////////////////////////////////////////////
@@ -98,21 +113,19 @@ $(document).ready(function() {
     ///////////////////////////////////////////////////////
     $("[name='" + ESTAB_TYPES.name + "']").change(function() {
         // If the only selected type is : CFA
-        if(onlyCfaInputChecked()) {
-            $("#startDatePicker").datepicker("option", "dateFormat", 'dd MM yy');
-            $("#endDatePicker").datepicker("option", "dateFormat", 'dd MM yy');
+        if(onlyCfaInputChecked() ) {
+            // If the date format needs to be updated
+            if(!isDatePickersFormat('dd MM yy')) {
+                $("#startDatePicker").datepicker("option", "dateFormat", 'dd MM yy');
+                $("#endDatePicker").datepicker("option", "dateFormat", 'dd MM yy');
+            }
             // Show the days when the calendar is selected
-            $(".hasDatePicker").focus(function() {
-                  $(".ui-datepicker-calendar").show();
-            });
-            $(".ui-datepicker-calendar").css("display", "block");
-        } else {
+            showCalendars();
+        } else if (!isDatePickersFormat('MM yy')) {
             $("#startDatePicker").datepicker("option", "dateFormat", 'MM yy');
             $("#endDatePicker").datepicker("option", "dateFormat", 'MM yy');
             // Hide the days when the calendar is selected
-            $(".hasDatePicker").focus(function() {
-                  $(".ui-datepicker-calendar").hide();
-            });
+            hideCalendars();
         }
     });
         
@@ -120,6 +133,7 @@ $(document).ready(function() {
     // Call of the change method for properly intializing
     // the date formats
     ///////////////////////////////////////////////////////
+    hideCalendars();
     $("[name='" + ESTAB_TYPES.name + "']").change();
 
 });
@@ -128,6 +142,7 @@ $(document).ready(function() {
 ///////////////////////////////////////////////////////////
 // FUNCTIONS
 ///////////////////////////////////////////////////////////
+
 function forceMinimumEndDate(year, month, day) {
     $("#endDatePicker").datepicker("option", "minDate", new Date(year, month, day));
 }
@@ -189,6 +204,14 @@ function getSelectedYear() {
 }
 
 
+/*
+ * Function that forbids the calendar to be displayed.
+ */
+function hideCalendars() {
+  $(".hasDatePicker").focus(function() {
+        $(".ui-datepicker-calendar").hide();
+  });
+}
 /**
  * Function that format the date in dd/MM/yyyy format.
  */
@@ -196,6 +219,45 @@ function formatDate(day, month, year) {
     return day + "/" + month + "/" + year;
 }
 
+/*
+ * Function which extracts the day of a date string
+ * in dd/MM/yyyy format.
+ */
+function getDay(date) {
+    return date.split("/")[0];
+}
+
+/*
+ * Function which extracts the month of a date string
+ * in dd/MM/yyyy format.
+ */
+function getMonth(date) {
+    return date.split("/")[1];
+}
+
+/*
+ * Function which extracts the year of a date string
+ * in dd/MM/yyyy format.
+ */
+function getYear(date) {
+    return date.split("/")[2];
+}
+
+/*
+ * Indicates if the given format is the date format
+ * used by all the date pickers present into the web page.
+ */
+function isDatePickersFormat(format) {
+    // Assumes that the format is the one used by all the date pickers
+    var isDatePickersFormat = true;
+    // Gets all the date pickers
+    $(".hasDatePicker").each(function() {
+        if($(this).datepicker("option","dateFormat") != format) {
+            isDatePickersFormat = false;
+        } 
+    });
+    return isDatePickersFormat; 
+}
 /**
  * Function that indicates if only CFA_INPUT is checked
  */
@@ -204,4 +266,27 @@ function onlyCfaInputChecked() {
             && !isChecked(COLL_INPUT.name)
             && !isChecked(LEN_INPUT.name)
             && !isChecked(LA_INPUT.name);
+}
+
+/*
+ * Function that allows the calendar to be displayed.
+ */
+function showCalendars() {
+  $(".hasDatePicker").focus(function() {
+        $(".ui-datepicker-calendar").show();
+  });
+}
+
+
+/*
+ * Function which sets the default date of the given date picker.
+ * The provided date string respects the dd/MM/yyyy format.
+ */
+function setDefaultDate(datepicker, date) {
+  var year = getYear(date);
+  var month = getMonth(date);
+  var day = getDay(date);
+  // Sets the string date as the default date
+  var date = new Date(year,month - 1,day);
+  datepicker.datepicker("option", "defaultDate", date);
 }
