@@ -131,10 +131,14 @@
     </table>
 
 
+<!-- Form for CSV export -->
+<%@ include file="/WEB-INF/jsp/include/common/result-csv-export.jsp"%>
+
 <!-- SCRIPTS -->
 <script type="text/javascript" src="js/result.js"></script>
 <script type="text/javascript" src="js/table2csv.js"></script>
+<script type="text/javascript" src="js/csv-export.js"></script>
 
-<input type="button" onclick="$('#resultTable').table2CSV()" value="CSV" />
+
 
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>
