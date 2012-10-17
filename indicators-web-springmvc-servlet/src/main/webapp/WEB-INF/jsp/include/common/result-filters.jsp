@@ -31,7 +31,7 @@
             <spring:message code="form.startDate.DEFAULT" /> : 
         </span>
         <span class="filterContent">
-            ${startDateItem}
+            <c:out value="${startDateItem}"/>
         </span>
     </p>
     
@@ -44,7 +44,7 @@
                 <spring:message code="form.endDate.DEFAULT" /> : 
             </span>
             <span class="filterContent">
-                ${endDateItem}
+                <c:out value="${endDateItem}"/>
             </span>
         </p>
     </c:if>

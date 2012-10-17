@@ -17,10 +17,4 @@
  
 </div>
 
-<form action="download-data-ajax" method="POST">
-        Data : <input type="text" name="data"/>
-        File Name : <input type="text" name="fileName" />
-        <input type="submit" value="csv" />
-</form>
-
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>

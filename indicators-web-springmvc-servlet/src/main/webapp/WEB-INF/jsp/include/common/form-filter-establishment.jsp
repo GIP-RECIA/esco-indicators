@@ -4,7 +4,7 @@
         <c:forEach var="establishment" items="${establishmentsItems}">
             <tr>
                <td><form:checkbox path="establishments" value="${establishment.value}" /></td>
-               <td>${establishment.label}</td>
+               <td><c:out value="${establishment.label}"/></td>
             <tr>
         </c:forEach>
     </table>

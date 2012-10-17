@@ -16,17 +16,19 @@
 
         </c:if>
         
-        <c:if test="${empty detail}">
-            <!-- Establishment data -->
-            <%@ include file="/WEB-INF/jsp/include/common/table-data-establishment.jsp"%>
-        </c:if>
+        <c:choose>
+            <c:when test="${empty detail}">        
+                <!-- Establishment data -->
+                <%@ include file="/WEB-INF/jsp/include/common/table-data-establishment.jsp"%>
+            </c:when>
         
-        <!-- Else : This is a detail view -->
-        <c:if test="${not empty detail}">
-            <td>
-                <spring:message code="${i18nUsersProfiles[item.userProfile]}" />
-            </td>
-        </c:if>
+            <!-- Else : This is a detail view -->
+            <c:otherwise>
+                <td>
+                    <spring:message code="${i18nUsersProfiles[item.userProfile]}" />
+                </td>
+            </c:otherwise>
+        </c:choose>
         <!-- #################################################### -->
         
         
@@ -34,53 +36,53 @@
         <c:forEach var="key" items="${statisticDataKeys}">
             <c:set var="statistic" value="${item.statisticDataByKey[key]}" /> 
             <td>
-                ${statistic.totalAccountNumber}
+                <c:out value="${statistic.totalAccountNumber}"/>
             </td>
             <td>
-                ${statistic.activeAccountNumber}
+                <c:out value="${statistic.activeAccountNumber}"/>
             </td>
             <td>
-                ${statistic.percentageActiveAccount}
+                <c:out value="${statistic.percentageActiveAccount}"/>
             </td>
             <td>
-                ${statistic.numVisitorsBelowTreshold}
+                <c:out value="${statistic.numVisitorsBelowTreshold}"/>
             </td>
             <td>
-                ${statistic.percentageNumVisitorsBelowTreshold}
+                <c:out value="${statistic.percentageNumVisitorsBelowTreshold}"/>
             </td>
             <td>
-                ${statistic.numVisitorsAboveTreshold}
+                <c:out value="${statistic.numVisitorsAboveTreshold}"/>
             </td>
             <td>
-                ${statistic.percentageNumVisitorsAboveTreshold}
+                <c:out value="${statistic.percentageNumVisitorsAboveTreshold}"/>
             </td>
         </c:forEach>
         
         <!-- Global statistic data -->
         <c:set var="statistic" value="${item.statisticDataByKey['GLOBAL_STATISTIC']}" /> 
         <td>
-            ${statistic.totalAccountNumber}
+            <c:out value="${statistic.totalAccountNumber}"/>
         </td>
         <td>
-            ${statistic.activeAccountNumber}
+            <c:out value="${statistic.activeAccountNumber}"/>
         </td>
         <td>
-            ${statistic.percentageActiveAccount}
+            <c:out value="${statistic.percentageActiveAccount}"/>
         </td>
         <td>
-            ${statistic.numVisitorsBelowTreshold}
+            <c:out value="${statistic.numVisitorsBelowTreshold}"/>
         </td>
         <td>
-            ${statistic.percentageNumVisitorsBelowTreshold}
+            <c:out value="${statistic.percentageNumVisitorsBelowTreshold}"/>
         </td>
         <td>
-            ${statistic.numVisitorsAboveTreshold}
+            <c:out value="${statistic.numVisitorsAboveTreshold}"/>
         </td>
         <td>
-            ${statistic.percentageNumVisitorsAboveTreshold}
+            <c:out value="${statistic.percentageNumVisitorsAboveTreshold}"/>
         </td>
         <td>
-            ${statistic.numVisits}
+            <c:out value="${statistic.numVisits}"/>
         </td>
     <tr>
     

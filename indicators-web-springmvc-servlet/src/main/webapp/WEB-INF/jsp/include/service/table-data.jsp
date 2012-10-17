@@ -7,32 +7,32 @@
         
         <!-- Accounts statistics -->
         <td>
-            ${item.totalAccountNumber}
+            <c:out value="${item.totalAccountNumber}"/>
         </td>
         <td>
-            ${item.activeAccountNumber}
+            <c:out value="${item.activeAccountNumber}"/>
         </td>
         <td>
-            ${item.percentageActiveAccount}
+           <c:out value=" ${item.percentageActiveAccount}"/>
         </td>
         
         <!-- Statistic data -->
         <c:forEach var="key" items="${statisticDataKeys}">
             <c:set var="statistic" value="${item.statisticDataByKey[key]}" /> 
             <td>
-                ${statistic.numVisitorsBelowTreshold}
+                <c:out value="${statistic.numVisitorsBelowTreshold}"/>
             </td>
             <td>
-                ${statistic.percentageNumVisitorsBelowTreshold}
+                <c:out value="${statistic.percentageNumVisitorsBelowTreshold}"/>
             </td>
             <td>
-                ${statistic.numVisitorsAboveTreshold}
+                <c:out value="${statistic.numVisitorsAboveTreshold}"/>
             </td>
             <td>
-                ${statistic.percentageNumVisitorsAboveTreshold}
+                <c:out value="${statistic.percentageNumVisitorsAboveTreshold}"/>
             </td>
             <td>
-                ${statistic.numVisits}
+                <c:out value="${statistic.numVisits}"/>
             </td>
         </c:forEach>
     <tr>

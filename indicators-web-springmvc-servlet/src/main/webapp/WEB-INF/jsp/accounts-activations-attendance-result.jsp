@@ -31,7 +31,7 @@
             <c:forEach var="item" items="${usersProfilesItems}">
                 <spring:message code="${item}" var="i18n"/> 
                 <th colspan="7">
-                    ${i18n}
+                    <c:out value="${i18n}"/>
                 </th>
             </c:forEach>        
             

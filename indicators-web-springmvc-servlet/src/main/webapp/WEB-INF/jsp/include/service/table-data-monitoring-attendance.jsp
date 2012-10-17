@@ -15,14 +15,14 @@
             <!-- If the periods are weekly -->
             <c:if test="${isWeekly}">
                 <td>
-                    <spring:message code="result.table.week" /> ${period.first} - ${period.second}
+                    <spring:message code="result.table.week" /> <c:out value="${period.first}"/> - <c:out value="${period.second}"/>
                 </td>
             </c:if>
             
             <!-- If the periods are monthly -->
             <c:if test="${!isWeekly}">
                 <td>
-                    <spring:message code="result.table.month.${period.first}" />  - ${period.second}
+                    <spring:message code="result.table.month.${period.first}" />  - <c:out value="${period.second}"/>
                 </td>
             </c:if>
             <!-- #################################################### -->
@@ -34,32 +34,32 @@
             
             <!-- Accounts statistics -->
             <td>
-                ${periodRow.totalAccountNumber}
+                <c:out value="${periodRow.totalAccountNumber}"/>
             </td>
             <td>
-                ${periodRow.activeAccountNumber}
+                <c:out value="${periodRow.activeAccountNumber}"/>
             </td>
             <td>
-                ${periodRow.percentageActiveAccount}
+                <c:out value="${periodRow.percentageActiveAccount}"/>
             </td>
                     
             <!-- For each service -->
             <c:forEach var="service" items="${statisticDataKeys}">
                 <c:set var="statistic" value="${periodRow.statisticDataByKey[service]}" />
                     <td>
-                        ${statistic.numVisitorsBelowTreshold}
+                        <c:out value="${statistic.numVisitorsBelowTreshold}"/>
                     </td>
                     <td>
-                        ${statistic.percentageNumVisitorsBelowTreshold}
+                        <c:out value="${statistic.percentageNumVisitorsBelowTreshold}"/>
                     </td>
                     <td>
-                        ${statistic.numVisitorsAboveTreshold}
+                        <c:out value="${statistic.numVisitorsAboveTreshold}"/>
                     </td>
                     <td>
-                        ${statistic.percentageNumVisitorsAboveTreshold}
+                        <c:out value="${statistic.percentageNumVisitorsAboveTreshold}"/>
                     </td>
                     <td>
-                        ${statistic.numVisits}
+                        <c:out value="${statistic.numVisits}"/>
                     </td>
              </c:forEach>
         

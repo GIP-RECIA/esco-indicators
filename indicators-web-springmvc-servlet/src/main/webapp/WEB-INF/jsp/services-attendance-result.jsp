@@ -36,7 +36,7 @@
             <c:forEach var="item" items="${wantedServicesItems}">
                 <spring:message code="${item}" var="i18n"/> 
                 <th colspan="5">
-                    ${i18n}
+                    <c:out value="${i18n}"/>
                 </th>
             </c:forEach>        
         </tr>        
