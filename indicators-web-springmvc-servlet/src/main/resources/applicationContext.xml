@@ -75,7 +75,7 @@
             <constructor-arg>
                 <map>
                     <entry key="csv">
-                        <value>application/force-download</value>
+                        <value>text/csv</value>
                     </entry>
                 </map>
             </constructor-arg>
