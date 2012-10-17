@@ -3,7 +3,9 @@
  */
 package org.esco.indicators.web.springmvc.controller.download;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.net.SocketException;
 import java.util.HashMap;
@@ -18,8 +20,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.sun.mail.iap.ByteArray;
 
 /**
  * Controller used to send data to download to the user.
@@ -107,18 +110,16 @@ public class DownloadController extends DownloadServlet implements Serializable,
 	response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
 	response.setHeader("Content-Description", "File transfert");
 	LOGGER.debug("The data length is : [" + data.length() + "]");
-	response.setContentLength(data.length());
 	response.setCharacterEncoding("UTF-8");
-	response.setHeader("Cache-Control", ": max-age=60, must-revalidate");
 	
 	// Sets the cookie for the download
 	response.setHeader("Set-Cookie", "fileDownload=true");
 	
 	// Sends the data
 	try {
-	    	ServletOutputStream out = response.getOutputStream();
-	    	byte [] byteData = data.getBytes();
-		out.write(byteData);
+	    	PrintWriter out = response.getWriter();
+		out.println(data);
+		out.flush();
 	} catch (SocketException e) {
 		LOGGER.warn("SocketException was raides while downloading, probably because the client cancelled : " + e.getMessage());
 	} catch (IOException e) {
