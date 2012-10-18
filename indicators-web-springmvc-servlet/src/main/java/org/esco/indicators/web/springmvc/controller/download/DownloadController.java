@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.net.SocketException;
 import java.util.HashMap;
 
@@ -46,6 +47,10 @@ public class DownloadController extends DownloadServlet implements Serializable,
     /** Default content type to use */
     @Autowired
     private String defaultContentType;
+    
+    /** Charset used to send data */
+    @Autowired
+    private String charset;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -60,6 +65,9 @@ public class DownloadController extends DownloadServlet implements Serializable,
 	Assert.notNull(defaultContentType, "property defaultContentType of class "
 		+ this.getClass().getName() + " can not be null");
 	LOGGER.debug("The default content type is : [" + defaultContentType + "]");
+	Assert.notNull(charset, "property charset of class "
+		+ this.getClass().getName() + " can not be null");
+	LOGGER.debug("The used charset is : [" + charset + "]");
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
@@ -100,17 +108,27 @@ public class DownloadController extends DownloadServlet implements Serializable,
     @RequestMapping(value="/download-data-ajax")
     public void downloadData(@RequestParam String data, @RequestParam String fileName, HttpServletResponse response) {
 	// Retrieve the data send by the user
-	LOGGER.debug("Data send by the user and that will be downloaded : [" + data + "]" );
+	LOGGER.debug("Data send by the user and that will be encoded in " + charset + " : [" + data + "]" );
 	LOGGER.debug("The file to download : [" + fileName + "]" );
 
+	// Encodes the data
+	String encodedData;
+	try {
+	    encodedData = new String(data.getBytes(), charset);
+	} catch (UnsupportedEncodingException e) {
+	    LOGGER.error("The data could not be encoded in " + charset + " : [" + e.getMessage() + "]");
+	    encodedData = "";
+	}
+	LOGGER.debug("The " + charset + " data which will be sent is : [" + encodedData + "]");
+	
 	// Sets the header of the response
 	String fileExtension  = extractExtension(fileName);
 	
 	setContentType(response, fileExtension);
 	response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
 	response.setHeader("Content-Description", "File transfert");
-	LOGGER.debug("The data length is : [" + data.length() + "]");
-	response.setCharacterEncoding("UTF-8");
+	LOGGER.debug("The data length is : [" + encodedData.length() + "]");
+	response.setCharacterEncoding(charset);
 	
 	// Sets the cookie for the download
 	response.setHeader("Set-Cookie", "fileDownload=true");
@@ -118,7 +136,7 @@ public class DownloadController extends DownloadServlet implements Serializable,
 	// Sends the data
 	try {
 	    	PrintWriter out = response.getWriter();
-		out.println(data);
+		out.println(encodedData);
 		out.flush();
 	} catch (SocketException e) {
 		LOGGER.warn("SocketException was raides while downloading, probably because the client cancelled : " + e.getMessage());

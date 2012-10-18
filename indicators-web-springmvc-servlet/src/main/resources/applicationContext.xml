@@ -69,13 +69,19 @@
     
     
     <!--  For the download controller -->
-    
+   <bean   id="charset" 
+            class="java.lang.String">
+            <constructor-arg value="UTF-8"/>
+    </bean>
     <bean   id="contentTypesByExtension" 
             class="java.util.HashMap">
             <constructor-arg>
                 <map>
                     <entry key="csv">
                         <value>text/csv</value>
+                    </entry>
+                    <entry key="xls">
+                        <value>application/vnd.ms-excel</value>
                     </entry>
                 </map>
             </constructor-arg>
