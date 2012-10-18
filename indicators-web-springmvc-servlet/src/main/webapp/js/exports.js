@@ -37,6 +37,8 @@ $(document).ready(function() {
     $("#excelexport").submit(function() {
        // Gets the HTML representation of the table
        var excelData = $("#resultTable").outerHTML();
+       // Specifies the charset
+       excelData = '<meta http-equiv=Content-Type content="text/html; charset=UTF-8">' + excelData;
        // Injects the HTML representation into the hidden field
        $("#excelData").prop("value", excelData);
        // Creates a file name regarding to the selected filters
