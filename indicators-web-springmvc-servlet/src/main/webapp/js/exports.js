@@ -19,7 +19,7 @@
 ///////////////////////////////////////////////////////////
 $(document).ready(function() {
     ///////////////////////////////////////////////////////
-    // Handle the submission CSV export form
+    // Handle the submission of the form for CSV export
     ///////////////////////////////////////////////////////
     $("#csvexport").submit(function() {
        // Transforms the table into csv data
@@ -27,10 +27,22 @@ $(document).ready(function() {
        // Injects the csv data into the hidden field
        $("#csvData").prop("value", csvData);
        // Creates a file name regarding to the selected filters
-       var fileName = createFileName();
-       fileName = fileName + ".csv";
+       var fileName = createFileName("csv");
        // Injects the file name into the hidden field
        $("#csvFileName").prop("value", fileName);
+    });
+    ///////////////////////////////////////////////////////
+    // Handle the submission of the form for Excel export
+    ///////////////////////////////////////////////////////
+    $("#excelexport").submit(function() {
+       // Gets the HTML representation of the table
+       var excelData = $("#resultTable").outerHTML();
+       // Injects the HTML representation into the hidden field
+       $("#excelData").prop("value", excelData);
+       // Creates a file name regarding to the selected filters
+       var fileName = createFileName("xls");
+       // Injects the file name into the hidden field
+       $("#excelFileName").prop("value", fileName);
     });
 });
 
@@ -40,8 +52,9 @@ $(document).ready(function() {
 /*
  * Functions that creates a file name regarding to the 
  * selected filters.
+ * The extension file name is given as parameter.
  */
-function createFileName() {
+function createFileName(fileExtension) {
     // Gets the content of all the selected filters
     var fileName = "";
     $("#filters").find("span").filter(".filterContent").each(function() {
@@ -52,7 +65,7 @@ function createFileName() {
     });
     // Remove the last two characters
     fileName = fileName.substring(0,fileName.length - 2);
-    return fileName;
+    return fileName + "." + fileExtension;
 }
 
 /*
