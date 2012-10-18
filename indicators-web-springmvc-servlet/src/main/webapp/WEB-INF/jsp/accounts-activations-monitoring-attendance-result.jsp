@@ -153,6 +153,6 @@
 <!-- SCRIPTS -->
 <script type="text/javascript" src="js/result.js"></script>
 <script type="text/javascript" src="js/table2csv.js"></script>
-<script type="text/javascript" src="js/csv-export.js"></script>
+<script type="text/javascript" src="js/exports.js"></script>
 
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>
