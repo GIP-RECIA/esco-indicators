@@ -14,6 +14,8 @@
     
    <!-- Configures how to handle static resources -->
     <mvc:resources location="/css/" mapping="/css/**"/>
+    <mvc:resources location="/img/" mapping="/img/**"/>
+    
    <!-- Annotations Configuration -->
     <context:component-scan base-package="org.esco.indicators.web.springmvc"/>
 
