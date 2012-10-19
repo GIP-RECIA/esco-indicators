@@ -27,7 +27,7 @@
 <!-- Selected establishments -->
 <%@ include file="/WEB-INF/jsp/include/common/result-selected-establishments.jsp"%>
    
-    <table>
+    <table id="resultTable" class="pretty">
         <!-- Headers : First level -->
         <tr>
             <th>

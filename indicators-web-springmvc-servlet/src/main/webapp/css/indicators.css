@@ -44,6 +44,7 @@ a {
 	text-decoration: none;
 }
 
+
 /************** 
 * Identifiers 
 **************/
@@ -105,6 +106,24 @@ a {
 .filterOptions {
 	margin: 1.3em;
 }
+
+table.pretty {
+	box-shadow: 6px 6px 6px #777777;
+	border-collapse: collapse;
+}  
+
+table.pretty th, table.pretty td {
+	border: 1px gainsboro solid;
+	padding: 0.2em;
+}
+table.pretty th {
+     background: gainsboro;
+      text-align: left;
+  }
+
+table.pretty tr:nth-child(even) {
+	background: gainsboro;
+} 
 
 .subFilterTitle {
 	background: none repeat scroll 0 0 #7385AB;
