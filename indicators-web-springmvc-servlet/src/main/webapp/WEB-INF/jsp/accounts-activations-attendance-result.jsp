@@ -15,17 +15,17 @@
 </div>
 
 
-<!-- Selected filters -->
+<%-- Selected filters --%>
 <%@ include file="/WEB-INF/jsp/include/common/result-filters.jsp"%>
 
-<!-- Selected establishments -->
+<%-- Selected establishments --%>
 <%@ include file="/WEB-INF/jsp/include/common/result-selected-establishments.jsp"%>
    
     <table id="resultTable" class="pretty">
-        <!-- Headers : First level -->
+        <%-- Headers : First level --%>
         <tr>
 
-            <!-- Establishlment part -->
+            <%-- Establishlment part --%>
             <%@ include file="/WEB-INF/jsp/include/common/table-header-establishment.jsp"%>
             
             <c:forEach var="item" items="${usersProfilesItems}">
@@ -35,13 +35,13 @@
                 </th>
             </c:forEach>        
             
-            <!-- Global statistic -->
+            <%-- Global statistic --%>
             <th colspan="8">
                 <spring:message code="result.table.total" />
             </th>
         </tr>        
         
-        <!-- Headers : Second level -->
+        <%-- Headers : Second level --%>
         <tr>
             <c:forEach var="i" begin="1" end="5">
                 <th>
@@ -59,13 +59,13 @@
                 </th>
             </c:forEach>
             
-            <!-- For global stats -->
+            <%-- For global stats --%>
             <th>
                 <spring:message code="result.table.numVisit" />
             </th>
         </tr>
         
-        <!-- Headers : Third level -->
+        <%-- Headers : Third level --%>
         <tr>
             <c:forEach var="i" begin="1" end="5">
                 <th>
@@ -89,11 +89,11 @@
                 </th>
             </c:forEach>
 
-            <!-- Global statistic -->
+            <%-- Global statistic --%>
             <th></th>
         </tr>
         
-        <!-- Headers : Fourth level -->
+        <%-- Headers : Fourth level --%>
         <tr>
             <c:forEach var="i" begin="1" end="5">
                 <th>
@@ -120,17 +120,17 @@
                 </th>       
             </c:forEach>
             
-            <!-- Global statistic -->
+            <%-- Global statistic --%>
             <th></th>
         
         </tr>
         
-        <!-- Data of the table -->
+        <%-- Data of the table --%>
         <%@ include file="/WEB-INF/jsp/include/account/table-data.jsp"%>
             
     </table>
 
-<!-- Exports in CSV and Excel -->
+<%-- Exports in CSV and Excel --%>
 <%@ include file="/WEB-INF/jsp/include/common/result-exports.jsp"%>
 
 

@@ -1,4 +1,4 @@
-<!-- Header part for the establishment -->
+<%-- Header part for the establishment --%>
 
 <th>
     <spring:message code="result.table.establishment" />

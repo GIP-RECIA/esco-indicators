@@ -15,24 +15,24 @@
 </div>
 
 
-<!-- Selected filters -->
+<%-- Selected filters --%>
 <%@ include file="/WEB-INF/jsp/include/common/result-filters.jsp"%>
 
-<!-- Selected establishments -->
+<%-- Selected establishments --%>
 <%@ include file="/WEB-INF/jsp/include/common/result-selected-establishments.jsp"%>
    
     <table id="resultTable" class="pretty">
-        <!-- Headers : First level -->
+        <%-- Headers : First level --%>
         <tr>
 
-            <!-- Establishlment part -->
+            <%-- Establishlment part --%>
             <%@ include file="/WEB-INF/jsp/include/common/table-header-establishment.jsp"%>
 
             <th colspan="3">
                 <spring:message code="result.table.accountActivation" />
             </th>
 
-            <!-- Services -->
+            <%-- Services --%>
             <c:forEach var="item" items="${wantedServicesItems}">
                 <spring:message code="${item}" var="i18n"/> 
                 <th colspan="5">
@@ -41,11 +41,11 @@
             </c:forEach>        
         </tr>        
         
-        <!-- Headers : Second level -->
+        <%-- Headers : Second level --%>
         <tr>
             <c:forEach var="i" begin="1" end="5">
                 <th>
-                    <!-- Establishment data -->
+                    <%-- Establishment data --%>
                 </th>
             </c:forEach>
             
@@ -67,11 +67,11 @@
             </c:forEach>
         </tr>
         
-        <!-- Headers : Third level -->
+        <%-- Headers : Third level --%>
         <tr>
             <c:forEach var="i" begin="1" end="6">
                 <th>
-                    <!-- Establishment data + total account -->
+                    <%-- Establishment data + total account --%>
                 </th>
             </c:forEach>
             
@@ -90,17 +90,17 @@
                     <spring:message code="result.table.minTimes" arguments="5" /> 
                 </th>
                 <th>
-                    <!-- NumVisit -->
+                    <%-- NumVisit --%>
                 </th>
             </c:forEach>
 
         </tr>
         
-        <!-- Headers : Fourth level -->
+        <%-- Headers : Fourth level --%>
         <tr>
             <c:forEach var="i" begin="1" end="8">
                 <th>
-                    <!-- Establishment data + accounts data -->
+                    <%-- Establishment data + accounts data --%>
                 </th>
             </c:forEach>
             
@@ -118,17 +118,17 @@
                     <spring:message code="result.table.percentTotalAccount" />
                 </th>  
                 <th>
-                    <!-- NumVisit -->
+                    <%-- NumVisit --%>
                 </th>     
             </c:forEach>
         </tr>
         
-        <!-- Data of the table -->
+        <%-- Data of the table --%>
         <%@ include file="/WEB-INF/jsp/include/service/table-data-monitoring-attendance.jsp"%>
             
     </table>
 
-<!-- Exports in CSV and Excel -->
+<%-- Exports in CSV and Excel --%>
 <%@ include file="/WEB-INF/jsp/include/common/result-exports.jsp"%>
 
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>

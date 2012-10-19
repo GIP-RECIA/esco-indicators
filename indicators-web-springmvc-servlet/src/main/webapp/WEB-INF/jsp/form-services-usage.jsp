@@ -14,7 +14,7 @@
 <p><spring:message code="error.underConstruction"/>
 
 
-<!-- SCRIPTS -->
+<%-- SCRIPTS --%>
 <script type="text/javascript" src="js/ajax.js"></script>
 <script type="text/javascript" src="js/constants.js"></script>
 <script type="text/javascript" src="js/common.js"></script>

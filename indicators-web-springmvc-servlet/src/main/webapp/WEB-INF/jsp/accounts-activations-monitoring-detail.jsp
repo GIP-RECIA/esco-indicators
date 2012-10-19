@@ -1,13 +1,13 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
 <%@ page import="java.util.*" %>
 
-<!-- #################################################### -->
-<!-- VARIABLES SETTINGS -->
-<!-- #################################################### -->
+<%-- #################################################### --%>
+<%-- VARIABLES SETTINGS --%>
+<%-- #################################################### --%>
 
 <c:set var="detail" value="true" />
 
-<!-- #################################################### -->
+<%-- #################################################### --%>
 
 <%@ include file="/WEB-INF/jsp/include/common/title-and-menu.jsp"%>
 
@@ -21,23 +21,23 @@
     <hr/>
 </div>
 
-<!-- Selected filters -->
+<%-- Selected filters --%>
 <%@ include file="/WEB-INF/jsp/include/common/result-filters.jsp"%>
 
-<!-- Selected establishments -->
+<%-- Selected establishments --%>
 <%@ include file="/WEB-INF/jsp/include/common/result-selected-establishments.jsp"%>
    
     <table id="resultTable" class="pretty">
-        <!-- Headers : First level -->
+        <%-- Headers : First level --%>
         <tr>
             <th>
                 ${establishmentName}
             </th>
 
-            <!-- #################################################### -->
-            <!-- WEEKLY OR MONTHLY PERIODS ? -->
-            <!-- #################################################### -->
-            <!-- If the periods are weekly -->
+            <%-- #################################################### --%>
+            <%-- WEEKLY OR MONTHLY PERIODS ? --%>
+            <%-- #################################################### --%>
+            <%-- If the periods are weekly --%>
             <c:if test="${isWeekly}">
                 <c:forEach var="item" items="${statisticDataKeys}">
                     <th colspan="7">
@@ -46,7 +46,7 @@
                 </c:forEach>
             </c:if>
             
-            <!-- If the periods are weekly -->
+            <%-- If the periods are weekly --%>
             <c:if test="${!isWeekly}">
                 <c:forEach var="item" items="${statisticDataKeys}">
                     <th colspan="7">
@@ -54,13 +54,13 @@
                     </th>
                 </c:forEach>
             </c:if>
-            <!-- #################################################### -->     
+            <%-- #################################################### --%>     
         </tr>        
         
-        <!-- Headers : Second level -->
+        <%-- Headers : Second level --%>
         <tr>
             <th>
-                <!-- Establishment name -->
+                <%-- Establishment name --%>
             </th>
             
             <c:forEach var="item" items="${statisticDataKeys}">
@@ -76,10 +76,10 @@
             </c:forEach>
         </tr>
         
-        <!-- Headers : Third level -->
+        <%-- Headers : Third level --%>
         <tr>
             <th>
-                <!-- Establishment name -->
+                <%-- Establishment name --%>
             </th>
             
             <c:forEach var="item" items="${statisticDataKeys}">
@@ -101,10 +101,10 @@
 
         </tr>
         
-        <!-- Headers : Fourth level -->
+        <%-- Headers : Fourth level --%>
         <tr>
             <th>
-                <!-- Establishment name -->
+                <%-- Establishment name --%>
             </th>
             
             <c:forEach var="item" items="${statisticDataKeys}">
@@ -128,12 +128,12 @@
             </c:forEach>
         </tr>
         
-        <!-- Data of the table -->
+        <%-- Data of the table --%>
         <%@ include file="/WEB-INF/jsp/include/account/table-data-monitoring.jsp"%>
             
     </table>
 
-<!-- Exports in CSV and Excel -->
+<%-- Exports in CSV and Excel --%>
 <%@ include file="/WEB-INF/jsp/include/common/result-exports.jsp"%>
 
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>

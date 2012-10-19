@@ -12,16 +12,16 @@
 
 <form:form method="POST" commandName="serviceform">
 
-    <!-- Monitoring type selection -->
+    <%-- Monitoring type selection --%>
     <%@ include file="/WEB-INF/jsp/include/common/form-filter-monitoring-type.jsp"%>
 
-    <!-- Establishment type selection -->
+    <%-- Establishment type selection --%>
     <%@ include file="/WEB-INF/jsp/include/common/form-filter-establishment-type.jsp"%>
     
-    <!-- Period selection -->
+    <%-- Period selection --%>
     <%@ include file="/WEB-INF/jsp/include/common/form-filter-period.jsp"%>
     
-    <!-- Services selection -->
+    <%-- Services selection --%>
     <h2 class="filterTitle"><spring:message code="filter.title.service" /></h2>
     <div>
         <p>
@@ -58,16 +58,16 @@
     
     <div></div>
     
-    <!-- Others filters -->
+    <%-- Others filters --%>
     <%@ include file="/WEB-INF/jsp/include/common/form-filter-other.jsp"%>
     
-    <!-- Establishment selection -->
+    <%-- Establishment selection --%>
     <%@ include file="/WEB-INF/jsp/include/common/form-filter-establishment.jsp"%>    
     
     <input type="submit">
 </form:form>
 
-<!-- SCRIPTS -->
+<%-- SCRIPTS --%>
 <script type="text/javascript" src="js/ajax.js"></script>
 <script type="text/javascript" src="js/constants.js"></script>
 <script type="text/javascript" src="js/common.js"></script>

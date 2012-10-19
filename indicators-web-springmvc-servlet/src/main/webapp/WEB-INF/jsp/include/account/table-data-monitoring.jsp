@@ -1,11 +1,11 @@
 <c:forEach var="item" items="${tableRowsItems}">
 
-    <!-- Result row -->
+    <%-- Result row --%>
     <tr>
-        <!-- #################################################### -->
-        <!-- DETAIL VIEW / SUM ON COUNTIES ? -->
-        <!-- #################################################### -->
-        <!-- If this is not a detail view and the sum on counties has not been asked -->
+        <%-- #################################################### --%>
+        <%-- DETAIL VIEW / SUM ON COUNTIES ? --%>
+        <%-- #################################################### --%>
+        <%-- If this is not a detail view and the sum on counties has not been asked --%>
         <c:if test="${(empty detail) && (empty sumOnCountiesItem)}">
             <td>
                 <a href="accounts-activations-monitoring-detail?uai=${item.establishmentData.uai}">
@@ -18,21 +18,21 @@
         
         <c:choose>
             <c:when test="${empty detail}">        
-                <!-- Establishment data -->
+                <%-- Establishment data --%>
                 <%@ include file="/WEB-INF/jsp/include/common/table-data-establishment.jsp"%>
             </c:when>
         
-            <!-- Else : This is a detail view -->
+            <%-- Else : This is a detail view --%>
             <c:otherwise>
                 <td>
                     <spring:message code="${i18nUsersProfiles[item.userProfile]}" />
                 </td>
             </c:otherwise>
         </c:choose>
-        <!-- #################################################### -->
+        <%-- #################################################### --%>
         
         
-        <!-- Statistic data -->
+        <%-- Statistic data --%>
         <c:forEach var="key" items="${statisticDataKeys}">
             <c:set var="statistic" value="${item.statisticDataByKey[key]}" /> 
             <td>
@@ -58,7 +58,7 @@
             </td>
         </c:forEach>
         
-        <!-- Global statistic data -->
+        <%-- Global statistic data --%>
         <c:set var="statistic" value="${item.statisticDataByKey['GLOBAL_STATISTIC']}" /> 
         <td>
             <c:out value="${statistic.totalAccountNumber}"/>

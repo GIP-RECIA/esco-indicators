@@ -1,11 +1,11 @@
 <c:forEach var="item" items="${tableRowsItems}">
 
-    <!-- Result row -->
+    <%-- Result row --%>
     <tr>
-        <!-- Establishment data -->
+        <%-- Establishment data --%>
         <%@ include file="/WEB-INF/jsp/include/common/table-data-establishment.jsp"%>
         
-        <!-- Statistic data -->
+        <%-- Statistic data --%>
         <c:forEach var="key" items="${statisticDataKeys}">
             <c:set var="statistic" value="${item.statisticDataByKey[key]}" /> 
             <td>
@@ -31,7 +31,7 @@
             </td>
         </c:forEach>
         
-        <!-- Global statistic data -->
+        <%-- Global statistic data --%>
         <c:set var="statistic" value="${item.statisticDataByKey['GLOBAL_STATISTIC']}" /> 
         <td>
             <c:out value="${statistic.totalAccountNumber}"/>

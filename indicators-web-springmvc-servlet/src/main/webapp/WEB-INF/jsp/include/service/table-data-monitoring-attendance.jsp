@@ -1,38 +1,38 @@
 <c:forEach var="item" items="${tableRowsItems}">
 
-    <!-- First level row : Establishment Data -->
+    <%-- First level row : Establishment Data --%>
     <%@ include file="/WEB-INF/jsp/include/common/table-data-establishment.jsp"%>
     
-    <!-- Second level row : Statistics for each period -->
+    <%-- Second level row : Statistics for each period --%>
     
-    <!-- For each period -->
+    <%-- For each period --%>
     <c:forEach var="period" items="${statisticPeriodsItems}">
         <c:set var="periodRow" value="${item.statisticDataByKey[period]}" />
         <tr>            
-            <!-- #################################################### -->
-            <!-- WEEKLY OR MONTHLY PERIODS ? -->
-            <!-- #################################################### -->
-            <!-- If the periods are weekly -->
+            <%-- #################################################### --%>
+            <%-- WEEKLY OR MONTHLY PERIODS ? --%>
+            <%-- #################################################### --%>
+            <%-- If the periods are weekly --%>
             <c:if test="${isWeekly}">
                 <td>
                     <spring:message code="result.table.week" /> <c:out value="${period.first}"/> - <c:out value="${period.second}"/>
                 </td>
             </c:if>
             
-            <!-- If the periods are monthly -->
+            <%-- If the periods are monthly --%>
             <c:if test="${!isWeekly}">
                 <td>
                     <spring:message code="result.table.month.${period.first}" />  - <c:out value="${period.second}"/>
                 </td>
             </c:if>
-            <!-- #################################################### -->
+            <%-- #################################################### --%>
             
-            <!-- Establishment data columns are empty -->
+            <%-- Establishment data columns are empty --%>
             <c:forEach var="i" begin="1" end="4">
                 <td></td>
             </c:forEach>
             
-            <!-- Accounts statistics -->
+            <%-- Accounts statistics --%>
             <td>
                 <c:out value="${periodRow.totalAccountNumber}"/>
             </td>
@@ -43,7 +43,7 @@
                 <c:out value="${periodRow.percentageActiveAccount}"/>
             </td>
                     
-            <!-- For each service -->
+            <%-- For each service --%>
             <c:forEach var="service" items="${statisticDataKeys}">
                 <c:set var="statistic" value="${periodRow.statisticDataByKey[service]}" />
                     <td>

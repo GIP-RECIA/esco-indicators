@@ -1,4 +1,4 @@
-<!-- Form used to send data for CSV export -->
+<%-- Form used to send data for CSV export --%>
 
 <form:form action="download-data-ajax" method="POST" commandName="excelexport">
     <input type="hidden" id="excelData"       name="data"     value="" />
