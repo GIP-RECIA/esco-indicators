@@ -84,6 +84,6 @@
         <td>
             <c:out value="${statistic.numVisits}"/>
         </td>
-    <tr>
+    </tr>
     
 </c:forEach>   
