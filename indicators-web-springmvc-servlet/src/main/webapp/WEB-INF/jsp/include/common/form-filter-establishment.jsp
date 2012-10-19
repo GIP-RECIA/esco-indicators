@@ -1,5 +1,5 @@
 <h2 class="filterTitle"><spring:message code="filter.title.establishmentList" /></h2>
-<div class="filterOptions">
+<div id="establishmentsListContainer" class="filterOptions">
     <table id="establishmentsList" class="pretty">
         <c:forEach var="establishment" items="${establishmentsItems}">
             <tr>

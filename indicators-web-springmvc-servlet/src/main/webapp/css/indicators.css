@@ -56,9 +56,20 @@ a {
 	margin: 0.4em 0 0.4em;
 }
 
+#establishmentsListContainer {
+  height: 25%;
+  overflow: auto;
+  width: 100%;
+}
+
 #menu {
 	background: none repeat scroll 0 0 #666666;
 	padding: 1.5em 20% 1em;
+}
+
+#menu img {
+	height: 32px;
+	width: 32px;
 }
 
 #menu li { 
@@ -80,6 +91,10 @@ a {
 	font-size: 24;
 	color: #666666;
 	margin: 0 0 0.7em;
+}
+
+#resultTable {
+	box-shadow: 6px 6px 6px #777777;
 }
 
 #user {
@@ -108,7 +123,6 @@ a {
 }
 
 table.pretty {
-	box-shadow: 6px 6px 6px #777777;
 	border-collapse: collapse;
 }  
 
@@ -117,9 +131,9 @@ table.pretty th, table.pretty td {
 	padding: 0.2em;
 }
 table.pretty th {
-     background: gainsboro;
-      text-align: left;
-  }
+	background: gainsboro;
+  text-align: left;
+}
 
 table.pretty tr:nth-child(even) {
 	background: gainsboro;
