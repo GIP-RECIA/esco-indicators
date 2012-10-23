@@ -77,6 +77,13 @@ $(document).ready(function() {
             uncheckElementsByValues(USERS_PROFILES.values);
         }
     });
+
+    ///////////////////////////////////////////////////////
+    // Select / Unselect all establishments
+    ///////////////////////////////////////////////////////
+		$("#toggleEstablishmentsSelection").click(function() {
+			toggleInputsStates("establishmentsList");
+		});
 });
 
 
@@ -266,6 +273,33 @@ function specialCheckedElementsValues() {
     }
 
     return elementsValues;
+}
+
+/**
+ * Uncheckes the inputs found inside the element retrieves by its id.
+ */
+function toggleInputsStates(elementId) {
+	// Gets all the inputs	
+	var inputs = $("#"+elementId).find("input");
+	// All the inputs are checked ?
+	var allChecked = true;	
+	inputs.each(function() {
+		if ($(this).prop("checked") != true) {
+			allChecked = false;
+		}
+	});
+
+	// If all inputs are checked
+	if (allChecked) {
+		inputs.each(function() {
+			$(this).prop("checked", false);
+		});
+	} else {
+		inputs.each(function() {
+			$(this).prop("checked", true);
+		});
+	}
+	
 }
 
 /**
