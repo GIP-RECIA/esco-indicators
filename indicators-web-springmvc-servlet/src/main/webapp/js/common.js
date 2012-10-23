@@ -82,7 +82,9 @@ $(document).ready(function() {
     // Select / Unselect all establishments
     ///////////////////////////////////////////////////////
 		$("#toggleEstablishmentsSelection").click(function() {
-			toggleInputsStates("establishmentsList");
+			var inputs = $("#establishmentsList").find("tr").has("td").find("input");
+			var checkedState = $(this).prop("checked");
+			toggleInputsStates(inputs,checkedState);
 		});
 });
 
@@ -276,30 +278,12 @@ function specialCheckedElementsValues() {
 }
 
 /**
- * Uncheckes the inputs found inside the element retrieves by its id.
+ * Change the checked state of the given inputs.
  */
-function toggleInputsStates(elementId) {
-	// Gets all the inputs	
-	var inputs = $("#"+elementId).find("input");
-	// All the inputs are checked ?
-	var allChecked = true;	
+function toggleInputsStates(inputs,checkedState) {
 	inputs.each(function() {
-		if ($(this).prop("checked") != true) {
-			allChecked = false;
-		}
-	});
-
-	// If all inputs are checked
-	if (allChecked) {
-		inputs.each(function() {
-			$(this).prop("checked", false);
-		});
-	} else {
-		inputs.each(function() {
-			$(this).prop("checked", true);
-		});
-	}
-	
+		$(this).prop("checked",checkedState);
+	});	
 }
 
 /**
@@ -325,7 +309,7 @@ function uncheckElementsByValues(elementValues) {
  */
 function updateEstablishmentsList(establishments_list) {
     // Clear the current establishments list
-    $("#" + ESTABLISHMENTS_TABLE_ID + " tr").remove();
+    $("#" + ESTABLISHMENTS_TABLE_ID).find("tr").has("td").remove();
 
     // Update the list
     for(var i = 0; i < establishments_list.length; i++) {
