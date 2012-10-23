@@ -30,6 +30,9 @@ $(document).ready(function() {
     // Initialization of the date picker for the start date
     ///////////////////////////////////////////////////////
     $("#startDatePicker").datepicker({
+        showOn: "button",
+        buttonImage: "img/calendar.png",
+        buttonImageOnly: true,
         changeMonth: true,
         changeYear: true,
         showButtonPanel: true,
@@ -60,6 +63,9 @@ $(document).ready(function() {
     // Initialization of the date picker for the end date
     ///////////////////////////////////////////////////////
     $("#endDatePicker").datepicker({
+        showOn: "button",
+        buttonImage: "img/calendar.png",
+        buttonImageOnly: true,
         changeMonth: true,
         changeYear: true,
         dateFormat: 'MM yy',
@@ -84,7 +90,6 @@ $(document).ready(function() {
             }
     });
 
-
     ///////////////////////////////////////////////////////
     // Toggle of the end date picker visibility
     ///////////////////////////////////////////////////////
@@ -92,8 +97,10 @@ $(document).ready(function() {
         // If the monitoring attendance type has been selected
         if(isChecked(MONITORING_ATTENDANCE.name)) {
             $("#endDatePicker").show();
+            $("#endDatePicker").next("img").show();
         } else {
             $("#endDatePicker").hide();
+            $("#endDatePicker").next("img").hide();
         }
     });
     $("[value='" + MONITORING_ATTENDANCE.name + "']").change();
@@ -103,8 +110,10 @@ $(document).ready(function() {
         // If the attendance type has been selected
         if(isChecked(ATTENDANCE.name)) {
             $("#endDatePicker").hide();
+            $("#endDatePicker").next("img").hide();
         } else {
             $("#endDatePicker").show();
+            $("#endDatePicker").next("img").show();
         }
     });
 
