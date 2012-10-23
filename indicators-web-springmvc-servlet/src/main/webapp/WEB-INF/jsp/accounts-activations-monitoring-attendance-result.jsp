@@ -34,43 +34,56 @@
             <%-- SUM ON COUNTIES ? --%>
             <%-- #################################################### --%>
             <%-- If the sum on counties has not been asked --%>
-            <c:if test="${empty sumOnCountiesItem}">
-                <th>
-                    <spring:message code="result.table.detail" />
-                </th>
-            </c:if>
+            <c:choose>
+                <c:when test="${empty sumOnCountiesItem}">
+                    <c:set var="numEmptyHeaders" value="6" />
+                    <th>
+                        <spring:message code="result.table.detail" />
+                    </th>
+                </c:when>
+                
+                <c:otherwise>
+                    <c:set var="numEmptyHeaders" value="5" />
+                </c:otherwise>
+            </c:choose>
             <%-- #################################################### --%>
+
+
 
             <%-- Establishlment part --%>
             <%@ include file="/WEB-INF/jsp/include/common/table-header-establishment.jsp"%>
 
+
+
             <%-- #################################################### --%>
             <%-- WEEKLY OR MONTHLY PERIODS ? --%>
             <%-- #################################################### --%>
-            <%-- If the periods are weekly --%>
-            <c:if test="${isWeekly}">
-                <c:forEach var="item" items="${statisticDataKeys}">
-                    <th colspan="7">
-                        <spring:message code="result.table.week" /> ${item.first} - ${item.second}
-                    </th>
-                </c:forEach>
-            </c:if>
+            <c:choose>
+                <%-- If the periods are weekly --%>
+                <c:when test="${isWeekly}">
+                    <c:forEach var="item" items="${statisticDataKeys}">
+                        <th colspan="7">
+                            <spring:message code="result.table.week" /> ${item.first} - ${item.second}
+                        </th>
+                    </c:forEach>
+                </c:when>
             
-            <%-- If the periods are weekly --%>
-            <c:if test="${!isWeekly}">
-                <c:forEach var="item" items="${statisticDataKeys}">
-                    <th colspan="7">
-                        <spring:message code="result.table.month.${item.first}" /> - ${item.second}
-                    </th>
-                </c:forEach>
-            </c:if>
+                <%-- If the periods are weekly --%>
+                <c:otherwise>
+                    <c:forEach var="item" items="${statisticDataKeys}">
+                        <th colspan="7">
+                            <spring:message code="result.table.month.${item.first}" /> - ${item.second}
+                        </th>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
             <%-- #################################################### --%>
             
         </tr>        
         
         <%-- Headers : Second level --%>
         <tr>
-            <c:forEach var="i" begin="1" end="6">
+            <c:forEach var="i" begin="1" end="${numEmptyHeaders}">
                 <th>
                 </th>
             </c:forEach>
@@ -90,7 +103,7 @@
         
         <%-- Headers : Third level --%>
         <tr>
-            <c:forEach var="i" begin="1" end="6">
+            <c:forEach var="i" begin="1" end="${numEmptyHeaders}">
                 <th>
                 </th>
             </c:forEach>
@@ -116,7 +129,7 @@
         
         <%-- Headers : Fourth level --%>
         <tr>
-            <c:forEach var="i" begin="1" end="6">
+            <c:forEach var="i" begin="1" end="${numEmptyHeaders}">
                 <th>
                 </th>
             </c:forEach>

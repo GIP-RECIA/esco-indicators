@@ -58,32 +58,6 @@
             </td>
         </c:forEach>
         
-        <%-- Global statistic data --%>
-        <c:set var="statistic" value="${item.statisticDataByKey['GLOBAL_STATISTIC']}" /> 
-        <td>
-            <c:out value="${statistic.totalAccountNumber}"/>
-        </td>
-        <td>
-            <c:out value="${statistic.activeAccountNumber}"/>
-        </td>
-        <td>
-            <c:out value="${statistic.percentageActiveAccount}"/>
-        </td>
-        <td>
-            <c:out value="${statistic.numVisitorsBelowTreshold}"/>
-        </td>
-        <td>
-            <c:out value="${statistic.percentageNumVisitorsBelowTreshold}"/>
-        </td>
-        <td>
-            <c:out value="${statistic.numVisitorsAboveTreshold}"/>
-        </td>
-        <td>
-            <c:out value="${statistic.percentageNumVisitorsAboveTreshold}"/>
-        </td>
-        <td>
-            <c:out value="${statistic.numVisits}"/>
-        </td>
     </tr>
     
 </c:forEach>   
