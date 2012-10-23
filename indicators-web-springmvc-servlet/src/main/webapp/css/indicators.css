@@ -65,6 +65,10 @@ ul {
   width: 100%;
 }
 
+#establishmentsListContainer table {
+    margin: 0;
+}
+
 #menu {
   background: none repeat scroll 0 0 #C3C9CD;
   border: 1px solid #000000;
@@ -140,6 +144,15 @@ form.export {
 	display: inline;
 }
 
+img.ui-datepicker-trigger {
+	vertical-align: middle;
+	margin: 0.5em;
+}
+
+input.hasDatePicker {
+	vertical-align: middle;
+}
+
 input.submitButton {
     float: right;
 }
@@ -161,6 +174,7 @@ table.pretty th {
 table.pretty tr:nth-child(even) {
 	background: gainsboro;
 } 
+
 
 /****************************
 * 1. WELCOME PAGE
