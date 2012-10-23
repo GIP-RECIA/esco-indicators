@@ -1,1 +1,0 @@
-<input id="toggleEstablishmentsSelection" type="button" value="<spring:message code='form.selectAllEstablishments'/>">

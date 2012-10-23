@@ -28,9 +28,6 @@
     <%-- Establishment selection --%>
     <%@ include file="/WEB-INF/jsp/include/common/form-filter-establishment.jsp"%>
     
-    <%-- Select all establishments button --%>
-    <%@ include file="/WEB-INF/jsp/include/common/form-select-all-establishments.jsp"%>
-    
     <%-- Submission buttion --%>
     <%@ include file="/WEB-INF/jsp/include/common/form-submit.jsp"%>
 </form:form>
