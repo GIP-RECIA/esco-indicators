@@ -106,7 +106,7 @@ function appendEstablishment(establishment) {
     // String to append to the table
     var toAppend = '<tr>';
     toAppend += '<td>';
-    toAppend += '<input id="' + establishment.value + '" type="checkbox" value="' + establishment.value + '" + name="' + establishment.path + '">';
+    toAppend += '<input id="' + establishment.value + '" type="checkbox" value="' + establishment.value + '" name="' + establishment.path + '">';
     toAppend += '</td>';
     toAppend += '<td>';
     toAppend += '<label for="' + establishment.value + '">' + establishment.label + '</label>';
@@ -313,7 +313,11 @@ function updateEstablishmentsList(establishments_list) {
 
     // Update the list
     for(var i = 0; i < establishments_list.length; i++) {
-       appendEstablishment(establishments_list[i]);
+       // Only display establishments having a label
+       var establishment = establishments_list[i];
+       if(establishment.label != "") {
+           appendEstablishment(establishment);
+       }
     }
 }
 
