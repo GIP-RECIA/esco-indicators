@@ -210,7 +210,7 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	    // Gets the establishment filter regarding to the user groups
 	    establishmentFilter = getEstablishmentFilterFromGroups(user.getGroups());
 	    
-	    // stores the filter in session
+	    // Stores the filter in session
 	   setSessionAttribute(FILTER_ATTRIBUTE, establishmentFilter);
 	    
 	    return establishmentFilter;
@@ -303,10 +303,10 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	private static Object getSessionAttribute(String attributeName) {
 	    	// If the session attribute has already been set
 	        Object sessionAttribute = ContextUtils.getSessionAttribute(attributeName);
-	        if(sessionAttribute != null) {
+	        if(sessionAttribute == null) {
 	    		LOGGER.debug("No object associated to [" + attributeName + "] has been found in the session");
 	        } else {
-	            	LOGGER.debug("One object associated to [" + attributeName + "] has been found in the session : [" + sessionAttribute + "]");
+	            	LOGGER.debug("One object associated to [" + attributeName + "] has been found in the session");
 	        }
 	        return sessionAttribute;
 	}
@@ -321,7 +321,7 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	 * 				The object to store into the session
 	 */
 	private static void setSessionAttribute(String attributeName, Object value) {
-		LOGGER.debug("Storing to session : [" + value +" ] with : [" + attributeName + "]");
+		LOGGER.debug("Storing to session : [" + value +"] with : [" + attributeName + "]");
 		ContextUtils.setSessionAttribute(attributeName, value);
 	}
 	
