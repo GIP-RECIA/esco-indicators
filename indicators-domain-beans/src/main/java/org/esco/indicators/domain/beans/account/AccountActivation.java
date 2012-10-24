@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -47,7 +48,8 @@ import org.apache.log4j.Logger;
 		+ " AND ( pl.linkEnd >= :activationEnd OR pl.linkEnd IS NULL)"
 	    )
 })
-@Table(name = "estactivee")
+@Table(name = "est_activee")
+@IdClass(value = AccountActivationId.class)
 public class AccountActivation implements Serializable {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
@@ -58,12 +60,8 @@ public class AccountActivation implements Serializable {
     @Transient
     private static final long serialVersionUID = 179471742392494091L;
     
-    /** Generated identifier */
-    @Id
-    @GeneratedValue
-    private Integer id;
-    
     /** Beggining date of the account activation */
+    @Id
     @Column(name = "datedebutactivation", nullable = false)
     private Date activationStart;
     
@@ -72,6 +70,7 @@ public class AccountActivation implements Serializable {
     private Date activationEnd;
     
     /** UID of the user associated to the account */
+    @Id
     @Column(name = "uid", nullable = false)
     private String userUid;
 

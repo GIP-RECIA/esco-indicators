@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -57,6 +58,7 @@ import org.hibernate.annotations.NaturalId;
 	    )
 })
 @Table(name = "connexionservicejour")
+@IdClass(value = ServiceConnectionStatisticId.class)
 public class ServiceConnectionStatistic implements Serializable {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
@@ -67,16 +69,13 @@ public class ServiceConnectionStatistic implements Serializable {
     @Transient
     private static final long serialVersionUID = -4760655487182103296L;
     
-    /** Generated identifier */
-    @Id
-    @GeneratedValue
-    private long id;
-    
     /** Day of the statistic */
+    @Id
     @Column(name = "jour", nullable = false)
     private Date day;
     
     /** UAI of the establishment */
+    @Id
     @Column(name = "uai", nullable = false)
     private String establishmentUai;
     
@@ -85,14 +84,17 @@ public class ServiceConnectionStatistic implements Serializable {
     private Integer numConnections;
 
     /** Name of the service */
+    @Id
     @Column(name = "nomservice", nullable = false)
     private String serviceName;
     
     /** Profile of the user */
+    @Id
     @Column(name = "nomprofil", nullable = false)
     private String userProfile;
 
     /** Uid of the user */
+    @Id
     @Column(name = "uid", nullable = false)
     private String userUid;
 

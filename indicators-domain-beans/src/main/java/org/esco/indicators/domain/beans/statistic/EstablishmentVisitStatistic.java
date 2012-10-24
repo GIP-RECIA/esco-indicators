@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -50,6 +51,7 @@ import org.apache.log4j.Logger;
     )
 })
 @Table(name = "nombredevisiteurs")
+@IdClass(value = EstablishmentVisitStatisticId.class)
 public class EstablishmentVisitStatistic implements Serializable {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
@@ -60,20 +62,18 @@ public class EstablishmentVisitStatistic implements Serializable {
     @Transient
     private static final long serialVersionUID = 6340400790820657070L;
     
-    /** Generated identifier */
-    @Id
-    @GeneratedValue
-    private long id;
-    
     /** Day of the statistic */
+    @Id
     @Column(name = "jour", nullable = false)
     private Date day;
     
     /** Type of the establishment */
+    @Id
     @Column(name = "typeetab", nullable = false)
     private String establishmentType;
     
     /** UAI of the establishment */
+    @Id
     @Column(name = "uai", nullable = false)
     private String establishmentUai;
     

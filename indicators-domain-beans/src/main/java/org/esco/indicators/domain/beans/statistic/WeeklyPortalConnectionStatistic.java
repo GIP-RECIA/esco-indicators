@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -64,6 +65,7 @@ import org.apache.log4j.Logger;
 	) 
 })
 @Table(name = "connexionprofilsemaine")
+@IdClass(value = WeeklyPortalConnectionStatisticId.class)
 public class WeeklyPortalConnectionStatistic implements Serializable {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
@@ -74,32 +76,31 @@ public class WeeklyPortalConnectionStatistic implements Serializable {
     @Transient
     private static final long serialVersionUID = -5803893681792340970L;
     
-    /** Generated identifier */
-    @Id
-    @GeneratedValue
-    private long id;
-    
     /** Average duration of the profile session on the portal */
-    @Column(name = "moyenneconnexionsemaine")
+    @Column(name = "moyenneconnexion")
     private Double averageDuration;
     
     /** UAI of the establishment */
+    @Id
     @Column(name = "uai")
     private String establishmentUai;
     
     /** First day of the week */
-    @Column(name = "premierjoursemaine", nullable = false)
+    @Id
+    @Column(name = "semaine", nullable = false)
     private Date firstWeekDay;
     
     /** Number of connections of the profile to the portal */
-    @Column(name = "nbconnexionsemaine")
+    @Id
+    @Column(name = "nbconnexion", nullable = false)
     private Integer numConnections;
     
     /** Number of users */
-    @Column(name = "nbpersonnesemaine")
+    @Column(name = "nbpersonne")
     private Integer numUsers;
     
     /** Profile of the user */
+    @Id
     @Column(name = "nomprofil", nullable = false)
     private String userProfile;
 
@@ -254,7 +255,6 @@ public class WeeklyPortalConnectionStatistic implements Serializable {
         this.numUsers = numUsers;
     }
 
-    //------------------------------------------------------------------------------ PUBLIC METHODS
     /* (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */
@@ -265,7 +265,6 @@ public class WeeklyPortalConnectionStatistic implements Serializable {
 	result = prime * result + ((averageDuration == null) ? 0 : averageDuration.hashCode());
 	result = prime * result + ((establishmentUai == null) ? 0 : establishmentUai.hashCode());
 	result = prime * result + ((firstWeekDay == null) ? 0 : firstWeekDay.hashCode());
-	result = prime * result + (int) (id ^ (id >>> 32));
 	result = prime * result + ((numConnections == null) ? 0 : numConnections.hashCode());
 	result = prime * result + ((numUsers == null) ? 0 : numUsers.hashCode());
 	result = prime * result + ((userProfile == null) ? 0 : userProfile.hashCode());
@@ -298,8 +297,6 @@ public class WeeklyPortalConnectionStatistic implements Serializable {
 	    if (other.firstWeekDay != null)
 		return false;
 	} else if (!firstWeekDay.equals(other.firstWeekDay))
-	    return false;
-	if (id != other.id)
 	    return false;
 	if (numConnections == null) {
 	    if (other.numConnections != null)

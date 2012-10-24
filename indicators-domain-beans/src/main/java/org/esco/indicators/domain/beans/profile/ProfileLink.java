@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -30,7 +31,7 @@ import org.apache.log4j.Logger;
  * @since 2012/06/06
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-@Entity
+@Entity 
 @NamedQueries({
     @NamedQuery(
 	    name = "ProfileLink.findProfileLinksBetween",
@@ -57,6 +58,7 @@ import org.apache.log4j.Logger;
 	    )
 })
 @Table(name = "acommeprofil")
+@IdClass(value = ProfileLinkId.class)
 public class ProfileLink implements Serializable {
     // ---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
@@ -67,17 +69,14 @@ public class ProfileLink implements Serializable {
     @Transient
     private static final long serialVersionUID = 6591234456693894290L;
     
-    /** Generated identifier */
-    @Id
-    @GeneratedValue
-    private Integer id;
-    
     /** UAI of the establishment */
-    @Column(name = "uai", nullable = false)
+    @Id
+    @Column(name = "uai", nullable = false, insertable = true)
     private String establishmentUai;
     
     /** Date of creation of the link */
-    @Column(name = "datedebut", nullable = false)
+    @Id
+    @Column(name = "datedebutprofil", nullable = false)
     private Date linkStart;
     
     /** Date of destruction of the link */
@@ -85,10 +84,12 @@ public class ProfileLink implements Serializable {
     private Date linkEnd;
 
     /** Profile of the user */
+    @Id
     @Column(name = "nomprofil", nullable = false)
     private String userProfile;
     
     /** UID of the user linked to the profile */
+    @Id
     @Column(name = "uid", nullable = false)
     private String userUid;
 

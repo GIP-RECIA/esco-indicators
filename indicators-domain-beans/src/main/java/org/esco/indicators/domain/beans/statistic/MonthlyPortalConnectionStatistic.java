@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -64,6 +65,7 @@ import org.apache.log4j.Logger;
 	    ) 
 })
 @Table(name = "connexionprofilmois")
+@IdClass(value = MonthlyPortalConnectionStatisticId.class)
 public class MonthlyPortalConnectionStatistic implements Serializable {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
@@ -74,32 +76,31 @@ public class MonthlyPortalConnectionStatistic implements Serializable {
     @Transient
     private static final long serialVersionUID = -6504311334614725517L;
     
-    /** Generated identifier */
-    @Id
-    @GeneratedValue
-    private long id;
-    
     /** Average duration of the p session on the portal */
-    @Column(name = "moyenneconnexionmois")
+    @Column(name = "moyenneconnexion")
     private Double averageDuration;
     
     /** UAI of the establishment */
+    @Id
     @Column(name = "uai")
     private String establishmentUai;
     
     /** First day of the month */
+    @Id
     @Column(name = "mois", nullable = false)
     private Date firstMonthDay;
     
     /** Number of connections of the profile on the portal */
-    @Column(name = "nbconnexionmois")
+    @Id
+    @Column(name = "nbconnexion")
     private Integer numConnections;
     
         /** Number of users */
-    @Column(name = "nbpersonnemois")
+    @Column(name = "nbpersonne")
     private Integer numUsers;
     
     /** Profile of the user */
+    @Id
     @Column(name = "nomprofil", nullable = false)
     private String userProfile;
 
