@@ -49,12 +49,59 @@ public class MonthlyPortalConnectionStatisticId implements Serializable {
     @Column(name = "nomprofil", nullable = false)
     private String userProfile;
 
-    
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     
     //--------------------------------------------------------------------------- GETTERS / SETTERS
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((establishmentUai == null) ? 0 : establishmentUai.hashCode());
+	result = prime * result + ((firstMonthDay == null) ? 0 : firstMonthDay.hashCode());
+	result = prime * result + ((numConnections == null) ? 0 : numConnections.hashCode());
+	result = prime * result + ((userProfile == null) ? 0 : userProfile.hashCode());
+	return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	MonthlyPortalConnectionStatisticId other = (MonthlyPortalConnectionStatisticId) obj;
+	if (establishmentUai == null) {
+	    if (other.establishmentUai != null)
+		return false;
+	} else if (!establishmentUai.equals(other.establishmentUai))
+	    return false;
+	if (firstMonthDay == null) {
+	    if (other.firstMonthDay != null)
+		return false;
+	} else if (!firstMonthDay.equals(other.firstMonthDay))
+	    return false;
+	if (numConnections == null) {
+	    if (other.numConnections != null)
+		return false;
+	} else if (!numConnections.equals(other.numConnections))
+	    return false;
+	if (userProfile == null) {
+	    if (other.userProfile != null)
+		return false;
+	} else if (!userProfile.equals(other.userProfile))
+	    return false;
+	return true;
+    }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
 

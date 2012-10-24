@@ -41,13 +41,47 @@ public class AccountActivationId implements Serializable {
     @Column(name = "uid", nullable = false)
     private String userUid;
 
-    
     //-------------------------------------------------------------------------------- CONSTRUCTORS
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((activationStart == null) ? 0 : activationStart.hashCode());
+	result = prime * result + ((userUid == null) ? 0 : userUid.hashCode());
+	return result;
+    }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	AccountActivationId other = (AccountActivationId) obj;
+	if (activationStart == null) {
+	    if (other.activationStart != null)
+		return false;
+	} else if (!activationStart.equals(other.activationStart))
+	    return false;
+	if (userUid == null) {
+	    if (other.userUid != null)
+		return false;
+	} else if (!userUid.equals(other.userUid))
+	    return false;
+	return true;
+    }
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
     //------------------------------------------------------------------------------ STATIC METHODS

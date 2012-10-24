@@ -43,13 +43,56 @@ public class EstablishmentVisitStatisticId implements Serializable {
     /** UAI of the establishment */
     @Column(name = "uai", nullable = false)
     private String establishmentUai;
-    
+
     //-------------------------------------------------------------------------------- CONSTRUCTORS
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((day == null) ? 0 : day.hashCode());
+	result = prime * result + ((establishmentType == null) ? 0 : establishmentType.hashCode());
+	result = prime * result + ((establishmentUai == null) ? 0 : establishmentUai.hashCode());
+	return result;
+    }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	EstablishmentVisitStatisticId other = (EstablishmentVisitStatisticId) obj;
+	if (day == null) {
+	    if (other.day != null)
+		return false;
+	} else if (!day.equals(other.day))
+	    return false;
+	if (establishmentType == null) {
+	    if (other.establishmentType != null)
+		return false;
+	} else if (!establishmentType.equals(other.establishmentType))
+	    return false;
+	if (establishmentUai == null) {
+	    if (other.establishmentUai != null)
+		return false;
+	} else if (!establishmentUai.equals(other.establishmentUai))
+	    return false;
+	return true;
+    }
+    
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
     //------------------------------------------------------------------------------ STATIC METHODS

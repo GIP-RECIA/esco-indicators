@@ -58,6 +58,60 @@ public class ServiceConnectionStatisticId implements Serializable {
     //--------------------------------------------------------------------------- GETTERS / SETTERS
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((day == null) ? 0 : day.hashCode());
+	result = prime * result + ((establishmentUai == null) ? 0 : establishmentUai.hashCode());
+	result = prime * result + ((serviceName == null) ? 0 : serviceName.hashCode());
+	result = prime * result + ((userProfile == null) ? 0 : userProfile.hashCode());
+	result = prime * result + ((userUid == null) ? 0 : userUid.hashCode());
+	return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	ServiceConnectionStatisticId other = (ServiceConnectionStatisticId) obj;
+	if (day == null) {
+	    if (other.day != null)
+		return false;
+	} else if (!day.equals(other.day))
+	    return false;
+	if (establishmentUai == null) {
+	    if (other.establishmentUai != null)
+		return false;
+	} else if (!establishmentUai.equals(other.establishmentUai))
+	    return false;
+	if (serviceName == null) {
+	    if (other.serviceName != null)
+		return false;
+	} else if (!serviceName.equals(other.serviceName))
+	    return false;
+	if (userProfile == null) {
+	    if (other.userProfile != null)
+		return false;
+	} else if (!userProfile.equals(other.userProfile))
+	    return false;
+	if (userUid == null) {
+	    if (other.userUid != null)
+		return false;
+	} else if (!userUid.equals(other.userUid))
+	    return false;
+	return true;
+    }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
