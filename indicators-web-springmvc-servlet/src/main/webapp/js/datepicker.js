@@ -56,6 +56,8 @@ $(document).ready(function() {
                 $(this).datepicker("setDate", new Date(year,month,day));
                 // Force minimum end date
                 forceMinimumEndDate(year, month, day);
+                // Show / Hide the endDatePicker
+                $("[value='" + MONITORING_ATTENDANCE.name + "']").change();
             }
     });
     
@@ -103,7 +105,6 @@ $(document).ready(function() {
             $("#endDatePicker").next("img").hide();
         }
     });
-    $("[value='" + MONITORING_ATTENDANCE.name + "']").change();
 
 
     $("[value='" + ATTENDANCE.name + "']").change(function() {
@@ -143,6 +144,7 @@ $(document).ready(function() {
     // the date formats
     ///////////////////////////////////////////////////////
     hideCalendars();
+    $("[value='" + MONITORING_ATTENDANCE.name + "']").change();
     $("[name='" + ESTAB_TYPES.name + "']").change();
 
 });
