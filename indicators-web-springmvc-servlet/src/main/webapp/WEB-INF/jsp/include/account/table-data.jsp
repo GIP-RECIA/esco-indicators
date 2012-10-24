@@ -15,19 +15,19 @@
                 <c:out value="${statistic.activeAccountNumber}"/>
             </td>
             <td>
-                <c:out value="${statistic.percentageActiveAccount}"/>
+                <fmt:formatNumber pattern="###.##" value="${statistic.percentageActiveAccount}" />
             </td>
             <td>
                 <c:out value="${statistic.numVisitorsBelowTreshold}"/>
             </td>
             <td>
-                <c:out value="${statistic.percentageNumVisitorsBelowTreshold}"/>
+                <fmt:formatNumber pattern="###.##" value="${statistic.percentageNumVisitorsBelowTreshold}" />
             </td>
             <td>
                 <c:out value="${statistic.numVisitorsAboveTreshold}"/>
             </td>
             <td>
-                <c:out value="${statistic.percentageNumVisitorsAboveTreshold}"/>
+                <fmt:formatNumber pattern="###.##" value="${statistic.percentageNumVisitorsAboveTreshold}" />
             </td>
         </c:forEach>
         
@@ -40,19 +40,19 @@
             <c:out value="${statistic.activeAccountNumber}"/>
         </td>
         <td>
-            <c:out value="${statistic.percentageActiveAccount}"/>
+            <fmt:formatNumber pattern="###.##" value="${statistic.percentageActiveAccount}" />
         </td>
         <td>
             <c:out value="${statistic.numVisitorsBelowTreshold}"/>
         </td>
         <td>
-            <c:out value="${statistic.percentageNumVisitorsBelowTreshold}"/>
+            <fmt:formatNumber pattern="###.##" value="${statistic.percentageNumVisitorsBelowTreshold}" />
         </td>
         <td>
             <c:out value="${statistic.numVisitorsAboveTreshold}"/>
         </td>
         <td>
-            <c:out value="${statistic.percentageNumVisitorsAboveTreshold}"/>
+            <fmt:formatNumber pattern="###.##" value="${statistic.percentageNumVisitorsAboveTreshold}" />
         </td>
         <td>
             <c:out value="${statistic.numVisits}"/>
