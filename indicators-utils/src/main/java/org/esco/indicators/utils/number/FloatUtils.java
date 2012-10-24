@@ -23,7 +23,9 @@ public class FloatUtils {
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**
      * Computes and returns the percentage calculated from the
-     * specified numerator and denominator.
+     * specified numerator and denominator.<br/>
+     * 
+     * The computed percentage is a {@link Float} contained in the range : [0,100].<br/>
      * 
      * @param numerator
      * 			The numerator.
@@ -50,7 +52,7 @@ public class FloatUtils {
 	    LOGGER.warn("The percentage cannot be calculated because the numerator / denominator is undefined.");
 	    return new Float(0);
 	}
-	return percent;
+	return (percent * 100);
     }
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
