@@ -9,7 +9,7 @@
         <p>
             <a href="./welcome"><spring:message code="menu.home"/></a> > 
             <a href="./services"><spring:message code="menu.services"/></a> >
-            <spring:message code="menu.accounts-activations"/>
+            <spring:message code="menu.services"/>
         </p>
     <hr/>
 </div>
