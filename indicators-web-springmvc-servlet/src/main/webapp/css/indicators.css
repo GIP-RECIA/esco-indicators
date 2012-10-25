@@ -61,12 +61,9 @@ ul {
 
 #establishmentsListContainer {
   height: 25%;
+	margin: 0;
   overflow: auto;
   width: 100%;
-}
-
-#establishmentsListContainer table {
-    margin: 0;
 }
 
 #menu {
