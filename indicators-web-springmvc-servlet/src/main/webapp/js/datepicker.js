@@ -137,6 +137,8 @@ $(document).ready(function() {
             // Hide the days when the calendar is selected
             hideCalendars();
         }
+        // Hide / Show the calendar icon for the endDatePicker
+        $("[value='" + MONITORING_ATTENDANCE.name + "']").change();
     });
         
     ///////////////////////////////////////////////////////
