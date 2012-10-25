@@ -4,6 +4,7 @@
 package org.esco.indicators.web.springmvc.controller.basic;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.people.User;
 import org.esco.indicators.domain.beans.permission.GenericFilter;
+import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.services.auth.Authenticator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -79,6 +81,24 @@ public class BasicController {
 	}
 	
 	return allowedProperties;
+    }
+    
+    /**
+     * Populate the number of establishments that can be viewed by the authenticated user.<br/>
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the number of viewable establishments.<br/>
+     * 	The number 0 if the number can be retrieved properly.
+     */
+    @ModelAttribute("numAllowedEstablishments")
+    public int populateAllowedEstablishments(HttpServletRequest request) {
+ 	List<Establishment> allowedEstablishments = authenticator.getAllowedEstablishments();
+ 	if(allowedEstablishments == null) {
+ 	    return 0;
+ 	}
+ 	return allowedEstablishments.size();
     }
  	
     /**
