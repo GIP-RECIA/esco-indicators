@@ -40,7 +40,7 @@
                 <c:out value="${periodRow.activeAccountNumber}"/>
             </td>
             <td>
-                <fmt:formatNumber pattern="###.##" value="${statistic.percentageActiveAccount}" />
+                <fmt:formatNumber pattern="###.##" value="${periodRow.percentageActiveAccount}" />
             </td>
                     
             <%-- For each service --%>

@@ -13,7 +13,7 @@
             <c:out value="${item.activeAccountNumber}"/>
         </td>
         <td>
-           <fmt:formatNumber pattern="###.##" value="${statistic.percentageActiveAccount}" />
+           <fmt:formatNumber pattern="###.##" value="${item.percentageActiveAccount}" />
         </td>
         
         <%-- Statistic data --%>
