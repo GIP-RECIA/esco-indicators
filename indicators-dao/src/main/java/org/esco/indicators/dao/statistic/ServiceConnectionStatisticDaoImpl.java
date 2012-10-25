@@ -148,4 +148,15 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
     // ----------------------------------------------------------------------------- PRIVATE METHODS
     
     // ------------------------------------------------------------------------------ STATIC METHODS
+    /**
+     * Logs the query, and its parameters, in order to make easy debugging.
+     * 
+     * @param query
+     * 			The query to log.
+     * @param parameters
+     * 			The parameters of the query.
+     */
+    private static void logQuery(String query, Parameters parameters) {
+	LOGGER.debug("Name of the executed query : [" + query + "] and its parameters : [" + parameters +"]");
+    }
 }
