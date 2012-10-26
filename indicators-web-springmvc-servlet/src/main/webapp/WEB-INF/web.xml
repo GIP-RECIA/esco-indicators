@@ -101,6 +101,10 @@
 	    <param-name>casServerUrlPrefix</param-name>
 	    <param-value>https://localhost/cas</param-value>
 	  </init-param>
+      <init-param>
+        <param-name>redirectAfterValidation</param-name>
+        <param-value>false</param-value>
+      </init-param>
 	  <init-param>
 	    <param-name>serverName</param-name>
 	    <param-value>https://localhost</param-value>
