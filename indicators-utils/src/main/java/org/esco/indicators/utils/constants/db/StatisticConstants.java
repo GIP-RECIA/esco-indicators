@@ -21,14 +21,14 @@ public class StatisticConstants {
      * Value indicating that the statistic is not an aggregation nor a sum of others statistics.<br/>
      * In this case the statistic contains informations concerning only one establishment.
      */
-    public static final String TYPE_STAT_ESTABLISHMENT = "Etablissement";
+    public static final String TYPE_STAT_ESTABLISHMENT = "TOTAL_UN_ETABLISSEMENT";
     
     /**
      * Value indicating that the statistic is an aggregation or a sum made on a county number and an
      * establishment type.<br/>
      * In this case the establishmentUai field is used to store the county number used to made the sum.
      */
-    public static final String TYPE_STAT_SUM_ONE_COUNTY_ONE_ESTABLISHMENT_TYPE = "DeptType";
+    public static final String TYPE_STAT_SUM_ONE_COUNTY_ONE_ESTABLISHMENT_TYPE = "TOTAL_UN_TYPE_ETABLISSEMENT_DANS_UN_DEPARTEMENT";
     
     /** 
      * Value indicating that the statistic is an aggregation or a sum made on a county number.<br/>
@@ -36,19 +36,19 @@ public class StatisticConstants {
      * county number are aggregated.<br/>
      * In this case the establishmentUai field is used to store the county number used to made the sum.
      */
-    public static final String TYPE_STAT_SUM_ONE_COUNTY = "DeptTotal";
+    public static final String TYPE_STAT_SUM_ONE_COUNTY = "TOTAL_UN_DEPARTEMENT";
     
     /** 
      * Value indicating that the statistic is an aggregation or a sum made on an establishment type.<br/>
      * In this case the county number is not considered and all the establishments associated to the
      * establishment type are aggregated.
      */
-    public static final String TYPE_STAT_SUM_ONE_ESTABLISHMENT_TYPE = "TotalType";
+    public static final String TYPE_STAT_SUM_ONE_ESTABLISHMENT_TYPE = "TOTAL_UN_TYPE_ETABLISSEMENT";
     
     /** 
      * Value indicating that the statistic is an aggregation or a sum made on all the establishment types
      * and all the counties .<br/>
      */
-    public static final String TYPE_STAT_SUM_ALL_COUNTIES_AND_ESTABLISHMENT_TYPES = "TotalTotal";
+    public static final String TYPE_STAT_SUM_ALL_COUNTIES_AND_ESTABLISHMENT_TYPES = "TOTAL_GLOBAL";
     
 }
