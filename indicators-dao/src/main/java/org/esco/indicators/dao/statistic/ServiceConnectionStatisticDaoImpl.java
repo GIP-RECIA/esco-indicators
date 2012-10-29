@@ -90,8 +90,7 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
 	parameters.put("treshold", treshold);
 
 	// Retrieval of the statistic
-	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
-	Integer numVisitors = (result != null ? result.intValue() : null);
+	Integer numVisitors = (Integer) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
 
 	return numVisitors;
     }
@@ -115,8 +114,7 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
 	parameters.put("treshold", treshold);
 
 	// Retrieval of the statistic
-	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
-	Integer numVisitors = (result != null ? result.intValue() : null);
+	Integer numVisitors = (Integer) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
 
 	return numVisitors;
     }
