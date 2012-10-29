@@ -35,19 +35,23 @@ import org.hibernate.annotations.NaturalId;
 	    ),
    @NamedQuery(
 	    name = "ServiceConnectionStatistic.findNumVisitorsAboveTreshold",
-	    query = "SELECT COUNT( DISTINCT scs.userUid ) FROM ServiceConnectionStatistic scs"
-	    		+ " WHERE scs.establishmentUai IN ( :establishmentUaiList )"
-	    		+ " AND scs.serviceName IN ( :serviceNameList ) AND scs.userProfile = :userProfile"
-	    		+ " AND scs.numConnections > :treshold"
-	    		+ " AND scs.day BETWEEN :startDate AND :endDate"
+	    query = "SELECT COUNT( scs.userUid ) FROM ServiceConnectionStatistic scs "
+	    			+ "WHERE scs.userUid IN "
+        	    			+"( SELECT scsAbove.userUid FROM ServiceConnectionStatistic scsAbove"
+        		    		+ " WHERE scsAbove.establishmentUai IN ( :establishmentUaiList )"
+        		    		+ " AND scsAbove.serviceName IN ( :serviceNameList ) AND scsAbove.userProfile = :userProfile"
+        		    		+ " AND scsAbove.day BETWEEN :startDate AND :endDate"
+        		    		+ " GROUP BY scsAbove.userUid HAVING SUM( scsAbove.numConnections ) > :treshold )"
 	    ),
     @NamedQuery(
 	    name = "ServiceConnectionStatistic.findNumVisitorsBelowTreshold",
-	    query = "SELECT COUNT( DISTINCT scs.userUid ) FROM ServiceConnectionStatistic scs"
-	    		+ " WHERE scs.establishmentUai IN ( :establishmentUaiList )"
-	    		+ " AND scs.serviceName IN ( :serviceNameList ) AND scs.userProfile = :userProfile"
-	    		+ " AND scs.numConnections <= :treshold"
-	    		+ " AND scs.day BETWEEN :startDate AND :endDate"
+		    query = "SELECT COUNT( scs.userUid ) FROM ServiceConnectionStatistic scs "
+	    			+ "WHERE scs.userUid IN "
+    	    			+"( SELECT scsBelow.userUid FROM ServiceConnectionStatistic scsBelow"
+    		    		+ " WHERE scsBelow.establishmentUai IN ( :establishmentUaiList )"
+    		    		+ " AND scsBelow.serviceName IN ( :serviceNameList ) AND scsBelow.userProfile = :userProfile"
+    		    		+ " AND scsBelow.day BETWEEN :startDate AND :endDate"
+    		    		+ " GROUP BY scsBelow.userUid HAVING SUM( scsBelow.numConnections ) <= :treshold )"
 	    ),
   @NamedQuery(
 	    name = "ServiceConnectionStatistic.findNumVisits",
