@@ -81,7 +81,7 @@ ul {
 
 #menu img:hover {
 	background: #666666;
-	border: 1px solid #000000;
+	border: none;
 }
 
 #menu li { 
