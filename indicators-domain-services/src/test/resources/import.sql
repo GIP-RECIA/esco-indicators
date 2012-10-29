@@ -11,7 +11,7 @@ INSERT INTO est_activee (uid, datedebutactivation, datefinactivation) VALUES ('F
 INSERT INTO est_activee (uid, datedebutactivation, datefinactivation) VALUES ('F8654397U', '2012-01-19', '2012-02-20');
 
 -- NOMBRE DE VISITEURS
-INSERT INTO nombredevisiteurs (jour, typeetab, typestat, uai, nbvisites, nbvisiteurs) VALUES ('2012-05-28', 'CFA', 'Etablissement', '0453456A', '450', '60');
+INSERT INTO nombredevisiteurs (jour, typeetab, typestat, uai, nbvisites, nbvisiteurs) VALUES ('2012-05-28', 'CFA', 'TOTAL_UN_ETABLISSEMENT', '0453456A', '450', '60');
 
 -- PROFILS UTILISATEURS
 INSERT INTO acommeprofil (uai, uid, nomprofil, datedebutprofil, datefinprofil) VALUES ('0453456A', 'F1234567X', 'Teacher', '2011-03-18', '2012-07-13');
