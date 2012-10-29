@@ -87,10 +87,11 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
 	parameters.put("endDate", endDay);
 	parameters.put("serviceNameList", servicesNames);
 	parameters.put("userProfile", userProfile);
-	parameters.put("treshold", treshold);
+	parameters.put("treshold", treshold.longValue());
 
 	// Retrieval of the statistic
-	Integer numVisitors = (Integer) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Integer numVisitors = (result != null ? result.intValue() : null);
 
 	return numVisitors;
     }
@@ -111,10 +112,11 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
 	parameters.put("endDate", endDay);
 	parameters.put("serviceNameList", servicesNames);
 	parameters.put("userProfile", userProfile);
-	parameters.put("treshold", treshold);
+	parameters.put("treshold", treshold.longValue());
 
 	// Retrieval of the statistic
-	Integer numVisitors = (Integer) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Integer numVisitors = (result != null ? result.intValue() : null);
 
 	return numVisitors;
     }
