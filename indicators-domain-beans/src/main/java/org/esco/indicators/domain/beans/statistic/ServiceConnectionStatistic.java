@@ -35,7 +35,7 @@ import org.hibernate.annotations.NaturalId;
 	    ),
    @NamedQuery(
 	    name = "ServiceConnectionStatistic.findNumVisitorsAboveTreshold",
-	    query = "SELECT COUNT( scs.userUid ) FROM ServiceConnectionStatistic scs "
+	    query = "SELECT COUNT( DISTINCT scs.userUid ) FROM ServiceConnectionStatistic scs "
 	    			+ "WHERE scs.userUid IN "
         	    			+"( SELECT scsAbove.userUid FROM ServiceConnectionStatistic scsAbove"
         		    		+ " WHERE scsAbove.establishmentUai IN ( :establishmentUaiList )"
@@ -45,7 +45,7 @@ import org.hibernate.annotations.NaturalId;
 	    ),
     @NamedQuery(
 	    name = "ServiceConnectionStatistic.findNumVisitorsBelowTreshold",
-		    query = "SELECT COUNT( scs.userUid ) FROM ServiceConnectionStatistic scs "
+		    query = "SELECT COUNT( DISTINCT scs.userUid ) FROM ServiceConnectionStatistic scs "
 	    			+ "WHERE scs.userUid IN "
     	    			+"( SELECT scsBelow.userUid FROM ServiceConnectionStatistic scsBelow"
     		    		+ " WHERE scsBelow.establishmentUai IN ( :establishmentUaiList )"
