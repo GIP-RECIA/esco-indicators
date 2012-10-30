@@ -50,6 +50,9 @@ public class EstablishmentAccountValidator implements Validator {
 	/////////////////////////////////////////////////////////////
 	ValidationUtils.rejectIfEmpty(errors, DataFormConstants.MONITORING_TYPE, "error.form.monitoringType.empty");
 	ValidationUtils.rejectIfEmpty(errors, DataFormConstants.START_DATE, "error.form.startDate.empty");
+	ValidationUtils.rejectIfEmpty(errors, DataFormConstants.ESTABLISHMENTS_TYPES, "error.form.establishmentsTypes.empty");
+	ValidationUtils.rejectIfEmpty(errors, DataFormConstants.USERS_PROFILES, "error.form.usersProfiles.empty");
+	ValidationUtils.rejectIfEmpty(errors, DataFormConstants.ESTABLISHMENTS, "error.form.establishments.empty");
 
 	/////////////////////////////////////////
 	// Validation of :
