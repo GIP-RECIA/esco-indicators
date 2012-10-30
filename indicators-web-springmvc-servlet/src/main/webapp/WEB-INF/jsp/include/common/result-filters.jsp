@@ -14,18 +14,24 @@
         </span>
     </p> 
 
-    <p>
-        <span>
-            <spring:message code="filter.title.establishmentType" /> :
-        <span>
-        <span class="filterContent">
-            <spring:message code="${estbalishmentsTypesItems[0]}" />
-            <c:forEach var="item" items="${estbalishmentsTypesItems}" begin="1" end="${fn:length(estbalishmentsTypesItems)}">
-                + <spring:message code="${item}" />
-            </c:forEach>
-        </span>
-    </p>
-    
+    <%-- #################################################### --%>
+    <%-- DEFINED ESTABLISHMENTS TYPES ? --%>
+    <%-- #################################################### --%>
+    <c:if test="${not empty estbalishmentsTypesItems}">
+        <p>
+            <span>
+                <spring:message code="filter.title.establishmentType" /> :
+            <span>
+            <span class="filterContent">
+                <spring:message code="${estbalishmentsTypesItems[0]}" />
+                <c:forEach var="item" items="${estbalishmentsTypesItems}" begin="1" end="${fn:length(estbalishmentsTypesItems)}">
+                    + <spring:message code="${item}" />
+                </c:forEach>
+            </span>
+        </p>
+    </c:if>
+    <%-- #################################################### --%>
+
     <p>
         <span>
             <spring:message code="form.startDate.DEFAULT" /> : 
@@ -50,17 +56,23 @@
     </c:if>
     <%-- #################################################### --%>
     
-    <p>
-        <span>
-            <spring:message code="filter.title.userProfile" /> : 
-        </span>
-        <span class="filterContent">
-            <spring:message code="${usersProfilesItems[0]}" />
-            <c:forEach var="item" items="${usersProfilesItems}" begin="1" end="${fn:length(usersProfilesItems)}">
-                + <spring:message code="${item}" />
-            </c:forEach>
-        </span>
-    </p>
+    <%-- #################################################### --%>
+    <%-- DEFINED USERS PROFILES ? --%>
+    <%-- #################################################### --%>
+    <c:if test="${not empty usersProfilesItems}">
+        <p>
+            <span>
+                <spring:message code="filter.title.userProfile" /> : 
+            </span>
+            <span class="filterContent">
+                <spring:message code="${usersProfilesItems[0]}" />
+                <c:forEach var="item" items="${usersProfilesItems}" begin="1" end="${fn:length(usersProfilesItems)}">
+                    + <spring:message code="${item}" />
+                </c:forEach>
+            </span>
+        </p>
+    </c:if>
+    <%-- #################################################### --%>
     
     <p>
         <%-- #################################################### --%>
@@ -77,12 +89,14 @@
         </c:if>
         <%-- #################################################### --%>
         <c:if test="${empty sumOnCountiesItem}">
-            <span>
-                <spring:message code="filter.title.county" /> : 
-            </span>
-            <span class="filterContent">
-                <spring:message code="${countyItem}" />
-            </span>
+            <c:if test="${not empty countyItem}">
+                <span>
+                    <spring:message code="filter.title.county" /> : 
+                </span>
+                <span class="filterContent">
+                    <spring:message code="${countyItem}" />
+                </span>
+            </c:if>
         </c:if>
     </p>    
 
