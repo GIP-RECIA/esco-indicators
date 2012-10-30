@@ -47,6 +47,11 @@ public class ServicesConstants {
     public static final String LDAP_USER_UID = "uid";
     
     /**
+     * LDAP attribute containing the UAi of the user establishment.
+     */
+    public static final String LDAP_USER_ESTABLISHMENT_UAI = "ESCOUAICourant";
+    
+    /**
      * LDAP attribute containing the user groups.
      */
     public static final String LDAP_USER_GROUPS = "isMemberOf";
