@@ -3,13 +3,19 @@
  */
 package org.esco.indicators.web.springmvc.controller.account.form;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
 import org.esco.indicators.domain.beans.form.BasicForm;
+import org.esco.indicators.domain.beans.form.FormField;
 import org.esco.indicators.domain.beans.people.User;
+import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.services.form.DataFormService;
+import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController;
@@ -44,6 +50,10 @@ public class EstablishmentFormAccountController extends BasicFormController  {
     /** Validator of the form */
     @Autowired
     private EstablishmentAccountValidator establishmentAccountValidator;
+    
+    /** Establishment service */
+    @Autowired
+    private EstablishmentService establishmentService;
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
@@ -117,6 +127,42 @@ public class EstablishmentFormAccountController extends BasicFormController  {
         // If the user has not the permission to view establishment information
 	return "access-denied";
     }
+    
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#populateEstablishments(javax.servlet.http.HttpServletRequest)
+     */
+    @Override
+    @ModelAttribute("establishmentsItems")
+    public List<FormField> populateEstablishments(HttpServletRequest request) {
+	// Fields for the establishment
+	List<FormField> establishmentsField = new ArrayList<FormField>();
+	
+	// Puts the UAI of the establishment
+	String establishmentUai = authenticator.getUser().getEstablishmentUAI();
+	FormField establishmentField = new FormField(establishmentUai, establishmentUai);
+ 	establishmentsField.add(establishmentField);
+ 	
+	return  establishmentsField;
+    }
+    
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#populateEstablishmentsTypes(javax.servlet.http.HttpServletRequest)
+     */
+   @Override
+   @ModelAttribute("establishmentsTypesItems")
+   public List<FormField> populateEstablishmentsTypes(HttpServletRequest request) {
+	// Final result
+	List<FormField> formFields = new ArrayList<FormField>();
+	
+	// Retrieval of the current establishment type
+	String establishmentUai = authenticator.getUser().getEstablishmentUAI();
+	Establishment establishment = establishmentService.findEstablishmentByUai(establishmentUai);
+	if(establishment != null) {
+	    FormField establishmentField = new FormField(establishment.getName(), establishment.getType());
+	    formFields.add(establishmentField);
+	}
+	return  formFields;
+   }
     
     /**
      * Validates and processes the submitted form.
