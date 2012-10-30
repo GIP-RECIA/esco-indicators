@@ -22,12 +22,13 @@
     <%-- Hidden fields for the establishment --%>
     <%@ include file="/WEB-INF/jsp/include/common/form-establishment-hidden-fields.jsp"%>
     
+    <%-- Submission buttion --%>
+    <%@ include file="/WEB-INF/jsp/include/common/form-submit.jsp"%>
+
     <%-- Empty div for displaying the datepicker below the input and not abov --%>
     <div id="datePickerSpace">
     </div>
     
-    <%-- Submission buttion --%>
-    <%@ include file="/WEB-INF/jsp/include/common/form-submit.jsp"%>
 </form:form>
 
 <%-- SCRIPTS --%>
