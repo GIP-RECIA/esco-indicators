@@ -36,7 +36,10 @@ public class User implements Serializable {
      
      /** User UID */
      private String uid;
-
+     
+     /** UAI of the user establishment */
+     private String establishmentUAI;
+     
      //-------------------------------------------------------------------------------- CONSTRUCTORS
      /**
       * Default constructor of the {@link User} class.<br/>
@@ -56,11 +59,14 @@ public class User implements Serializable {
      * 			The login of the user.
      * @param uid
      * 			The UID of the user.
+     * @param establishmentUAI
+     * 			The UAI of the user establishment.
       */
-    public User(String displayName, String login, String uid) {
+    public User(String displayName, String login, String uid, String establishmentUAI) {
 	 this.displayName = displayName;
 	 this.login = login;
 	 this.uid = uid;
+	 this.establishmentUAI = establishmentUAI;
 	 this.groups = new ArrayList<Group>();
      }
      
@@ -107,6 +113,26 @@ public class User implements Serializable {
 
      
      /**
+      * Gets the UAI of the establishment user.
+      * 
+     * @return 
+     * 	the UAI of the establishment user.
+     */
+    public String getEstablishmentUAI() {
+        return establishmentUAI;
+    }
+
+    /**
+     * Sets the UAI of the establishment user.
+     * 
+     * @param establishmentUAI 
+     * 			the UAI of the establishment user to set.
+     */
+    public void setEstablishmentUAI(String establishmentUAI) {
+        this.establishmentUAI = establishmentUAI;
+    }
+
+    /**
       * Gets the groups of the user.
       * 
       * @return 
@@ -135,6 +161,7 @@ public class User implements Serializable {
      public void setLogin(String login) {
  	this.login = login;
      }
+
      
 
     //------------------------------------------------------------------------------ PUBLIC METHODS

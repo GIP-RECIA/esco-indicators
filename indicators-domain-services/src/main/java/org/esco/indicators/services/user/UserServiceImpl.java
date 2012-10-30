@@ -50,10 +50,11 @@ public class UserServiceImpl implements UserService {
 	String displayName = ldapUser.getAttribute(ServicesConstants.LDAP_USER_DISPLAY_NAME);
 	String login = ldapUser.getAttribute(ServicesConstants.LDAP_USER_LOGIN);
 	String uid = ldapUser.getAttribute(ServicesConstants.LDAP_USER_UID);
+	String establishmentUai = ldapUser.getAttribute(ServicesConstants.LDAP_USER_ESTABLISHMENT_UAI);
 	List<String> groupsValues = ldapUser.getAttributes(ServicesConstants.LDAP_USER_GROUPS);
 	
 	// Create the user with the informations
-	User user = new User(displayName, login, uid);
+	User user = new User(displayName, login, uid, establishmentUai);
 	if(groupsValues != null) {
         	for (String groupValue : groupsValues) {
         	    Group group = new Group(groupValue);
