@@ -13,6 +13,9 @@
         <property name="domainService" ref="domainService"/>
         <property name="establishmentPermissionService" ref="establishmentPermissionService"/>
         <property name="establishmentService" ref="establishmentService"/>
+        
+        <property name="superUserFilterPropertyName" value="type"/>
+        <property name="establishmentUaiPropertyName" value="uai"/>
     </bean>
 
     <bean id="servletAuthenticationService" lazy-init="true"

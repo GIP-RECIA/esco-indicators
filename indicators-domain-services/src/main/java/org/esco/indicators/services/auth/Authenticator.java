@@ -45,4 +45,29 @@ public interface Authenticator {
 	 */
 	public GenericFilter getEstablishmentFilter();
 	
+	/**
+	 * Indicates if the authenticated user has the permission to see informations
+	 * on the establishment having the given UAI.<br/>
+	 * 
+	 * The establishment filter is used to know if the authenticated user has
+	 * the permission, or not.
+	 * 
+	 * @param establishmentUAI
+	 * 			The UAI of the establishment.
+	 * 
+	 * @return
+	 * 	<code>true</code> if the authenticated user has the right to see informations on the establishment.<br/>
+	 * 	<code>false</code> in other cases.
+	 */
+	public boolean hasPermissionOnEstablishment(String establishmentUAI);
+	
+	/**
+	 * Indicates if the authenticated user is a super user or not regarding to the establishment filter.
+	 * 
+	 * @return
+	 * 		<code>true</code> if the authenticated user is a super user.<br/>
+	 * 		<code>false</code> in other cases.
+	 */
+	public boolean isSuperUser();
+	
 }

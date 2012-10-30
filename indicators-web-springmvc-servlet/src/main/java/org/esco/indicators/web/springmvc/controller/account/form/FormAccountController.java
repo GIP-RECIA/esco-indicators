@@ -35,10 +35,6 @@ import org.springframework.web.bind.support.SessionStatus;
  * @since  2012/06/15
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-/**
- * @since  
- * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
- */
 @Controller
 @RequestMapping("/accounts-activations")
 public class FormAccountController extends BasicFormController  {
@@ -117,7 +113,12 @@ public class FormAccountController extends BasicFormController  {
 	AccountActivationForm aaForm = new AccountActivationForm();
 	model.addAttribute("accountactivationform", aaForm);
 
-        // Return to the web page
+	// If the user is not a super user redirects him to the establishment form controller
+	if(!authenticator.isSuperUser()) {
+	    return "redirect:establishment-accounts-activations";
+	}
+	
+        // If the user is a super user
 	return "form-accounts";
     }
     

@@ -33,7 +33,7 @@ public class BasicController {
 
     /** Service providing user informations */
     @Autowired
-    private Authenticator authenticator;
+    protected Authenticator authenticator;
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**

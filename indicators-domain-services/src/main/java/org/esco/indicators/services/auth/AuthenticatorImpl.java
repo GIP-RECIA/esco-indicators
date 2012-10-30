@@ -86,6 +86,16 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	 * Service providing access to the establishments.
 	 */
 	private EstablishmentService establishmentService;
+	
+	/**
+	 * Property name of the filter indicating if the authenticated user is a super user or not.
+	 */
+	private  String superUserFilterPropertyName;
+	
+	/**
+	 * Property name containing the establishments UAI (as property values).
+	 */
+	private  String establishmentUaiPropertyName;
 
 	//-------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -106,6 +116,12 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 			"property establishmentPermissionService of class " + this.getClass().getName() + " can not be null");
 		Assert.notNull(establishmentService, 
 			"property establishmentService of class " + this.getClass().getName() + " can not be null");
+		LOGGER.debug("The authentication service set is : [" + authenticationService.getClass() +"]");
+		Assert.notNull(superUserFilterPropertyName, 
+			"property superUserFilterPropertyName of class " + this.getClass().getName() + " can not be null");
+		LOGGER.debug("The authentication service set is : [" + authenticationService.getClass() +"]");
+		Assert.notNull(establishmentUaiPropertyName, 
+			"property establishmentUaiPropertyName of class " + this.getClass().getName() + " can not be null");
 		LOGGER.debug("The authentication service set is : [" + authenticationService.getClass() +"]");
 	}
 
@@ -153,6 +169,26 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	 */
 	public void setEstablishmentService(EstablishmentService establishmentService) {
 	    this.establishmentService = establishmentService;
+	}
+
+	/**
+	 * Sets the name of the property containing the establishments UAI (aproperty values).
+	 * 
+	 * @param establishmentUaiPropertyName 
+	 * 				the property name containing the establishments UAI to set.
+	 */
+	public void setEstablishmentUaiPropertyName(String establishmentUaiPropertyName) {
+	    this.establishmentUaiPropertyName = establishmentUaiPropertyName;
+	}
+
+	/**
+	 * Sets the property name used to know if the authenticated user is a super user or not.
+	 * 
+	 * @param superUserFilterPropertyName 
+	 * 				the property name (of the filter) to set.
+	 */
+	public void setSuperUserFilterPropertyName(String superUserFilterPropertyName) {
+	    this.superUserFilterPropertyName = superUserFilterPropertyName;
 	}
 	
 
@@ -257,6 +293,51 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 		return null;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.esco.indicators.services.auth.Authenticator#hasPermissionOnEstablishment(java.lang.String)
+	 */
+	@Override
+	public boolean hasPermissionOnEstablishment(String establishmentUAI) {
+	    // Gets the establishment filter
+	    GenericFilter establishmentFilter = getEstablishmentFilter();
+	    if(establishmentFilter == null) {
+		LOGGER.debug("The user has no right on the establishment [" + establishmentUAI + "], because the establishment filter can be retrieved.");
+		return false;
+	    }
+	    
+	    // Gets the allowed establishments
+	    Set<String> allowedEstablishmentsUAI = establishmentFilter.getPropertyValues(establishmentUaiPropertyName);
+	    if(allowedEstablishmentsUAI != null && allowedEstablishmentsUAI.contains(establishmentUAI) ) {
+		LOGGER.debug("The user has the right to see the establishment [" + establishmentUAI + "]");
+		return true;
+	    }
+	    
+	    LOGGER.debug("The user does not have the right to see the establishment : [" + establishmentUAI +"]");
+	    return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.esco.indicators.services.auth.Authenticator#isSuperUser()
+	 */
+	@Override
+	public boolean isSuperUser() {
+	    // Gets the establishment filter
+	    GenericFilter establishmentFilter = getEstablishmentFilter();
+	    if(establishmentFilter == null) {
+		LOGGER.debug("The user is not considered as a super user, because the establishment filter can be retrieved.");
+		return false;
+	    }
+	    
+	    // If the filter contains the super user property name
+	    if(establishmentFilter.containsPropertyValuesFor(superUserFilterPropertyName)) {
+		LOGGER.debug("The user is considered as a super user, because the establishment filter contains the property name : [" + superUserFilterPropertyName +"]");
+		return true;
+	    }
+	    
+	    LOGGER.debug("The user is not considered as a super user, because the establishment filter does not contain the property name : [" + superUserFilterPropertyName +"]");
+	    return false;
+	}
+
 	/**
 	 * @see org.esupportail.helpdesk.services.authentication.Authenticator#unsetUser()
 	 */
@@ -324,5 +405,6 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 		LOGGER.debug("Storing to session : [" + value +"] with : [" + attributeName + "]");
 		ContextUtils.setSessionAttribute(attributeName, value);
 	}
+
 	
 }

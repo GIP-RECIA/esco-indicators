@@ -68,7 +68,8 @@ public class GenericFilter implements Serializable {
      * 			The name of the property to filter.
      * 
      * @return
-     * 	the properties values associate to the property name.
+     * 	the properties values associate to the property name.<br/>
+     * 	<code>null</code> if no property value is associated to the peroperty name.
      */
     public Set<String> getPropertyValues(String propertyName) {
 	return propertiesNamesAndValues.get(propertyName);
@@ -113,6 +114,25 @@ public class GenericFilter implements Serializable {
 	propertiesNamesAndValues.put(propertyName, currentValues);
     }
 
+    /**
+     * Indicates if the filter has defined property values associated to the given property name.
+     * 
+     * @param propertyName
+     * 			The name of the property to test.
+     * 
+     * @return
+     * 	<code>true</code> if the property name has associated values.<br/>
+     * 	<code>false</code> in other cases.
+     */
+    public boolean containsPropertyValuesFor(String propertyName) {
+	// Retrieves property values
+	Set<String> propertyValues = getPropertyValues(propertyName);
+	if(propertyValues == null) {
+	    return false;
+	}
+	return propertyValues.size() > 0;
+    }
+    
     /**
      * Fuses this filter with the given one.<br/>
      * All the properties names and values of the other filter are inserted into this filter.<br/>
