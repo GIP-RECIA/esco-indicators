@@ -51,6 +51,18 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
     
+    /**
+     * Constructor of the {@link PeriodicAccountResultController} class.
+     * 
+     * @param viewName
+     * 			The view name associated to the controller.
+     * @param formSessionAttribute
+     * 			The session attribute containing the submitted form.
+     */
+    public PeriodicAccountResultDetailController(String viewName, String formSessionAttribute) {
+	super(viewName, formSessionAttribute);
+    }
+
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**
      * Populates the establishment name.
@@ -148,7 +160,7 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
 	return resultRows;
     }
     
-    //----------------------------------------------------------------------------- PRIVATE METHODS
+    //--------------------------------------------------------------------------- PROTECTED METHODS
     /**
      * Creates the result rows; each result row containing the following data :
      * <ul>
@@ -178,7 +190,7 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
      * @return
      * 	the result rows containing the data to display.
      */
-    private List<DetailResultRow> createResultRows( List<String> establishmentsTypes, String establishmentUai, List<String> usersProfiles, Date startDate, Date endDate) {
+    protected List<DetailResultRow> createResultRows( List<String> establishmentsTypes, String establishmentUai, List<String> usersProfiles, Date startDate, Date endDate) {
 	// List containing the only one establishment
 	List<String> establishmentsUai = new ArrayList<String>();
 	establishmentsUai.add(establishmentUai);
@@ -196,6 +208,25 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
 	return resultRows;
     }
     
+    /**
+     * Gets the JSP keys corresponding to all the available users profiles.
+     * 
+     * @return
+     * 	the list containing all the available users profiles JSP keys.
+     */
+    protected List<String> getAllUsersProfiles() {
+	// Final result
+	List<String> allUsersProfiles = new ArrayList<String>();
+	
+	List<EntryValue> entryValues = dataAccountFormService.getEntryValues(DataFormConstants.USERS_PROFILES);
+	for (EntryValue entryValue : entryValues) {
+	    allUsersProfiles.add(entryValue.getJspKey());
+	}
+	
+	return allUsersProfiles;
+    }
+    
+    //----------------------------------------------------------------------------- PRIVATE METHODS
     /**
      * Converts a list of {@link BasicResultRow} to a list of {@link DetailResultRow}.<br/>
      * This conversion consists in copying the statistic and establishment data, and adding the user profile associated to these statistic.
@@ -219,24 +250,6 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
 	}
 	
 	return detailResultRows;
-    }
-    
-    /**
-     * Gets the JSP keys corresponding to all the available users profiles.
-     * 
-     * @return
-     * 	the list containing all the available users profiles JSP keys.
-     */
-    private List<String> getAllUsersProfiles() {
-	// Final result
-	List<String> allUsersProfiles = new ArrayList<String>();
-	
-	List<EntryValue> entryValues = dataAccountFormService.getEntryValues(DataFormConstants.USERS_PROFILES);
-	for (EntryValue entryValue : entryValues) {
-	    allUsersProfiles.add(entryValue.getJspKey());
-	}
-	
-	return allUsersProfiles;
     }
     
     //------------------------------------------------------------------------------ STATIC METHODS
