@@ -85,11 +85,7 @@ public class EstablishmentFormAccountController extends BasicFormController  {
      */
     @Override
     public String getSuccessViewName(BasicForm validForm) {
-	String monitoringType = validForm.getMonitoringType();
-	if(monitoringType.equals(DataFormConstants.JSP_KEY_ATTENDANCE)) {
-	    return "redirect:establishment-accounts-activations-attendance-result";
-	}
-	return "redirect:establishment-accounts-activations-monitoring-attendance-result";
+	return "redirect:establishment-accounts-activations-result";
     }
 
     /* (non-Javadoc)

@@ -92,7 +92,7 @@ public class PeriodicAccountResultController extends BasicAccountResultControlle
 	
         // Retrieval of the start and end date
         Date startDate = aaForm.getStartDate();
-        Date endDate = aaForm.getEndDate();
+        Date endDate = (aaForm.getEndDate() != null ? aaForm.getEndDate() : aaForm.getStartDate());
         
         return getStatisticPeriods(establishmentsTypes, startDate, endDate);
     }

@@ -35,18 +35,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 @Controller
-@RequestMapping("/establishment-accounts-activations-monitoring-attendance-result")
-public class PeriodicEstablishmentAccountResultController extends PeriodicAccountResultDetailController {
+@RequestMapping("/establishment-accounts-activations-result")
+public class EstablishmentAccountResultController extends PeriodicAccountResultDetailController {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
-    private static final Logger LOGGER = Logger.getLogger(PeriodicEstablishmentAccountResultController.class);
+    private static final Logger LOGGER = Logger.getLogger(EstablishmentAccountResultController.class);
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
-     * Constructor of the {@link PeriodicEstablishmentAccountResultController} class.
+     * Constructor of the {@link EstablishmentAccountResultController} class.
      */
-    public PeriodicEstablishmentAccountResultController() {
-	super("establishment-accounts-activations-monitoring-attendance-result", SessionConstants.ACCOUNT_FORM_ATTR);
+    public EstablishmentAccountResultController() {
+	super("establishment-accounts-activations-result", SessionConstants.ACCOUNT_FORM_ATTR);
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
@@ -137,7 +137,7 @@ public class PeriodicEstablishmentAccountResultController extends PeriodicAccoun
 	
 	// Retrieval of the start date and end date
 	Date startDate = aaForm.getStartDate();
-	Date endDate = aaForm.getEndDate();
+	Date endDate = (aaForm.getEndDate() != null ? aaForm.getEndDate() : aaForm.getStartDate());
 	
 	// Gets the result rows to display
 	List<DetailResultRow> resultRows = createResultRows(establishmentsTypes, establishmentUai, allUsersProfiles, startDate, endDate);

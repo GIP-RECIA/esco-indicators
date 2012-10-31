@@ -32,6 +32,11 @@
                 ${establishmentName}
             </th>
         
+<%-- #################################################### --%>
+<%-- PERIODIC VIEW ? --%>
+<%-- #################################################### --%>
+<c:if test="${fn:length(statisticDataKeys) > 1}">
+
             <%-- #################################################### --%>
             <%-- WEEKLY OR MONTHLY PERIODS ? --%>
             <%-- #################################################### --%>
@@ -64,6 +69,9 @@
                 <%-- Establishment name --%>
             </th>
             
+</c:if>
+<%-- #################################################### --%>
+
             <c:forEach var="item" items="${statisticDataKeys}">
                 <th>
                     <spring:message code="result.table.totalAccount" />
