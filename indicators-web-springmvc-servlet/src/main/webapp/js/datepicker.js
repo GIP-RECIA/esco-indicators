@@ -275,6 +275,12 @@ function isDatePickersFormat(format) {
  * Function that indicates if only CFA_INPUT is checked
  */
 function onlyCfaInputChecked() {
+    // If we are on an establishment view
+    var hiddenType = $("#establishmentsTypes[value='" + CFA_INPUT.name + "']");
+    if(hiddenType.size() > 0) {
+        return true;
+    }   
+    // if we are on a super user view
     return      isChecked(CFA_INPUT.name)
             && !isChecked(COLL_INPUT.name)
             && !isChecked(LEN_INPUT.name)
