@@ -55,11 +55,11 @@ ESTAB_TYPES.name            = "establishmentsTypes";
 
 var LA_INPUT                = new Object( );
 LA_INPUT.name               = "establishmentType.LA";
-LA_INPUT.dependencies       = new Array("laTypes.LEGTA", "laTypes.LPA");
+LA_INPUT.dependencies       = new Array("establishmentType.LEGTA", "establishmentType.LPA");
 
 var LEN_INPUT               = new Object( );
 LEN_INPUT.name              = "establishmentType.LEN";
-LEN_INPUT.dependencies      = new Array("lyceesTypes.LP", "lyceesTypes.LEGT", "lyceesTypes.EREA");
+LEN_INPUT.dependencies      = new Array("establishmentType.LG", "establishmentType.LPO", "establishmentType.LP", "establishmentType.LEGT", "establishmentType.EREA");
 
 var MONITORING_ATTENDANCE   = new Object( );
 MONITORING_ATTENDANCE.name  = "monitoringType.MONITORING_ATTENDANCE";
