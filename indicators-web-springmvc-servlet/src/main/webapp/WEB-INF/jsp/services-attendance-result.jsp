@@ -26,7 +26,7 @@
         <%-- Headers : First level --%>
         <tr>
 
-            <%-- Establishlment part --%>
+            <%-- Establishment part --%>
             <%@ include file="/WEB-INF/jsp/include/common/table-header-establishment.jsp"%>
 
             <th colspan="3">

@@ -14,7 +14,9 @@ import org.esco.indicators.domain.beans.form.ServiceForm;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
+import org.esco.indicators.web.springmvc.controller.basic.form.BasicEstablishmentFormController;
 import org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController;
+import org.esco.indicators.web.springmvc.validator.service.BasicServiceValidator;
 import org.esco.indicators.web.springmvc.validator.service.ServiceValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,17 +29,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 
 /**
- * Controller that handles requests made on the form used for the wantedServices statistics.
+ * Controller that handles requests made on the form used for the wantedServices statistics for only one.
  * 
  * @since  2012/07/12
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 @Controller
-@RequestMapping("/services")
-public class FormServiceController extends BasicFormController {
+@RequestMapping("/establishment-services")
+public class EstablishmentFormServiceController extends BasicEstablishmentFormController {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
-    private static final Logger LOGGER = Logger.getLogger(FormServiceController.class);
+    private static final Logger LOGGER = Logger.getLogger(EstablishmentFormServiceController.class);
 
     /** Service providing the data for the form presenting the wantedServices statistics options */
     @Autowired
@@ -45,13 +47,13 @@ public class FormServiceController extends BasicFormController {
 
     /** Validator of the form */
     @Autowired
-    private ServiceValidator serviceValidator;
+    private BasicServiceValidator basicServiceValidator;
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
-     * Default constructor of the {@link FormServiceController} class.
+     * Default constructor of the {@link EstablishmentFormServiceController} class.
      */
-    public FormServiceController() {
+    public EstablishmentFormServiceController() {
 	super(SessionConstants.SERVICE_FORM_ATTR);
     }
     
@@ -69,7 +71,7 @@ public class FormServiceController extends BasicFormController {
      */
     @Override
     public Validator getValidator() {
-        return serviceValidator;
+        return basicServiceValidator;
     }
 
     /* (non-Javadoc)
@@ -77,7 +79,7 @@ public class FormServiceController extends BasicFormController {
      */
     @Override
     public String getFailureViewName(BasicForm unvalidForm) {
-        return "form-services";
+        return "establishment-form-services";
     }
 
     /* (non-Javadoc)
@@ -109,13 +111,8 @@ public class FormServiceController extends BasicFormController {
 	ServiceForm serviceForm = new ServiceForm();
 	model.addAttribute("serviceform", serviceForm);
 
-	// If the user is not a super user redirects him to the establishment form controller
-	if(!authenticator.isSuperUser()) {
-	    return "redirect:establishment-services";
-	}
-	
-        // If the user is a super user
-	return "form-services";
+        // Return to the web page
+	return "establishment-form-services";
     }
     
     

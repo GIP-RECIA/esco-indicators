@@ -233,9 +233,12 @@ public abstract class BasicFormController extends BasicController {
 	}
 	
 	// Validation of the form
-	getValidator().validate(form, result);
+	Validator validator = getValidator();
+	LOGGER.debug("The class of the called validator is : [" + validator.getClass() +"]");
+	validator.validate(form, result);
 	
 	if(result.hasErrors()) {
+	    LOGGER.debug("The submitted form has not been validated due to the following errors : [" + result.getFieldErrors() + "]");
 	    return getFailureViewName(form);
 	}
 	

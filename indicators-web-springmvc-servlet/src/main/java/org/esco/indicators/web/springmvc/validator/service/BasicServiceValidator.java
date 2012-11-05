@@ -21,10 +21,10 @@ import org.springframework.validation.ValidationUtils;
  * @since  2012/07/24
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public class ServiceValidator extends BasicServiceValidator {
+public class BasicServiceValidator extends BasicValidator {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
-    private static final Logger LOGGER = Logger.getLogger(ServiceValidator.class);
+    private static final Logger LOGGER = Logger.getLogger(BasicServiceValidator.class);
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -55,14 +55,23 @@ public class ServiceValidator extends BasicServiceValidator {
 	ServiceForm form = (ServiceForm) target;
 	
 	/////////////////////////////////////////////////////////////
-	// Validation of the number of selected users
-	// profiles
+	// Validation of the selected services
 	/////////////////////////////////////////////////////////////
-	String [] usersProfiles = form.getUsersProfiles();
-	Integer maxNumProfiles = FormValidationConstants.MAX_SELECTED_PROFILES_SERVICE_FORM;
-	if(usersProfiles != null && usersProfiles.length > maxNumProfiles) {
-	    // If there are more selected profiles than the maximum allowed
-	    errors.rejectValue(DataFormConstants.USERS_PROFILES, "error.form.usersProfiles.maxValue", new Object [ ] { maxNumProfiles }, "error.form.usersProfiles.maxValue");
+	ValidationUtils.rejectIfEmpty(errors, DataFormConstants.WANTED_SERVICES, "error.form.wantedServices.empty");
+	
+	String [] wantedServicesArray = form.getWantedServices();
+	if(wantedServicesArray != null) {
+	    	List<String> wantedServices = Arrays.asList(wantedServicesArray);
+        	for (String wantedService : wantedServices) {
+        	    List<String> slavesServices = DataFormConstants.MASTERS_SLAVES_SERVICES.get(wantedService);
+        	    // If the wanted service is a master service
+        	    if(slavesServices != null) {
+        		// If one of the slave service is in the wanted services
+        		if(ListUtils.haveIntersection(wantedServices, slavesServices)) {
+        		    errors.rejectValue(DataFormConstants.WANTED_SERVICES, "error.form.wantedServices.sumOnly", new Object [ ] { }, "error.form.wantedServices.sumOnly");
+        		}
+        	    }
+        	}
 	}
 	
     }
