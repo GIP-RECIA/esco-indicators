@@ -1,7 +1,7 @@
 <c:forEach var="item" items="${tableRowsItems}">
 
     <%-- First level row : User profile --%>
-    <%@ include file="/WEB-INF/jsp/include/common/table-data-establishment.jsp"%>
+    <%@ include file="/WEB-INF/jsp/include/common/table-data-user-profile.jsp"%>
     
     <%-- Second level row : Statistics for each period --%>
     
@@ -28,7 +28,7 @@
             <%-- #################################################### --%>
             
             <%-- Establishment data columns are empty --%>
-            <c:forEach var="i" begin="1" end="4">
+            <c:forEach var="i" begin="1" end="${numDataInfos - 1}">
                 <td></td>
             </c:forEach>
             

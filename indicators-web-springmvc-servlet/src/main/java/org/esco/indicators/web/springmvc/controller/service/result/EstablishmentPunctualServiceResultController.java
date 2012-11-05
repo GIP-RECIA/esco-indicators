@@ -72,31 +72,6 @@ public class EstablishmentPunctualServiceResultController extends BasicEstablish
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
     /**
-     * Converts a list of {@link ExtendedResultRows} to a list of {@link DetailResultRow}.<br/>
-     * This conversion consists in copying the statistic and establishment data, and adding the user profile associated to these statistic.
-     * 
-     * @param extendedResultRows
-     * 			The extended result rows.
-     * @param userProfile
-     * 			The user profile.
-     * 
-     * @return
-     * 	a list containing the detail result rows based on the basic ones.
-     */
-    private List<DetailResultRow> convertToDetailResultRows(List<ExtendedResultRow> extendedResultRows, String userProfile) {
-	// Final result
-	List<DetailResultRow> detailResultRows = new ArrayList<DetailResultRow>();
-	
-	// Conversion from extended to detail rows
-	for (ExtendedResultRow extendedResultRow : extendedResultRows) {
-	    DetailResultRow detailResultRow = new DetailResultRow(extendedResultRow, userProfile);
-	    detailResultRows.add(detailResultRow);
-	}
-	
-	return detailResultRows;
-    }
-    
-    /**
      * Creates the result rows; each result row containing the following data :
      * <ul>
      * 	<li>The user profile</li>

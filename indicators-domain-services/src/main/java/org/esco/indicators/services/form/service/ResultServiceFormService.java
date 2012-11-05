@@ -193,7 +193,7 @@ public interface ResultServiceFormService {
     /**
      * Gets the result rows containing the data on the establishements for the specified period (composed of months).<br/>
      * These data only concern the period beginning with the specified <code>startMonth</code> of the <code>startYear</code>, and finishing with the <code>endMonth</code> of the <code>endYear</code>.<br/>
-     * Each result row is associated to one establishment and one week, and contained two kinds of data :
+     * Each result row is associated to one establishment and one month, and contained two kinds of data :
      * <ul>
      * 	<li>The establishment data (name,...)</li>
      * 	<li>The statistic data on the services indexed by :

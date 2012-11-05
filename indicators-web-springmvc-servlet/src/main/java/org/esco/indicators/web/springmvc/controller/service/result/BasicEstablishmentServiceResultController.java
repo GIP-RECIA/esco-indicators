@@ -196,7 +196,33 @@ public abstract class BasicEstablishmentServiceResultController extends BasicRes
         
         return i18nKeys;
     }
-
+    
+    //--------------------------------------------------------------------------- PROTECTED METHODS
+    /**
+     * Converts a list of {@link ExtendedResultRows} to a list of {@link DetailResultRow}.<br/>
+     * This conversion consists in copying the statistic and establishment data, and adding the user profile associated to these statistic.
+     * 
+     * @param extendedResultRows
+     * 			The extended result rows.
+     * @param userProfile
+     * 			The user profile.
+     * 
+     * @return
+     * 	a list containing the detail result rows based on the basic ones.
+     */
+    protected List<DetailResultRow> convertToDetailResultRows(List<ExtendedResultRow> extendedResultRows, String userProfile) {
+	// Final result
+	List<DetailResultRow> detailResultRows = new ArrayList<DetailResultRow>();
+	
+	// Conversion from extended to detail rows
+	for (ExtendedResultRow extendedResultRow : extendedResultRows) {
+	    DetailResultRow detailResultRow = new DetailResultRow(extendedResultRow, userProfile);
+	    detailResultRows.add(detailResultRow);
+	}
+	
+	return detailResultRows;
+    }
+    
     /**
      * Creates the result rows; each result row containing the following data :
      * <ul>
@@ -232,7 +258,7 @@ public abstract class BasicEstablishmentServiceResultController extends BasicRes
      */
     protected abstract List<DetailResultRow> createEstablishmentResultRows( List<String> establishmentsTypes, String establishmentUai, List<String> services, List<String> userProfiles, Date startDate, Date endDate);
 
-    //--------------------------------------------------------------------------- PROTECTED METHODS
+
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
     
