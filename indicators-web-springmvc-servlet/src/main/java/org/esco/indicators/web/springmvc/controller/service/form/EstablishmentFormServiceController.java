@@ -91,7 +91,7 @@ public class EstablishmentFormServiceController extends BasicEstablishmentFormCo
 	if(monitoringType.equals(DataFormConstants.JSP_KEY_ATTENDANCE)) {
 	    return "redirect:establishment-services-attendance-result";
 	}
-	return "redirect:services-monitoring-attendance-result";
+	return "redirect:establishment-services-monitoring-attendance-result";
     }
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
