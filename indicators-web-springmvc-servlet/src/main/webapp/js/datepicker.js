@@ -103,6 +103,7 @@ $(document).ready(function() {
         } else {
             $("#endDatePicker").hide();
             $("#endDatePicker").next("img").hide();
+						$("#endDate").prop("value","");
         }
     });
 
@@ -112,6 +113,7 @@ $(document).ready(function() {
         if(isChecked(ATTENDANCE.name)) {
             $("#endDatePicker").hide();
             $("#endDatePicker").next("img").hide();
+            $("#endDate").prop("value","");
         } else {
             $("#endDatePicker").show();
             $("#endDatePicker").next("img").show();
