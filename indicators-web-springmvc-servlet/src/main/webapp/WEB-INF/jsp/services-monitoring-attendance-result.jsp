@@ -26,7 +26,7 @@
         <tr>
 
             <%-- Establishlment part --%>
-            <%@ include file="/WEB-INF/jsp/include/common/table-header-establishment.jsp"%>
+            <%@ include file="/WEB-INF/jsp/include/common/table-header-establishment-infos.jsp"%>
 
             <th colspan="3">
                 <spring:message code="result.table.accountActivation" />
@@ -43,7 +43,7 @@
         
         <%-- Headers : Second level --%>
         <tr>
-            <c:forEach var="i" begin="1" end="5">
+            <c:forEach var="i" begin="1" end="${numDataInfos}">
                 <th>
                     <%-- Establishment data --%>
                 </th>
@@ -69,7 +69,7 @@
         
         <%-- Headers : Third level --%>
         <tr>
-            <c:forEach var="i" begin="1" end="6">
+            <c:forEach var="i" begin="1" end="${numDataInfos + 1}">
                 <th>
                     <%-- Establishment data + total account --%>
                 </th>
@@ -98,7 +98,7 @@
         
         <%-- Headers : Fourth level --%>
         <tr>
-            <c:forEach var="i" begin="1" end="8">
+            <c:forEach var="i" begin="1" end="${numDataInfos + 3}">
                 <th>
                     <%-- Establishment data + accounts data --%>
                 </th>

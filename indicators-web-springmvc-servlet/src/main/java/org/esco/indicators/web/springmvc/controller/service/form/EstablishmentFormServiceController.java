@@ -89,7 +89,7 @@ public class EstablishmentFormServiceController extends BasicEstablishmentFormCo
     public String getSuccessViewName(BasicForm validForm) {
 	String monitoringType = validForm.getMonitoringType();
 	if(monitoringType.equals(DataFormConstants.JSP_KEY_ATTENDANCE)) {
-	    return "redirect:services-attendance-result";
+	    return "redirect:establishment-services-attendance-result";
 	}
 	return "redirect:services-monitoring-attendance-result";
     }

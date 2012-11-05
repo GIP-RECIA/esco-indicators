@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
  * @since  2012/08/01
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public class DetailResultRow extends BasicResultRow {
+public class DetailResultRow extends ExtendedResultRow {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(DetailResultRow.class);
@@ -31,6 +31,21 @@ public class DetailResultRow extends BasicResultRow {
     public DetailResultRow(BasicResultRow basicResultRow, String userProfile) {
 	super(basicResultRow);
 	this.userProfile = userProfile;
+	LOGGER.debug("Call of the constructor : DetailResultRow(BasicResultRow, String)");
+    }
+    
+    /**
+     * Constructor of {@link DetailResultRow} based on a {@link ExtendedResultRow} and a user profile.
+     * 
+     * @param extendedResultRow
+     * 			The extended result row containing the statistic and establishment data.
+     * @param userProfile
+     * 			The user profile associated to the statistic data.
+     */
+    public DetailResultRow(ExtendedResultRow extendedResultRow, String userProfile) {
+	super(extendedResultRow);
+	this.userProfile = userProfile;
+	LOGGER.debug("Call of the constructor : DetailResultRow(ExtendedResultRow, String)");
     }
     
     

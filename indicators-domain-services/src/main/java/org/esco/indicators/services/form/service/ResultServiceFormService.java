@@ -6,6 +6,7 @@ package org.esco.indicators.services.form.service;
 import java.util.List;
 
 import org.esco.indicators.domain.beans.result.BasicResultRow;
+import org.esco.indicators.domain.beans.result.DetailResultRow;
 import org.esco.indicators.domain.beans.result.ExtendedResultRow;
 import org.esco.indicators.utils.classes.IntegerPair;
 
@@ -128,6 +129,33 @@ public interface ResultServiceFormService {
     public List<ExtendedResultRow> getPunctualWeekResultRows(List<String> establishmentsUai, List<String> services, String userProfile, Integer week, Integer year);
 
     /**
+     * Gets the result rows containing the data on the establishement, the services and the user profiles.<br/>
+     * These data only concern the specified <code>week</code> of the specified <code>year</code>.<br/>
+     * Each result row is associated to one user profile, and contained two kinds of data :
+     * <ul>
+     * 	<li>The establishment data</li>
+     * 	<li>The statistic data  (number of visits,...) indexed by service</li>
+     * </ul>
+     * In fact, in each result row, there is one statistic data per service.<br/>
+     * For more informations on the result row content, see {@link BasicResultRow}.
+     * 
+     * @param establishmentUai
+     * 			The UAI of the establishement.
+     * @param services
+     * 			The services.
+     * @param userProfiles
+     * 			The user profiles.
+     * @param week
+     * 			The week number.
+     * @param year
+     * 			The year.
+     * 
+     * @return
+     * 	the result rows containing establishment data, and statistics data, for each user profile.
+     */
+    public List<ExtendedResultRow> getPunctualWeekResultRows(String establishmentUai, List<String> services, List<String> userProfiles, Integer week, Integer year);
+    
+    /**
      * Gets the result rows containing the data on the establishements, the services and the user profile.<br/>
      * The data on the establishments are aggregated by county numbers.<br/>
      * These data only concern the specified <code>week</code> of the specified <code>year</code>.<br/>
@@ -242,7 +270,7 @@ public interface ResultServiceFormService {
             Integer startYear, Integer endMonth, Integer endYear);
 
     /**
-     * Gets the result rows containing the data on the establishements and the users profiles.<br/>
+     * Gets the result rows containing the data on the establishements and the user profile.<br/>
      * These data only concern the specified <code>month</code> of the specified <code>year</code>.<br/>
      * Each result row is associated to one establishment, and contained two kinds of data :
      * <ul>
@@ -267,6 +295,33 @@ public interface ResultServiceFormService {
      * 	the result rows containing establishment data, and statistics data, for each user profile in each establishment.
      */
     public List<ExtendedResultRow> getPunctualMonthResultRows(List<String> establishmentsUai,  List<String> services, String userProfile, Integer month, Integer year);
+    
+    /**
+     * Gets the result rows containing the data on the establishement and the user profiles.<br/>
+     * These data only concern the specified <code>month</code> of the specified <code>year</code>.<br/>
+     * Each result row is associated to one establishment, and contained two kinds of data :
+     * <ul>
+     * 	<li>The establishment data</li>
+     * 	<li>The statistic data  (number of active accounts,...) indexed by user profile</li>
+     * </ul>
+     * In fact, in each result row, there is one statistic data per user profile.<br/>
+     * For more informations on the result row content, see {@link BasicResultRow}.
+     * 
+     * @param establishmentUai
+     * 			The UAI of the establishment.
+     * @param services
+     * 			The services.
+     * @param userProfiles
+     * 			The user profiles.
+     * @param month
+     * 			The month number.
+     * @param year
+     * 			The year.
+     * 
+     * @return
+     * 	the result rows containing establishment data, and statistics data, for each user profile in the establishment.
+     */
+    public List<ExtendedResultRow> getPunctualMonthResultRows(String establishmentUai,  List<String> services, List<String> userProfiles, Integer month, Integer year);
 
     /**
      * Gets the result rows containing the data on the establishements, the services and the user profile.<br/>

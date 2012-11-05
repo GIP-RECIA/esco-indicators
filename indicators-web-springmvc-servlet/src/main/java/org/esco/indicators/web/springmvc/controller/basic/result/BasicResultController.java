@@ -6,17 +6,23 @@ package org.esco.indicators.web.springmvc.controller.basic.result;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.BasicForm;
+import org.esco.indicators.domain.beans.result.BasicResultRow;
+import org.esco.indicators.domain.beans.result.DetailResultRow;
+import org.esco.indicators.domain.beans.xml.form.EntryValue;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.services.form.account.ResultAccountFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.classes.IntegerPair;
+import org.esco.indicators.utils.constants.web.RequestParameters;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.utils.date.DateUtils;
 import org.esco.indicators.web.springmvc.controller.basic.BasicController;
@@ -154,6 +160,35 @@ public abstract class BasicResultController extends BasicController {
         List<String> i18nKeys = getI18nKeys(jspKeys);
         
         return i18nKeys;
+    }
+    
+    /**
+     * Populates a map that contained the users profilesto filter and their i18n keys.<br/>
+     * The keys of this map are : the users profiles to filter.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * 
+     * @return
+     * 	a map containing the JSP keys associated to their i18n keys.
+     */
+    @ModelAttribute("i18nUsersProfiles")
+    public Map<String, String> populateUsersProfilesI18nKeys(HttpServletRequest request) {
+	// Checks if the there is a valid submitted form to process and a UAI to detail
+	if(!containsForm(request.getSession(), formSessionAttribute)) {
+	    return null;
+	}
+	
+	// Final result
+	Map<String, String> i18nKeysByJspKeys = new HashMap<String, String>();
+	
+	// Retrieval of the i18n keys for the users profiles  to filter
+	List<String> allUsersProfiles = getAllUsersProfiles();
+	for (String userProfile : allUsersProfiles) {
+	    i18nKeysByJspKeys.put(userProfile, getDataFormService().getI18nKey(userProfile));
+	}
+	
+	return i18nKeysByJspKeys;
     }
     
     /**
@@ -347,6 +382,24 @@ public abstract class BasicResultController extends BasicController {
 
     
     //--------------------------------------------------------------------------- PROTECTED METHODS
+    /**
+     * Gets the JSP keys corresponding to all the available users profiles.
+     * 
+     * @return
+     * 	the list containing all the available users profiles JSP keys.
+     */
+    protected List<String> getAllUsersProfiles() {
+	// Final result
+	List<String> allUsersProfiles = new ArrayList<String>();
+	
+	List<EntryValue> entryValues = getDataFormService().getEntryValues(DataFormConstants.USERS_PROFILES);
+	for (EntryValue entryValue : entryValues) {
+	    allUsersProfiles.add(entryValue.getJspKey());
+	}
+	
+	return allUsersProfiles;
+    }
+    
     /**
      * Gets the form associated to the session attribute : <code>formAttribute</code>.
      * 

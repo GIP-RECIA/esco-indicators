@@ -90,38 +90,6 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
     }
     
     /**
-     * Populates a map that contained the users profilesto filter and their i18n keys.<br/>
-     * The keys of this map are : the users profiles to filter.
-     * 
-     * @param request
-     * 			The request made by the user.
-     * 
-     * @return
-     * 	a map containing the JSP keys associated to their i18n keys.
-     */
-    @ModelAttribute("i18nUsersProfiles")
-    public Map<String, String> populateUsersProfilesI18nKeys(HttpServletRequest request) {
-	// Checks if the there is a valid submitted form to process and a UAI to detail
-	String establishmentUai = request.getParameter(RequestParameters.ESTABLISHMENT_UAI);
-	if(	! containsForm(request.getSession(), formSessionAttribute)
-		|| establishmentUai == null) 
-	{
-	    return null;
-	}
-	
-	// Final result
-	Map<String, String> i18nKeysByJspKeys = new HashMap<String, String>();
-	
-	// Retrieval of the i18n keys for the users profiles  to filter
-	List<String> allUsersProfiles = getAllUsersProfiles();
-	for (String userProfile : allUsersProfiles) {
-	    i18nKeysByJspKeys.put(userProfile, dataAccountFormService.getI18nKey(userProfile));
-	}
-	
-	return i18nKeysByJspKeys;
-    }
-    
-    /**
      * Populates the data rows of the table used to display detail informations
      * on the suers profiles of an establishment.
      * 
@@ -208,24 +176,6 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
 	return resultRows;
     }
     
-    /**
-     * Gets the JSP keys corresponding to all the available users profiles.
-     * 
-     * @return
-     * 	the list containing all the available users profiles JSP keys.
-     */
-    protected List<String> getAllUsersProfiles() {
-	// Final result
-	List<String> allUsersProfiles = new ArrayList<String>();
-	
-	List<EntryValue> entryValues = dataAccountFormService.getEntryValues(DataFormConstants.USERS_PROFILES);
-	for (EntryValue entryValue : entryValues) {
-	    allUsersProfiles.add(entryValue.getJspKey());
-	}
-	
-	return allUsersProfiles;
-    }
-    
     //----------------------------------------------------------------------------- PRIVATE METHODS
     /**
      * Converts a list of {@link BasicResultRow} to a list of {@link DetailResultRow}.<br/>
@@ -251,6 +201,5 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
 	
 	return detailResultRows;
     }
-    
     //------------------------------------------------------------------------------ STATIC METHODS
 }

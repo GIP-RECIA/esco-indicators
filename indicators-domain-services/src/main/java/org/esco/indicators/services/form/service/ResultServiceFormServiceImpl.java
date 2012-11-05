@@ -7,10 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.esco.indicators.domain.beans.result.DetailResultRow;
 import org.esco.indicators.domain.beans.result.EstablishmentData;
 import org.esco.indicators.domain.beans.result.ExtendedResultRow;
-import org.esco.indicators.domain.beans.result.PunctualAccountStatistic;
-import org.esco.indicators.domain.beans.result.BasicResultRow;
 import org.esco.indicators.domain.beans.result.ServiceStatistic;
 import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.services.constants.ServicesConstants;
@@ -228,6 +227,31 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
         return rows;
     }
     
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.service.ResultServiceFormService#getPunctualWeekResultRows(java.lang.String, java.util.List, java.util.List, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public List<ExtendedResultRow> getPunctualWeekResultRows(String establishmentUai, List<String> services,
+	    List<String> userProfiles, Integer week, Integer year) {
+	// Final result
+	List<ExtendedResultRow> rows = new ArrayList<ExtendedResultRow>();
+	
+	// For each county number :
+	//	Creation of the corresponding result row
+	//	Addition of the user profile in the result row
+	//	Addition of the statistic data in the result row (for each service)
+	for(String userProfile : userProfiles) {
+	    ExtendedResultRow resultRow = createWeeklyExtendedResultRow(establishmentUai, userProfile, week, year);
+       	    for(String service : services) {
+       		ServiceStatistic statistic = createPunctualWeekStatisticData(establishmentUai, service, userProfile, week, year);
+       		resultRow.putStatisticData(service, statistic);
+       	    }
+       	    rows.add(resultRow);
+	}
+	
+        return rows;
+    }
+    
     ///////////////////////////////////////////////////////
     // MONTHLY RESULTS
     ///////////////////////////////////////////////////////
@@ -360,6 +384,31 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
         	    }
         	    rows.add(resultRow);
 	    }
+	}
+	
+        return rows;
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.service.ResultServiceFormService#getPunctualMonthResultRows(java.lang.String, java.util.List, java.util.List, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public List<ExtendedResultRow> getPunctualMonthResultRows(String establishmentUai, List<String> services,
+            List<String> userProfiles, Integer month, Integer year) {
+	// Final result
+	List<ExtendedResultRow> rows = new ArrayList<ExtendedResultRow>();
+	
+	// For each county number :
+	//	Creation of the corresponding result row
+	//	Addition of the user profile in the result row
+	//	Addition of the statistic data in the result row (for each service)
+	for(String userProfile : userProfiles) {
+	    ExtendedResultRow resultRow = createMonthlyExtendedResultRow(establishmentUai, userProfile, month, year);
+    	    for(String service : services) {
+    		ServiceStatistic statistic = createPunctualMonthStatisticData(establishmentUai, service, userProfile, month, year);
+    		resultRow.putStatisticData(service, statistic);
+    	    }
+    	    rows.add(resultRow);
 	}
 	
         return rows;
@@ -684,6 +733,6 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
 	
 	return simpleServices;
     }
-    
+
     //------------------------------------------------------------------------------ STATIC METHODS
 }

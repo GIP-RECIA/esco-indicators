@@ -51,7 +51,7 @@
 
 
             <%-- Establishlment part --%>
-            <%@ include file="/WEB-INF/jsp/include/common/table-header-establishment.jsp"%>
+            <%@ include file="/WEB-INF/jsp/include/common/table-header-establishment-infos.jsp"%>
 
 
 

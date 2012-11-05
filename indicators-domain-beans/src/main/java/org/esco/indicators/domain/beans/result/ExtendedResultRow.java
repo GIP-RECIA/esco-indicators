@@ -37,7 +37,6 @@ public class ExtendedResultRow extends BasicResultRow {
 	this.statisticOnAccounts = new StatisticOnAccounts(null, null);
     }
     
-    
     /**
      * Constructor of the {@link ExtendedResultRow} class.
      * 
@@ -50,7 +49,28 @@ public class ExtendedResultRow extends BasicResultRow {
 	super();
 	this.statisticOnAccounts = new StatisticOnAccounts(totalAccountNumber, activeAccountNumber);
     }
-
+    
+    /**
+     * Constructor of the {@link ExtendedResultRow} class based on {@link BasicResultRow}.
+     * 
+     * @param basicResultRow
+     * 			The basic result row to duplicate.
+     */
+    public ExtendedResultRow(BasicResultRow basicResultRow) {
+	super(basicResultRow);
+    }
+    
+    /**
+     * Constructor by copy of the {@link ExtendedResultRow} class.
+     * 
+     * @param original
+     * 			The original result row to duplicate.
+     */
+    public ExtendedResultRow(ExtendedResultRow original) {
+	super(original);
+	this.statisticOnAccounts = original.getStatisticOnAccounts();
+    }
+    
     //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
      * Gets the number of total account.
@@ -83,6 +103,15 @@ public class ExtendedResultRow extends BasicResultRow {
     //------------------------------------------------------------------------------ PUBLIC METHODS
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
+    /**
+     * Gets the statistics on accounts.
+     * 
+     * @return
+     * 	the statistics on accounts.
+     */
+    private StatisticOnAccounts getStatisticOnAccounts() {
+	return statisticOnAccounts;
+    }
 
     //------------------------------------------------------------------------------ STATIC METHODS
 }

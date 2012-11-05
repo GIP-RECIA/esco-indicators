@@ -26,7 +26,7 @@
         <tr>
 
             <%-- Establishlment part --%>
-            <%@ include file="/WEB-INF/jsp/include/common/table-header-establishment.jsp"%>
+            <%@ include file="/WEB-INF/jsp/include/common/table-header-establishment-infos.jsp"%>
             
             <c:forEach var="item" items="${usersProfilesItems}">
                 <spring:message code="${item}" var="i18n"/> 
