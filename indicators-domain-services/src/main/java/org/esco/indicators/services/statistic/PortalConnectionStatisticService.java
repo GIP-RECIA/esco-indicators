@@ -154,11 +154,11 @@ public interface PortalConnectionStatisticService {
     
     /**
      * Retrieves the number of connections made on the portal for the specified user profile
-     * <code>userprofile</code> and the specified establishment UAI <code>establishmentUai</code>.<br/>
+     * <code>userprofile</code> and the specified establishments UAI <code>establishmentsUai</code>.<br/>
      * This number of connections only concerns the week having the number <code>week</code> in the year <code>year</code>.
      * 
-     * @param establishmentUai
-     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param establishmentsUai
+     * 			The UAI of the establishments associated to the statistic to retrieve.
      * @param userProfile
      * 			The user profile of the statistic to retrieve.
      * @param week
@@ -169,7 +169,7 @@ public interface PortalConnectionStatisticService {
      * 	the number of connections made on the portal.<br/>
      * 	the number 0 if no statistic has been retrieved. 
      */
-    public Integer findWeeklyNumConnectionsByProfile(String establishmentUai, String userProfile, Integer week, Integer year);
+    public Integer findWeeklyNumConnectionsByProfile(List<String> establishmentsUai, String userProfile, Integer week, Integer year);
     
     
     ///////////////////////////////////////////////////////
@@ -259,11 +259,11 @@ public interface PortalConnectionStatisticService {
     
     /**
      * Retrieves the number of connections made on the portal for the specified user profile
-     * <code>userprofile</code> and the specified establishment UAI <code>establishmentUai</code>.<br/>
+     * <code>userprofile</code> and the specified establishments UAI <code>establishmentUai</code>.<br/>
      * This number of connections only concerns the month having the number <code>month</code> of the year <code>year</code>.
      * 
-     * @param establishmentUai
-     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param establishmentsUai
+     * 			The UAI of the establishments associated to the statistic to retrieve.
      * @param userProfile
      * 			The user profile of the statistic to retrieve.
      * @param month
@@ -274,6 +274,6 @@ public interface PortalConnectionStatisticService {
      * 	the number of connections made on the portal.<br/>
      * 	the number 0 if no statistic has been retrieved. 
      */
-    public Integer findMonthlyNumConnectionsByProfile(String establishmentUai, String userProfile, Integer month, Integer year);
+    public Integer findMonthlyNumConnectionsByProfile(List<String> establishmentsUai, String userProfile, Integer month, Integer year);
 
 }

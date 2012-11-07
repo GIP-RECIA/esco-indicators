@@ -30,7 +30,7 @@ import org.apache.log4j.Logger;
     @NamedQuery(
 	    name = "WeeklyPortalConnectionStatistic.findStatisticsByProfile",
 	    query = "SELECT wpcs FROM WeeklyPortalConnectionStatistic wpcs"
-	    	+ " WHERE wpcs.establishmentUai = :establishmentUai"
+	    	+ " WHERE wpcs.establishmentUai IN ( :establishmentUaiList )"
 		+ " AND wpcs.firstWeekDay = :firstWeekDay AND wpcs.userProfile = :userProfile"
 	    ),
     @NamedQuery(

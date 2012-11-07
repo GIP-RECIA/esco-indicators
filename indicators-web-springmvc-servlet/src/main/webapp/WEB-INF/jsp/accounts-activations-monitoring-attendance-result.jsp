@@ -62,7 +62,7 @@
                 <%-- If the periods are weekly --%>
                 <c:when test="${isWeekly}">
                     <c:forEach var="item" items="${statisticDataKeys}">
-                        <th colspan="7">
+                        <th colspan="8">
                             <spring:message code="result.table.week" /> ${item.first} - ${item.second}
                         </th>
                     </c:forEach>
@@ -71,7 +71,7 @@
                 <%-- If the periods are weekly --%>
                 <c:otherwise>
                     <c:forEach var="item" items="${statisticDataKeys}">
-                        <th colspan="7">
+                        <th colspan="8">
                             <spring:message code="result.table.month.${item.first}" /> - ${item.second}
                         </th>
                     </c:forEach>
@@ -98,6 +98,9 @@
                 <th colspan="4">
                     <spring:message code="result.table.consultationFrequency" />
                 </th>
+                <th>
+                    <spring:message code="result.table.numVisit" />
+                </th>
             </c:forEach>
         </tr>
         
@@ -122,6 +125,9 @@
                 </th>
                 <th colspan="2">
                     <spring:message code="result.table.minTimes" arguments="5" /> 
+                </th>
+                <th>
+                    <%-- Num visits --%> 
                 </th>
             </c:forEach>
 
@@ -151,7 +157,10 @@
                 </th>
                 <th>
                     <spring:message code="result.table.percentTotalAccount" />
-                </th>       
+                </th>    
+                <th>
+                    <%-- Num visits --%> 
+                </th>
             </c:forEach>
         </tr>
         

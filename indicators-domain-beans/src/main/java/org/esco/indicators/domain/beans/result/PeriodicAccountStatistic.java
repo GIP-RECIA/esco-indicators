@@ -7,7 +7,16 @@ import org.apache.log4j.Logger;
 
 /** 
  * Class representing the statistics data present into the result page concerning the accounts.<br/>
- * This result page only displays periodic statistics data, i.e. it displays statistics for multiple periods, not for a given period.
+ * <ul>
+ * 	<li>The total number of accounts</li>
+ * 	<li>The total number of activated accounts</li>
+ * 	<li>The total number of vistits made by the visitors</li>
+ * 	<li>The percentage of activated accounts regarding to the total number of accounts</li>
+ * 	<li>The number of visitors that made less visits than a defined treshold</li>
+ * 	<li>The number of visitors that made more visits than a defined treshold</li>
+ * 	<li>The percentage of visitors that made less visits than a defined treshold (regarding to the total number of accounts)</li>
+ * 	<li>The percentage of visitors that made more visits than a defined treshold (regarding to the total number of accounts)</li>
+ * </ul>
  * 
  * @since  2012/07/26
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>

@@ -37,7 +37,7 @@ import org.apache.log4j.Logger;
     @NamedQuery(
 	    name = "EspecialWeeklyPortalConnectionStatistic.findNumConnectionsByProfile",
 	    query = "SELECT SUM(ewpcs.numConnections) FROM EspecialWeeklyPortalConnectionStatistic ewpcs"
-	    	+ " WHERE ewpcs.establishmentUai = :establishmentUai"
+	    	+ " WHERE ewpcs.establishmentUai IN ( :establishmentUaiList )"
 		+ " AND ewpcs.firstWeekDay = :firstWeekDay AND ewpcs.userProfile = :userProfile"
 	    ),
     @NamedQuery(

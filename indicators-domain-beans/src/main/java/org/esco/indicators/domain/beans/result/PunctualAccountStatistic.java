@@ -23,6 +23,10 @@ import org.esco.indicators.utils.number.FloatUtils;
  * @since 2012/07/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
+/**
+ * @since  
+ * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
+ */
 public class PunctualAccountStatistic {
     // ---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
@@ -33,7 +37,7 @@ public class PunctualAccountStatistic {
     
     /** Statistics concerning the visitors */
     private StatisticOnVisitors statisticOnVisitors;
-
+    
     // -------------------------------------------------------------------------------- CONSTRUCTORS
     /**
      * Constructor of the {@link PunctualAccountStatistic} class.
@@ -52,7 +56,7 @@ public class PunctualAccountStatistic {
 	this.statisticOnAccounts = new StatisticOnAccounts(totalAccountNumber, activeAccountNumber);
 	this.statisticOnVisitors = new StatisticOnVisitors(numVisitorsBelowTreshold, numVisitorsAboveTreshold, totalAccountNumber);
     }
-
+    
     // --------------------------------------------------------------------------- GETTERS / SETTERS
     /**
      * Gets the number of total account.

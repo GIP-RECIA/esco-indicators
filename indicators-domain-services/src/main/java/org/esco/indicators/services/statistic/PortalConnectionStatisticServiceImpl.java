@@ -103,21 +103,21 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
     // WEEKLY STATISTICS
     ///////////////////////////////////////////////////////
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumConnectionsByProfile(java.lang.String, java.lang.String, java.lang.String)
+     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumConnectionsByProfile(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findWeeklyNumConnectionsByProfile(String establishmentUai, String userProfile,
+    public Integer findWeeklyNumConnectionsByProfile(List<String> establishmentsUai, String userProfile,
 	    Integer week, Integer year) {
 	// Get the SQL date corresponding to the first day of the week for the year
 	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
 	
 	// Number of connections for the especial users
 	Integer especialNumConnections = especialPortalConnectionStatisticDao
-		.findWeeklyNumConnectionsByProfile(establishmentUai, firstWeekDay, userProfile);
+		.findWeeklyNumConnectionsByProfile(establishmentsUai, firstWeekDay, userProfile);
 	
 	// Number of connections for the normal users
 	Integer normalNumConnections = portalConnectionStatisticDao
-		.findWeeklyNumConnectionsByProfile(establishmentUai, firstWeekDay, userProfile);
+		.findWeeklyNumConnectionsByProfile(establishmentsUai, firstWeekDay, userProfile);
 	
 	// Final number of connections
 	Integer numConnections = especialNumConnections + normalNumConnections;
@@ -260,21 +260,21 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
     // MONTHLY STATISTICS
     ///////////////////////////////////////////////////////
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findMonthlyNumConnectionsByProfile(java.lang.String, java.sql.Date, java.lang.String)
+     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findMonthlyNumConnectionsByProfile(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumConnectionsByProfile(String establishmentUai, String userProfile,
+    public Integer findMonthlyNumConnectionsByProfile(List<String> establishmentsUai, String userProfile,
 	    Integer month, Integer year) {
 	// Get the SQL date corresponding to the first day of the month for the year
 	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
 	
 	// Number of connections for the especial users
 	Integer especialNumConnections = especialPortalConnectionStatisticDao
-		.findMonthlyNumConnectionsByProfile(establishmentUai, firstMonthDay, userProfile);
+		.findMonthlyNumConnectionsByProfile(establishmentsUai, firstMonthDay, userProfile);
 	
 	// Number of connections for the normal users
 	Integer normalNumConnections = portalConnectionStatisticDao
-		.findMonthlyNumConnectionsByProfile(establishmentUai, firstMonthDay, userProfile);
+		.findMonthlyNumConnectionsByProfile(establishmentsUai, firstMonthDay, userProfile);
 	
 	// Final number of connections
 	Integer numConnections = especialNumConnections + normalNumConnections;

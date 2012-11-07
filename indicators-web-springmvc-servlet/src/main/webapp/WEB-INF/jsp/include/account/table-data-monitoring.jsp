@@ -56,6 +56,9 @@
             <td>
                 <fmt:formatNumber pattern="###.##" value="${statistic.percentageNumVisitorsAboveTreshold}" />
             </td>
+            <td>
+                <c:out value="${statistic.numVisits}"/>
+            </td>
         </c:forEach>
         
     </tr>

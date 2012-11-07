@@ -30,7 +30,7 @@ import org.apache.log4j.Logger;
     @NamedQuery(
 	    name = "MonthlyPortalConnectionStatistic.findStatisticsByProfile",
 	    query = "SELECT mpcs FROM MonthlyPortalConnectionStatistic mpcs"
-	    	+ " WHERE mpcs.establishmentUai = :establishmentUai"
+	    	+ " WHERE mpcs.establishmentUai IN ( :establishmentUaiList )"
 		+ " AND mpcs.firstMonthDay = :firstMonthDay AND mpcs.userProfile = :userProfile"
 	    ),
     @NamedQuery(

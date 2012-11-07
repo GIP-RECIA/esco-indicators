@@ -50,16 +50,16 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
     ///////////////////////////////////////////////////////
     
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findWeeklyNumConnections(java.lang.String, java.sql.Date)
+     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findWeeklyNumConnections(java.util.List, java.sql.Date)
      */
     @Override
-    public Integer findWeeklyNumConnections(String establishmentUai, Date firstWeekDay) {
+    public Integer findWeeklyNumConnections(List<String> establishmentsUai, Date firstWeekDay) {
 	// Name of the query to execute
 	String namedQuery = "EspecialWeeklyPortalConnectionStatistic.findNumConnections";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
-	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("establishmentUaiList", establishmentsUai);
 	parameters.put("firstWeekDay", firstWeekDay);
 	
 	// Retrieval of the result
@@ -69,22 +69,18 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
 	return numConnections;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findWeeklyNumConnectionsByProfile(java
-     * .lang.String, java.util.Date, java.lang.String)
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findWeeklyNumConnectionsByProfile(java.util.List, java.sql.Date, java.lang.String)
      */
     @Override
-    public Integer findWeeklyNumConnectionsByProfile(String establishmentUai, Date firstWeekDay,
+    public Integer findWeeklyNumConnectionsByProfile(List<String> establishmentsUai, Date firstWeekDay,
 	    String userProfile) {
 	// Name of the query to execute
 	String namedQuery = "EspecialWeeklyPortalConnectionStatistic.findNumConnectionsByProfile";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
-	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("establishmentUaiList", establishmentsUai);
 	parameters.put("firstWeekDay", firstWeekDay);
 	parameters.put("userProfile", userProfile);
 	
@@ -210,17 +206,17 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
     }
     
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findMonthlyNumConnectionsByProfile(java.lang.String, java.util.Date, java.lang.String)
+     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findMonthlyNumConnectionsByProfile(java.util.List, java.sql.Date, java.lang.String)
      */
     @Override
-    public Integer findMonthlyNumConnectionsByProfile(String establishmentUai, Date firstMonthDay,
+    public Integer findMonthlyNumConnectionsByProfile(List<String> establishmentsUai, Date firstMonthDay,
 	    String userProfile) {
 	// Name of the query to execute
 	String namedQuery = "EspecialMonthlyPortalConnectionStatistic.findNumConnectionsByProfile";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
-	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("establishmentUaiList", establishmentsUai);
 	parameters.put("firstMonthDay", firstMonthDay);
 	parameters.put("userProfile", userProfile);
 	

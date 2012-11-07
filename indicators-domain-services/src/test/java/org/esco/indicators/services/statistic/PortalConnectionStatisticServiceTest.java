@@ -3,11 +3,12 @@
  */
 package org.esco.indicators.services.statistic;
 
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.Assert;
 
-import org.esco.indicators.utils.date.DateUtils;
+import org.hibernate.mapping.Array;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,9 +61,13 @@ public class PortalConnectionStatisticServiceTest {
 	Integer year = 2012;
 	Integer weekNumber = 22;
 	
+	
 	String establishmentUai = "0453456A";
+	List<String> establishmentsUai = new ArrayList<String>();
+	establishmentsUai.add(establishmentUai);
+	
 	String userProfile = "Teacher";
-	Integer actual = portalConnectionStatisticService.findWeeklyNumConnectionsByProfile(establishmentUai, userProfile, weekNumber, year);
+	Integer actual = portalConnectionStatisticService.findWeeklyNumConnectionsByProfile(establishmentsUai, userProfile, weekNumber, year);
 	
 	Assert.assertEquals(expected, actual);
     }
@@ -161,10 +166,13 @@ public class PortalConnectionStatisticServiceTest {
 	
 	// Actual result
 	String establishmentUai = "0453456A";
+	List<String> establishmentsUai = new ArrayList<String>();
+	establishmentsUai.add(establishmentUai);
+	
 	Integer year = 2012;
 	Integer month = 05;
 	String userProfile = "Teacher";
-	Integer actual = portalConnectionStatisticService.findMonthlyNumConnectionsByProfile(establishmentUai, userProfile, month, year);
+	Integer actual = portalConnectionStatisticService.findMonthlyNumConnectionsByProfile(establishmentsUai, userProfile, month, year);
 	
 	Assert.assertEquals(expected, actual);
     }
