@@ -58,6 +58,26 @@ public class PeriodicAccountStatistic {
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS    
+    
+    /**
+     * Gets the average duration time of the visits.
+     * 
+     * @return average duration time of the visits.
+     */
+    public Float getAverageDurationTime() {
+        return statisticOnVisits.getAverageDurationTime();
+    }
+    
+    /**
+     * Sets the average duration time of the visits.
+     * 
+     * @param averageDurationTime
+     * 			The average duration time of the visits to set.
+     */
+    public void setAverageDurationTime(Float averageDurationTime) {
+        statisticOnVisits.setAverageDurationTime(averageDurationTime);
+    }
+    
     /**
      * Gets the number of active account.
      * 

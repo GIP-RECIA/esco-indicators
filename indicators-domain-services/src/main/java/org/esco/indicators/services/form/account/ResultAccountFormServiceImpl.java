@@ -220,6 +220,36 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
         return rows;
     }
     
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.account.ResultAccountFormService#getPeriodicWeekResultRowsWithTimeStats(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public List<BasicResultRow> getPeriodicWeekResultRowsWithTimeStats(List<String> establishmentsUai,
+            String userProfile, Integer startWeek, Integer startYear, Integer endWeek, Integer endYear) {
+	// Final result
+	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();
+	
+	// Splits the specified period into weeks
+	List<IntegerPair> weeksAndYears = DateUtils.splitWeeks(startWeek, startYear, endWeek, endYear);
+	
+	// For each establishment :
+	//	Creation of the corresponding result row
+	//	Addition of the establishment data in the result row
+	//	Addition of the statistic data in the result row (for each period)
+	for (String uai : establishmentsUai) {
+	    BasicResultRow basicResultRow = new BasicResultRow();
+	    basicResultRow.setEstablishmentData(getEstablishmentData(uai));
+	    for (IntegerPair weekAndYear : weeksAndYears) {
+		PeriodicAccountStatistic statistic = createPeriodicWeekStatisticDataWithTimeStatsForUai(uai, userProfile, weekAndYear.getFirst(), weekAndYear.getSecond());
+		basicResultRow.putStatisticData(weekAndYear, statistic);
+	    }
+	    rows.add(basicResultRow);
+	}
+	
+	return rows;
+    }
+    
+    
     
     ///////////////////////////////////////////////////////
     // MONTHLY RESULTS
@@ -346,6 +376,35 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
         return rows;
     }
 
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.account.ResultAccountFormService#getPeriodicMonthResultRowsWithTimeStats(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public List<BasicResultRow> getPeriodicMonthResultRowsWithTimeStats(List<String> establishmentsUai,
+	    String userProfile, Integer startMonth, Integer startYear, Integer endMonth, Integer endYear) {
+	// Final result
+	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();
+	
+	// Splits the specified period into weeks
+	List<IntegerPair> monthsAndYears = DateUtils.splitMonths(startMonth, startYear, endMonth, endYear);
+	
+	// For each establishment :
+	//	Creation of the corresponding result row
+	//	Addition of the establishment data in the result row
+	//	Addition of the statistic data in the result row (for each period)
+	for (String uai : establishmentsUai) {
+	    BasicResultRow basicResultRow = new BasicResultRow();
+	    basicResultRow.setEstablishmentData(getEstablishmentData(uai));
+	    for (IntegerPair monthAndYear : monthsAndYears) {
+		PeriodicAccountStatistic statistic = createPeriodicMonthStatisticDataWithTimeStatsForUai(uai, userProfile, monthAndYear.getFirst(), monthAndYear.getSecond());
+		basicResultRow.putStatisticData(monthAndYear, statistic);
+	    }
+	    rows.add(basicResultRow);
+	}
+	
+	return rows;
+    }
+    
     //----------------------------------------------------------------------------- PRIVATE METHODS
     /**
      * Creates a global statistic concerning the specified county number and the specified establishments types.<br/>
@@ -580,6 +639,34 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
     }
     
     /**
+     *  Makes the same job as "createPeriodicMonthStatisticData".<br/>
+     *  The only difference is : the returned statistic contains the average duration time of the visits.
+     * 
+     * @param establishmentUai
+     * 			The UAI of the establishment.
+     * @param userProfile
+     * 			The user profile.
+     * @param month
+     * 			The month in the year.
+     * @param year
+     * 			The year.
+     * 
+     * @return
+     * 	the statistic data.
+     */
+    private PeriodicAccountStatistic createPeriodicMonthStatisticDataWithTimeStatsForUai(String establishmentUai,
+	    String userProfile, Integer month, Integer year) {
+	// Gets the periodic statistic
+	PeriodicAccountStatistic periodicStatistic = createPeriodicMonthStatisticDataForUai(establishmentUai, userProfile, month, year);
+	
+	// Gets the average duration connexion time
+	Float averageDurationTime = portalConnectionStatisticService.findMonthlyConnectionsAverageDurationByProfile(establishmentUai, userProfile, month, year);
+	periodicStatistic.setAverageDurationTime(averageDurationTime);
+	
+	return periodicStatistic;
+    }
+    
+    /**
      * Retrieves data and creates the statistic data for a specified :
      * <ul>
      * 	<li>establishment</li>
@@ -721,6 +808,34 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
     }
     
     /**
+     *  Makes the same job as "createPeriodicWeekStatisticDataForUai".<br/>
+     *  The only difference is : the returned statistic contains the average duration time of the visits.
+     * 
+     * @param establishmentUai
+     * 			The UAI of the establishment.
+     * @param userProfile
+     * 			The user profile.
+     * @param week
+     * 			The week in the year.
+     * @param year
+     * 			The year.
+     * 
+     * @return
+     * 	the statistic data.
+     */
+    private PeriodicAccountStatistic createPeriodicWeekStatisticDataWithTimeStatsForUai(String establishmentUai,
+            String userProfile, Integer week, Integer year) {
+	// Gets the periodic statistic
+	PeriodicAccountStatistic periodicStatistic = createPeriodicWeekStatisticDataForUai(establishmentUai, userProfile, week, year);
+	
+	// Gets the average duration connexion time
+	Float averageDurationTime = portalConnectionStatisticService.findWeeklyConnectionsAverageDurationByProfile(establishmentUai, userProfile, week, year);
+	periodicStatistic.setAverageDurationTime(averageDurationTime);
+	
+	return periodicStatistic;
+    }
+
+    /**
      *  Retrieves data and creates the statistic data for a specified :
      * <ul>
      * 	<li>establishments</li>
@@ -829,6 +944,8 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	
 	return data;
     }
+
+
     
     //------------------------------------------------------------------------------ STATIC METHODS
 }

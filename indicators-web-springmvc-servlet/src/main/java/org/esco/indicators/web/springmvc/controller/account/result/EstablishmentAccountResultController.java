@@ -23,6 +23,7 @@ import org.esco.indicators.utils.classes.IntegerPair;
 import org.esco.indicators.utils.constants.web.RequestParameters;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
+import org.esco.indicators.utils.date.DateUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -145,6 +146,34 @@ public class EstablishmentAccountResultController extends PeriodicAccountResultD
 	// TODO : Addition of the connexion time
 	
 	return resultRows;
+    }
+    
+    //----------------------------------------------------------------------------- PRIVATE METHODS
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.account.result.BasicAccountResultController#createEstablishmentsResultRows(java.util.List, java.util.List, java.util.List, java.util.Date, java.util.Date)
+     */
+    @Override
+    protected List<BasicResultRow> createEstablishmentsResultRows( List<String> establishmentsTypes, List<String> establishmentsUai, List<String> usersProfiles, Date startDate, Date endDate) {
+	// Retrieval of the only selected user profile
+	String userProfile = usersProfiles.get(0);
+	
+	// Retrieval of the start and end years
+	Integer startYear = DateUtils.getYear(startDate);
+	Integer endYear = DateUtils.getYear(endDate);
+	
+	// Retrieval of the month / or week
+	if(	establishmentsTypes.contains(DataFormConstants.JSP_KEY_CFA) 
+		&& establishmentsTypes.size() == 1
+	) {
+	    // If the only selected establishment type is : CFA
+	    Integer startWeek = DateUtils.getWeekOfYear(startDate);
+	    Integer endWeek = DateUtils.getWeekOfYear(endDate);
+	    return resultAccountFormService.getPeriodicWeekResultRowsWithTimeStats(establishmentsUai, userProfile, startWeek, startYear, endWeek, endYear);
+	}
+			
+	Integer startMonth = DateUtils.getMonthOfYear(startDate);
+	Integer endMonth = DateUtils.getMonthOfYear(endDate);
+	return resultAccountFormService.getPeriodicMonthResultRowsWithTimeStats(establishmentsUai, userProfile, startMonth, startYear, endMonth, endYear);
     }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS

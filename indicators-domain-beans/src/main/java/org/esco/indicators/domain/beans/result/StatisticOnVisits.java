@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
  * This class can provide the follwing informations :
  * <ul>
  * 	<li>The number of visits</li>
+ * 	<li>The average duration time of the visits</li>
  * </ul>
  * 
  * @since  2012/07/26
@@ -22,6 +23,9 @@ class StatisticOnVisits {
 
     /** Number of visits */
     private Integer numVisits;
+    
+    /** Average duration time of the visits */
+    private Float averageDurationTime;
 
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
@@ -35,6 +39,20 @@ class StatisticOnVisits {
 	this.numVisits = numVisits;
     }
     
+    /**
+     * Constructor of the {@link StatisticOnVisits} class.
+     * 
+     * @param numVisits
+     * 			The number of visits.
+     * @param averageDurationTime
+     * 			The average duration time of the visits.
+     */
+    public StatisticOnVisits(Integer numVisits, Float averageDurationTime) {
+	super();
+	this.numVisits = numVisits;
+	this.averageDurationTime = averageDurationTime;
+    }
+    
     //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
      * Gets the number of visits.
@@ -45,6 +63,29 @@ class StatisticOnVisits {
     public Integer getNumVisits() {
         return numVisits;
     }
+
+    /**
+     * Gets the average duration time of the visits.
+     * 
+     * @return 
+     * 	the average duration time of the visits.
+     */
+    public Float getAverageDurationTime() {
+        return averageDurationTime;
+    }
+
+    /**
+     * Sets the average duration time of the visits.
+     * 
+     * @param averageDurationTime
+     * 			The average duration time of the visits to set.
+     */
+    public void setAverageDurationTime(Float averageDurationTime) {
+        this.averageDurationTime = averageDurationTime;
+    }
+    
+    
+    
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
 

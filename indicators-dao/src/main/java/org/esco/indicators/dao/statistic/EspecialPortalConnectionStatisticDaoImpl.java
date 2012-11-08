@@ -41,14 +41,33 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
     // --------------------------------------------------------------------------- GETTERS / SETTERS
 
     // ------------------------------------------------------------------------------ PUBLIC METHODS
-    ///////////////////////////////////////////////////////
-    // DAILY STATISTICS
-    ///////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////
     // WEEKLY STATISTICS
     ///////////////////////////////////////////////////////
     
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findWeeklyConnectionsAverageDurationByProfile(java.lang.String, java.sql.Date, java.lang.String)
+     */
+    @Override
+    public Float findWeeklyConnectionsAverageDurationByProfile(String establishmentUai, Date firstWeekDay,
+            String userProfile) {
+	// Name of the query to execute
+	String namedQuery = "EspecialWeeklyPortalConnectionStatistic.findConnectionsAverageDurationByProfile";
+	
+	// Setting of the parameters
+	Parameters parameters = new Parameters();
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("firstWeekDay", firstWeekDay);
+	parameters.put("userProfile", userProfile);
+	
+	// Retrieval of the result
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Float averageDurationTime = (result != null ? result.floatValue() : 0);
+	
+	return averageDurationTime;
+    }
+
     /* (non-Javadoc)
      * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findWeeklyNumConnections(java.util.List, java.sql.Date)
      */
@@ -185,6 +204,28 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
     ///////////////////////////////////////////////////////
     // MONTHLY STATISTICS
     ///////////////////////////////////////////////////////
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findMonthlyConnectionsAverageDurationByProfile(java.lang.String, java.sql.Date, java.lang.String)
+     */
+    @Override
+    public Float findMonthlyConnectionsAverageDurationByProfile(String establishmentUai, Date firstMonthDay,
+            String userProfile) {
+	// Name of the query to execute
+	String namedQuery = "EspecialMonthlyPortalConnectionStatistic.findConnectionsAverageDurationByProfile";
+	
+	// Setting of the parameters
+	Parameters parameters = new Parameters();
+	parameters.put("establishmentUai", establishmentUai);
+	parameters.put("firstMonthDay", firstMonthDay);
+	parameters.put("userProfile", userProfile);
+	
+	// Retrieval of the result
+	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Float averageDurationTime = (result != null ? result.floatValue() : 0);
+	
+	return averageDurationTime;
+    }
+    
     /* (non-Javadoc)
      * @see org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao#findMonthlyNumConnections(java.lang.String, java.sql.Date)
      */

@@ -12,6 +12,7 @@ import org.esco.indicators.dao.statistic.EspecialPortalConnectionStatisticDao;
 import org.esco.indicators.dao.statistic.PortalConnectionStatisticDao;
 import org.esco.indicators.domain.beans.statistic.WeeklyPortalConnectionStatistic;
 import org.esco.indicators.utils.date.DateUtils;
+import org.esco.indicators.utils.number.FloatUtils;
 
 /**
  * Implementation of the {@link PortalConnectionStatisticService} interface.
@@ -95,13 +96,47 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
     }
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
-    ///////////////////////////////////////////////////////
-    // DAILY STATISTICS
-    ///////////////////////////////////////////////////////
     
     ///////////////////////////////////////////////////////
     // WEEKLY STATISTICS
     ///////////////////////////////////////////////////////
+    
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyConnectionsAverageDurationByProfile(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Float findWeeklyConnectionsAverageDurationByProfile(String establishmentUai, String userProfile,
+            Integer week, Integer year) {
+	// Get the SQL date corresponding to the first day of the week for the year
+	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
+	
+	// Retrieval of the average duration time of connections for the especial users
+	Float especialAverageDurationTime = especialPortalConnectionStatisticDao
+		.findWeeklyConnectionsAverageDurationByProfile(establishmentUai, firstWeekDay, userProfile);
+	especialAverageDurationTime = (especialAverageDurationTime != null ? especialAverageDurationTime : 0 );
+	
+	// Average duration time of connections for the normal users
+	Float normalAverageDurationTime = portalConnectionStatisticDao
+		.findWeeklyConnectionsAverageDurationByProfile(establishmentUai, firstWeekDay, userProfile);
+	normalAverageDurationTime = (normalAverageDurationTime != null ? normalAverageDurationTime : 0 );
+	
+	// Pus the establishment Uai into a list for the methods calls
+	List<String> establishmentsUai = new ArrayList<String>();
+	establishmentsUai.add(establishmentUai);
+	
+	// Retrieval of the number of connections for the especials users
+	Integer especialNumConnections = especialPortalConnectionStatisticDao.findWeeklyNumConnectionsByProfile(establishmentsUai, firstWeekDay, userProfile);
+	especialNumConnections = (especialNumConnections != null ? especialNumConnections : 0 );
+	
+	// Retrieval of the number of connections for the normal users
+	Integer normalNumConnections = portalConnectionStatisticDao.findWeeklyNumConnectionsByProfile(establishmentsUai, firstWeekDay, userProfile);
+	normalNumConnections = (normalNumConnections != null ? normalNumConnections : 0 );
+	
+	// Final average time
+	Float averageDuration = FloatUtils.calculateAverage(especialAverageDurationTime, especialNumConnections, normalAverageDurationTime, normalNumConnections);
+	return averageDuration;
+    }
+    
     /* (non-Javadoc)
      * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumConnectionsByProfile(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer)
      */
@@ -255,10 +290,47 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
         return numVisitors;
     }
 
-
+    
     ///////////////////////////////////////////////////////
     // MONTHLY STATISTICS
     ///////////////////////////////////////////////////////
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findMonthlyConnectionsAverageDurationByProfile(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    @Override
+    public Float findMonthlyConnectionsAverageDurationByProfile(String establishmentUai, String userProfile,
+            Integer month, Integer year) {
+	// Get the SQL date corresponding to the first day of the month for the year
+	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
+	
+	// Retrieval of the average duration time of connections for the especial users
+	Float especialAverageDurationTime = especialPortalConnectionStatisticDao
+		.findMonthlyConnectionsAverageDurationByProfile(establishmentUai, firstMonthDay, userProfile);
+	especialAverageDurationTime = (especialAverageDurationTime != null ? especialAverageDurationTime : 0 );
+	
+	// Average duration time of connections for the normal users
+	Float normalAverageDurationTime = portalConnectionStatisticDao
+		.findMonthlyConnectionsAverageDurationByProfile(establishmentUai, firstMonthDay, userProfile);
+	normalAverageDurationTime = (normalAverageDurationTime != null ? normalAverageDurationTime : 0 );
+	
+	// Pus the establishment Uai into a list for the methods calls
+	List<String> establishmentsUai = new ArrayList<String>();
+	establishmentsUai.add(establishmentUai);
+	
+	// Retrieval of the number of connections for the especials users
+	Integer especialNumConnections = especialPortalConnectionStatisticDao.findMonthlyNumConnectionsByProfile(establishmentsUai, firstMonthDay, userProfile);
+	especialNumConnections = (especialNumConnections != null ? especialNumConnections : 0 );
+	
+	// Retrieval of the number of connections for the normal users
+	Integer normalNumConnections = portalConnectionStatisticDao.findMonthlyNumConnectionsByProfile(establishmentsUai, firstMonthDay, userProfile);
+	normalNumConnections = (normalNumConnections != null ? normalNumConnections : 0 );
+	
+	// Final average time
+	Float averageDuration = FloatUtils.calculateAverage(especialAverageDurationTime, especialNumConnections, normalAverageDurationTime, normalNumConnections);
+	return averageDuration;
+    }
+
     /* (non-Javadoc)
      * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findMonthlyNumConnectionsByProfile(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer)
      */

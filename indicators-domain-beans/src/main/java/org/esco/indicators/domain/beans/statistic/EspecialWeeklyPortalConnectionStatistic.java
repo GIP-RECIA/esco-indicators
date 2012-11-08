@@ -29,6 +29,13 @@ import org.apache.log4j.Logger;
 @Entity
 @NamedQueries({    
     @NamedQuery(
+	    name = "EspecialWeeklyPortalConnectionStatistic.findConnectionsAverageDurationByProfile",
+	    query = "SELECT SUM(ewpcs.averageDuration * ewpcs.numConnections) / SUM(ewpcs.numConnections) FROM EspecialWeeklyPortalConnectionStatistic ewpcs"
+		    	+ " WHERE ewpcs.establishmentUai = :establishmentUai"
+			+ " AND ewpcs.firstWeekDay = :firstWeekDay"
+			+ " AND ewpcs.userProfile = :userProfile"
+	    ),    
+    @NamedQuery(
 	    name = "EspecialWeeklyPortalConnectionStatistic.findNumConnections",
 	    query = "SELECT SUM(ewpcs.numConnections) FROM EspecialWeeklyPortalConnectionStatistic ewpcs"
 	    	+ " WHERE ewpcs.establishmentUai = :establishmentUai"

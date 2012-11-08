@@ -115,7 +115,7 @@ public interface ResultAccountFormService {
      * Each result row is associated to one county number, and contained two kinds of data :
      * <ul>
      * 	<li>The county data (county number)</li>
-     * 	<<li>The statistic data  (number of active accounts,...) indexed by week and year</li>
+     * 	<li>The statistic data  (number of active accounts,...) indexed by week and year</li>
      * </ul>
      * In fact, in each result row, there is one statistic data per week contained in the period.<br/>
      * For more informations on the result row content, see {@link BasicResultRow}.
@@ -141,6 +141,32 @@ public interface ResultAccountFormService {
     public List<BasicResultRow> getPeriodicWeekResultRows(List<String> countyNumbers,
             List<String> establishmentsTypes, String userProfile, Integer startWeek, Integer startYear,
             Integer endWeek, Integer endYear);
+
+    /**
+     * Makes the same job than {@link ResultAccountFormService#getPeriodicWeekResultRows(List, String, Integer, Integer, Integer, Integer)}.<br/>
+     * The only difference is in the contained statistics.<br/>
+     * The statistics of the result rows contain informations on visits time.
+     * 
+     * @param establishmentsUai
+     * 			The UAI of the establishments.
+     * @param establishmentsTypes
+     * 			The types of the establishments aggregated.
+     * @param userProfile
+     * 			The user profile.
+     * @param startWeek
+     * 			The number of the beginning week (in the beginning year).
+     * @param startYear
+     * 			The beginning year.
+     * @param endWeek
+     * 			The number of the finishing week (in the finishing year).
+     * @param endYear
+     * 			The number of the finishing year.
+     * 
+     * @return
+     * 	the result rows containing county data, and statistics data, for each period of one week in each establishment.
+     */
+    public List<BasicResultRow> getPeriodicWeekResultRowsWithTimeStats(List<String> establishmentsUai,
+            String userProfile, Integer startWeek, Integer startYear, Integer endWeek, Integer endYear);
 
     ///////////////////////////////////////////////////////
     // MONTHLY RESULTS
@@ -264,5 +290,31 @@ public interface ResultAccountFormService {
     public List<BasicResultRow> getPeriodicMonthResultRows(List<String> countyNumbers,
 	    List<String> establishmentsTypes, String userProfile, Integer startMonth, Integer startYear,
 	    Integer endMonth, Integer endYear);
+    
+    /**
+     * Makes the same job than {@link ResultAccountFormService#getPeriodicMontResultRows(List, String, Integer, Integer, Integer, Integer)}.<br/>
+     * The only difference is in the contained statistics.<br/>
+     * The statistics of the result rows contain informations on visits time.
+     * 
+     * @param establishmentsUai
+     * 			The UAI of the establishments.
+     * @param establishmentsTypes
+     * 			The types of the establishments aggregated.
+     * @param userProfile
+     * 			The user profile.
+     * @param startMonth
+     * 			The number of the beginning month (in the beginning year).
+     * @param startYear
+     * 			The beginning year.
+     * @param endMonth
+     * 			The number of the finishing month (in the finishing year).
+     * @param endYear
+     * 			The number of the finishing year.
+     * 
+     * @return
+     * 	the result rows containing county data, and statistics data, for each period of one month in each establishment.
+     */
+    public List<BasicResultRow> getPeriodicMonthResultRowsWithTimeStats(List<String> establishmentsUai,
+            String userProfile, Integer startMonth, Integer startYear, Integer endMonth, Integer endYear);
     
 }

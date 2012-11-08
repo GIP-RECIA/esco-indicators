@@ -8,7 +8,6 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
@@ -26,7 +25,14 @@ import org.apache.log4j.Logger;
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 @Entity
-@NamedQueries({
+@NamedQueries({    
+    @NamedQuery(
+	    name = "WeeklyPortalConnectionStatistic.findConnectionsAverageDurationByProfile",
+	    query = "SELECT SUM(wpcs.numUsers * wpcs.numConnections * wpcs.averageDuration) / SUM(wpcs.numUsers * wpcs.numConnections) FROM  WeeklyPortalConnectionStatistic wpcs"
+		    	+ " WHERE wpcs.establishmentUai =  :establishmentUai"
+			+ " AND wpcs.firstWeekDay = :firstWeekDay " 
+		    	+ " AND wpcs.userProfile = :userProfile"
+	    ),
     @NamedQuery(
 	    name = "WeeklyPortalConnectionStatistic.findStatisticsByProfile",
 	    query = "SELECT wpcs FROM WeeklyPortalConnectionStatistic wpcs"

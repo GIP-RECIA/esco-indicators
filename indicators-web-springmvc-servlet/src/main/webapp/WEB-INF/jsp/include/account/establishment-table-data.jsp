@@ -32,6 +32,12 @@
             <td>
                 <fmt:formatNumber pattern="###.##" value="${statistic.percentageNumVisitorsAboveTreshold}" />
             </td>
+            <td>
+                <c:out value="${statistic.numVisits}"/>
+            </td>
+            <td>
+                <fmt:formatNumber pattern="###.##" value="${statistic.averageDurationTime}" />
+            </td>
         </c:forEach>
     </tr>
     

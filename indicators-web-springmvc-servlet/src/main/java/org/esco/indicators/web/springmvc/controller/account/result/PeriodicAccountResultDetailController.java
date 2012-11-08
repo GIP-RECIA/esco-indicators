@@ -169,7 +169,7 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
 	    String userProfileToFilter = dataAccountFormService.getUserProfileToFilter(userProfile);
 	    List<String> usersProfilesToFilter = new ArrayList<String>();
 	    usersProfilesToFilter.add(userProfileToFilter);
-	    List<BasicResultRow> basicResultRows = super.createEstablishmentsResultRows(establishmentsTypes, establishmentsUai, usersProfilesToFilter, startDate, endDate);
+	    List<BasicResultRow> basicResultRows = createEstablishmentsResultRows(establishmentsTypes, establishmentsUai, usersProfilesToFilter, startDate, endDate);
 	    resultRows.addAll(convertToDetailResultRows(basicResultRows, userProfile));
 	}
 	
