@@ -62,7 +62,7 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
 	parameters.put("userProfile", userProfile);
 	
 	// Retrieval of the result
-	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Double result = (Double) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
 	Float averageDurationTime = (result != null ? result.floatValue() : 0);
 	
 	return averageDurationTime;
@@ -220,7 +220,7 @@ public class EspecialPortalConnectionStatisticDaoImpl implements EspecialPortalC
 	parameters.put("userProfile", userProfile);
 	
 	// Retrieval of the result
-	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
+	Double result = (Double) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
 	Float averageDurationTime = (result != null ? result.floatValue() : 0);
 	
 	return averageDurationTime;
