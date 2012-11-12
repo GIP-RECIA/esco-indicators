@@ -144,13 +144,9 @@ $(document).ready(function() {
     });
         
     ///////////////////////////////////////////////////////
-    // Call of the change method for properly intializing
-    // the date formats
+    // Initialization of the date pickers
     ///////////////////////////////////////////////////////
-    hideCalendars();
-    $("[value='" + MONITORING_ATTENDANCE.name + "']").change();
-    $("[name='" + ESTAB_TYPES.name + "']").change();
-
+    initializeDatePickers();
 });
 
 
@@ -256,6 +252,25 @@ function getMonth(date) {
  */
 function getYear(date) {
     return date.split("/")[2];
+}
+
+/**
+ * Function that initializes the values of the date pickers.
+ */
+function initializeDatePickers() {
+    // Hide the date pickers and show them regarding to the selected attendance type
+    hideCalendars();
+    $("[value='" + MONITORING_ATTENDANCE.name + "']").change();
+    $("[name='" + ESTAB_TYPES.name + "']").change();
+    
+    // By default : select the date of the day
+    if($("#startDatePicker").datepicker("getDate") == null) {
+        var now = new Date();
+        $("#startDatePicker").datepicker("setDate", now);
+        $("#startDate").prop("value", $.datepicker.formatDate("dd/mm/yy", now));
+        
+        
+    }   
 }
 
 /*
