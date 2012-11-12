@@ -81,14 +81,19 @@ $(document).ready(function() {
     ///////////////////////////////////////////////////////
     // Select / Unselect all establishments
     ///////////////////////////////////////////////////////
-		$("#toggleEstablishmentsSelection").click(function() {
-			var inputs = $("#establishmentsList").find("tr").has("td").find("input");
-			var checkedState = $(this).prop("checked");
-			toggleInputsStates(inputs,checkedState);
-		});
-});
+	$("#toggleEstablishmentsSelection").click(function() {
+		var inputs = $("#establishmentsList").find("tr").has("td").find("input");
+		var checkedState = $(this).prop("checked");
+		toggleInputsStates(inputs,checkedState);
+	});
 
-
+    ///////////////////////////////////////////////////////
+    // Initialization of the form state
+    ///////////////////////////////////////////////////////
+    initializeForm();	
+}); 	
+    	
+    	
 
 ///////////////////////////////////////////////////////////
 // FUNCTIONS
@@ -205,6 +210,17 @@ function enableElementsByValues(elementValues) {
     }
 }
 
+
+/**
+ * Function that initializes the form when is loaded.
+ */
+function initializeForm() {
+    // If no attendance type is already checked
+    if(!isChecked(ATTENDANCE.name) && !isChecked(MONITORING_ATTENDANCE.name)) {
+        // Ckecks the attendance type
+        changeElementPropertyByValue(ATTENDANCE.name, "checked", true);
+    }
+}
 
 /**
  * Function that indicates if an element (finds by its value) is checked.
