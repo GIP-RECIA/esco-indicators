@@ -18,11 +18,14 @@
 ///////////////////////////////////////////////////////////
 // SETUP ERRORS DISPLAY
 ///////////////////////////////////////////////////////////
-$.ajaxSetup({"error":function(XMLHttpRequest,textStatus, errorThrown) {
-    alert(textStatus);
-    alert(errorThrown);
-    alert(XMLHttpRequest.responseText);
-}});
+// Uncomment the following lines for displaying ajax errors
+/**
+ * $.ajaxSetup({"error":function(XMLHttpRequest,textStatus, errorThrown) {
+ *     alert(textStatus);
+ *     alert(errorThrown);
+ *     alert(XMLHttpRequest.responseText);
+ * }});
+ */
 
 ///////////////////////////////////////////////////////////
 // FUNCTIONS
