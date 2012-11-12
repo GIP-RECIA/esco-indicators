@@ -63,6 +63,11 @@ $(document).ready(function() {
     $(".connectedServices").droppable({
         drop: function(event, ui) { 
                   // //////////////////////////////////////
+                  // Hide the information text
+                  // //////////////////////////////////////
+                  $(this).find('.information').hide();
+
+                  // //////////////////////////////////////
                   // Handles the drop event
                   // //////////////////////////////////////
                   var listId = $(this).prop("id");

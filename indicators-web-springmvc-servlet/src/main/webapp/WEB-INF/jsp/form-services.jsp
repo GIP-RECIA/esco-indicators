@@ -50,6 +50,7 @@
             </ul>
             
             <ul id="wantedServicesList" class="connectedServices">
+                <p class="information"><spring:message code="form.services.information.dragNDrop" /></p>
             </ul>
             
             <form:errors path="wantedServices" cssClass="error" />

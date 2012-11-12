@@ -201,6 +201,13 @@ div.welcome {
 * 3. SERVICES PAGE
 ****************************/
 
+p.information {
+	color: gray;
+	font-style: italic;
+	margin-top: 50%;
+	text-align: center;
+}
+
 .simpleService {
 	margin-left: 1.5em;
 }
