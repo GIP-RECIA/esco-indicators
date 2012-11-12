@@ -77,15 +77,26 @@ ul {
 	padding: 0.5em;
 }
 
-#menu img {
-	height: 32px;
-	width: 32px;
-	padding: 0.5em;
-}
+#menu div { 
+    display: inline;
+    margin-right: 20px;
+    position: relative;
+    top: 40px;
+}   
+    
+#menu p {
+    display: inline;
+    background-origin: content-box;
+    background-position: center; 
+    background-position: 50% -32px;
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+    padding-top: 40px;
+}   
 
-#menu img:hover {
-	background: #666666;
-	border: none;
+
+#menu p:hover {
+	background-color: #666666;
 }
 
 #menu li { 
