@@ -111,6 +111,7 @@ ul {
 
 #resultTable {
 	box-shadow: 6px 6px 6px #777777;
+    overflow-x: scroll;
 }
 
 #resultTableContainer {
