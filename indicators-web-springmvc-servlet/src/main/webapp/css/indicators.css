@@ -125,6 +125,7 @@ ul {
 .container {
 	font:  12px/1.2 Georgia,Serif;
 	margin: 1em auto;
+    width: 97%;
 }
 
 .filterTitle {
