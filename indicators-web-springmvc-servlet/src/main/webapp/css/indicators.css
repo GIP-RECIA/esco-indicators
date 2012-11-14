@@ -4,7 +4,7 @@
 *
 * File organization :
 * -------------------
-*		0. General configuration
+*	0. General configuration
 *   1. Welcome page
 *   2. Accounts activations page
 *   3. Services page
@@ -111,6 +111,10 @@ ul {
 
 #resultTable {
 	box-shadow: 6px 6px 6px #777777;
+}
+
+#resultTableContainer {
+    overflow-x: scroll;
 }
 
 #user {

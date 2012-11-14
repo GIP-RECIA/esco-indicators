@@ -21,7 +21,7 @@
 
 <%-- Selected establishments --%>
 <%@ include file="/WEB-INF/jsp/include/common/result-selected-establishments.jsp"%>
-   
+<div id="resultTableContainer">   
     <table id="resultTable" class="pretty">
         <%-- Headers : First level --%>
         <tr>
@@ -127,7 +127,7 @@
         <%@ include file="/WEB-INF/jsp/include/service/establishment-table-data.jsp"%>
             
     </table>
-
+</div>   
 <%-- Exports in CSV and Excel --%>
 <%@ include file="/WEB-INF/jsp/include/common/result-exports.jsp"%>
 
