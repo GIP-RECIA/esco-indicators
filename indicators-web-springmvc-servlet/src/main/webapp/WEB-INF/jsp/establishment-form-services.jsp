@@ -20,40 +20,7 @@
     
     <%-- Services selection --%>
     <h2 class="filterTitle"><spring:message code="filter.title.service" /></h2>
-    <div>
-        <p>
-            <c:forEach var="item" items="${availableServicesItems}">
-                <form:hidden id="${item.value}" value="${item.value}" path="availableServices"/>
-            </c:forEach>
-            
-            <ul id="availableServicesList" class="connectedServices">
-                <c:forEach var="item" items="${availableServicesItems}">
-                    <spring:message code="${item.label}" var="i18n"/> 
-                    <c:set var="itemId" value="${item.value}" />
-                                        
-                    <c:if test="${fn:contains(itemId, 'SUM')}">
-                        <li class="ui-state-highlight sumService" id="${itemId}">
-                            ${i18n}
-                        </li>
-                    </c:if>
-                    <c:if test="${!fn:contains(itemId, 'SUM')}">
-                        <li class="ui-state-default simpleService" id="${itemId}">
-                            ${i18n}
-                        </li>
-                    </c:if>
-                    
-                     
-                </c:forEach> 
-            </ul>
-            
-            <ul id="wantedServicesList" class="connectedServices">
-            </ul>
-            
-            <form:errors path="wantedServices" cssClass="error" />
-        </p>
-    </div>
-    
-    <div></div>
+    <%@ include file="/WEB-INF/jsp/include/service/lists-services.jsp"%>
     
     <%-- Hidden fields for the establishment --%>
     <%@ include file="/WEB-INF/jsp/include/common/form-establishment-hidden-fields.jsp"%>
