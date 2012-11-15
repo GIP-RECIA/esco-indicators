@@ -13,8 +13,9 @@
 <br/>
 <div id="welcomeMessage">
 
-  <p id="welcomePart"><spring:message code="welcome.welcomeString"/></p>
+    <p><spring:message code="welcome.welcomeString"/></p>
  
+    <p><spring:message code="welcome.welcomeString2"/></p>
 </div>
 
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>

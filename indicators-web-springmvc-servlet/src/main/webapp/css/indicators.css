@@ -96,12 +96,6 @@ ul {
 	display: inline;
 }
 
-#mainMessage p {
-	font-size: 24;
-	color: #666666;
-	margin: 0 0 0.7em;
-}
-
 #resultTable {
 	box-shadow: 6px 6px 6px #777777;
     overflow-x: scroll;
@@ -191,8 +185,10 @@ table.pretty tr:nth-child(even) {
 /****************************
 * 1. WELCOME PAGE
 ****************************/
-div.welcome {
-  width: 100%;
+#welcomeMessage p {
+	font-size: 2em;
+	color: #666666;
+	margin: 0 0 0.7em;
 }
 
 
