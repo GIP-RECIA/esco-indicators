@@ -40,6 +40,10 @@ h3 {
 	font-size: 1.2em;
 }
 
+span.link:hover { 
+	background-color: #666666;
+}   
+
 tr:hover {
     background : #666666 !important;
 }  
@@ -73,31 +77,20 @@ ul {
 #menu {
   background: none repeat scroll 0 0 #C3C9CD;
   border: 1px solid #000000;
-	height: 4.5em;
-	padding: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 2em;
+  padding-top: 4em;
 }
 
-#menu div { 
-    display: inline;
-    margin-right: 20px;
-    position: relative;
-    top: 40px;
+#menu a { 
+	margin-right: 2em;
 }   
-    
-#menu p {
-    display: inline;
-    background-origin: content-box;
-    background-position: center; 
-    background-position: 50% -32px;
+#menu span.link { 
     background-repeat: no-repeat;
-    background-size: 32px 32px;
-    padding-top: 40px;
+    background-position: center top;
+    padding-top: 3em;
+	text-align: center;
 }   
-
-
-#menu p:hover {
-	background-color: #666666;
-}
 
 #menu li { 
 	display: inline;

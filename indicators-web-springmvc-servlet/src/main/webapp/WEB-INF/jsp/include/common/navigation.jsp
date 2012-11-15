@@ -1,32 +1,32 @@
 <div id="menu">
-    <div>
+    <span>
         <a href="<c:url value='/welcome'/>">
-            <p style="background-image: url(<c:url value='/img/home.png'/>);">
+            <span class="link" style="background-image: url(<c:url value='/img/home.png'/>);">
                 <spring:message code='menu.home'/>
-            </p>
+            </span>
         </a>
-    </div>
-    <div>
+    </span>
+    <span>
         <a href="<c:url value='/accounts-activations'/>">
-            <p style="background-image: url(<c:url value='/img/accounts-activations.png'/>);">
+            <span class="link" style="background-image: url(<c:url value='/img/accounts-activations.png'/>);">
                 <spring:message code='menu.accounts-activations'/>
-            </p>
+            </span>
         </a>
-    </div>
-    <div>
+    </span>
+    <span>
         <a href="<c:url value='/services'/>">
-            <p style="background-image: url(<c:url value='/img/services.png'/>);">
+            <span class="link" style="background-image: url(<c:url value='/img/services.png'/>);">
                 <spring:message code='menu.services'/>
-            </p>
+            </span>
         </a>
-    </div>
+    </span>
     <%-- Uncomment th following lines to see the item for services usage --%>
-    <%-- <div> --%>
+    <%-- <span> --%>
     <%--     <a href="<c:url value='/services-usage'/>"> --%>
-    <%--         <p style="background-image: url(<c:url value='/img/services-usage.png'/>);"> --%>
+    <%--         <span class="link" style="background-image: url(<c:url value='/img/services-usage.png'/>);"> --%>
     <%--             <spring:message code='menu.services-usage'/>" --%>
-    <%--         </p> --%>
+    <%--         </span> --%>
     <%--     </a> --%>
-    <%-- </div> --%>
+    <%-- </span> --%>
 </div>
 
