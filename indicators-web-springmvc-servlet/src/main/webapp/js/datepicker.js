@@ -219,7 +219,7 @@ function getSelectedYear() {
  * Function that forbids the calendar to be displayed.
  */
 function hideCalendars() {
-  $(".hasDatePicker").focus(function() {
+  $(".hasDatepicker").focus(function() {
         $(".ui-datepicker-calendar").hide();
   });
 }
@@ -281,7 +281,7 @@ function isDatePickersFormat(format) {
     // Assumes that the format is the one used by all the date pickers
     var isDatePickersFormat = true;
     // Gets all the date pickers
-    $(".hasDatePicker").each(function() {
+    $(".hasDatepicker").each(function() {
         if($(this).datepicker("option","dateFormat") != format) {
             isDatePickersFormat = false;
         } 
@@ -308,7 +308,7 @@ function onlyCfaInputChecked() {
  * Function that allows the calendar to be displayed.
  */
 function showCalendars() {
-  $(".hasDatePicker").focus(function() {
+  $(".hasDatepicker").focus(function() {
         $(".ui-datepicker-calendar").show();
   });
 }
