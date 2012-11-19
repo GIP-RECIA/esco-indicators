@@ -21,7 +21,7 @@
     
     <bean   id="localEstablishmentViewPermission"
             class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
-            <property name="patternToMatch" value="[a-z0-9]+:Applications:Indicateurs:[\p{L} ]+_([0-9]+[A-Z])"/>
+            <property name="patternToMatch" value="[a-z0-9]+:Applications:Indicateurs:[\p{L} [0-9]]+_([0-9]+[A-Z])"/>
             <property name="patternFilter" ref="localPatternFilter"/>
     </bean>
     <bean   id="localPatternFilter"
