@@ -119,7 +119,10 @@ function appendEstablishment(establishment) {
     toAppend += '</tr>';
 
     // Appends the string to the table
-    $("#" + ESTABLISHMENTS_TABLE_ID).append(toAppend);
+    $("#" + ESTABLISHMENTS_TABLE_ID).find("tbody").append(toAppend);
+
+	// Indicates that the table has been updated
+	$("#" + ESTABLISHMENTS_TABLE_ID).trigger("update");
 }
 
 /**

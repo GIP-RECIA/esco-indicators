@@ -170,17 +170,36 @@ table.pretty {
 
 table.pretty th, table.pretty td {
 	border: 1px dotted black;
-	padding: 0.2em;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
 }
 table.pretty th {
-	background: gainsboro;
-  text-align: left;
+	background-color: gainsboro;
+	text-align: left;
 }
 
 table.pretty tr:nth-child(even) {
-	background: gainsboro;
+	background-color: gainsboro;
 } 
 
+th.header {
+	background-image: url("../img/bg.gif");
+    cursor: pointer; 
+    font-weight: bold; 
+    background-repeat: no-repeat; 
+    background-position: center left; 
+    padding-left: 20px; 
+    border-right: 1px solid #dad9c7; 
+    margin-left: -1px; 
+}
+
+th.headerSortDown { 
+	background-image: url("../img/desc.gif");
+}
+
+th.headerSortUp { 
+	background-image: url("../img/asc.gif"); 
+}
 
 /****************************
 * 1. WELCOME PAGE

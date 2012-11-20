@@ -39,5 +39,7 @@
 <script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript" src="js/datepicker.js"></script>
 <script type="text/javascript" src="js/accounts-activations.js"></script>
+<script type="text/javascript" src="js/tablesorter/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="js/tables-sorting.js"></script>
 
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>
