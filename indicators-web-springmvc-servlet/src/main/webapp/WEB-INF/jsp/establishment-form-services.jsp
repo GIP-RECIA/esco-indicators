@@ -35,5 +35,6 @@
 <script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript" src="js/datepicker.js"></script>
 <script type="text/javascript" src="js/services.js"></script>
+<script type="text/javascript" src="js/spin.min.js"></script>
 
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>
