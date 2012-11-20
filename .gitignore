@@ -32,6 +32,7 @@ target/
 ###################
 *.prod.xml
 *.prod.sh
+*.preprod.sh
 *.prod.properties
 
 ###################
