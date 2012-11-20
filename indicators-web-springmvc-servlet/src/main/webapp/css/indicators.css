@@ -141,8 +141,14 @@ ul {
 	border: none;
 	color: white;
 	font-style: italic;
-  margin: 0.5em 0 0;
-  padding: 0.2em 0 0.2em 1.3em;
+	margin: 0.5em 0 0;
+	padding: 0.2em 0 0.2em 1.3em;
+}
+
+div.submitContainer {
+    float: right;
+	margin-bottom: 3em;
+	padding-right: 3em;
 }
 
 form.export {
@@ -159,9 +165,6 @@ input.hasDatePicker {
 	vertical-align: middle;
 }
 
-input.submitButton {
-    float: right;
-}
 
 table.pretty {
 	border-collapse: collapse;

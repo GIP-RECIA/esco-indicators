@@ -88,6 +88,16 @@ $(document).ready(function() {
 	});
 
     ///////////////////////////////////////////////////////
+    // When the form is sumbitted : hides sumbit buttons
+	// and show spinner
+    ///////////////////////////////////////////////////////
+	$('form').submit(function() {
+		$(this).find(":submit").hide();	
+		var spinner = new Spinner(SPINNER_OPTS).spin();
+		$(this).find(":submit").after(spinner.el);	
+	});
+
+    ///////////////////////////////////////////////////////
     // Initialization of the form state
     ///////////////////////////////////////////////////////
     initializeForm();	
