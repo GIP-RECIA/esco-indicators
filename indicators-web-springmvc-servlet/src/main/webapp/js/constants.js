@@ -84,7 +84,7 @@ var SPINNER_OPTS = {
   lines: 13, // The number of lines to draw
   length: 7, // The length of each line
   width: 2, // The line thickness
-  radius: 4, // The radius of the inner circle
+  radius: 3, // The radius of the inner circle
   corners: 1, // Corner roundness (0..1)
   rotate: 0, // The rotation offset
   color: '#000', // #rgb or #rrggbb

@@ -27,8 +27,8 @@
  */
 $(document).ready(function() {
 
-    $("#button-hide").click(function() {
-        $("#head-1").hide();
+    $("#excelexport").submit(function() {
+        $("#excelWarnings").show("blind");
     });
 
 });

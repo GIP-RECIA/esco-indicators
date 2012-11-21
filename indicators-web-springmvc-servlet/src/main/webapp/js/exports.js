@@ -45,6 +45,8 @@ $(document).ready(function() {
        var fileName = createFileName("xls");
        // Injects the file name into the hidden field
        $("#excelFileName").prop("value", fileName);
+			 // Displays warning message
+			 $("#excelWarning").show("blind");
     });
 });
 

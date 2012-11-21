@@ -92,9 +92,9 @@ $(document).ready(function() {
 	// and show spinner
     ///////////////////////////////////////////////////////
 	$('form').submit(function() {
-		$(this).find(":submit").hide();	
+		$(this).find(":submit").prop("disabled", "disabled");	
 		var spinner = new Spinner(SPINNER_OPTS).spin();
-		$(this).find(":submit").after(spinner.el);	
+		$(this).find(".submitSpinner").append(spinner.el);	
 	});
 
     ///////////////////////////////////////////////////////
@@ -233,6 +233,8 @@ function initializeForm() {
         // Ckecks the attendance type
         changeElementPropertyByValue(ATTENDANCE.name, "checked", true);
     }
+	// Enables submit button
+	$("form").find(":submit").prop("disabled", "");	
 }
 
 /**
