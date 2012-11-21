@@ -174,9 +174,14 @@ form.export {
 }
 
 img.ui-datepicker-trigger {
-  cursor: pointer;
+    cursor: pointer;
 	vertical-align: middle;
 	margin: 0.5em;
+}
+
+img.information {
+    float: left;
+    margin-right: 1em;
 }
 
 input.hasDatePicker {
