@@ -74,7 +74,7 @@ public class QueryManager {
 	} finally {
 	    // End time
 	    long end = getCurrentTimeMillis();
-	    logExecutionTime(query.toString(), end - start);
+	    logExecutionTime(namedQuery, end - start);
 	}
 	
 	return result;
@@ -124,7 +124,7 @@ public class QueryManager {
 	} finally {
 	    // End time
 	    long end = getCurrentTimeMillis();
-	    logExecutionTime(query.toString(), end - start);
+	    logExecutionTime(namedQuery, end - start);
 	}
 	
 	return result;
