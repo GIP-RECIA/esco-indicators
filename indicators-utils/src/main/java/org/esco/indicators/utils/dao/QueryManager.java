@@ -63,10 +63,18 @@ public class QueryManager {
 	// Retrieval of the result list
 	// Catching and logging the possible thrown exceptions
 	List<Object> result = new ArrayList<Object>();
+	
+	// Start time
+	long start = getCurrentTimeMillis();
+	
 	try {
 	    result.addAll(query.getResultList());
 	} catch (IllegalStateException e) {
 	    logIllegalStateException(namedQuery, parameters);
+	} finally {
+	    // End time
+	    long end = getCurrentTimeMillis();
+	    logExecutionTime(query.toString(), end - start);
 	}
 	
 	return result;
@@ -101,6 +109,10 @@ public class QueryManager {
 	// Retrieval of the result
 	// Catching and logging the possible thrown exceptions
 	Object result = null;
+	
+	// Start time
+	long start = getCurrentTimeMillis();
+	
 	try {
 	    result = query.getSingleResult();
 	} catch (NoResultException e) {
@@ -109,12 +121,39 @@ public class QueryManager {
 	    logNonUniqueResultException(namedQuery, parameters);
 	} catch (IllegalStateException e) {
 	    logIllegalStateException(namedQuery, parameters);
+	} finally {
+	    // End time
+	    long end = getCurrentTimeMillis();
+	    logExecutionTime(query.toString(), end - start);
 	}
+	
 	return result;
     }
 
     // ---------------------------------------------------------------------- PRIVATE STATIC METHODS
 
+    /**
+     * Gets the current time in milliseconds.
+     * 
+     * @return
+     * 	the current time in milliseconds.
+     */
+    private static long getCurrentTimeMillis() {
+	return System.currentTimeMillis();
+    }
+    
+    /**
+     * Logs the execution time of a query.
+     * 
+     * @param query
+     * 			The executed query.
+     * @param timeMillis
+     * 			The execution time of the query;
+     */
+    private static void logExecutionTime(String query, long timeMillis) {
+	LOGGER.debug("Execution time : [" + timeMillis / 1000 + " s.] | Query : [" + query + "]");
+    }
+    
     /**
      * Logs the thrown <code>IllegalStateException</code> exceptions.
      * 
