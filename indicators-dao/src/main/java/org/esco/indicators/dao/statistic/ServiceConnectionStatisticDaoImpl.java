@@ -3,6 +3,7 @@
  */
 package org.esco.indicators.dao.statistic;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -143,6 +144,35 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
 	Integer numVisits = (result != null ? result.intValue() : null);
 	
 	return numVisits;
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.statistic.ServiceConnectionStatisticDao#findServiceConnectionStatistics(java.util.List, java.util.Date, java.util.Date, java.util.List, java.lang.String)
+     */
+    @Override
+    public List<ServiceConnectionStatistic> findServiceConnectionStatistics(List<String> establishmentsUai,
+            Date startDay, Date endDay, List<String> servicesNames, String userProfile) {
+	// Name of the query to execute
+	String namedQuery = "ServiceConnectionStatistic.findServiceConnectionStatistics";
+	
+	// Parameters
+	Parameters parameters = new Parameters();
+	parameters.put("establishmentUaiList", establishmentsUai);
+	parameters.put("startDate", startDay);
+	parameters.put("endDate", endDay);
+	parameters.put("serviceNameList", servicesNames);
+	parameters.put("userProfile", userProfile);
+
+	// Retrieval of the statistics
+	List<Object> statistics = QueryManager.getResultList(entityManager, namedQuery, parameters);
+	
+	// Result
+	List<ServiceConnectionStatistic> result = new ArrayList<ServiceConnectionStatistic>();
+	for (Object statistic : statistics) {
+	    result.add((ServiceConnectionStatistic) statistic);
+	}
+	
+	return result;
     }
 
     // ----------------------------------------------------------------------------- PRIVATE METHODS

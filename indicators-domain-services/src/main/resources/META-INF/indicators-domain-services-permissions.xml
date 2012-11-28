@@ -15,6 +15,7 @@
                 <ref bean="centralCfaEstablishmentViewPermission"/>
                 <ref bean="centralEscoEstablishmentViewPermission"/>
                 <ref bean="centralAgriEstablishmentViewPermission"/>
+                <ref bean="centralClg37EstablishmentViewPermission"/>
             </list>
         </property>
     </bean>  
@@ -68,9 +69,12 @@
             <map>
                 <entry key="type">
                     <set>
-                        <value>LEGT</value>
+                        <value>LEN</value>
                         <value>EREA</value>
+                        <value>LEGT</value>
+                        <value>LG</value>
                         <value>LP</value>
+                        <value>LPO</value>
                     </set>
                 </entry>
             </map>
@@ -88,8 +92,27 @@
             <map>
                 <entry key="type">
                     <set>
+                        <value>LA</value>
                         <value>LEGTA</value>
                         <value>LPA</value>
+                    </set>
+                </entry>
+            </map>
+        </property>
+    </bean>
+    
+    <bean   id="centralClg37EstablishmentViewPermission"
+            class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
+        <property name="patternToMatch" value="clg37:admin:Indicateurs:central"/>
+        <property name="patternFilter" ref="centralClg37PatternFilter"/>
+    </bean>
+    <bean   id="centralClg37PatternFilter"
+            class="org.esco.indicators.domain.beans.permission.GenericFilter">
+        <property name="propertiesNamesAndValues">
+            <map>
+                <entry key="type">
+                    <set>
+                        <value>COLL</value>
                     </set>
                 </entry>
             </map>

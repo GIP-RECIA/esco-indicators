@@ -8,7 +8,6 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
@@ -17,7 +16,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
-import org.hibernate.annotations.NaturalId;
 
 /**
  * Class representing statistics on wantedServices usage of a user.<br/>
@@ -57,6 +55,13 @@ import org.hibernate.annotations.NaturalId;
 	    name = "ServiceConnectionStatistic.findNumVisits",
 	    query = "SELECT SUM(scs.numConnections) FROM ServiceConnectionStatistic scs"
 	    		+ " WHERE scs.establishmentUai IN ( :establishmentUaiList )"
+	    		+ " AND scs.serviceName IN ( :serviceNameList ) AND scs.userProfile = :userProfile"
+	    		+ " AND scs.day BETWEEN :startDate AND :endDate"
+	    ),
+  @NamedQuery(
+	   name = "ServiceConnectionStatistic.findServiceConnectionStatistics",
+	   query = "SELECT scs FROM ServiceConnectionStatistic scs"
+	  		+ " WHERE scs.establishmentUai IN ( :establishmentUaiList )"
 	    		+ " AND scs.serviceName IN ( :serviceNameList ) AND scs.userProfile = :userProfile"
 	    		+ " AND scs.day BETWEEN :startDate AND :endDate"
 	    )

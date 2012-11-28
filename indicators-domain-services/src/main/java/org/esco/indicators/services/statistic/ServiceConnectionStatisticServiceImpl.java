@@ -4,11 +4,12 @@
 package org.esco.indicators.services.statistic;
 
 import java.sql.Date;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.dao.statistic.ServiceConnectionStatisticDao;
+import org.esco.indicators.domain.beans.statistic.ServiceConnectionStatistic;
 import org.esco.indicators.utils.date.DateUtils;
 
 /**
@@ -84,8 +85,20 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
 	Date lastWeekDay = DateUtils.addDays(firstWeekDay, 6);
 	
 	// Number of visitors
-	Integer numVisitors = serviceConnectionStatisticDao.findNumVisitorsAboveTreshold(establishmentsUai, firstWeekDay, lastWeekDay, services, userProfile, treshold); 
-	numVisitors = (numVisitors == null ? 0 : numVisitors);
+	//Integer numVisitors = serviceConnectionStatisticDao.findNumVisitorsAboveTreshold(establishmentsUai, firstWeekDay, lastWeekDay, services, userProfile, treshold); 
+	//numVisitors = (numVisitors == null ? 0 : numVisitors);
+	
+	// Connections statistics
+	List<ServiceConnectionStatistic> statistics = serviceConnectionStatisticDao.findServiceConnectionStatistics(establishmentsUai, firstWeekDay, lastWeekDay, services, userProfile);
+	
+	// Calculates the number of users having made more than "treshold" connections
+	Integer numVisitors = 0;
+	HashMap<String, Integer> numConnectionsByUid = groupByUidSumNumConnections(statistics);
+	for (Integer numConnections : numConnectionsByUid.values()) {
+	    if(numConnections > treshold) {
+		numVisitors++;
+	    }
+	}
 	
 	return numVisitors;
     }
@@ -101,8 +114,20 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
 	Date lastWeekDay = DateUtils.addDays(firstWeekDay, 6);
 	
 	// Number of visitors
-	Integer numVisitors = serviceConnectionStatisticDao.findNumVisitorsBelowTreshold(establishmentsUai, firstWeekDay, lastWeekDay, services, userProfile, treshold); 
-	numVisitors = (numVisitors == null ? 0 : numVisitors);
+	//Integer numVisitors = serviceConnectionStatisticDao.findNumVisitorsBelowTreshold(establishmentsUai, firstWeekDay, lastWeekDay, services, userProfile, treshold); 
+	//numVisitors = (numVisitors == null ? 0 : numVisitors);
+	
+	// Connections statistics
+	List<ServiceConnectionStatistic> statistics = serviceConnectionStatisticDao.findServiceConnectionStatistics(establishmentsUai, firstWeekDay, lastWeekDay, services, userProfile);
+	
+	// Calculates the number of users having made more than "treshold" connections
+	Integer numVisitors = 0;
+	HashMap<String, Integer> numConnectionsByUid = groupByUidSumNumConnections(statistics);
+	for (Integer numConnections : numConnectionsByUid.values()) {
+	    if(numConnections <= treshold) {
+		numVisitors++;
+	    }
+	}
 	
 	return numVisitors;
     }
@@ -137,8 +162,20 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
 	Date lastMonthDay = DateUtils.getLastMonthDay(month, year);
 	
 	// Number of visitors
-	Integer numVisitors = serviceConnectionStatisticDao.findNumVisitorsAboveTreshold(establishmentsUai, firstMonthDay, lastMonthDay, services, userProfile, treshold); 
-	numVisitors = (numVisitors == null ? 0 : numVisitors);
+	//Integer numVisitors = serviceConnectionStatisticDao.findNumVisitorsAboveTreshold(establishmentsUai, firstMonthDay, lastMonthDay, services, userProfile, treshold); 
+	//numVisitors = (numVisitors == null ? 0 : numVisitors);
+	
+	// Connections statistics
+	List<ServiceConnectionStatistic> statistics = serviceConnectionStatisticDao.findServiceConnectionStatistics(establishmentsUai, firstMonthDay, lastMonthDay, services, userProfile);
+	
+	// Calculates the number of users having made more than "treshold" connections
+	Integer numVisitors = 0;
+	HashMap<String, Integer> numConnectionsByUid = groupByUidSumNumConnections(statistics);
+	for (Integer numConnections : numConnectionsByUid.values()) {
+	    if(numConnections > treshold) {
+		numVisitors++;
+	    }
+	}
 	
 	return numVisitors;
     }
@@ -154,8 +191,20 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
 	Date lastMonthDay = DateUtils.getLastMonthDay(month, year);
 	
 	// Number of visitors
-	Integer numVisitors = serviceConnectionStatisticDao.findNumVisitorsBelowTreshold(establishmentsUai, firstMonthDay, lastMonthDay, services, userProfile, treshold); 
-	numVisitors = (numVisitors == null ? 0 : numVisitors);
+	//Integer numVisitors = serviceConnectionStatisticDao.findNumVisitorsBelowTreshold(establishmentsUai, firstMonthDay, lastMonthDay, services, userProfile, treshold); 
+	//numVisitors = (numVisitors == null ? 0 : numVisitors);
+	
+	// Connections statistics
+	List<ServiceConnectionStatistic> statistics = serviceConnectionStatisticDao.findServiceConnectionStatistics(establishmentsUai, firstMonthDay, lastMonthDay, services, userProfile);
+	
+	// Calculates the number of users having made more than "treshold" connections
+	Integer numVisitors = 0;
+	HashMap<String, Integer> numConnectionsByUid = groupByUidSumNumConnections(statistics);
+	for (Integer numConnections : numConnectionsByUid.values()) {
+	    if(numConnections <= treshold) {
+		numVisitors++;
+	    }
+	}
 	
 	return numVisitors;
     }
@@ -179,5 +228,30 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
+    /**
+     * Aggregates the number of connections by user uid by summing the number of connections present into the statistics.
+     * 
+     * @param serviceConnectionStatistics
+     * 			The statistics containing the user uid and the number of connections.
+     * 
+     * @return
+     * 	a map containing the total number of connections indexed by user uid.<br/>
+     * 	an empty map if nothing has been retrieved.
+     */
+    public HashMap<String, Integer> groupByUidSumNumConnections(List<ServiceConnectionStatistic> serviceConnectionStatistics) {
+	// Final result
+	HashMap<String, Integer> numConnectionsByUid = new HashMap<String, Integer>();
+	
+	// Adds all the number of connections by uid
+	for (ServiceConnectionStatistic statistic : serviceConnectionStatistics) {
+	    String userUid = statistic.getUserUid();
+	    Integer numConnectionsToAdd = statistic.getNumConnections();
+	    Integer numConnections = ( numConnectionsByUid.get(userUid) == null ? 0 : numConnectionsByUid.get(userUid) );
+	    numConnectionsByUid.put(userUid, numConnections + numConnectionsToAdd);
+	}
+	
+	return numConnectionsByUid;
+    }
+    
     //------------------------------------------------------------------------------ STATIC METHODS
 }

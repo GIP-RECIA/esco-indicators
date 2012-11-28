@@ -6,6 +6,8 @@ package org.esco.indicators.dao.statistic;
 import java.util.Date;
 import java.util.List;
 
+import org.esco.indicators.domain.beans.statistic.ServiceConnectionStatistic;
+
 /**
  * Interface providing functions to access statistical data on the services connections.
  * 
@@ -107,5 +109,26 @@ public interface ServiceConnectionStatisticDao extends StatisticDao {
      * 	<code>null</code> if no statistic has been retrieved.
      */
     public Integer findNumVisits(List<String> establishmentsUai, Date startDay, Date endDay, List<String> servicesNames, String userProfile);
+
+    /**
+     * Retrieves the statistics on the <code>servicesNames</code>  for the specified <code>userProfile</code> in the specified <code>establishmentUai</code>.<br/>
+     * These statistics only concerns the period beginning with the day <code>startDay</code> and ending with the day <code>endDay</code>.
+     * 
+     * @param establishmentsUai
+     * 			The UAI of the establishment associated to the statistic to retrieve.
+     * @param startDay
+     * 			The start day of the period associated to the statistic.
+     * @param endDay
+     * 			The end day of the period associated to the statistic.
+     * @param servicesNames
+     * 			The names of the services of the statistic to retrieve.
+     * @param userProfile
+     * 			The user profile of the statistic to retrieve.
+     * 
+     * @return
+     * 	the statistics made on the services during the specified period.<br/>
+     * 	<code>null</code> if no statistic has been retrieved.
+     */
+    public List<ServiceConnectionStatistic> findServiceConnectionStatistics(List<String> establishmentsUai, Date startDay, Date endDay, List<String> servicesNames, String userProfile);
 
 }

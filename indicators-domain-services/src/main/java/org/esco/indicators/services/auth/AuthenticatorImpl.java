@@ -96,7 +96,12 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	 * Property name containing the establishments UAI (as property values).
 	 */
 	private  String establishmentUaiPropertyName;
-
+	
+	/**
+	 * Property name containing the establishment types.
+	 */
+	private  String establishmentsTypePropertyName;
+	
 	//-------------------------------------------------------------------------------- CONSTRUCTORS
 
 	/**
@@ -110,19 +115,19 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	public void afterPropertiesSet()  {
 		Assert.notNull(authenticationService, "property authenticationService of class "
 				+ this.getClass().getName() + " can not be null");
+		LOGGER.debug("The authentication service set is : [" + authenticationService.getClass() +"]");
 		Assert.notNull(domainService, 
 			"property domainService of class " + this.getClass().getName() + " can not be null");
 		Assert.notNull(establishmentPermissionService, 
 			"property establishmentPermissionService of class " + this.getClass().getName() + " can not be null");
 		Assert.notNull(establishmentService, 
 			"property establishmentService of class " + this.getClass().getName() + " can not be null");
-		LOGGER.debug("The authentication service set is : [" + authenticationService.getClass() +"]");
 		Assert.notNull(superUserFilterPropertyName, 
 			"property superUserFilterPropertyName of class " + this.getClass().getName() + " can not be null");
-		LOGGER.debug("The authentication service set is : [" + authenticationService.getClass() +"]");
 		Assert.notNull(establishmentUaiPropertyName, 
 			"property establishmentUaiPropertyName of class " + this.getClass().getName() + " can not be null");
-		LOGGER.debug("The authentication service set is : [" + authenticationService.getClass() +"]");
+		Assert.notNull(establishmentsTypePropertyName, 
+			"property establishmentsTypePropertyName of class " + this.getClass().getName() + " can not be null");
 	}
 
 	//--------------------------------------------------------------------------- GETTERS / SETTERS
@@ -179,6 +184,16 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	 */
 	public void setEstablishmentUaiPropertyName(String establishmentUaiPropertyName) {
 	    this.establishmentUaiPropertyName = establishmentUaiPropertyName;
+	}
+
+	/**
+	 * Sets the name of the property containing the establishments types.
+	 * 
+	 * @param establishmentsTypePropertyName 
+	 * 				the property name containing the establishments types to set.
+	 */
+	public void setEstablishmentsTypePropertyName(String establishmentsTypePropertyName) {
+	    this.establishmentsTypePropertyName = establishmentsTypePropertyName;
 	}
 
 	/**
@@ -313,6 +328,29 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	    }
 	    
 	    LOGGER.debug("The user does not have the right to see the establishment : [" + establishmentUAI +"]");
+	    return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.esco.indicators.services.auth.Authenticator#hasPermissionOnEstablishmentsType(java.lang.String)
+	 */
+	@Override
+	public boolean hasPermissionOnEstablishmentsType(String establishmentType) {
+	    // Gets the establishment filter
+	    GenericFilter establishmentFilter = getEstablishmentFilter();
+	    if(establishmentFilter == null) {
+		LOGGER.debug("The user has no right on the establishments type [" + establishmentType + "], because the establishment filter can be retrieved.");
+		return false;
+	    }
+	    
+	    // Gets the allowed establishments
+	    Set<String> allowedEstablishmentsTypes = establishmentFilter.getPropertyValues(establishmentsTypePropertyName);
+	    if(allowedEstablishmentsTypes != null && allowedEstablishmentsTypes.contains(establishmentType) ) {
+		LOGGER.debug("The user has the right to see the establishments type [" + establishmentType + "]");
+		return true;
+	    }
+	    
+	    LOGGER.debug("The user does not have the right to see the establishments type : [" + establishmentType +"]");
 	    return false;
 	}
 

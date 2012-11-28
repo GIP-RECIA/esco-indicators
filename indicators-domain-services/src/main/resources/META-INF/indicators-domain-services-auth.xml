@@ -16,6 +16,7 @@
         
         <property name="superUserFilterPropertyName" value="type"/>
         <property name="establishmentUaiPropertyName" value="uai"/>
+        <property name="establishmentsTypePropertyName" value="type"/>
     </bean>
 
     <bean id="servletAuthenticationService" lazy-init="true"

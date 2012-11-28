@@ -4,13 +4,17 @@
 package org.esco.indicators.web.springmvc.controller.account.form;
 
 import java.text.SimpleDateFormat;
+import java.text.Normalizer.Form;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
 import org.esco.indicators.domain.beans.form.BasicForm;
+import org.esco.indicators.domain.beans.form.FormField;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
@@ -120,6 +124,54 @@ public class FormAccountController extends BasicFormController  {
 	
         // If the user is a super user
 	return "form-accounts";
+    }
+    
+    /**
+     * Populate the establishments types field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the available values for the establishments types field.
+     */
+    @Override
+    @ModelAttribute("estbalishmentsTypesItems")
+    public List<FormField> populateEstablishmentsTypes(HttpServletRequest request) {
+ 	List<FormField> establishmentsTypes = getEntryFormFields(DataFormConstants.ESTABLISHMENTS_TYPES);
+ 	establishmentsTypes = keepAuthorizedEstablishmentsTypes(establishmentsTypes);
+ 	return establishmentsTypes;
+    }
+    
+    /**
+     * Populate the "lycees"  types field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the available values for the "lycees"  types field.
+     */
+    @Override
+    @ModelAttribute("laTypesItems")
+    public List<FormField> populateLaTypes(HttpServletRequest request) {
+ 	List<FormField> laTypes = getEntryFormFields(DataFormConstants.LA_TYPES);
+ 	laTypes = keepAuthorizedEstablishmentsTypes(laTypes);
+ 	return laTypes;
+    }    
+    
+    /**
+     * Populate the "lycees agricoles"  types field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the available values for the "lycees agricoles"  types field.
+     */
+    @Override
+    @ModelAttribute("lyceesTypesItems")
+    public List<FormField> populateLyceesTypes(HttpServletRequest request) {
+ 	List<FormField> lyceesTypes = getEntryFormFields(DataFormConstants.LYCEES_TYPES);
+ 	lyceesTypes = keepAuthorizedEstablishmentsTypes(lyceesTypes);
+ 	return lyceesTypes;
     }
     
     /**

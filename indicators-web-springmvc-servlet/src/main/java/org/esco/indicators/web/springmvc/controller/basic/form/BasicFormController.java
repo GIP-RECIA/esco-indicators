@@ -279,6 +279,37 @@ public abstract class BasicFormController extends BasicController {
 	}
 	return formFields;
     }
+    
+    
+    /**
+     * Only keeps the establishments types form fields authorized for the user.<br/>
+     * The authorized establishments types are retrieved through the authenticator.
+     * 
+     * @param establishmentsTypesFields
+     * 			The establishments types fields to test.
+     * 
+     * @return
+     * 	a copy of the given list only containing the authorized forms fields.<br/>
+     * 	an empty list if no establishments types are authorized.
+     */
+    protected List<FormField> keepAuthorizedEstablishmentsTypes(List<FormField> establishmentsTypesFields) {
+	// Final result
+	List<FormField> authorizedEstablishmentsTypes = new ArrayList<FormField>();
+	
+	// Retrieves the establishments types to filter and verifies if the user
+	// has the right to see these types
+	for (FormField establishmentsType : establishmentsTypesFields) {
+	    String jspKey = establishmentsType.getValue();
+	    String establishmentTypeToFilter = getDataFormService().getEstablishmentTypeToFilter(jspKey);
+	    // Checks if the user has rights on this establishment type
+	    if(authenticator.hasPermissionOnEstablishmentsType(establishmentTypeToFilter)) {
+		authorizedEstablishmentsTypes.add(establishmentsType);
+	    }
+	}
+	
+	return authorizedEstablishmentsTypes;
+    }
+    
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
     //------------------------------------------------------------------------------ STATIC METHODS
