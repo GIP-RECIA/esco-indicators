@@ -30,25 +30,38 @@
             <form:errors path="county" cssClass="error" />
         </div>
         
-        <h3 class="subFilterTitle"><spring:message code="filter.title.lyceeType" /></h3>
-        <div class="filterOptions">
-            <c:forEach var="item" items="${lyceesTypesItems}">
-                <spring:message code="${item.label}" var="i18n"/> 
-                <form:checkbox cssClass="submit" value="${item.value}" label="${i18n}" readonly="${item.disabled}" path="lyceesTypes" /> 
-            </c:forEach>
-        </div>
-         <div class="filterErrors">
-            <form:errors path="lyceesTypes" cssClass="error" />
-         </div>
+        <%-- #################################################### --%>
+        <%-- LYCEES TYPES ? --%>
+        <%-- #################################################### --%>
+        <c:if test="${not empty lyceesTypesItems}">
+            <h3 class="subFilterTitle"><spring:message code="filter.title.lyceeType" /></h3>
+            <div class="filterOptions">
+                <c:forEach var="item" items="${lyceesTypesItems}">
+                    <spring:message code="${item.label}" var="i18n"/> 
+                    <form:checkbox cssClass="submit" value="${item.value}" label="${i18n}" readonly="${item.disabled}" path="lyceesTypes" /> 
+                </c:forEach>
+            </div>
+             <div class="filterErrors">
+                <form:errors path="lyceesTypes" cssClass="error" />
+             </div>
+        </c:if>
+        <%-- #################################################### --%>
         
-        <h3 class="subFilterTitle"><spring:message code="filter.title.laType" /></h3>
-        <div class="filterOptions">
-            <c:forEach var="item" items="${laTypesItems}">
-                   <spring:message code="${item.label}" var="i18n"/>  
-                   <form:checkbox cssClass="submit" value="${item.value}" label="${i18n}" readonly="${item.disabled}" path="laTypes" /> 
-            </c:forEach>
-        </div>
-        <div class="filterErrors">
-            <form:errors path="laTypes" cssClass="error" />
-         </div>
+        <%-- #################################################### --%>
+        <%-- LA TYPES ? --%>
+        <%-- #################################################### --%>
+        <c:if test="${not empty laTypesItems}">
+            <h3 class="subFilterTitle"><spring:message code="filter.title.laType" /></h3>
+            <div class="filterOptions">
+                <c:forEach var="item" items="${laTypesItems}">
+                       <spring:message code="${item.label}" var="i18n"/>  
+                       <form:checkbox cssClass="submit" value="${item.value}" label="${i18n}" readonly="${item.disabled}" path="laTypes" /> 
+                </c:forEach>
+            </div>
+            <div class="filterErrors">
+                <form:errors path="laTypes" cssClass="error" />
+            </div>
+        </c:if>
+        <%-- #################################################### --%>
+        
     </div>
