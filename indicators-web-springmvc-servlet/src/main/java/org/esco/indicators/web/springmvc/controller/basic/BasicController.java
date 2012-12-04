@@ -9,8 +9,10 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.esco.indicators.domain.beans.form.BasicForm;
 import org.esco.indicators.domain.beans.people.User;
 import org.esco.indicators.domain.beans.permission.GenericFilter;
 import org.esco.indicators.domain.beans.structure.Establishment;
@@ -119,7 +121,47 @@ public class BasicController {
  	}
     }
     
-    //----------------------------------------------------------------------------- PRIVATE METHODS
+    //--------------------------------------------------------------------------- PROTECTED METHODS
+    /**
+     * Checks if the specified session contains a form associated to the session attribute <code>formAttribute</code>.<br/>
+     * 
+     * @param session
+     * 			The user session.
+     * @param formAttribute
+     * 			The session attribute associated to the form.
+     * 
+     * @return
+     * 	<code>true</code> if the session contained a form associated to <code>formAttribute</code>.<br/>
+     * 	<code>false</code> in other cases.
+     */
+    protected boolean containsForm(HttpSession session, String formAttribute) {
+	// Retrieval of the associated form
+	BasicForm basicForm = (BasicForm) session.getAttribute(formAttribute);
+	if(basicForm == null) {
+	    return false;
+	}
+	return true;
+    }
 
+    
+    /**
+     * Gets the form associated to the session attribute : <code>formAttribute</code>.
+     * 
+     * @param session
+     * 			The user session.
+     * @param formAttribute
+     * 			The session attribute associated to the form.
+     * 
+     * @return
+     * 	the form associated to the session attribute : <code>formAttribute</code>.<br/>.
+     * 	<code>null</code> if no form is associated to the session attribute.
+     */
+    protected BasicForm getSessionForm(HttpSession session, String formAttribute) {
+        // Retrieval of the form
+        return (BasicForm) session.getAttribute(formAttribute);
+    }
+    
+    //----------------------------------------------------------------------------- PRIVATE METHODS
+    
     //------------------------------------------------------------------------------ STATIC METHODS
 }

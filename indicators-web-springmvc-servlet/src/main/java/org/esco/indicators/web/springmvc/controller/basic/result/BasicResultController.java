@@ -401,23 +401,6 @@ public abstract class BasicResultController extends BasicController {
     }
     
     /**
-     * Gets the form associated to the session attribute : <code>formAttribute</code>.
-     * 
-     * @param session
-     * 			The user session.
-     * @param formAttribute
-     * 			The session attribute associated to the form.
-     * 
-     * @return
-     * 	the form associated to the session attribute : <code>formAttribute</code>.<br/>.
-     * 	<code>null</code> if no form is associated to the session attribute.
-     */
-    protected BasicForm getSessionForm(HttpSession session, String formAttribute) {
-        // Retrieval of the form
-        return (BasicForm) session.getAttribute(formAttribute);
-    }
-    
-    /**
      * Gets the i18n keys associated to the specified JSP keys.
      * 
      * @param jspKeys
@@ -470,30 +453,7 @@ public abstract class BasicResultController extends BasicController {
 	return DateUtils.splitMonths(startMonth, startYear, endMonth, endYear);
     }
     
-    /**
-     * Checks if the specified session contains a form associated to the session attribute <code>formAttribute</code>.<br/>
-     * 
-     * @param session
-     * 			The user session.
-     * @param formAttribute
-     * 			The session attribute associated to the form.
-     * 
-     * @return
-     * 	<code>true</code> if the session contained a form associated to <code>formAttribute</code>.<br/>
-     * 	<code>false</code> in other cases.
-     */
-    protected boolean containsForm(HttpSession session, String formAttribute) {
-	// Retrieval of the associated form
-	BasicForm basicForm = (BasicForm) session.getAttribute(formAttribute);
-	if(basicForm == null) {
-	    return false;
-	}
-	return true;
-    }
-    
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
-
-    
     //------------------------------------------------------------------------------ STATIC METHODS
 }

@@ -12,5 +12,5 @@
 
 
 <c:forEach var="item" items="${establishmentsItems}">
-    <form:hidden value="${item.value}" path="establishments" /> 
+    <form:hidden value="${item}" path="establishments" /> 
 </c:forEach>

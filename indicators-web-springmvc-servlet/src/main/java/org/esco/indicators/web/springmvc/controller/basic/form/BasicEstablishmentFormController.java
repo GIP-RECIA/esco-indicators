@@ -74,16 +74,15 @@ public abstract class BasicEstablishmentFormController extends BasicFormControll
      */
     @Override
     @ModelAttribute("establishmentsItems")
-    public List<FormField> populateEstablishments(HttpServletRequest request) {
-	// Fields for the establishment
-	List<FormField> establishmentsField = new ArrayList<FormField>();
+    public List<String> populateEstablishments(HttpServletRequest request) {
+	// Establishment of the user
+	List<String> establishments = new ArrayList<String>();
 	
 	// Puts the UAI of the establishment
 	String establishmentUai = authenticator.getUser().getEstablishmentUAI();
-	FormField establishmentField = new FormField(establishmentUai, establishmentUai);
- 	establishmentsField.add(establishmentField);
+	establishments.add(establishmentUai);
  	
-	return  establishmentsField;
+	return  establishments;
     }
     
     /* (non-Javadoc)

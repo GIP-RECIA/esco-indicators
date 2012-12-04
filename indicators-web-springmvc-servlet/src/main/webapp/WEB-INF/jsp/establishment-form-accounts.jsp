@@ -25,7 +25,7 @@
     <%-- Submission button --%>
     <%@ include file="/WEB-INF/jsp/include/common/form-submit.jsp"%>
 
-    <%-- Empty div for displaying the datepicker below the input and not abov --%>
+    <%-- Empty div for displaying the datepicker below the input and not above --%>
     <div id="datePickerSpace">
     </div>
     

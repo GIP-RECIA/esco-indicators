@@ -11,7 +11,10 @@ package org.esco.indicators.utils.constants.web;
  */
 public class RequestParameters {
     
-    /**Parameter : establishment uai */
+    /** Parameter : establishment uai */
     public static final String ESTABLISHMENT_UAI = "uai";
+    
+    /** Parameter : establishments */
+    public static final String ESTABLISHMENTS = "establishments";
     
 }

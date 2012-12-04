@@ -98,6 +98,19 @@ $(document).ready(function() {
 	});
 
     ///////////////////////////////////////////////////////
+    // When the form is not validated : checks the
+    // establishments that were selected at the form 
+    // submission time
+    ///////////////////////////////////////////////////////
+    $("#" + ESTABLISHMENTS_TABLE_ID).bind("bodyUpdate", function () {
+        $("input[name='postedEstablishment']").each(function () {
+            var value = $(this).prop("value");
+            $("#" + value).prop("checked", "checked");
+            $(this).remove();
+        });
+    });
+
+    ///////////////////////////////////////////////////////
     // Initialization of the form state
     ///////////////////////////////////////////////////////
     initializeForm();	
@@ -350,5 +363,7 @@ function updateEstablishmentsList(establishments_list) {
            appendEstablishment(establishment);
        }
     }
+    // Indicates that the establishments list body has been updated
+    $("#" + ESTABLISHMENTS_TABLE_ID).trigger("bodyUpdate");
 }
 

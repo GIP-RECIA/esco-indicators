@@ -8,14 +8,15 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="establishment" items="${establishmentsItems}">
-				<tr>
-				   <td><form:checkbox path="establishments" value="${establishment.value}" /></td>
-				   <td><c:out value="${establishment.label}"/></td>
-				<tr>
-			</c:forEach>
+            <%-- Empty table filled by ajax methods --%>
 		</tbody>
     </table>
+    
+    <%-- Establishments previously selected --%>
+    <c:forEach var="establishment" items="${postedEstablishmentsItems}">
+        <input type="hidden" name="postedEstablishment" value="${establishment}" />
+    </c:forEach>
+    
 </div>
 <div class="filterErrors">
     <form:errors path="establishments" cssClass="error" />

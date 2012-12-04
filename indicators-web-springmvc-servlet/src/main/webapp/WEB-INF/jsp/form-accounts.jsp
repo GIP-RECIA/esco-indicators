@@ -28,7 +28,7 @@
     <%-- Establishment selection --%>
     <%@ include file="/WEB-INF/jsp/include/common/form-filter-establishment.jsp"%>
     
-    <%-- Submission buttion --%>
+    <%-- Submission button --%>
     <%@ include file="/WEB-INF/jsp/include/common/form-submit.jsp"%>
 </form:form>
 

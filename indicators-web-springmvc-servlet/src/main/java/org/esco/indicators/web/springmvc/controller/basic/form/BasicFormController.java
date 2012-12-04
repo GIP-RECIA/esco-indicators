@@ -5,16 +5,21 @@ package org.esco.indicators.web.springmvc.controller.basic.form;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.ListUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
+import org.esco.indicators.domain.beans.form.AccountActivationForm;
 import org.esco.indicators.domain.beans.form.BasicForm;
 import org.esco.indicators.domain.beans.form.FormField;
 import org.esco.indicators.domain.beans.xml.form.EntryValue;
 import org.esco.indicators.services.form.DataFormService;
+import org.esco.indicators.utils.constants.web.RequestParameters;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.web.springmvc.controller.basic.BasicController;
@@ -121,16 +126,29 @@ public abstract class BasicFormController extends BasicController {
     }
     
     /**
-    * Populate the establishments field.
+    * Populate the posted establishments field.<br/>
+    * This filed is used to know which establishments have been posted during the last form submission.
     * 
     * @param request
     * 			The request made by the user.
     * @return
-    * 	the available values for the establishments field.
+    * 		the last posted establishments.
     */
-   @ModelAttribute("establishmentsItems")
-   public List<FormField> populateEstablishments(HttpServletRequest request) {
-	return  (new ArrayList<FormField>());
+   @ModelAttribute("postedEstablishmentsItems")
+   public List<String> populateEstablishments(HttpServletRequest request) {
+       // Retrieval of the posted establishments
+       String [] postedEstablishments = request.getParameterValues(RequestParameters.ESTABLISHMENTS);
+       
+	// If no establishments have already been posted
+	if(postedEstablishments == null || postedEstablishments.length == 0) {
+	    LOGGER.debug("No establishments have already been posted");
+	    return  (new ArrayList<String>());
+	}
+	
+	// Populates the establishments in order to select them in the view
+	LOGGER.debug("Some establishments have already been posted");
+        List<String> establishments = new ArrayList<String>(Arrays.asList(postedEstablishments));
+     	return establishments;
    }
    
    /**
@@ -224,13 +242,15 @@ public abstract class BasicFormController extends BasicController {
     * @param status
     * 			The session status.
     * @return
-    * 	the JSP view name.
+    * 		the JSP view name.
     */
    public String processSubmit(HttpServletRequest request, BasicForm form, BindingResult result, SessionStatus status) {
 	// Log of the submitted form
-	if(LOGGER.isDebugEnabled()) {
-	    LOGGER.debug("Submitted form : " + form.toString());
-	}
+       LOGGER.debug("Submitted form : [" + form.toString() +"]");
+	
+	// Indication of the last submitted form, and storage of this form
+	request.getSession().setAttribute(SessionConstants.LAST_SUBMITTED_FORM_ATTR, formSessionAttribute);
+	request.getSession().setAttribute(formSessionAttribute, form);
 	
 	// Validation of the form
 	Validator validator = getValidator();
@@ -241,11 +261,7 @@ public abstract class BasicFormController extends BasicController {
 	    LOGGER.debug("The submitted form has not been validated due to the following errors : [" + result.getFieldErrors() + "]");
 	    return getFailureViewName(form);
 	}
-	
-	// Indication of the last submitted form, and storage of this form
-	request.getSession().setAttribute(SessionConstants.LAST_SUBMITTED_FORM_ATTR, formSessionAttribute);
-	request.getSession().setAttribute(formSessionAttribute, form);
-	
+		
 	// Redirection to the result controller
 	return getSuccessViewName(form);
    }
