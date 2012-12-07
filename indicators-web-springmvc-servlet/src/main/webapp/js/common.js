@@ -25,7 +25,7 @@ $(document).ready(function() {
             event.preventDefault();
         }   
     });
-
+    
     // //////////////////////////////////////////////////////////////
     // When the LEN_INPUT becomes checked (resp. unchecked), its
     // dependencies inputs become checked (resp. unchecked).  
@@ -34,7 +34,7 @@ $(document).ready(function() {
         var element = $("[value='" + LEN_INPUT.name + "']");
         changeCheckedProperty(element.prop("checked"), LEN_INPUT.dependencies);
     });
-
+    
     // //////////////////////////////////////////////////////////////
     // When the LA_INPUT becomes checked (resp. unchecked), its
     // dependencies inputs become checked (resp. unchecked).  
@@ -43,7 +43,7 @@ $(document).ready(function() {
         var element = $("[value='" + LA_INPUT.name + "']");
         changeCheckedProperty(element.prop("checked"), LA_INPUT.dependencies);
     });
-
+    
     // //////////////////////////////////////////////////////////////
     // When the CFA_INPUT becomes (un)checked :
     //  - the LEN_INPUT dependencies have to be updated with the
@@ -52,13 +52,13 @@ $(document).ready(function() {
     //    "checked" property than the LA_INPUT itself.
     // //////////////////////////////////////////////////////////////
     $("[value='" + CFA_INPUT.name + "']").change(function() {
-		  var element = $("[value='" + LEN_INPUT.name + "']");
-		  changeCheckedProperty(element.prop("checked"), LEN_INPUT.dependencies)    
-		  var element = $("[value='" + LA_INPUT.name + "']");
-		  changeCheckedProperty(element.prop("checked"), LA_INPUT.dependencies)    
+    	  var element = $("[value='" + LEN_INPUT.name + "']");
+    	  changeCheckedProperty(element.prop("checked"), LEN_INPUT.dependencies)    
+    	  var element = $("[value='" + LA_INPUT.name + "']");
+    	  changeCheckedProperty(element.prop("checked"), LA_INPUT.dependencies)    
     });
-
-
+    
+    
     // //////////////////////////////////////////////////////////////
     // When the SUM_ON_COUNTIES_INPUT is checked, its dependency
     // is selected.
@@ -66,7 +66,7 @@ $(document).ready(function() {
     $("[value='" + SUM_ON_COUNTIES_INPUT.name + "']").change(function() {
         changeElementPropertyByValue(SUM_ON_COUNTIES_INPUT.dependency, "selected", true) 
     });
-
+    
     ///////////////////////////////////////////////////////
     // When the MONITORING_ATTENDANCE is checked,
     // only one user profile can be selected
@@ -77,26 +77,26 @@ $(document).ready(function() {
             uncheckElementsByValues(USERS_PROFILES.values);
         }
     });
-
+    
     ///////////////////////////////////////////////////////
     // Select / Unselect all establishments
     ///////////////////////////////////////////////////////
-	$("#toggleEstablishmentsSelection").click(function() {
-		var inputs = $("#establishmentsList").find("tr").has("td").find("input");
-		var checkedState = $(this).prop("checked");
-		toggleInputsStates(inputs,checkedState);
-	});
-
+    $("#toggleEstablishmentsSelection").click(function() {
+    	var inputs = $("#establishmentsList").find("tr").has("td").find("input");
+    	var checkedState = $(this).prop("checked");
+    	toggleInputsStates(inputs,checkedState);
+    });
+    
     ///////////////////////////////////////////////////////
     // When the form is sumbitted : hides sumbit buttons
-	// and show spinner
+    // and show spinner
     ///////////////////////////////////////////////////////
-	$('form').submit(function() {
-		$(this).find(":submit").prop("disabled", "disabled");	
-		var spinner = new Spinner(SPINNER_OPTS).spin();
-		$(this).find(".submitSpinner").append(spinner.el);	
-	});
-
+    $('form').submit(function() {
+    	$(this).find(":submit").prop("disabled", "disabled");	
+    	var spinner = new Spinner(SPINNER_OPTS).spin();
+    	$(this).find(".submitSpinner").append(spinner.el);	
+    });
+    
     ///////////////////////////////////////////////////////
     // When the form is not validated : checks the
     // establishments that were selected at the form 
@@ -108,6 +108,14 @@ $(document).ready(function() {
             $("#" + value).prop("checked", "checked");
             $(this).remove();
         });
+    });
+    
+    ///////////////////////////////////////////////////////
+    // Firefox hack : When the user comes back on this
+    // page the form has to be ready
+    ///////////////////////////////////////////////////////
+    $(window).unload(function () {
+        initializeForm();
     });
 
     ///////////////////////////////////////////////////////
@@ -246,8 +254,10 @@ function initializeForm() {
         // Ckecks the attendance type
         changeElementPropertyByValue(ATTENDANCE.name, "checked", true);
     }
-	// Enables submit button
-	$("form").find(":submit").prop("disabled", "");	
+    // Enables submit button
+    $("form").find(":submit").prop("disabled", "");	
+    // Removes spin
+    $(this).find(".submitSpinner").empty();
 }
 
 /**

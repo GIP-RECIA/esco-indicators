@@ -153,12 +153,13 @@ public class BasicController {
      * 			The session attribute associated to the form.
      * 
      * @return
-     * 	the form associated to the session attribute : <code>formAttribute</code>.<br/>.
-     * 	<code>null</code> if no form is associated to the session attribute.
+     * 	the form associated to the session attribute : <code>formAttribute</code><br/>
+     * 	an empty form if no form is associated to the session attribute.
      */
     protected BasicForm getSessionForm(HttpSession session, String formAttribute) {
         // Retrieval of the form
-        return (BasicForm) session.getAttribute(formAttribute);
+        BasicForm form = (BasicForm) session.getAttribute(formAttribute);
+        return (form == null ? new BasicForm() : form);
     }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS

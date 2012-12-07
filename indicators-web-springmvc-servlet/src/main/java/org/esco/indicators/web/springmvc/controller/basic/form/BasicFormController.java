@@ -11,10 +11,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.collections.ListUtils;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
-import org.esco.indicators.domain.beans.form.AccountActivationForm;
 import org.esco.indicators.domain.beans.form.BasicForm;
 import org.esco.indicators.domain.beans.form.FormField;
 import org.esco.indicators.domain.beans.xml.form.EntryValue;
@@ -24,11 +21,14 @@ import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.web.springmvc.controller.basic.BasicController;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 
 /**
@@ -67,12 +67,15 @@ public abstract class BasicFormController extends BasicController {
     public abstract DataFormService getDataFormService();
     
     /**
-     * Gets the validator of the form.
+     * Gets the name of the view used for a denied access.<br/>
+     * This view is used when the user has no right on the page.
      * 
      * @return
-     * 	the form validator
+     * 	the name of the 
      */
-    public abstract Validator getValidator();
+    public String getAccessDeniedViewName() {
+	return "access-denied";
+    }
     
     /**
      * Gets the name of the view name to use when the form validation is a failure.<br/>
@@ -87,6 +90,14 @@ public abstract class BasicFormController extends BasicController {
     public abstract String getFailureViewName(BasicForm unvalidForm);
     
     /**
+     * Gets the name of the form used for the ModelMap.
+     * 
+     * @return
+     * 	the name of the form
+     */
+    public abstract String getFormName();
+    
+    /**
      * Gets the name of the view name to use when the form validation is a success.<br/>
      * This name can depend on the values present in the submitted form.
      * 
@@ -98,7 +109,63 @@ public abstract class BasicFormController extends BasicController {
      */
     public abstract String getSuccessViewName(BasicForm validForm);
     
+    /**
+     * Gets the name of the form view used for a normal user.<br/>
+     * A normal user is a non-super user.
+     * 
+     * @return
+     * 	the name of the form view for a normal user
+     */
+    public abstract String getUserFormViewName();
+    
+    /**
+     * Gets the name of the form view used for a super user.<br/>
+     * 
+     * @return
+     * 	the name of the form view for a super user
+     */
+    public abstract String getSuperUserFormViewName();
+    
+    /**
+     * Gets the validator of the form.
+     * 
+     * @return
+     * 	the form validator
+     */
+    public abstract Validator getValidator();
+    
     //------------------------------------------------------------------------------ PUBLIC METHODS
+    /**
+     * Initializes the account activation form.
+     * 
+     * @param model
+     * 			Model data.
+     * @param request
+     * 			Request made by the user.
+     * @return
+     * 	the JSP view name.
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    public String initForm(ModelMap model, HttpServletRequest request){
+	// Binding of the form
+	BasicForm aaForm = getSessionForm(request.getSession(), formSessionAttribute);
+	model.addAttribute(getFormName(), aaForm);
+	
+	// If the user is a super user display the super user form
+	if(authenticator.isSuperUser()) {
+	    return getSuperUserFormViewName();
+	}
+	
+	// If the user has the right to see the normal for for his current establishment
+	String establishmentUAI = authenticator.getUser().getEstablishmentUAI();
+	if(authenticator.hasPermissionOnEstablishment(establishmentUAI)) {
+	    return getUserFormViewName();
+	}
+	
+        // If the user has no right
+	return getAccessDeniedViewName();
+    }
+    
     /**
      * Initializes the binder in order to convert inputs.
      * 
@@ -136,19 +203,30 @@ public abstract class BasicFormController extends BasicController {
     */
    @ModelAttribute("postedEstablishmentsItems")
    public List<String> populateEstablishments(HttpServletRequest request) {
+       ////////////////////////////////////////////////////
+       // Retrieval of establishments in the request
+       ////////////////////////////////////////////////////
        // Retrieval of the posted establishments
        String [] postedEstablishments = request.getParameterValues(RequestParameters.ESTABLISHMENTS);
-       
-	// If no establishments have already been posted
-	if(postedEstablishments == null || postedEstablishments.length == 0) {
-	    LOGGER.debug("No establishments have already been posted");
-	    return  (new ArrayList<String>());
+	// If at least one establishment has already been posted
+	if(postedEstablishments != null && postedEstablishments.length > 0) {
+	    LOGGER.debug("At least one establishment has been retrieved in the request parameters");
+	    List<String> establishments = new ArrayList<String>(Arrays.asList(postedEstablishments));
+	    return establishments;
 	}
 	
-	// Populates the establishments in order to select them in the view
-	LOGGER.debug("Some establishments have already been posted");
-        List<String> establishments = new ArrayList<String>(Arrays.asList(postedEstablishments));
-     	return establishments;
+	////////////////////////////////////////////////////
+	// Retrieval of establishments in the session
+	////////////////////////////////////////////////////
+       // Retrieval of the submitted form
+       BasicForm form =  getSessionForm(request.getSession(), formSessionAttribute);
+       // Retrieval of the establishments
+       String [] formEstablishments = ( form.getEstablishments() == null ? new String [0] : form.getEstablishments() );
+       if(formEstablishments.length > 0) {
+	   LOGGER.debug("At least one establishment has been retrieved in the session");
+       }
+       List<String> establishments = new ArrayList<String>(Arrays.asList(formEstablishments));
+       return establishments;
    }
    
    /**
@@ -251,7 +329,7 @@ public abstract class BasicFormController extends BasicController {
 	// Indication of the last submitted form, and storage of this form
 	request.getSession().setAttribute(SessionConstants.LAST_SUBMITTED_FORM_ATTR, formSessionAttribute);
 	request.getSession().setAttribute(formSessionAttribute, form);
-	
+       
 	// Validation of the form
 	Validator validator = getValidator();
 	LOGGER.debug("The class of the called validator is : [" + validator.getClass() +"]");
@@ -261,7 +339,7 @@ public abstract class BasicFormController extends BasicController {
 	    LOGGER.debug("The submitted form has not been validated due to the following errors : [" + result.getFieldErrors() + "]");
 	    return getFailureViewName(form);
 	}
-		
+	
 	// Redirection to the result controller
 	return getSuccessViewName(form);
    }

@@ -3,10 +3,6 @@
  */
 package org.esco.indicators.web.springmvc.controller.account.form;
 
-import java.text.SimpleDateFormat;
-import java.text.Normalizer.Form;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,13 +17,9 @@ import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController;
 import org.esco.indicators.web.springmvc.validator.account.AccountValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -80,6 +72,14 @@ public class FormAccountController extends BasicFormController  {
     }
 
     /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getFormName()
+     */
+    @Override
+    public String getFormName() {
+        return "accountactivationform";
+    }
+
+    /* (non-Javadoc)
      * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getSuccessViewName(org.esco.indicators.domain.beans.form.BasicForm)
      */
     @Override
@@ -92,6 +92,22 @@ public class FormAccountController extends BasicFormController  {
     }
 
     /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getSuperUserFormViewName()
+     */
+    @Override
+    public String getSuperUserFormViewName() {
+        return "form-accounts";
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getUserFormViewName()
+     */
+    @Override
+    public String getUserFormViewName() {
+        return "redirect:establishment-accounts-activations";
+    }
+
+    /* (non-Javadoc)
      * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getValidator()
      */
     @Override
@@ -101,31 +117,6 @@ public class FormAccountController extends BasicFormController  {
 
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
-    /**
-     * Initializes the account activation form.
-     * 
-     * @param model
-     * 			Model data.
-     * @param request
-     * 			Request made by the user.
-     * @return
-     * 	the JSP view name.
-     */
-    @RequestMapping(method = RequestMethod.GET)
-    public String initForm(ModelMap model, HttpServletRequest request){
-	// Binding of the form
-	AccountActivationForm aaForm = new AccountActivationForm();
-	model.addAttribute("accountactivationform", aaForm);
-
-	// If the user is not a super user redirects him to the establishment form controller
-	if(!authenticator.isSuperUser()) {
-	    return "redirect:establishment-accounts-activations";
-	}
-	
-        // If the user is a super user
-	return "form-accounts";
-    }
-    
     /**
      * Populate the establishments types field.
      * 

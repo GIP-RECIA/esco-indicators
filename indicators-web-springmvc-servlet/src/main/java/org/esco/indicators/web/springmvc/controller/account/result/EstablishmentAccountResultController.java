@@ -14,13 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
-import org.esco.indicators.domain.beans.form.BasicForm;
 import org.esco.indicators.domain.beans.result.BasicResultRow;
 import org.esco.indicators.domain.beans.result.DetailResultRow;
 import org.esco.indicators.domain.beans.structure.Establishment;
-import org.esco.indicators.domain.beans.xml.form.EntryValue;
-import org.esco.indicators.utils.classes.IntegerPair;
-import org.esco.indicators.utils.constants.web.RequestParameters;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.utils.date.DateUtils;

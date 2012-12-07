@@ -6,6 +6,7 @@ package org.esco.indicators.web.springmvc.controller.service.form;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.BasicForm;
@@ -83,6 +84,14 @@ public class EstablishmentFormServiceController extends BasicEstablishmentFormCo
     }
 
     /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getFormName()
+     */
+    @Override
+    public String getFormName() {
+        return "serviceform";
+    }
+
+    /* (non-Javadoc)
      * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getSuccessViewName(org.esco.indicators.domain.beans.form.BasicForm)
      */
     @Override
@@ -94,28 +103,23 @@ public class EstablishmentFormServiceController extends BasicEstablishmentFormCo
 	return "redirect:establishment-services-monitoring-attendance-result";
     }
 
-    //------------------------------------------------------------------------------ PUBLIC METHODS
-    /**
-     * Initializes the wantedServices form.
-     * 
-     * @param model
-     * 			Model data.
-     * @param request
-     * 			Request made by the user.
-     * @return
-     * 	the JSP view name.
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getSuperUserFormViewName()
      */
-    @RequestMapping(method = RequestMethod.GET)
-    public String initForm(ModelMap model, HttpServletRequest request){
-	// Binding of the form
-	ServiceForm serviceForm = new ServiceForm();
-	model.addAttribute("serviceform", serviceForm);
-
-        // Return to the web page
-	return "establishment-form-services";
+    @Override
+    public String getSuperUserFormViewName() {
+        return "establishment-form-services";
     }
-    
-    
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getUserFormViewName()
+     */
+    @Override
+    public String getUserFormViewName() {
+        return "establishment-form-services";
+    }
+
+    //------------------------------------------------------------------------------ PUBLIC METHODS
     /**
      * Populate the available services field.
      * 
@@ -146,6 +150,17 @@ public class EstablishmentFormServiceController extends BasicEstablishmentFormCo
     @RequestMapping(method = RequestMethod.POST)
     public String processSubmit(HttpServletRequest request, @ModelAttribute("serviceform") ServiceForm serviceForm, BindingResult result, SessionStatus status) {
 	return super.processSubmit(request, serviceForm, result, status);
+    }
+    
+    //--------------------------------------------------------------------------- PROTECTED METHODS
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.BasicController#getSessionForm(javax.servlet.http.HttpSession, java.lang.String)
+     */
+    @Override
+    protected BasicForm getSessionForm(HttpSession session, String formAttribute) {
+        // Retrieval of the form
+        ServiceForm form = (ServiceForm) session.getAttribute(formAttribute);
+        return (form == null ? new ServiceForm() : form);
     }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS

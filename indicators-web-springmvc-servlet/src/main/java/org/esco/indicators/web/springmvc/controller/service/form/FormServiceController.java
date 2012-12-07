@@ -6,6 +6,7 @@ package org.esco.indicators.web.springmvc.controller.service.form;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.BasicForm;
@@ -18,7 +19,6 @@ import org.esco.indicators.web.springmvc.controller.basic.form.BasicFormControll
 import org.esco.indicators.web.springmvc.validator.service.ServiceValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -81,6 +81,30 @@ public class FormServiceController extends BasicFormController {
     }
 
     /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getFormName()
+     */
+    @Override
+    public String getFormName() {
+        return "serviceform";
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getUserFormViewName()
+     */
+    @Override
+    public String getUserFormViewName() {
+        return "redirect:establishment-services";
+    }
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getSuperUserFormViewName()
+     */
+    @Override
+    public String getSuperUserFormViewName() {
+        return "form-services";
+    }
+
+    /* (non-Javadoc)
      * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getSuccessViewName(org.esco.indicators.domain.beans.form.BasicForm)
      */
     @Override
@@ -93,31 +117,6 @@ public class FormServiceController extends BasicFormController {
     }
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
-    /**
-     * Initializes the wantedServices form.
-     * 
-     * @param model
-     * 			Model data.
-     * @param request
-     * 			Request made by the user.
-     * @return
-     * 	the JSP view name.
-     */
-    @RequestMapping(method = RequestMethod.GET)
-    public String initForm(ModelMap model, HttpServletRequest request){
-	// Binding of the form
-	ServiceForm serviceForm = new ServiceForm();
-	model.addAttribute("serviceform", serviceForm);
-
-	// If the user is not a super user redirects him to the establishment form controller
-	if(!authenticator.isSuperUser()) {
-	    return "redirect:establishment-services";
-	}
-	
-        // If the user is a super user
-	return "form-services";
-    }
-    
     /**
      * Populate the establishments types field.
      * 
@@ -196,6 +195,17 @@ public class FormServiceController extends BasicFormController {
     @RequestMapping(method = RequestMethod.POST)
     public String processSubmit(HttpServletRequest request, @ModelAttribute("serviceform") ServiceForm serviceForm, BindingResult result, SessionStatus status) {
 	return super.processSubmit(request, serviceForm, result, status);
+    }
+    
+    //--------------------------------------------------------------------------- PROTECTED METHODS
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.BasicController#getSessionForm(javax.servlet.http.HttpSession, java.lang.String)
+     */
+    @Override
+    protected BasicForm getSessionForm(HttpSession session, String formAttribute) {
+        // Retrieval of the form
+        ServiceForm form = (ServiceForm) session.getAttribute(formAttribute);
+        return (form == null ? new ServiceForm() : form);
     }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS

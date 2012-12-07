@@ -11,18 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.BasicForm;
-import org.esco.indicators.domain.beans.result.BasicResultRow;
-import org.esco.indicators.domain.beans.result.DetailResultRow;
 import org.esco.indicators.domain.beans.xml.form.EntryValue;
 import org.esco.indicators.services.form.DataFormService;
-import org.esco.indicators.services.form.account.ResultAccountFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.classes.IntegerPair;
-import org.esco.indicators.utils.constants.web.RequestParameters;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.utils.date.DateUtils;
 import org.esco.indicators.web.springmvc.controller.basic.BasicController;
@@ -118,11 +113,6 @@ public abstract class BasicResultController extends BasicController {
      */
     @ModelAttribute("countyItem")
     public String populateCounty(HttpServletRequest request) {
-        // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), formSessionAttribute)) {
-            return null;
-        }
-        
         // Retrieval of the submitted monitoring type value
         BasicForm form =  getSessionForm(request.getSession(), formSessionAttribute);
         
@@ -146,14 +136,9 @@ public abstract class BasicResultController extends BasicController {
      */
     @ModelAttribute("estbalishmentsTypesItems")
     public List<String> populateEstablishmentsTypes(HttpServletRequest request) {
-        // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), formSessionAttribute)) {
-            return null;
-        }
-        
         // Retrieval of the submitted monitoring type value
         BasicForm form =  getSessionForm(request.getSession(), formSessionAttribute);
-        
+       
         // Retrieval of the i18n key
         String [] establishmentsTypes = form.getEstablishmentsTypes();
         List<String> jspKeys = new ArrayList<String>(Arrays.asList(establishmentsTypes));
@@ -174,11 +159,6 @@ public abstract class BasicResultController extends BasicController {
      */
     @ModelAttribute("i18nUsersProfiles")
     public Map<String, String> populateUsersProfilesI18nKeys(HttpServletRequest request) {
-	// Checks if the there is a valid submitted form to process and a UAI to detail
-	if(!containsForm(request.getSession(), formSessionAttribute)) {
-	    return null;
-	}
-	
 	// Final result
 	Map<String, String> i18nKeysByJspKeys = new HashMap<String, String>();
 	
@@ -203,11 +183,6 @@ public abstract class BasicResultController extends BasicController {
      */
     @ModelAttribute("isWeekly")
     public Boolean populateIsWeekly(HttpServletRequest request) {
-        // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), formSessionAttribute)) {
-            return false;
-        }
-        
         // Retrieval of the submitted monitoring type value
         BasicForm form =  getSessionForm(request.getSession(), formSessionAttribute);
         
@@ -229,11 +204,6 @@ public abstract class BasicResultController extends BasicController {
      */
     @ModelAttribute("lyceesTypesItems")
     public List<String> populateLyceesTypes(HttpServletRequest request) {
-        // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), formSessionAttribute)) {
-            return null;
-        }
-        
         // Retrieval of the submitted monitoring type value
         BasicForm form =  getSessionForm(request.getSession(), formSessionAttribute);
         
@@ -258,11 +228,6 @@ public abstract class BasicResultController extends BasicController {
      */
     @ModelAttribute("laTypesItems")
     public List<String> populateLaTypes(HttpServletRequest request) {
-        // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), formSessionAttribute)) {
-            return null;
-        }
-        
         // Retrieval of the submitted monitoring type value
         BasicForm form =  getSessionForm(request.getSession(), formSessionAttribute);
         
@@ -287,11 +252,6 @@ public abstract class BasicResultController extends BasicController {
      */
     @ModelAttribute("monitoringTypeItem")
     public String populateMonitoringType(HttpServletRequest request) {
-        // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), formSessionAttribute)) {
-            return null;
-        }
-        
         // Retrieval of the submitted monitoring type value
         BasicForm form =  getSessionForm(request.getSession(), formSessionAttribute);
         
@@ -312,11 +272,6 @@ public abstract class BasicResultController extends BasicController {
      */
     @ModelAttribute("startDateItem")
     public String populateStartDate(HttpServletRequest request) {
-        // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), formSessionAttribute)) {
-            return null;
-        }
-        
         // Retrieval of the submitted monitoring type value
         BasicForm form =  getSessionForm(request.getSession(), formSessionAttribute);
         
@@ -336,11 +291,6 @@ public abstract class BasicResultController extends BasicController {
      */
     @ModelAttribute("sumOnCountiesItem")
     public String populateSumOnCounties(HttpServletRequest request) {
-        // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), formSessionAttribute)) {
-            return null;
-        }
-        
         // Retrieval of the submitted monitoring type value
         BasicForm form =  getSessionForm(request.getSession(), formSessionAttribute);
         
@@ -364,11 +314,6 @@ public abstract class BasicResultController extends BasicController {
      */
     @ModelAttribute("usersProfilesItems")
     public List<String> populateUsersProfiles(HttpServletRequest request) {
-        // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), formSessionAttribute)) {
-            return null;
-        }
-        
         // Retrieval of the submitted monitoring type value
         BasicForm form =  getSessionForm(request.getSession(), formSessionAttribute);
         
