@@ -17,4 +17,7 @@ public class RequestParameters {
     /** Parameter : establishments */
     public static final String ESTABLISHMENTS = "establishments";
     
+    /** Parameter : wanted services */
+    public static final String WANTED_SERVICES = "wantedServices";
+    
 }

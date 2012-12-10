@@ -29,6 +29,10 @@ var mastersAndSlaves = new Array();
 //  - Value : The master element
 var slavesAndMasters = new Array();
 
+// Array containing the masters ids and indicating 
+// the order between the masters
+var sortedMasters = new Array();
+	
 // Flat array indicating the position of each items
 // in the lists
 var itemsIds = new Array();
@@ -52,7 +56,7 @@ $(document).ready(function() {
     createMastersAndSlaves();
     sortKeysAndValues(mastersAndSlaves);
     var mastersAndSlavesIds = keepValuesIds(mastersAndSlaves);
-    itemsIds = flattenArray(mastersAndSlavesIds);
+    itemsIds = flattenArray(mastersAndSlavesIds, sortedMasters);
     sortList(AVAILABLE_SERVICES_ID);
     sortList(WANTED_SERVICES_ID);
 
@@ -139,6 +143,13 @@ $(document).ready(function() {
             $(this).prop("checked", true);
         }
     });
+    ///////////////////////////////////////////////////////
+    // Shows information message when there is no wanted
+	// service
+    ///////////////////////////////////////////////////////
+	if($("#" + WANTED_SERVICES_ID).find("li").size() > 0) {
+	  $(this).find('.information').hide();
+	}
 });
 
 
@@ -192,8 +203,8 @@ function createMastersAndSlaves() {
  */
 function compareInputsContentByIds(firstElementId, secondElementId) {
     // Gets the contents
-   var firstElement     = $('input[id="' + firstElementId + '"]'); 
-   var secondelement    = $('input[id="' + secondElementId + '"]'); 
+   var firstElement     = $('li[id="' + firstElementId + '"]'); 
+   var secondElement    = $('li[id="' + secondElementId + '"]'); 
    return compareElementsContent(firstElement, secondElement);
 }
 
@@ -202,8 +213,8 @@ function compareInputsContentByIds(firstElementId, secondElementId) {
  */
 function compareElementsContent(firstElement, secondElement) {
     // Gets the contents
-    var firstContent    = $(firstElement).prop("innerHTML");
-    var secondContent   = $(secondElement).prop("innerHTML");
+    var firstContent    = $.trim($(firstElement).prop("innerHTML"));
+    var secondContent   = $.trim($(secondElement).prop("innerHTML"));
     return firstContent.localeCompare(secondContent);
 }
 
@@ -259,12 +270,15 @@ function elementsBefore(list, element) {
 }
 
 /**
- * Function that flattens an array.
+ * Function that flattens an associative array.
+ * An other array is passed to indicate the order between
+ * the keys of the associative array.
  */
-function flattenArray(array) {
+function flattenArray(array, sortedKeys) {
     // Final result
     var flatArray = new Array();
-    for(key in array) {
+    for(i = 0; i < sortedKeys.length; i++) {
+		var key = sortedKeys[i];
         flatArray.push(key);
         var values = array[key];
         $.each(values, function(index) {
@@ -277,7 +291,7 @@ function flattenArray(array) {
 /**
  * Function that inserts the list item associated to elementId
  * after the list items associated to the previousElementsIds.
- * All these items are manipulated insede the list associated to
+ * All these items are manipulated inside the list associated to
  * the listId.
  */
 function insertAfter(listId, elementId, previousElementsIds) {
@@ -285,10 +299,7 @@ function insertAfter(listId, elementId, previousElementsIds) {
     var element = $('#' + listId + ' li[id="' + elementId + '"]');
 
     // Insert the element after the first previous element found
-    for(var i=previousElementsIds.length - 1; 
-        i > 0;
-        i--)
-    {
+    for(var i=previousElementsIds.length - 1; i > 0; i--) {
         var previousId = previousElementsIds[i];
         var previousElement = $('#' + listId + ' li[id="' + previousId + '"]');
         if(previousElement) {
@@ -344,8 +355,13 @@ function listContains(listId, elementId) {
  * All the comparisons are made on the text content of the elements.
  */
 function sortKeysAndValues(arrayToSort) {
+	// Gets the elements ids (array keys) to sort
+    for(key in arrayToSort) {
+		sortedMasters[sortedMasters.length] = key;
+    }
+	
     // Sort the keys by their content
-    arrayToSort.sort(compareInputsContentByIds);
+    sortedMasters.sort(compareInputsContentByIds);
 
     // Sort the values
     for(key in arrayToSort) {

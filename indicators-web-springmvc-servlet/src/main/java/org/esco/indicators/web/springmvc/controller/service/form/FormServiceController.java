@@ -3,6 +3,8 @@
  */
 package org.esco.indicators.web.springmvc.controller.service.form;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,7 @@ import org.esco.indicators.domain.beans.form.BasicForm;
 import org.esco.indicators.domain.beans.form.FormField;
 import org.esco.indicators.domain.beans.form.ServiceForm;
 import org.esco.indicators.services.form.DataFormService;
+import org.esco.indicators.utils.constants.web.RequestParameters;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController;
@@ -179,6 +182,43 @@ public class FormServiceController extends BasicFormController {
     }
     
     /**
+    * Populate the posted (wanted) services field.<br/>
+    * This field is used to know which wanted services have been posted during the last form submission.
+    * 
+    * @param request
+    * 			The request made by the user.
+    * @return
+    * 		the last posted (wanted) services.
+    */
+   @ModelAttribute("postedServicesItems")
+   public List<FormField> populateWantedServices(HttpServletRequest request) {
+       ////////////////////////////////////////////////////
+       // Retrieval of services in the request
+       ////////////////////////////////////////////////////
+       // Retrieval of the posted services
+       String [] postedServices = request.getParameterValues(RequestParameters.WANTED_SERVICES);
+	// If at least one service has already been posted
+	if(postedServices != null && postedServices.length > 0) {
+	    LOGGER.debug("At least one service has been retrieved in the request parameters");
+	    List<String> services = new ArrayList<String>(Arrays.asList(postedServices));
+	    return jspKeysToFormFields(services);
+	}
+	
+	////////////////////////////////////////////////////
+	// Retrieval of services in the session
+	////////////////////////////////////////////////////
+       // Retrieval of the submitted form
+       ServiceForm form =  getSessionForm(request.getSession(), formSessionAttribute);
+       // Retrieval of the services
+       String [] formServices = ( form.getEstablishments() == null ? new String [0] : form.getWantedServices() );
+       if(formServices.length > 0) {
+	   LOGGER.debug("At least one service has been retrieved in the session");
+       }
+       List<String> services = new ArrayList<String>(Arrays.asList(formServices));
+       return jspKeysToFormFields(services);
+   }
+    
+    /**
      * Validates and processes the submitted form.
      * 
      * @param request
@@ -202,7 +242,7 @@ public class FormServiceController extends BasicFormController {
      * @see org.esco.indicators.web.springmvc.controller.basic.BasicController#getSessionForm(javax.servlet.http.HttpSession, java.lang.String)
      */
     @Override
-    protected BasicForm getSessionForm(HttpSession session, String formAttribute) {
+    protected ServiceForm getSessionForm(HttpSession session, String formAttribute) {
         // Retrieval of the form
         ServiceForm form = (ServiceForm) session.getAttribute(formAttribute);
         return (form == null ? new ServiceForm() : form);
@@ -210,5 +250,29 @@ public class FormServiceController extends BasicFormController {
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
+    /**
+     * Creates the form fields composed of the pair (jsp key, i18n) for the given jsp keys.<br/>
+     * The i18n put into the form field is the i18n associated to the jep key in the data form service.
+     * 
+     * @param jspKeys
+     * 			The jsp keys to associate to their respective i18n.
+     * 
+     * @return
+     * 	the jsp keys associated to their respective i18n.
+     */
+    private List<FormField> jspKeysToFormFields(List<String> jspKeys) {
+	// Final result
+	List<FormField> formFields = new ArrayList<FormField>();
+	
+	// Creates the form fields composed of (jsp key, i18n)
+	for (String jspKey : jspKeys) {
+	    String i18n = getDataFormService().getI18nKey(jspKey);
+	    FormField formField = new FormField(i18n, jspKey);
+	    formFields.add(formField);
+	}
+	
+	return formFields;
+    }
+    
     //------------------------------------------------------------------------------ STATIC METHODS
 }
