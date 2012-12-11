@@ -113,6 +113,10 @@ ul {
     overflow-x: scroll;
 }
 
+#toggleProfilesSelection {
+	font-style: italic;
+}
+
 #user {
 	background: none repeat scroll 0 0 #666666;
 	color: #FFFFFF;

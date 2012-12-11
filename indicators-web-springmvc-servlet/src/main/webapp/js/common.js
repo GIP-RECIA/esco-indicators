@@ -79,6 +79,15 @@ $(document).ready(function() {
     });
     
     ///////////////////////////////////////////////////////
+    // Select / Unselect all profiles
+    ///////////////////////////////////////////////////////
+    $("#toggleProfilesSelection").click(function() {
+    	var inputs = $("input[name='" + USERS_PROFILES.name + "']");
+    	var checkedState = $(this).prop("checked");
+    	toggleInputsStates(inputs,checkedState);
+    });
+    
+    ///////////////////////////////////////////////////////
     // Select / Unselect all establishments
     ///////////////////////////////////////////////////////
     $("#toggleEstablishmentsSelection").click(function() {

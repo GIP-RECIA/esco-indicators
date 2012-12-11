@@ -7,7 +7,18 @@
                 <spring:message code="${item.label}" var="i18n"/> 
                 <form:checkbox value="${item.value}" label="${i18n}" disabled="${item.disabled}" path="usersProfiles" /> 
             </c:forEach> 
-        </div>
+			<br/>
+			<%-- #################################################### --%>
+			<%-- MULTIPLE USERS PROFILES CAN BE SELECTED ? --%>
+			<%-- #################################################### --%>
+			<c:if test="${multipleUsersProfiles == true}">
+				<input type="checkbox" id="toggleProfilesSelection"/>
+				<label for="toggleProfilesSelection">
+				    <spring:message code="form.usersProfiles.ALL"/>
+			    </label>
+			</c:if>
+			<%-- #################################################### --%>
+		</div>
         <div class="filterErrors">
             <form:errors path="usersProfiles" cssClass="error" />
         </div>

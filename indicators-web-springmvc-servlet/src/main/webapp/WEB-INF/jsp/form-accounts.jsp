@@ -1,5 +1,12 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
 
+<%-- #################################################### --%>
+<%-- VARIABLES SETTINGS --%>
+<%-- #################################################### --%>
+
+<c:set var="multipleUsersProfiles" value="true" />
+
+<%-- #################################################### --%>
 
 <%@ include file="/WEB-INF/jsp/include/common/title-and-menu.jsp"%>
 
