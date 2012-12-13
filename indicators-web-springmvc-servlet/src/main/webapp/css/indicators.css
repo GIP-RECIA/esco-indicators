@@ -215,9 +215,9 @@ table.pretty th {
 	text-align: left;
 }
 
-table.pretty tr:nth-child(even) {
+table.pretty tr.even {
 	background-color: gainsboro;
-} 
+}
 
 th.header {
 	background-image: url("../img/bg.gif");

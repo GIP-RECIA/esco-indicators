@@ -107,6 +107,20 @@ $(document).ready(function() {
     });
     
     ///////////////////////////////////////////////////////
+    // When the establishments list has been updated
+	// colors properly the visible rows
+    ///////////////////////////////////////////////////////
+    $("#" + ESTABLISHMENTS_TABLE_ID).bind("update", function () {
+		var i = 0;
+		$(this).find("tr.visible").filter(":even").each(function() {
+			$(this).addClass("even");
+		});
+		$(this).find("tr.visible").filter(":odd").each(function() {
+			$(this).removeClass("even");
+		});
+	});
+
+    ///////////////////////////////////////////////////////
     // When the form is not validated : checks the
     // establishments that were selected at the form 
     // submission time
@@ -149,7 +163,7 @@ $(document).ready(function() {
  */
 function appendEstablishment(establishment) {
     // String to append to the table
-    var toAppend = '<tr>';
+    var toAppend = '<tr class="visible">';
     toAppend += '<td>';
     toAppend += '<input id="' + establishment.value + '" type="checkbox" value="' + establishment.value + '" name="' + establishment.path + '">';
     toAppend += '</td>';

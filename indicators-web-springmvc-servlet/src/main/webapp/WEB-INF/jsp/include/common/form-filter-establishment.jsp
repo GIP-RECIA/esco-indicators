@@ -1,5 +1,11 @@
 <h2 class="filterTitle"><spring:message code="filter.title.establishmentList" /></h2>
 <div id="establishmentsListContainer" class="filterOptions">
+	<p>
+		<label for="filterInput">
+			<spring:message code="form.filterEstablishments" />
+		</label>
+		<input id="filterInput" type="text" />
+    </p>
     <table id="establishmentsList" class="tablesorter, pretty">
 		<thead>
 			<tr>

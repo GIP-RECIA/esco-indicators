@@ -44,5 +44,6 @@
 <script type="text/javascript" src="js/tablesorter/jquery.tablesorter.js"></script>
 <script type="text/javascript" src="js/tables-sorting.js"></script>
 <script type="text/javascript" src="js/spin.min.js"></script>
+<script type="text/javascript" src="js/filter-establishment.js"></script>
 
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>
