@@ -8,9 +8,9 @@
   <title><spring:message code="header.title"/></title>	
   
   <%-- Framework CSS --%>
-  <link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection">
+  <%-- <link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection"> --%>
   <link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print">
-  <link rel="stylesheet" href="css/blank.css" type="text/css" media="screen, projection">
+  <%-- <link rel="stylesheet" href="css/blank.css" type="text/css" media="screen, projection"> --%>
   <link rel="stylesheet" href="css/indicators.css" type="text/css" media="screen, projection">
   
   <%-- JQUERY --%>

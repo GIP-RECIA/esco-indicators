@@ -20,6 +20,7 @@
 * Basic elements 
 ****************/
 a {
+	color: black;
 	text-decoration: none;
 }
 
@@ -27,16 +28,11 @@ div {
 	clear: both;
 }
 
-h1 {
-	margin: 0;
-	padding: 0.5em 0.5em 0 0.5em;
+h2.filterTitle {
+	font-size: 1.2em;
 }
 
-h2 {
-	font-size: 1.4em;
-}
-
-h3 {
+h3.filterTitle {
 	font-size: 1.2em;
 }
 
@@ -56,6 +52,7 @@ ul {
 * Identifiers 
 **************/
 #ariadneThread hr {
+	color: #DDDDDD;
 	margin: 0.5em 0 0 0;
 }
 
@@ -198,10 +195,14 @@ input.hasDatePicker {
 	vertical-align: middle;
 }
 
+label {
+	font-weight: bold;
+}
 
 table.pretty {
 	border-collapse: collapse;
 	border-spacing: 0.1em;
+	width: 100%;
 }  
 
 table.pretty th, table.pretty td {
@@ -240,12 +241,18 @@ th.headerSortUp {
 /****************************
 * 1. WELCOME PAGE
 ****************************/
-#welcomeMessage p {
-	font-size: 2em;
+#welcomeMessage {
+	font-size: 1.2em;
 	color: #666666;
-	margin: 0 0 0.7em;
 }
 
+#welcomeMessage p {
+	margin: 0;
+}
+
+#welcomeMessage p.lastWords {
+	margin-top: 1.8em;
+}
 
 /****************************
 * 3. SERVICES PAGE
