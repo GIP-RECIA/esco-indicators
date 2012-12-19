@@ -18,5 +18,5 @@ public class FormValidationConstants {
     public static final Integer MAX_SELECTED_PROFILES_SERVICE_FORM = 1;
     
     /** Maximum number of selected establishments */
-    public static final Integer MAX_SELECTED_ESTABLISHMENTS = 10;
+    public static final Integer MAX_SELECTED_ESTABLISHMENTS = 1000;
 }
