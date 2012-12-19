@@ -102,6 +102,11 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	 */
 	private  String establishmentsTypePropertyName;
 	
+	/**
+	 * Property name containing the users profiles.
+	 */
+	private  String usersProfilesPropertyName;
+	
 	//-------------------------------------------------------------------------------- CONSTRUCTORS
 
 	/**
@@ -128,6 +133,8 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 			"property establishmentUaiPropertyName of class " + this.getClass().getName() + " can not be null");
 		Assert.notNull(establishmentsTypePropertyName, 
 			"property establishmentsTypePropertyName of class " + this.getClass().getName() + " can not be null");
+		Assert.notNull(usersProfilesPropertyName, 
+			"property usersProfilesPropertyName of class " + this.getClass().getName() + " can not be null");
 	}
 
 	//--------------------------------------------------------------------------- GETTERS / SETTERS
@@ -206,7 +213,16 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	    this.superUserFilterPropertyName = superUserFilterPropertyName;
 	}
 	
-
+	/**
+	 * Sets the property name containing the users profiles.
+	 * 
+	 * @param usersProfilesPropertyName 
+	 * 				the property name containing the users profiles to set.
+	 */
+	public void setUsersProfilesPropertyName(String usersProfilesPropertyName) {
+	    this.usersProfilesPropertyName = usersProfilesPropertyName;
+	}
+	
 	//------------------------------------------------------------------------------ PUBLIC METHODS
 
 	/* (non-Javadoc)
@@ -336,24 +352,17 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	 */
 	@Override
 	public boolean hasPermissionOnEstablishmentsType(String establishmentType) {
-	    // Gets the establishment filter
-	    GenericFilter establishmentFilter = getEstablishmentFilter();
-	    if(establishmentFilter == null) {
-		LOGGER.debug("The user has no right on the establishments type [" + establishmentType + "], because the establishment filter can be retrieved.");
-		return false;
-	    }
-	    
-	    // Gets the allowed establishments
-	    Set<String> allowedEstablishmentsTypes = establishmentFilter.getPropertyValues(establishmentsTypePropertyName);
-	    if(allowedEstablishmentsTypes != null && allowedEstablishmentsTypes.contains(establishmentType) ) {
-		LOGGER.debug("The user has the right to see the establishments type [" + establishmentType + "]");
-		return true;
-	    }
-	    
-	    LOGGER.debug("The user does not have the right to see the establishments type : [" + establishmentType +"]");
-	    return false;
+	    return filterPropertyContainsValue(establishmentsTypePropertyName, establishmentType);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.esco.indicators.services.auth.Authenticator#hasPermissionOnUserProfile(java.lang.String)
+	 */
+	@Override
+	public boolean hasPermissionOnUserProfile(String userProfile) {
+	    return filterPropertyContainsValue(usersProfilesPropertyName, userProfile);
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.esco.indicators.services.auth.Authenticator#isSuperUser()
 	 */
@@ -408,6 +417,37 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	    return establishmentFilter;
 	}
 	
+	/**
+	 * Indicates if the authenticated user has the right to see the specified value of the given
+	 * property name.
+	 * 
+	 * @param propertyName
+	 * 				The property name associtaed to the value to test.
+	 * @param value
+	 * 				The property value to test.
+	 * @return
+	 * 	<code>true</code> if the authenticated user has the right to see informations on the property value associated to the property name.<br/>
+	 * 	<code>false</code> in other cases.
+	 */
+	private boolean filterPropertyContainsValue(String propertyName, String value) {
+	    // Gets the establishment filter
+	    GenericFilter establishmentFilter = getEstablishmentFilter();
+	    if(establishmentFilter == null) {
+		LOGGER.debug("The user has no right on the value [" + value + "] of the property [" + propertyName + "], because the establishment filter can be retrieved.");
+		return false;
+	    }
+	    
+	    // Gets the allowed values
+	    Set<String> allowedPropertyValues = establishmentFilter.getPropertyValues(propertyName);
+	    if(allowedPropertyValues != null && allowedPropertyValues.contains(value) ) {
+		LOGGER.debug("The user has the right to see the value [" + value + "] of the property [" + propertyName + "]");
+		return true;
+	    }
+	    
+	    LOGGER.debug("The user does not have the right to see the value [" + value + "] of the property [" + propertyName + "]");
+	    return false;
+	}
+	
 	//------------------------------------------------------------------------------ STATIC METHODS
 	/**
 	 * Tries to retrieve an object stored in session by the attribute name.
@@ -444,5 +484,4 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 		ContextUtils.setSessionAttribute(attributeName, value);
 	}
 
-	
 }

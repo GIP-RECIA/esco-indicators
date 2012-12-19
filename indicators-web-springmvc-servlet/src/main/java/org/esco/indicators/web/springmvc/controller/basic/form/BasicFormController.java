@@ -390,18 +390,47 @@ public abstract class BasicFormController extends BasicController {
 	// Final result
 	List<FormField> authorizedEstablishmentsTypes = new ArrayList<FormField>();
 	
-	// Retrieves the establishments types to filter and verifies if the user
-	// has the right to see these types
+	// Retrieves the name of the entries associated to the establishments types 
+	// and verifies if the user has the right to see these types
 	for (FormField establishmentsType : establishmentsTypesFields) {
 	    String jspKey = establishmentsType.getValue();
-	    String establishmentTypeToFilter = getDataFormService().getEstablishmentTypeToFilter(jspKey);
+	    String establishmentType = getDataFormService().getEntryName(jspKey);
 	    // Checks if the user has rights on this establishment type
-	    if(authenticator.hasPermissionOnEstablishmentsType(establishmentTypeToFilter)) {
+	    if(authenticator.hasPermissionOnEstablishmentsType(establishmentType)) {
 		authorizedEstablishmentsTypes.add(establishmentsType);
 	    }
 	}
 	
 	return authorizedEstablishmentsTypes;
+    }
+    
+    /**
+     * Only keeps the users profiles form fields authorized for the user.<br/>
+     * The authorized users profiles are retrieved through the authenticator.
+     * 
+     * @param usersProfilesFields
+     * 			The users profiles fields to test.
+     * 
+     * @return
+     * 	a copy of the given list only containing the authorized forms fields.<br/>
+     * 	an empty list if no users profiles are authorized.
+     */
+    protected List<FormField> keepAuthorizedUsersProfiles(List<FormField> usersProfilesFields) {
+	// Final result
+	List<FormField> authorizedProfiles = new ArrayList<FormField>();
+
+	// Retrieves the name of the entries associated to the users profiles
+	// and verifies if the user has the right to see these profiles
+	for (FormField userProfileField : usersProfilesFields) {
+	    String jspKey = userProfileField.getValue();
+	    String userProfile = getDataFormService().getEntryName(jspKey);
+	    // Checks if the user has rights on this user profile
+	    if(authenticator.hasPermissionOnUserProfile(userProfile)) {
+		authorizedProfiles.add(userProfileField);
+	    }
+	}
+	
+	return authorizedProfiles;
     }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS

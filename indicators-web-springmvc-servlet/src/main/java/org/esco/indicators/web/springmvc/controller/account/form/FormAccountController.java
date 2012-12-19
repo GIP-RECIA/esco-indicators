@@ -165,6 +165,16 @@ public class FormAccountController extends BasicFormController  {
  	return lyceesTypes;
     }
     
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#populateUsersProfiles(javax.servlet.http.HttpServletRequest)
+     */
+    @Override
+    @ModelAttribute("usersProfilesItems")
+    public List<FormField> populateUsersProfiles(HttpServletRequest request) {
+ 	List<FormField> usersProfiles = getEntryFormFields(DataFormConstants.USERS_PROFILES);
+ 	return keepAuthorizedUsersProfiles(usersProfiles);
+    }
+    
     /**
      * Validates and processes the submitted form.
      * 

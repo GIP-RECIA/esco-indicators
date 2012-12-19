@@ -68,6 +68,17 @@ public interface DataFormService {
     public List<EntryValue> getEntryValues(String entryName);
     
     /**
+     * Gets the name of the entry associated to the jsp key.
+     * 
+     * @param jspKey
+     * 			The jsp key associated to the entry.
+     * @return
+     * 	the name of the entry associated to the jsp key.<br/>
+     * 	<code>null</code> of no entry name has been retrieved.
+     */
+    public String getEntryName(String jspKey);
+    
+    /**
      * Gets the county number to filter when the specified JSP key is checked in the user view.
      * 
      * @param jspKey

@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.xml.form.EntryValue;
-import org.springframework.beans.factory.InitializingBean;
 
 /**
  * Implementation of the {@link DataFormService} interface.
@@ -174,6 +173,20 @@ public class DataFormServiceImpl implements DataFormService {
     }
     
     /* (non-Javadoc)
+     * @see org.esco.indicators.services.form.DataFormService#getEntryName(java.lang.String)
+     */
+    @Override
+    public String getEntryName(String jspKey) {
+	       // Retrieval of the entry name
+	       EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
+	       String entryName = ( entryValue == null ? null : entryValue.getName() );
+	       if(entryName == null ) {
+	           LOGGER.warn("No entry name associated to the JSP key : [" + jspKey +"]");
+	       }
+	        return entryName;
+    }
+
+    /* (non-Javadoc)
      * @see org.esco.indicators.services.form.DataFormService#getEstablishmentTypeToFilter(java.lang.String)
      */
     @Override
@@ -187,6 +200,7 @@ public class DataFormServiceImpl implements DataFormService {
     /* (non-Javadoc)
      * @see org.esco.indicators.services.form.DataFormService#getEstablishmentsTypesToFilter(java.util.List)
      */
+    @Override
     public List<String> getEstablishmentsTypesToFilter(List<String> checkedJspKeys) {
 	// Final result
 	List<String> establishmentsTypes = new ArrayList<String>();
@@ -209,12 +223,10 @@ public class DataFormServiceImpl implements DataFormService {
     public String getI18nKey(String jspKey) {
        // Retrieval of the entry value
        EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
-       String i18n = entryValue.getI18nKey();
-       if(i18n == null ) {
+       String i18n = ( entryValue == null ? "" : entryValue.getI18nKey() );
+       if(i18n == "" ) {
            LOGGER.warn("No i18n key associated to the JSP key : [" + jspKey +"]");
-           return "";
        }
-    
         return i18n;
     }
 

@@ -53,6 +53,17 @@
                         <value>CFA</value>
                     </set>
                 </entry>
+                <entry key="profiles">
+                    <set>
+                        <value>TEACHERS</value>
+                        <value>APPRENTICES</value>
+                        <value>STAFF</value>
+                        <value>RELATIVES</value>
+                        <value>TEACHERS</value>
+                        <value>STAFF_COLLECTIVITY</value>
+                        <value>EMPLOYERS</value>
+                    </set>
+                </entry>
             </map>
         </property>
     </bean>
@@ -77,6 +88,16 @@
                         <value>LPO</value>
                     </set>
                 </entry>
+                <entry key="profiles">
+                    <set>
+                        <value>TEACHERS</value>
+                        <value>STUDENTS</value>
+                        <value>STAFF</value>
+                        <value>RELATIVES</value>
+                        <value>TEACHERS</value>
+                        <value>STAFF_COLLECTIVITY</value>
+                    </set>
+                </entry>
             </map>
         </property>
     </bean>
@@ -97,6 +118,16 @@
                         <value>LPA</value>
                     </set>
                 </entry>
+                <entry key="profiles">
+                    <set>
+                        <value>TEACHERS</value>
+                        <value>STUDENTS</value>
+                        <value>STAFF</value>
+                        <value>RELATIVES</value>
+                        <value>TEACHERS</value>
+                        <value>STAFF_COLLECTIVITY</value>
+                    </set>
+                </entry>
             </map>
         </property>
     </bean>
@@ -112,7 +143,17 @@
             <map>
                 <entry key="type">
                     <set>
-                        <value>COLL</value>
+                        <value>COLLEGE</value>
+                    </set>
+                </entry>
+                <entry key="profiles">
+                    <set>
+                        <value>TEACHERS</value>
+                        <value>STUDENTS</value>
+                        <value>STAFF</value>
+                        <value>RELATIVES</value>
+                        <value>TEACHERS</value>
+                        <value>STAFF_COLLECTIVITY</value>
                     </set>
                 </entry>
             </map>

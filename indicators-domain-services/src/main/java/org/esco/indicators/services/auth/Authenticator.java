@@ -78,6 +78,22 @@ public interface Authenticator {
 	public boolean hasPermissionOnEstablishmentsType(String establishmentType);
 	
 	/**
+	 * Indicates if the authenticated user has the permission to see informations
+	 * on the users having the given user profile.<br/>
+	 * 
+	 * The establishment filter is used to know if the authenticated user has
+	 * the permission, or not.
+	 * 
+	 * @param userProfile
+	 * 			The user profile to test.
+	 * 
+	 * @return
+	 * 	<code>true</code> if the authenticated user has the right to see informations on the user profile.<br/>
+	 * 	<code>false</code> in other cases.
+	 */
+	public boolean hasPermissionOnUserProfile(String userProfile);
+	
+	/**
 	 * Indicates if the authenticated user is a super user or not regarding to the establishment filter.
 	 * 
 	 * @return
