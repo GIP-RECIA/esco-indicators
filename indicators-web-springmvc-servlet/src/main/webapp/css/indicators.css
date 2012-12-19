@@ -134,15 +134,23 @@ ul {
 .container {
 	font:  12px/1.2 Georgia,Serif;
 	margin: 1em auto;
-  width: 97%;
+    width: 97%;
+}
+
+.error {
+    background: none repeat scroll 0 0 #FBE3E4;
+    border-color: #FBC2C4;
+    color: #8A1F11;
+    margin-bottom: 1em;
+    padding: 0.8em;
 }
 
 .filterTitle {
 	background: none repeat scroll 0 0 #4366AC;
 	border: none;
 	color: white;
-  margin: 0.5em 0 0.5em;
-  padding: 0 0 0 15px;
+    margin: 0.5em 0 0.5em;
+    padding: 0 0 0 15px;
 }
 
 .filterErrors {
