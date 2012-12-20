@@ -51,6 +51,7 @@
                             <value>RELATIVES</value>
                             <value>TEACHERS</value>
                             <value>STAFF_COLLECTIVITY</value>
+                            <value>MASTER_CRAFTSMEN</value>
                             <value>EMPLOYERS</value>
                         </set>
                     </entry>
@@ -80,7 +81,6 @@
                             <value>RELATIVES</value>
                             <value>TEACHERS</value>
                             <value>STAFF_COLLECTIVITY</value>
-                            <value>EMPLOYERS</value>
                         </set>
                     </entry>
                 </map>
@@ -109,7 +109,6 @@
                             <value>RELATIVES</value>
                             <value>TEACHERS</value>
                             <value>STAFF_COLLECTIVITY</value>
-                            <value>EMPLOYERS</value>
                         </set>
                     </entry>
                 </map>
@@ -138,7 +137,6 @@
 	                        <value>RELATIVES</value>
 	                        <value>TEACHERS</value>
 	                        <value>STAFF_COLLECTIVITY</value>
-	                        <value>EMPLOYERS</value>
 	                    </set>
 	                </entry>
                 </map>
@@ -174,6 +172,7 @@
                         <value>RELATIVES</value>
                         <value>TEACHERS</value>
                         <value>STAFF_COLLECTIVITY</value>
+                        <value>MASTER_CRAFTSMEN</value>
                         <value>EMPLOYERS</value>
                     </set>
                 </entry>
