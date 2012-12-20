@@ -181,16 +181,6 @@ public class FormServiceController extends BasicFormController {
 	return getEntryFormFields(DataFormConstants.SERVICES);
     }
     
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#populateUsersProfiles(javax.servlet.http.HttpServletRequest)
-     */
-    @Override
-    @ModelAttribute("usersProfilesItems")
-    public List<FormField> populateUsersProfiles(HttpServletRequest request) {
- 	List<FormField> usersProfiles = getEntryFormFields(DataFormConstants.USERS_PROFILES);
- 	return keepAuthorizedUsersProfiles(usersProfiles);
-    }
-    
     /**
     * Populate the posted (wanted) services field.<br/>
     * This field is used to know which wanted services have been posted during the last form submission.

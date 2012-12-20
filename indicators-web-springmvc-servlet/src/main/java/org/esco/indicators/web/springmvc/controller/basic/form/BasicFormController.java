@@ -305,7 +305,8 @@ public abstract class BasicFormController extends BasicController {
     */
    @ModelAttribute("usersProfilesItems")
    public List<FormField> populateUsersProfiles(HttpServletRequest request) {
-	return getEntryFormFields(DataFormConstants.USERS_PROFILES);
+	List<FormField> usersProfiles = getEntryFormFields(DataFormConstants.USERS_PROFILES);
+	return keepAuthorizedUsersProfiles(usersProfiles);
    }
    
    /**

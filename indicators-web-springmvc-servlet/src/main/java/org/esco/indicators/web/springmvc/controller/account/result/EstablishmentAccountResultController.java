@@ -127,7 +127,7 @@ public class EstablishmentAccountResultController extends PeriodicAccountResultD
 	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(aaForm.getEstablishmentsTypes()));
 	
 	// Retrieval of the users profiles to filter
-	List<String> allUsersProfiles = getAllUsersProfiles();
+	List<String> allUsersProfiles = new ArrayList<String>(Arrays.asList(aaForm.getUsersProfiles()));
 	
 	// Retrieval of the establishment UAI
 	String establishmentUai = aaForm.getEstablishments()[0];
@@ -138,8 +138,6 @@ public class EstablishmentAccountResultController extends PeriodicAccountResultD
 	
 	// Gets the result rows to display
 	List<DetailResultRow> resultRows = createResultRows(establishmentsTypes, establishmentUai, allUsersProfiles, startDate, endDate);
-	
-	// TODO : Addition of the connexion time
 	
 	return resultRows;
     }

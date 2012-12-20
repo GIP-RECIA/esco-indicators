@@ -11,7 +11,11 @@
             class="org.esco.indicators.services.permission.EstablishmentPermissionServiceImpl">
         <property name="establishmentViewPermissions">
             <list>
-                <ref bean="localEstablishmentViewPermission"/>
+                <ref bean="localCfaEstablishmentViewPermission"/>
+                <ref bean="localEscoEstablishmentViewPermission"/>
+                <ref bean="localAgriEstablishmentViewPermission"/>
+                <ref bean="localClg37EstablishmentViewPermission"/>
+                
                 <ref bean="centralCfaEstablishmentViewPermission"/>
                 <ref bean="centralEscoEstablishmentViewPermission"/>
                 <ref bean="centralAgriEstablishmentViewPermission"/>
@@ -20,12 +24,17 @@
         </property>
     </bean>  
     
-    <bean   id="localEstablishmentViewPermission"
+    <!--
+        ############################################################
+        Local permissions
+        ####################################################### 
+    -->
+    <bean   id="localCfaEstablishmentViewPermission"
             class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
-            <property name="patternToMatch" value="[a-z0-9]+:Applications:Indicateurs:[\p{L} [0-9]]+_([0-9]+[A-Z])"/>
-            <property name="patternFilter" ref="localPatternFilter"/>
+            <property name="patternToMatch" value="cfa:Applications:Indicateurs:[\p{L} [0-9]]+_([0-9]+[A-Z])"/>
+            <property name="patternFilter" ref="localCfaPatternFilter"/>
     </bean>
-    <bean   id="localPatternFilter"
+    <bean   id="localCfaPatternFilter"
             class="org.esco.indicators.domain.beans.permission.GenericFilter">
         <property name="propertiesNamesAndValues">
                 <map>
@@ -34,11 +43,115 @@
                             <value>%1%</value>
                         </set>
                     </entry>
+                    <entry key="profiles">
+                        <set>
+                            <value>TEACHERS</value>
+                            <value>APPRENTICES</value>
+                            <value>STAFF</value>
+                            <value>RELATIVES</value>
+                            <value>TEACHERS</value>
+                            <value>STAFF_COLLECTIVITY</value>
+                            <value>EMPLOYERS</value>
+                        </set>
+                    </entry>
+                </map>
+        </property>
+    </bean>
+    
+    <bean   id="localEscoEstablishmentViewPermission"
+            class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
+            <property name="patternToMatch" value="esco:Applications:Indicateurs:[\p{L} [0-9]]+_([0-9]+[A-Z])"/>
+            <property name="patternFilter" ref="localEscoPatternFilter"/>
+    </bean>
+    <bean   id="localEscoPatternFilter"
+            class="org.esco.indicators.domain.beans.permission.GenericFilter">
+        <property name="propertiesNamesAndValues">
+                <map>
+                    <entry key="uai">
+                        <set>
+                            <value>%1%</value>
+                        </set>
+                    </entry>
+                    <entry key="profiles">
+                        <set>
+                            <value>TEACHERS</value>
+                            <value>STUDENTS</value>
+                            <value>STAFF</value>
+                            <value>RELATIVES</value>
+                            <value>TEACHERS</value>
+                            <value>STAFF_COLLECTIVITY</value>
+                            <value>EMPLOYERS</value>
+                        </set>
+                    </entry>
+                </map>
+        </property>
+    </bean>
+    
+    <bean   id="localAgriEstablishmentViewPermission"
+            class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
+            <property name="patternToMatch" value="agri:Applications:Indicateurs:[\p{L} [0-9]]+_([0-9]+[A-Z])"/>
+            <property name="patternFilter" ref="localAgriPatternFilter"/>
+    </bean>
+    <bean   id="localAgriPatternFilter"
+            class="org.esco.indicators.domain.beans.permission.GenericFilter">
+        <property name="propertiesNamesAndValues">
+                <map>
+                    <entry key="uai">
+                        <set>
+                            <value>%1%</value>
+                        </set>
+                    </entry>
+                    <entry key="profiles">
+                        <set>
+                            <value>TEACHERS</value>
+                            <value>STUDENTS</value>
+                            <value>STAFF</value>
+                            <value>RELATIVES</value>
+                            <value>TEACHERS</value>
+                            <value>STAFF_COLLECTIVITY</value>
+                            <value>EMPLOYERS</value>
+                        </set>
+                    </entry>
+                </map>
+        </property>
+    </bean>
+    
+    <bean   id="localClg37EstablishmentViewPermission"
+            class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
+            <property name="patternToMatch" value="clg37:Applications:Indicateurs:[\p{L} [0-9]]+_([0-9]+[A-Z])"/>
+            <property name="patternFilter" ref="localClg37PatternFilter"/>
+    </bean>
+    <bean   id="localClg37PatternFilter"
+            class="org.esco.indicators.domain.beans.permission.GenericFilter">
+        <property name="propertiesNamesAndValues">
+                <map>
+                    <entry key="uai">
+                        <set>
+                            <value>%1%</value>
+                        </set>
+                    </entry>
+                    <entry key="profiles">
+	                    <set>
+	                        <value>TEACHERS</value>
+	                        <value>STUDENTS</value>
+	                        <value>STAFF</value>
+	                        <value>RELATIVES</value>
+	                        <value>TEACHERS</value>
+	                        <value>STAFF_COLLECTIVITY</value>
+	                        <value>EMPLOYERS</value>
+	                    </set>
+	                </entry>
                 </map>
         </property>
     </bean>
     
     
+    
+    <!--
+        ############################################################
+        Central permissions
+        ####################################################### 
+    -->
     <bean   id="centralCfaEstablishmentViewPermission"
             class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
         <property name="patternToMatch" value="cfa:admin:Indicateurs:central"/>
