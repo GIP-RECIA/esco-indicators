@@ -55,21 +55,21 @@ $(document).ready(function() {
 ///////////////////////////////////////////////////////////
 /*
  * Functions that creates a file name regarding to the 
- * selected filters.
+ * current section of the application.
  * The extension file name is given as parameter.
  */
 function createFileName(fileExtension) {
-    // Gets the content of all the selected filters
+    // Gets the second link of the ariadne thread 
     var fileName = "";
-    $("#filters").find("span").filter(".filterContent").each(function() {
+    $("#ariadneThread").find("a:odd").each(function() {
         // Clean the data
         var cleanData = cleanString($(this).html());
         // Add the filter content to the file name
         fileName = fileName + cleanData + " - ";
     });
     // Remove the last two characters
-    fileName = fileName.substring(0,fileName.length - 2);
-    return fileName + "." + fileExtension;
+    fileName = fileName.substring(0,fileName.length - 3);
+    return "Export - " + fileName + "." + fileExtension;
 }
 
 /*
