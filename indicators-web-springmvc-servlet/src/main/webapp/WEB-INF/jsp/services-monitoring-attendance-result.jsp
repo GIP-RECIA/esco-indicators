@@ -1,6 +1,14 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
 <%@ page import="java.util.*" %>
 
+<%-- #################################################### --%>
+<%-- VARIABLES SETTINGS --%>
+<%-- #################################################### --%>
+
+<c:set var="numDataInfos" value="5" />
+
+<%-- #################################################### --%>
+
 
 <%@ include file="/WEB-INF/jsp/include/common/title-and-menu.jsp"%>
 
