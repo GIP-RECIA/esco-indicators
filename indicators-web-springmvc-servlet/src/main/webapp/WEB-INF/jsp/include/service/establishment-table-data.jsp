@@ -2,6 +2,21 @@
 
     <%-- Result row --%>
     <tr>
+        <%-- Detail link --%>
+		
+        <%-- #################################################### --%>
+        <%-- DETAIL VIEW / SUM ON COUNTIES ? --%>
+        <%-- #################################################### --%>
+        <%-- If this is not a detail view and the sum on counties has not been asked --%>
+        <c:if test="${empty detail}">
+			<td>
+				<a href="establishment-services-attendance-result?uai=${item.establishmentData.uai}">
+					<spring:message code="result.table.detail" />
+				</a>
+			</td>
+		</c:if>
+        <%-- #################################################### --%>
+        
         <%-- User profile --%>
         <td>
             <spring:message code="${i18nUsersProfiles[item.userProfile]}" />

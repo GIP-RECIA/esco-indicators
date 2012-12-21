@@ -2,6 +2,15 @@
 <%@ page import="java.util.*" %>
 
 
+<%-- #################################################### --%>
+<%-- VARIABLES SETTINGS --%>
+<%-- #################################################### --%>
+
+<c:set var="detail" value="true" />
+<c:set var="numDataInfos" value="1" />
+
+<%-- #################################################### --%>
+
 <%@ include file="/WEB-INF/jsp/include/common/title-and-menu.jsp"%>
 
 <div id="ariadneThread">

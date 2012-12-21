@@ -27,7 +27,7 @@
     <!--
         ############################################################
         Local permissions
-        ####################################################### 
+        ############################################################
     -->
     <bean   id="localCfaEstablishmentViewPermission"
             class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
@@ -148,7 +148,7 @@
     <!--
         ############################################################
         Central permissions
-        ####################################################### 
+        ############################################################
     -->
     <bean   id="centralCfaEstablishmentViewPermission"
             class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">

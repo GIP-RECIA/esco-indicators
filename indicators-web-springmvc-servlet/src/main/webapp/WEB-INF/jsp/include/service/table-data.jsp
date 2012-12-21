@@ -2,6 +2,13 @@
 
     <%-- Result row --%>
     <tr>
+		<%-- Establishment detail --%>
+		<td>
+			<a href="establishment-services-attendance-result?uai=${item.establishmentData.uai}">
+				<spring:message code="result.table.detail" />
+			</a>
+		</td>
+
         <%-- Establishment data --%>
         <%@ include file="/WEB-INF/jsp/include/common/table-data-establishment.jsp"%>
         

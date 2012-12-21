@@ -12,8 +12,6 @@
                     <spring:message code="result.table.detail" />
                 </a>
             </td>
-            
-
         </c:if>
         
         <c:choose>

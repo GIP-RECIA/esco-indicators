@@ -2,6 +2,14 @@
 <%@ page import="java.util.*" %>
 
 
+<%-- #################################################### --%>
+<%-- VARIABLES SETTINGS --%>
+<%-- #################################################### --%>
+
+<c:set var="numDataInfos" value="5" />
+
+<%-- #################################################### --%>
+
 <%@ include file="/WEB-INF/jsp/include/common/title-and-menu.jsp"%>
 
 <div id="ariadneThread">
@@ -25,6 +33,17 @@
     <table id="resultTable" class="pretty">
         <%-- Headers : First level --%>
         <tr>
+			<%-- #################################################### --%>
+			<%-- SUM ON COUNTIES ? --%>
+			<%-- #################################################### --%>
+			<%-- If the sum on counties has not been asked --%>
+			<c:if test="${empty sumOnCountiesItem}">
+				<th>
+					<spring:message code="result.table.detail" />
+					<c:set var="numDataInfos" value="${numDataInfos + 1}" />
+				</th>
+			</c:if>
+			<%-- #################################################### --%>
 
             <%-- Establishment part --%>
             <%@ include file="/WEB-INF/jsp/include/common/table-header-establishment-infos.jsp"%>
@@ -43,9 +62,9 @@
         
         <%-- Headers : Second level --%>
         <tr>
-            <c:forEach var="i" begin="1" end="5">
+			<c:forEach var="i" begin="1" end="${numDataInfos}">
                 <th>
-                    <%-- Establishment data --%>
+                    <%-- Detail + Establishment data --%>
                 </th>
             </c:forEach>
             
@@ -69,9 +88,9 @@
         
         <%-- Headers : Third level --%>
         <tr>
-            <c:forEach var="i" begin="1" end="6">
+			<c:forEach var="i" begin="1" end="${numDataInfos + 1}">
                 <th>
-                    <%-- Establishment data + total account --%>
+                    <%-- Detail + Establishment data + total account --%>
                 </th>
             </c:forEach>
             
@@ -98,9 +117,9 @@
         
         <%-- Headers : Fourth level --%>
         <tr>
-            <c:forEach var="i" begin="1" end="8">
+			<c:forEach var="i" begin="1" end="${numDataInfos + 3}">
                 <th>
-                    <%-- Establishment data + accounts data --%>
+                    <%-- Detail + Establishment data + Accounts data --%>
                 </th>
             </c:forEach>
             

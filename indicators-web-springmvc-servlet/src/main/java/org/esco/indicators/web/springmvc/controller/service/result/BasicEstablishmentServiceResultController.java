@@ -156,7 +156,8 @@ public abstract class BasicEstablishmentServiceResultController extends BasicRes
 	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(serviceForm.getAllEstablishmentsTypes()));
 	
 	// Retrieval of the users profiles to filter
-	List<String> checkedProfiles = new ArrayList<String>(Arrays.asList(serviceForm.getUsersProfiles()));
+	// All the authorized users profiles have to be displayed
+	List<String> authorizedProfiles = keepAuthorizedJspKeysForUsersProfile(getAllUsersProfiles());
 	
 	// Retrieval of the start date and end date
 	Date startDate = serviceForm.getStartDate();
@@ -164,12 +165,12 @@ public abstract class BasicEstablishmentServiceResultController extends BasicRes
 	
 	// Retrieval of the services to filter
 	List<String> checkedServices = new ArrayList<String>(Arrays.asList(serviceForm.getWantedServices()));
-	List<String> services = dataServiceFormService.getServicesToFilter(checkedServices);
+	List<String> services = getDataFormService().getServicesToFilter(checkedServices);
 	 
 	// Retrieval of the establishment uai
 	String establishmentUai = new ArrayList<String>(Arrays.asList(serviceForm.getEstablishments())).get(0);
 	LOGGER.debug("The result rows will concern the establishment : [" + establishmentUai + "]");
-	return createEstablishmentResultRows(establishmentsTypes, establishmentUai, services, checkedProfiles, startDate, endDate);
+	return createEstablishmentResultRows(establishmentsTypes, establishmentUai, services, authorizedProfiles, startDate, endDate);
     }
     
     /**
@@ -258,9 +259,34 @@ public abstract class BasicEstablishmentServiceResultController extends BasicRes
      */
     protected abstract List<DetailResultRow> createEstablishmentResultRows( List<String> establishmentsTypes, String establishmentUai, List<String> services, List<String> userProfiles, Date startDate, Date endDate);
 
-
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
+    /**
+     * Only keeps the jsp keys (associated to users profiles) which are authorized
+     * for the authenticated user.
+     * 
+     * @param jspKeys
+     * 			The jsp keys (associated to users profiles) to test.
+     * 
+     * @return
+     * 	the authorized jsp keys.<br/>
+     * 	an empty list if no jsp is authorized.
+     */
+    private List<String> keepAuthorizedJspKeysForUsersProfile(List<String> jspKeys) {
+	// Final result
+	List<String> authorizedUsersProfilesKeys =  new ArrayList<String>();
+	
+	// Retrieves the authorized jsp keys (associated to users profiles)
+	for (String jspKey : jspKeys) {
+	    String userProfile = getDataFormService().getEntryName(jspKey);
+	    // Checks if the user has rights on this user profile
+	    if(authenticator.hasPermissionOnUserProfile(userProfile)) {
+		authorizedUsersProfilesKeys.add(jspKey);
+	    }
+	}
+	
+	return authorizedUsersProfilesKeys;
+    }
     
     //------------------------------------------------------------------------------ STATIC METHODS
 }
