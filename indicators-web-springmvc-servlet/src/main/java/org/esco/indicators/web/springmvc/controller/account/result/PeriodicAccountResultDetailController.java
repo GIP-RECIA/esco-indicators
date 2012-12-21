@@ -6,19 +6,15 @@ package org.esco.indicators.web.springmvc.controller.account.result;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
-import org.esco.indicators.domain.beans.form.BasicForm;
 import org.esco.indicators.domain.beans.result.BasicResultRow;
 import org.esco.indicators.domain.beans.result.DetailResultRow;
 import org.esco.indicators.domain.beans.structure.Establishment;
-import org.esco.indicators.domain.beans.xml.form.EntryValue;
 import org.esco.indicators.utils.classes.IntegerPair;
 import org.esco.indicators.utils.constants.web.RequestParameters;
 import org.esco.indicators.utils.constants.web.SessionConstants;
@@ -116,7 +112,7 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
 	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(aaForm.getEstablishmentsTypes()));
 	
 	// Retrieval of the users profiles to filter
-	List<String> allUsersProfiles = getAllUsersProfiles();
+	List<String> allUsersProfiles = keepAuthorizedJspKeysForUsersProfiles(getAllUsersProfiles());
 	
 	// Retrieval of the start date and end date
 	Date startDate = aaForm.getStartDate();

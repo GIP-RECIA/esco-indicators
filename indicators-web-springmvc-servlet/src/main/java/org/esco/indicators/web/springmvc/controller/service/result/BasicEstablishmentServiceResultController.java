@@ -157,7 +157,7 @@ public abstract class BasicEstablishmentServiceResultController extends BasicRes
 	
 	// Retrieval of the users profiles to filter
 	// All the authorized users profiles have to be displayed
-	List<String> authorizedProfiles = keepAuthorizedJspKeysForUsersProfile(getAllUsersProfiles());
+	List<String> authorizedProfiles = keepAuthorizedJspKeysForUsersProfiles(getAllUsersProfiles());
 	
 	// Retrieval of the start date and end date
 	Date startDate = serviceForm.getStartDate();
@@ -261,32 +261,6 @@ public abstract class BasicEstablishmentServiceResultController extends BasicRes
 
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
-    /**
-     * Only keeps the jsp keys (associated to users profiles) which are authorized
-     * for the authenticated user.
-     * 
-     * @param jspKeys
-     * 			The jsp keys (associated to users profiles) to test.
-     * 
-     * @return
-     * 	the authorized jsp keys.<br/>
-     * 	an empty list if no jsp is authorized.
-     */
-    private List<String> keepAuthorizedJspKeysForUsersProfile(List<String> jspKeys) {
-	// Final result
-	List<String> authorizedUsersProfilesKeys =  new ArrayList<String>();
-	
-	// Retrieves the authorized jsp keys (associated to users profiles)
-	for (String jspKey : jspKeys) {
-	    String userProfile = getDataFormService().getEntryName(jspKey);
-	    // Checks if the user has rights on this user profile
-	    if(authenticator.hasPermissionOnUserProfile(userProfile)) {
-		authorizedUsersProfilesKeys.add(jspKey);
-	    }
-	}
-	
-	return authorizedUsersProfilesKeys;
-    }
     
     //------------------------------------------------------------------------------ STATIC METHODS
 }
