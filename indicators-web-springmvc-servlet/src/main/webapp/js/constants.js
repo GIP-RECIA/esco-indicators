@@ -73,6 +73,7 @@ USERS_PROFILES.name         = "usersProfiles";
 USERS_PROFILES.values       = new Array( "usersProfiles.EMPLOYERS",
                                          "usersProfiles.RELATIVES",
                                          "usersProfiles.APPRENTICES",
+                                         "usersProfiles.MASTER_CRAFTSMEN",
                                          "usersProfiles.STUDENTS",
                                          "usersProfiles.TEACHERS",
                                          "usersProfiles.STAFF",
