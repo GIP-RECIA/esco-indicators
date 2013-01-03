@@ -121,7 +121,7 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
 	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), formSessionAttribute);
 	
 	// Retrieval of the establishments types
-	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(aaForm.getEstablishmentsTypes()));
+	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(aaForm.getAllEstablishmentsTypes()));
 	
 	// Retrieval of the users profiles to filter
 	List<String> allUsersProfiles = keepAuthorizedJspKeysForUsersProfiles(getAllUsersProfiles());
