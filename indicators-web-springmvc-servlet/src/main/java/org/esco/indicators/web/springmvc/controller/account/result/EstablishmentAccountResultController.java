@@ -137,7 +137,7 @@ public class EstablishmentAccountResultController extends PeriodicAccountResultD
 	Date endDate = (aaForm.getEndDate() != null ? aaForm.getEndDate() : aaForm.getStartDate());
 	
 	// Gets the result rows to display
-	List<DetailResultRow> resultRows = createResultRows(establishmentsTypes, establishmentUai, allUsersProfiles, startDate, endDate);
+	List<DetailResultRow> resultRows = createEstablishmentResultRows(establishmentsTypes, establishmentUai, allUsersProfiles, startDate, endDate);
 	
 	return resultRows;
     }

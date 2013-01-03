@@ -6,6 +6,7 @@
 <%-- #################################################### --%>
 
 <c:set var="monitoring" value="true" />
+<c:set var="numDataInfos" value="6" />
 
 <%-- #################################################### --%>
 
@@ -30,27 +31,12 @@
         <table id="resultTable" class="pretty">
             <%-- Headers : First level --%>
             <tr>
-                <%-- #################################################### --%>
-                <%-- SUM ON COUNTIES ? --%>
-                <%-- #################################################### --%>
-                <%-- If the sum on counties has not been asked --%>
-                <c:choose>
-                    <c:when test="${empty sumOnCountiesItem}">
-                        <c:set var="numEmptyHeaders" value="6" />
-                        <th>
-                            <spring:message code="result.table.detail" />
-                        </th>
-                    </c:when>
-                    
-                    <c:otherwise>
-                        <c:set var="numEmptyHeaders" value="5" />
-                    </c:otherwise>
-                </c:choose>
-                <%-- #################################################### --%>
+                <%-- Detail link --%>
+                <th>
+                    <spring:message code="result.table.detail" />
+                </th>
 
-
-
-                <%-- Establishlment part --%>
+                <%-- Establishment part --%>
                 <%@ include file="/WEB-INF/jsp/include/common/table-header-establishment-infos.jsp"%>
 
 
@@ -83,7 +69,7 @@
             
             <%-- Headers : Second level --%>
             <tr>
-                <c:forEach var="i" begin="1" end="${numEmptyHeaders}">
+                <c:forEach var="i" begin="1" end="${numDataInfos}">
                     <th>
                     </th>
                 </c:forEach>
@@ -106,7 +92,7 @@
             
             <%-- Headers : Third level --%>
             <tr>
-                <c:forEach var="i" begin="1" end="${numEmptyHeaders}">
+                <c:forEach var="i" begin="1" end="${numDataInfos}">
                     <th>
                     </th>
                 </c:forEach>
@@ -135,7 +121,7 @@
             
             <%-- Headers : Fourth level --%>
             <tr>
-                <c:forEach var="i" begin="1" end="${numEmptyHeaders}">
+                <c:forEach var="i" begin="1" end="${numDataInfos}">
                     <th>
                     </th>
                 </c:forEach>

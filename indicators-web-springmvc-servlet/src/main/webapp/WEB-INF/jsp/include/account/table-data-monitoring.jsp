@@ -3,16 +3,33 @@
     <%-- Result row --%>
     <tr>
         <%-- #################################################### --%>
-        <%-- DETAIL VIEW / SUM ON COUNTIES ? --%>
+        <%-- DETAIL VIEW ? --%>
         <%-- #################################################### --%>
-        <%-- If this is not a detail view and the sum on counties has not been asked --%>
-        <c:if test="${(empty detail) && (empty sumOnCountiesItem)}">
+        <%-- If this is not a detail view --%>
+        <c:if test="${empty detail}">
             <td>
-                <a href="accounts-activations-monitoring-detail?uai=${item.establishmentData.uai}">
-                    <spring:message code="result.table.detail" />
-                </a>
+                <%-- #################################################### --%>
+                <%-- ESTABLISHMENT / COUNTY DETAIL LINK ? --%>
+                <%-- #################################################### --%>
+                <c:choose>
+                    <%-- Establishment detail link --%>
+                    <c:when test="${empty sumOnCountiesItem}">
+                        <a href="accounts-activations-monitoring-detail?uai=${item.establishmentData.uai}">
+                            <spring:message code="result.table.detail" />
+                        </a>
+                    </c:when>
+                    
+                    <%-- County detail link --%>
+                    <c:otherwise>
+                        <a href="accounts-activations-monitoring-detail?county=${item.establishmentData.countyNumber}">
+                            <spring:message code="result.table.detail" />
+                        </a>
+                    </c:otherwise>
+                </c:choose>
+                <%-- #################################################### --%>
             </td>
         </c:if>
+        <%-- #################################################### --%>
         
         <c:choose>
             <c:when test="${empty detail}">        

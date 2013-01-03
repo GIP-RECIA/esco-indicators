@@ -61,6 +61,21 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**
+     * Populates the county number.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * 
+     * @return
+     * 	the county number concerned by the statistics.
+     */
+    @ModelAttribute("countyNumber")
+    public String populateCountyNumber(HttpServletRequest request) {
+	// Checks if the there is a county number provided in the parameters
+	return request.getParameter(RequestParameters.COUNTY_NUMBER);
+    }
+    
+    /**
      * Populates the establishment name.
      * 
      * @param request
@@ -87,7 +102,7 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
     
     /**
      * Populates the data rows of the table used to display detail informations
-     * on the suers profiles of an establishment.
+     * on the users profiles of an establishment.
      * 
      * @param request
      * 			The request made by the user.
@@ -97,14 +112,11 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
     @Override
     @ModelAttribute("tableRowsItems")
     public List<DetailResultRow> populateTableRows(HttpServletRequest request) {
-	// Checks if the there is a valid submitted form to process and a UAI to detail
-	String establishmentUai = request.getParameter(RequestParameters.ESTABLISHMENT_UAI);
-	if(	! containsForm(request.getSession(), formSessionAttribute)
-		|| establishmentUai == null) 
-	{
+	// Checks if the there is a valid submitted form to process
+	if(	! containsForm(request.getSession(), formSessionAttribute) ) {
 	    return null;
 	}
-
+	
 	// Retrieval of the submitted form
 	AccountActivationForm aaForm = (AccountActivationForm) getSessionForm(request.getSession(), formSessionAttribute);
 	
@@ -118,10 +130,20 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
 	Date startDate = aaForm.getStartDate();
 	Date endDate = aaForm.getEndDate();
 	
-	// Gets the result rows to display
-	List<DetailResultRow> resultRows = createResultRows(establishmentsTypes, establishmentUai, allUsersProfiles, startDate, endDate);
+	// If the detail concerns an establishment
+	String establishmentUai = request.getParameter(RequestParameters.ESTABLISHMENT_UAI);
+	if(establishmentUai != null) {
+	    return createEstablishmentResultRows(establishmentsTypes, establishmentUai, allUsersProfiles, startDate, endDate);
+	}
 	
-	return resultRows;
+	// If the detail concerns a county
+	String countyNumber = request.getParameter(RequestParameters.COUNTY_NUMBER);
+	if(countyNumber != null) {
+	    return createCountyResultRows(establishmentsTypes, countyNumber, allUsersProfiles, startDate, endDate);
+	}
+	
+	// If it is not possible to know which kind of detail has been asked
+	return null;
     }
     
     //--------------------------------------------------------------------------- PROTECTED METHODS
@@ -154,7 +176,7 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
      * @return
      * 	the result rows containing the data to display.
      */
-    protected List<DetailResultRow> createResultRows( List<String> establishmentsTypes, String establishmentUai, List<String> usersProfiles, Date startDate, Date endDate) {
+    protected List<DetailResultRow> createEstablishmentResultRows( List<String> establishmentsTypes, String establishmentUai, List<String> usersProfiles, Date startDate, Date endDate) {
 	// List containing the only one establishment
 	List<String> establishmentsUai = new ArrayList<String>();
 	establishmentsUai.add(establishmentUai);
@@ -166,6 +188,58 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
 	    List<String> usersProfilesToFilter = new ArrayList<String>();
 	    usersProfilesToFilter.add(userProfileToFilter);
 	    List<BasicResultRow> basicResultRows = createEstablishmentsResultRows(establishmentsTypes, establishmentsUai, usersProfilesToFilter, startDate, endDate);
+	    resultRows.addAll(convertToDetailResultRows(basicResultRows, userProfile));
+	}
+	
+	return resultRows;
+    }
+    
+    /**
+     * Creates the result rows; each result row containing the following data :
+     * <ul>
+     * 	<li>The county data (county number,..)</li>
+     * 	<li>The statistic data (number of connections,...)</li>
+     * </ul>
+     * 
+     * The statistic data are indexed by {@link IntegerPair} containing :
+     * <ul>
+     * 	<li>First value : the number of a week / month</li>
+     * 	<li>Second value : the year of the week</li>
+     * </ul>
+     * The periods (week/month and year) represented by the pairs are extracted from the original period
+     * specified by the <code>startDate</code> and the <code>endDate</code>.
+     * 
+     * @param checkedEstablishmentsTypes
+     * 			The types of the establishments checked in the user view.
+     * @param establishmentsTypes
+     * 			The types of the establishments to filter.
+     * @param countyNumber
+     * 			The county number.
+     * @param usersProfiles
+     * 			The users profiles concerned by the statistics.
+     * @param startDate
+     * 			The start date of the statistics.
+     * @param endDate
+     * 			The end date of the statistics.
+     * 
+     * @return
+     * 	the result rows containing the data to display.
+     */
+    protected List<DetailResultRow> createCountyResultRows( List<String> checkedEstablishmentsTypes, String countyNumber, List<String> usersProfiles, Date startDate, Date endDate) {
+	// List containing the only one county number
+	List<String> countyNumbers = new ArrayList<String>();
+	countyNumbers.add(countyNumber);
+	
+	// Retrieval of the establishments types
+	List<String> establishmentsTypesToFilter = getDataFormService().getEstablishmentsTypesToFilter(checkedEstablishmentsTypes);
+	
+	// Creation of result rows : one result user profile
+	List<DetailResultRow> resultRows = new ArrayList<DetailResultRow>();
+	for (String userProfile : usersProfiles) {
+	    String userProfileToFilter = dataAccountFormService.getUserProfileToFilter(userProfile);
+	    List<String> usersProfilesToFilter = new ArrayList<String>();
+	    usersProfilesToFilter.add(userProfileToFilter);
+	    List<BasicResultRow> basicResultRows = createSumOnCountiesResultRows(checkedEstablishmentsTypes, countyNumbers, establishmentsTypesToFilter, usersProfilesToFilter, startDate, endDate);
 	    resultRows.addAll(convertToDetailResultRows(basicResultRows, userProfile));
 	}
 	

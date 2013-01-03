@@ -30,9 +30,22 @@
     <table id="resultTable" class="pretty">
         <%-- Headers : First level --%>
         <tr>
-            <th>
-                ${establishmentName}
-            </th>
+            <%-- #################################################### --%>
+            <%-- DETAIL ON ESTABLISHMENT OR COUNTY ? --%>
+            <%-- #################################################### --%>
+            <c:choose>
+                <%-- Detail on establishment --%>
+                <c:when test="${not empty establishmentName}">
+                    <%@ include file="/WEB-INF/jsp/include/common/table-header-establishment-name.jsp"%>
+                </c:when>
+            
+                <%-- Detail on county --%>
+                <c:when test="${not empty countyNumber}">
+                    <%@ include file="/WEB-INF/jsp/include/common/table-header-county.jsp"%>
+                </c:when>
+            </c:choose>
+            <%-- #################################################### --%>
+            
 
             <%-- #################################################### --%>
             <%-- WEEKLY OR MONTHLY PERIODS ? --%>

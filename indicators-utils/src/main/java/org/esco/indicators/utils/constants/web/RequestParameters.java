@@ -14,6 +14,9 @@ public class RequestParameters {
     /** Parameter : establishment uai */
     public static final String ESTABLISHMENT_UAI = "uai";
     
+    /** Parameter : establishment uai */
+    public static final String COUNTY_NUMBER = "county";
+    
     /** Parameter : establishments */
     public static final String ESTABLISHMENTS = "establishments";
     
