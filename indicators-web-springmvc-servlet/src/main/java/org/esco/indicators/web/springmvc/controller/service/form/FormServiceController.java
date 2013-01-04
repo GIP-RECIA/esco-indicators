@@ -42,10 +42,6 @@ public class FormServiceController extends BasicFormController {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(FormServiceController.class);
-
-    /** Validator of the form */
-    @Autowired
-    private ServiceValidator serviceValidator;
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
@@ -56,14 +52,6 @@ public class FormServiceController extends BasicFormController {
     }
     
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getValidator()
-     */
-    @Override
-    public Validator getValidator() {
-        return serviceValidator;
-    }
-
     /* (non-Javadoc)
      * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getFailureViewName(org.esco.indicators.domain.beans.form.BasicForm)
      */
@@ -118,6 +106,18 @@ public class FormServiceController extends BasicFormController {
     @Qualifier("dataServiceFormService")
     public void setDataFormService(DataFormService dataFormService) {
 	this.dataFormService = dataFormService;
+    }
+    
+    /**
+     * Sets the form validator
+     * 
+     * @param formValidator
+     * 			the data form validator to set
+     */
+    @Autowired
+    @Qualifier("serviceValidator")
+    public void setFormValidator(Validator formValidator) {
+	this.formValidator = formValidator;
     }
 
     //------------------------------------------------------------------------------ PUBLIC METHODS

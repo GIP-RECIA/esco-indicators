@@ -35,10 +35,6 @@ public class EstablishmentFormAccountController extends BasicEstablishmentFormCo
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(EstablishmentFormAccountController.class);
     
-    /** Validator of the form */
-    @Autowired
-    private EstablishmentAccountValidator establishmentAccountValidator;
-    
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
      * Default constructor of the {@link EstablishmentFormAccountController} class.
@@ -88,14 +84,6 @@ public class EstablishmentFormAccountController extends BasicEstablishmentFormCo
         return "establishment-form-accounts";
     }
 
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getValidator()
-     */
-    @Override
-    public Validator getValidator() {
-        return establishmentAccountValidator;
-    }
-
     /**
      * Sets the data form service
      * 
@@ -106,6 +94,18 @@ public class EstablishmentFormAccountController extends BasicEstablishmentFormCo
     @Qualifier("dataAccountFormService")
     public void setDataFormService(DataFormService dataFormService) {
 	this.dataFormService = dataFormService;
+    }
+    
+    /**
+     * Sets the form validator
+     * 
+     * @param formValidator
+     * 			the data form validator to set
+     */
+    @Autowired
+    @Qualifier("establishmentAccountValidator")
+    public void setFormValidator(Validator formValidator) {
+	this.formValidator = formValidator;
     }
 
     //------------------------------------------------------------------------------ PUBLIC METHODS

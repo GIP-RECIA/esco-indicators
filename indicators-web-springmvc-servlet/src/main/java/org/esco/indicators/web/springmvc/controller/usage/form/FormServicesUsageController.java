@@ -95,7 +95,7 @@ public class FormServicesUsageController  extends BasicFormController {
      * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getValidator()
      */
     @Override
-    public Validator getValidator() {
+    public Validator getFormValidator() {
 	// TODO Auto-generated method stub
 	return null;
     }

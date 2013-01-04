@@ -45,6 +45,9 @@ public abstract class BasicFormController extends BasicController {
     
     /** Name of the attribute used to store the submitted form in the user session */
     protected String formSessionAttribute;
+
+    /** Validator used for the form validation */
+    protected Validator formValidator;
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
@@ -125,7 +128,9 @@ public abstract class BasicFormController extends BasicController {
      * @return
      * 	the form validator
      */
-    public abstract Validator getValidator();
+    public Validator getFormValidator() {
+	return formValidator;
+    }
     
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**
@@ -325,7 +330,7 @@ public abstract class BasicFormController extends BasicController {
 	request.getSession().setAttribute(formSessionAttribute, form);
        
 	// Validation of the form
-	Validator validator = getValidator();
+	Validator validator = getFormValidator();
 	LOGGER.debug("The class of the called validator is : [" + validator.getClass() +"]");
 	validator.validate(form, result);
 	

@@ -43,10 +43,6 @@ public class EstablishmentFormServiceController extends BasicEstablishmentFormCo
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(EstablishmentFormServiceController.class);
 
-    /** Validator of the form */
-    @Autowired
-    private BasicServiceValidator basicServiceValidator;
-    
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
      * Default constructor of the {@link EstablishmentFormServiceController} class.
@@ -56,14 +52,6 @@ public class EstablishmentFormServiceController extends BasicEstablishmentFormCo
     }
     
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getValidator()
-     */
-    @Override
-    public Validator getValidator() {
-        return basicServiceValidator;
-    }
-
     /* (non-Javadoc)
      * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getFailureViewName(org.esco.indicators.domain.beans.form.BasicForm)
      */
@@ -118,6 +106,18 @@ public class EstablishmentFormServiceController extends BasicEstablishmentFormCo
     @Qualifier("dataServiceFormService")
     public void setDataFormService(DataFormService dataFormService) {
 	this.dataFormService = dataFormService;
+    }
+    
+    /**
+     * Sets the form validator
+     * 
+     * @param formValidator
+     * 			the data form validator to set
+     */
+    @Autowired
+    @Qualifier("basicServiceValidator")
+    public void setFormValidator(Validator formValidator) {
+	this.formValidator = formValidator;
     }
     
     //------------------------------------------------------------------------------ PUBLIC METHODS
