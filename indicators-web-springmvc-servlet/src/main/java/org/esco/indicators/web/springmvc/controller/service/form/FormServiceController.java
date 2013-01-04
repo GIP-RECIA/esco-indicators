@@ -21,6 +21,7 @@ import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController;
 import org.esco.indicators.web.springmvc.validator.service.ServiceValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -42,10 +43,6 @@ public class FormServiceController extends BasicFormController {
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(FormServiceController.class);
 
-    /** Service providing the data for the form presenting the wantedServices statistics options */
-    @Autowired
-    private DataFormService dataServiceFormService;
-
     /** Validator of the form */
     @Autowired
     private ServiceValidator serviceValidator;
@@ -59,14 +56,6 @@ public class FormServiceController extends BasicFormController {
     }
     
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.BasicFormController#getDataFormService()
-     */
-    @Override
-    public DataFormService getDataFormService() {
-        return dataServiceFormService;
-    }
-
     /* (non-Javadoc)
      * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getValidator()
      */
@@ -117,6 +106,18 @@ public class FormServiceController extends BasicFormController {
 	    return "redirect:services-attendance-result";
 	}
 	return "redirect:services-monitoring-attendance-result";
+    }
+    
+    /**
+     * Sets the data form service
+     * 
+     * @param dataFormService
+     * 			the data form service to set
+     */
+    @Autowired
+    @Qualifier("dataServiceFormService")
+    public void setDataFormService(DataFormService dataFormService) {
+	this.dataFormService = dataFormService;
     }
 
     //------------------------------------------------------------------------------ PUBLIC METHODS

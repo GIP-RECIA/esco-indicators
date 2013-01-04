@@ -64,7 +64,7 @@ public class AccountValidator extends BasicValidator {
 	    // Only one user profile must be specified
 	    String [] usersProfiles = aaForm.getUsersProfiles();
 	    Integer maxUsersProfiles = FormValidationConstants.MAX_SELECTED_PROFILES_MONITORING;
-	    if(usersProfiles.length > maxUsersProfiles) {
+	    if(usersProfiles != null && usersProfiles.length > maxUsersProfiles) {
 		errors.rejectValue(DataFormConstants.USERS_PROFILES, "error.form.usersProfiles.maxValue", new Object [ ] { maxUsersProfiles }, "error.form.usersProfiles.maxValue");
 	    }
 	}

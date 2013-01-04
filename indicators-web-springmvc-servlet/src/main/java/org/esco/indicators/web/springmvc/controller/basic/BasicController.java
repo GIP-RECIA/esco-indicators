@@ -3,6 +3,7 @@
  */
 package org.esco.indicators.web.springmvc.controller.basic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +18,9 @@ import org.esco.indicators.domain.beans.people.User;
 import org.esco.indicators.domain.beans.permission.GenericFilter;
 import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.services.auth.Authenticator;
+import org.esco.indicators.services.form.DataFormService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 /**
@@ -27,15 +29,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
  * @since  2012/10/11
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-@Controller
+@Component
 public class BasicController {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(BasicController.class);
 
-    /** Service providing user informations */
+    /** Service providing user informations and authorizations (autowired by the setter) */
     @Autowired
     protected Authenticator authenticator;
+    
+    /** Service providing informations on the data of the form (autowired in the sub classes by the setter) */
+    protected DataFormService dataFormService;
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
@@ -46,6 +51,15 @@ public class BasicController {
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
+    /**
+     * Gets the data form service of the form controller.
+     * 
+     * @return
+     * 	the data form service of the form controller
+     */
+    public DataFormService getDataFormService() {
+	return dataFormService;
+    }
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**
@@ -160,6 +174,35 @@ public class BasicController {
         // Retrieval of the form
         BasicForm form = (BasicForm) session.getAttribute(formAttribute);
         return (form == null ? new BasicForm() : form);
+    }
+    
+    //--------------------------------------------------------------------------- PROTECTED METHODS
+    /**
+     * Only keeps the jsp keys (associated to users profiles) which are authorized
+     * for the authenticated user.
+     * 
+     * @param jspKeys
+     * 			The jsp keys (associated to users profiles) to test.
+     * 
+     * @return
+     * 	the authorized jsp keys.<br/>
+     * 	an empty list if no jsp is authorized.
+     */
+    protected List<String> keepAuthorizedJspKeysForUsersProfiles(List<String> jspKeys) {
+	// Final result
+	List<String> authorizedUsersProfilesKeys =  new ArrayList<String>();
+	
+	// Retrieves the authorized jsp keys (associated to users profiles)
+	for (String jspKey : jspKeys) {
+	    String userProfile = getDataFormService().getEntryName(jspKey);
+	    // Checks if the user has rights on this user profile
+	    if(authenticator.hasPermissionOnUserProfile(userProfile)) {
+		authorizedUsersProfilesKeys.add(jspKey);
+	    }
+	}
+	LOGGER.debug("The authorized users profiles JSP keys among : " + jspKeys + " are : " + authorizedUsersProfilesKeys );
+	
+	return authorizedUsersProfilesKeys;
     }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS

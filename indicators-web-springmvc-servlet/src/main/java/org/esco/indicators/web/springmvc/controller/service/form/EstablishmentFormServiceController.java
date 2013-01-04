@@ -20,6 +20,7 @@ import org.esco.indicators.web.springmvc.controller.basic.form.BasicFormControll
 import org.esco.indicators.web.springmvc.validator.service.BasicServiceValidator;
 import org.esco.indicators.web.springmvc.validator.service.ServiceValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -42,10 +43,6 @@ public class EstablishmentFormServiceController extends BasicEstablishmentFormCo
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(EstablishmentFormServiceController.class);
 
-    /** Service providing the data for the form presenting the wantedServices statistics options */
-    @Autowired
-    private DataFormService dataServiceFormService;
-
     /** Validator of the form */
     @Autowired
     private BasicServiceValidator basicServiceValidator;
@@ -59,14 +56,6 @@ public class EstablishmentFormServiceController extends BasicEstablishmentFormCo
     }
     
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.BasicFormController#getDataFormService()
-     */
-    @Override
-    public DataFormService getDataFormService() {
-        return dataServiceFormService;
-    }
-
     /* (non-Javadoc)
      * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getValidator()
      */
@@ -119,6 +108,18 @@ public class EstablishmentFormServiceController extends BasicEstablishmentFormCo
         return "establishment-form-services";
     }
 
+    /**
+     * Sets the data form service
+     * 
+     * @param dataFormService
+     * 			the data form service to set
+     */
+    @Autowired
+    @Qualifier("dataServiceFormService")
+    public void setDataFormService(DataFormService dataFormService) {
+	this.dataFormService = dataFormService;
+    }
+    
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**
      * Populate the available services field.

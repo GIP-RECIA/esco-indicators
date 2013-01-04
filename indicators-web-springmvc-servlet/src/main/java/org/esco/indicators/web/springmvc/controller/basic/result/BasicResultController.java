@@ -61,14 +61,6 @@ public abstract class BasicResultController extends BasicController {
     
     //--------------------------------------------------------------------------- GETTERS / SETTERS
     /**
-     * Gets the data form service.
-     * 
-     * @return
-     * 	the data form service
-     */
-    public abstract DataFormService getDataFormService(); 
-    
-    /**
      * Gets the establishment service.
      * 
      * @return
@@ -94,7 +86,6 @@ public abstract class BasicResultController extends BasicController {
 	    LOGGER.warn("No submitted form has been found in the user session, so there is no data to process and display. The user is redirected to the welcome page.");
 	    return "redirect:welcome";
 	}
-	
 	return viewName;
     }
 
@@ -397,33 +388,7 @@ public abstract class BasicResultController extends BasicController {
 	Integer endMonth = DateUtils.getMonthOfYear(endDate);
 	return DateUtils.splitMonths(startMonth, startYear, endMonth, endYear);
     }
-    
-    /**
-     * Only keeps the jsp keys (associated to users profiles) which are authorized
-     * for the authenticated user.
-     * 
-     * @param jspKeys
-     * 			The jsp keys (associated to users profiles) to test.
-     * 
-     * @return
-     * 	the authorized jsp keys.<br/>
-     * 	an empty list if no jsp is authorized.
-     */
-    protected List<String> keepAuthorizedJspKeysForUsersProfiles(List<String> jspKeys) {
-	// Final result
-	List<String> authorizedUsersProfilesKeys =  new ArrayList<String>();
-	
-	// Retrieves the authorized jsp keys (associated to users profiles)
-	for (String jspKey : jspKeys) {
-	    String userProfile = getDataFormService().getEntryName(jspKey);
-	    // Checks if the user has rights on this user profile
-	    if(authenticator.hasPermissionOnUserProfile(userProfile)) {
-		authorizedUsersProfilesKeys.add(jspKey);
-	    }
-	}
-	
-	return authorizedUsersProfilesKeys;
-    }
+
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
     //------------------------------------------------------------------------------ STATIC METHODS

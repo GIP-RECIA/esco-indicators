@@ -13,6 +13,7 @@ import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.web.springmvc.controller.basic.form.BasicEstablishmentFormController;
 import org.esco.indicators.web.springmvc.validator.account.EstablishmentAccountValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -33,10 +34,6 @@ public class EstablishmentFormAccountController extends BasicEstablishmentFormCo
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(EstablishmentFormAccountController.class);
-
-    /** Service providing the data for the form presenting the account statistics options */
-    @Autowired
-    private DataFormService dataAccountFormService;
     
     /** Validator of the form */
     @Autowired
@@ -51,14 +48,6 @@ public class EstablishmentFormAccountController extends BasicEstablishmentFormCo
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.BasicFormController#getDataFormService()
-     */
-    @Override
-    public DataFormService getDataFormService() {
-        return dataAccountFormService;
-    }
-
     /* (non-Javadoc)
      * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getFailureViewName(org.esco.indicators.domain.beans.form.BasicForm)
      */
@@ -107,6 +96,17 @@ public class EstablishmentFormAccountController extends BasicEstablishmentFormCo
         return establishmentAccountValidator;
     }
 
+    /**
+     * Sets the data form service
+     * 
+     * @param dataFormService
+     * 			the data form service to set
+     */
+    @Autowired
+    @Qualifier("dataAccountFormService")
+    public void setDataFormService(DataFormService dataFormService) {
+	this.dataFormService = dataFormService;
+    }
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**

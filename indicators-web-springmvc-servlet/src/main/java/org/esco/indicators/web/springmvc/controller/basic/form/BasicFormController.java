@@ -15,12 +15,12 @@ import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.BasicForm;
 import org.esco.indicators.domain.beans.form.FormField;
 import org.esco.indicators.domain.beans.xml.form.EntryValue;
-import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.utils.constants.web.RequestParameters;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.web.springmvc.controller.basic.BasicController;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -37,6 +37,7 @@ import org.springframework.web.bind.support.SessionStatus;
  * @since  2012/07/24
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
+@Component
 public abstract class BasicFormController extends BasicController {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
@@ -58,14 +59,6 @@ public abstract class BasicFormController extends BasicController {
     }
     
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /**
-     * Gets the data form service of the form controller.
-     * 
-     * @return
-     * 	the data form service of the form controller
-     */
-    public abstract DataFormService getDataFormService();
-    
     /**
      * Gets the name of the view used for a denied access.<br/>
      * This view is used when the user has no right on the page.
@@ -110,6 +103,14 @@ public abstract class BasicFormController extends BasicController {
     public abstract String getSuccessViewName(BasicForm validForm);
     
     /**
+     * Gets the name of the form view used for a super user.<br/>
+     * 
+     * @return
+     * 	the name of the form view for a super user
+     */
+    public abstract String getSuperUserFormViewName();
+    
+    /**
      * Gets the name of the form view used for a normal user.<br/>
      * A normal user is a non-super user.
      * 
@@ -117,14 +118,6 @@ public abstract class BasicFormController extends BasicController {
      * 	the name of the form view for a normal user
      */
     public abstract String getUserFormViewName();
-    
-    /**
-     * Gets the name of the form view used for a super user.<br/>
-     * 
-     * @return
-     * 	the name of the form view for a super user
-     */
-    public abstract String getSuperUserFormViewName();
     
     /**
      * Gets the validator of the form.
@@ -420,17 +413,23 @@ public abstract class BasicFormController extends BasicController {
 	// Final result
 	List<FormField> authorizedProfiles = new ArrayList<FormField>();
 
-	// Retrieves the name of the entries associated to the users profiles
-	// and verifies if the user has the right to see these profiles
+	// Gets the JSP keys present in the form fields
+	List<String> profilesJspKeys = new ArrayList<String>();
 	for (FormField userProfileField : usersProfilesFields) {
-	    String jspKey = userProfileField.getValue();
-	    String userProfile = getDataFormService().getEntryName(jspKey);
-	    // Checks if the user has rights on this user profile
-	    if(authenticator.hasPermissionOnUserProfile(userProfile)) {
+	    profilesJspKeys.add(userProfileField.getValue());
+	}
+	
+	// Keeps the authorized JSP keys
+	List<String> authorizedJspKeys = keepAuthorizedJspKeysForUsersProfiles(profilesJspKeys);
+	
+	// Keeps the auhtorized form fields
+	for (FormField userProfileField : usersProfilesFields) {
+	    String profileJspKey = userProfileField.getValue();
+	    if(authorizedJspKeys.contains(profileJspKey)) {
 		authorizedProfiles.add(userProfileField);
 	    }
 	}
-	
+
 	return authorizedProfiles;
     }
     

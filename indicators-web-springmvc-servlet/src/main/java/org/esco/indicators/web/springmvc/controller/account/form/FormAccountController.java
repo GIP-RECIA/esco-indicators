@@ -17,6 +17,7 @@ import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController;
 import org.esco.indicators.web.springmvc.validator.account.AccountValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -38,10 +39,6 @@ public class FormAccountController extends BasicFormController  {
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(FormAccountController.class);
 
-    /** Service providing the data for the form presenting the account statistics options */
-    @Autowired
-    private DataFormService dataAccountFormService;
-    
     /** Validator of the form */
     @Autowired
     private AccountValidator accountValidator;
@@ -55,14 +52,6 @@ public class FormAccountController extends BasicFormController  {
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.BasicFormController#getDataFormService()
-     */
-    @Override
-    public DataFormService getDataFormService() {
-        return dataAccountFormService;
-    }
-
     /* (non-Javadoc)
      * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getFailureViewName(org.esco.indicators.domain.beans.form.BasicForm)
      */
@@ -115,6 +104,17 @@ public class FormAccountController extends BasicFormController  {
         return accountValidator;
     }
 
+    /**
+     * Sets the data form service
+     * 
+     * @param dataFormService
+     * 			the data form service to set
+     */
+    @Autowired
+    @Qualifier("dataAccountFormService")
+    public void setDataFormService(DataFormService dataFormService) {
+	this.dataFormService = dataFormService;
+    }
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**

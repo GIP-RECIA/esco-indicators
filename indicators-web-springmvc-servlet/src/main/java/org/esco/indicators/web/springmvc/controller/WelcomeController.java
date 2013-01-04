@@ -4,7 +4,6 @@
 package org.esco.indicators.web.springmvc.controller;
 
 import org.apache.log4j.Logger;
-import org.esco.indicators.web.springmvc.controller.basic.BasicController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping(value = { "/", "/welcome" } )
-public class WelcomeController extends BasicController {
+public class WelcomeController {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(WelcomeController.class);
