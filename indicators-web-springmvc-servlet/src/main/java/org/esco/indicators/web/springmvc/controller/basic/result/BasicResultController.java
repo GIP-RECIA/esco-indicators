@@ -14,10 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.BasicForm;
+import org.esco.indicators.domain.beans.form.ServiceForm;
+import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.domain.beans.xml.form.EntryValue;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.classes.IntegerPair;
+import org.esco.indicators.utils.constants.web.RequestParameters;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.utils.date.DateUtils;
 import org.esco.indicators.web.springmvc.controller.basic.BasicController;
@@ -334,6 +337,40 @@ public abstract class BasicResultController extends BasicController {
 	}
 	
 	return allUsersProfiles;
+    }
+    
+    /**
+     * Gets the first establishment UAI found.<br/>
+     * The method will return, in this order :
+     * 	<ul>
+     * 		<li>The first UAI found in the request parameters, if at least one UAI is present</li>
+     * 		<li>The first UAI found in the request session, if at least one UAI is present</li>
+     * 		<li><code>null</code> in other cases</li>
+     * 	</ul>
+     * 
+     * @param request
+     * 			The request made by the user
+     * 
+     * @return
+     * 	the first UAI found into the request parameters, or the request session<br/>
+     * 	<code>null</code> if no UAI has been found
+     */
+    protected String getEstablishmentUai(HttpServletRequest request) {
+	// If the request parameters contains the establishment UAI
+	String establishmentUai = request.getParameter(RequestParameters.ESTABLISHMENT_UAI);
+	if(establishmentUai != null) {
+	    return establishmentUai;
+	}
+	
+	// If the request session contains the establishment UAI
+	BasicForm form = getSessionForm(request.getSession(), formSessionAttribute);
+	String [] establishmentsUai = form.getEstablishments();
+	if(establishmentsUai != null && establishmentsUai.length > 0) {
+	    return establishmentsUai[0];
+	}
+	
+	// If no establishment UAI has been found
+	return null;
     }
     
     /**

@@ -90,17 +90,11 @@ public abstract class BasicEstablishmentServiceResultController extends BasicRes
      */
     @ModelAttribute("establishmentName")
     public String populateEstablishmentName(HttpServletRequest request) {
-	// Checks if the there is a valid submitted form to process
-	if(!containsForm(request.getSession(), formSessionAttribute)) 
-	{
+	// Gets the establishent UAI
+	String establishmentUai = getEstablishmentUai(request);
+	if(establishmentUai == null) {
 	    return null;
 	}
-
-	// Retrieval of the submitted form
-	ServiceForm aaForm = (ServiceForm) getSessionForm(request.getSession(), formSessionAttribute);
-	
-	// Retrieval of the establishment UAI
-	String establishmentUai = aaForm.getEstablishments()[0];
 	
 	// Finds the establishment name
 	Establishment establishment = establishmentService.findEstablishmentByUai(establishmentUai);
@@ -168,7 +162,7 @@ public abstract class BasicEstablishmentServiceResultController extends BasicRes
 	List<String> services = getDataFormService().getServicesToFilter(checkedServices);
 	 
 	// Retrieval of the establishment uai
-	String establishmentUai = new ArrayList<String>(Arrays.asList(serviceForm.getEstablishments())).get(0);
+	String establishmentUai = getEstablishmentUai(request);
 	LOGGER.debug("The result rows will concern the establishment : [" + establishmentUai + "]");
 	return createEstablishmentResultRows(establishmentsTypes, establishmentUai, services, authorizedProfiles, startDate, endDate);
     }

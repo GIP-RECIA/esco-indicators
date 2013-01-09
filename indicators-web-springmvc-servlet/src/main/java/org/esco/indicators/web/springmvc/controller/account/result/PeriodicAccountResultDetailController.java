@@ -86,11 +86,9 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
      */
     @ModelAttribute("establishmentName")
     public String populateEstablishmentName(HttpServletRequest request) {
-	// Checks if the there is a valid submitted form to process and a UAI to detail
-	String establishmentUai = request.getParameter(RequestParameters.ESTABLISHMENT_UAI);
-	if(	! containsForm(request.getSession(), formSessionAttribute)
-		|| establishmentUai == null) 
-	{
+	// Gets the establishent UAI
+	String establishmentUai = getEstablishmentUai(request);
+	if(establishmentUai == null) {
 	    return null;
 	}
 	
