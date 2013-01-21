@@ -404,6 +404,35 @@ public abstract class BasicFormController extends BasicController {
     }
     
     /**
+     * Only keeps the services form fields authorized for the user.<br/>
+     * The authorized servces are retrieved through the authenticator.
+     * 
+     * @param servicesFields
+     * 			The services fields to test.
+     * 
+     * @return
+     * 	a copy of the given list only containing the authorized forms fields.<br/>
+     * 	an empty list if no service is authorized.
+     */
+    protected List<FormField> keepAuthorizedServices(List<FormField> servicesFields) {
+	// Final result
+	List<FormField> authorizedServices = new ArrayList<FormField>();
+	
+	// Retrieves the name of the entries associated to the services
+	// and verifies if the user has the right to see them
+	for (FormField serviceField : servicesFields) {
+	    String jspKey = serviceField.getValue();
+	    String serviceName = getDataFormService().getEntryName(jspKey);
+	    // Checks if the user has rights on this service
+	    if(authenticator.hasPermissionOnService(serviceName)) {
+		authorizedServices.add(serviceField);
+	    }
+	}
+	
+	return authorizedServices;
+    }
+    
+    /**
      * Only keeps the users profiles form fields authorized for the user.<br/>
      * The authorized users profiles are retrieved through the authenticator.
      * 

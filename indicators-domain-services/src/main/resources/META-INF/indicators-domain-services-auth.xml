@@ -17,6 +17,7 @@
         <property name="superUserFilterPropertyName" value="type"/>
         <property name="establishmentUaiPropertyName" value="uai"/>
         <property name="establishmentsTypePropertyName" value="type"/>
+        <property name="servicePropertyName" value="services"/>
         <property name="usersProfilesPropertyName" value="profiles"/>
     </bean>
 

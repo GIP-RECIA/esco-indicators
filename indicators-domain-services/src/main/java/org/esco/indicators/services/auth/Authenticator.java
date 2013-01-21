@@ -79,6 +79,21 @@ public interface Authenticator {
 	
 	/**
 	 * Indicates if the authenticated user has the permission to see informations
+	 * on the provided service.
+	 * 
+	 * The establishment filter is used to know if the authenticated user has
+	 * the permission, or not.
+	 * 
+	 * @param serviceName
+	 * 				The name of the service to test.
+	 * @return
+	 * 	<code>true</code> if the authenticated user has the right to see informations on the service.<br/>
+	 * 	<code>false</code> in other cases.
+	 */
+	public boolean hasPermissionOnService(String serviceName);
+	
+	/**
+	 * Indicates if the authenticated user has the permission to see informations
 	 * on the users having the given user profile.<br/>
 	 * 
 	 * The establishment filter is used to know if the authenticated user has
@@ -101,5 +116,5 @@ public interface Authenticator {
 	 * 		<code>false</code> in other cases.
 	 */
 	public boolean isSuperUser();
-	
+
 }

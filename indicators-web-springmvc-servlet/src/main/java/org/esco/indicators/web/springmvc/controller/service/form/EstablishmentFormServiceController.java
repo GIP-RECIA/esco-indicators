@@ -131,7 +131,9 @@ public class EstablishmentFormServiceController extends BasicEstablishmentFormCo
      */
     @ModelAttribute("availableServicesItems")
     public List<FormField> populateServices(HttpServletRequest request) {
-	return getEntryFormFields(DataFormConstants.SERVICES);
+	List<FormField> servicesFields = getEntryFormFields(DataFormConstants.SERVICES);
+	servicesFields = keepAuthorizedServices(servicesFields);
+	return servicesFields;
     }
     
     /**

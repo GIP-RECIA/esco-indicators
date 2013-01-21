@@ -103,6 +103,11 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	private  String establishmentsTypePropertyName;
 	
 	/**
+	 * Property name containing the services.
+	 */
+	private  String servicePropertyName;
+	
+	/**
 	 * Property name containing the users profiles.
 	 */
 	private  String usersProfilesPropertyName;
@@ -133,6 +138,8 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 			"property establishmentUaiPropertyName of class " + this.getClass().getName() + " can not be null");
 		Assert.notNull(establishmentsTypePropertyName, 
 			"property establishmentsTypePropertyName of class " + this.getClass().getName() + " can not be null");
+		Assert.notNull(servicePropertyName, 
+			"property servicePropertyName of class " + this.getClass().getName() + " can not be null");
 		Assert.notNull(usersProfilesPropertyName, 
 			"property usersProfilesPropertyName of class " + this.getClass().getName() + " can not be null");
 	}
@@ -201,6 +208,16 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	 */
 	public void setEstablishmentsTypePropertyName(String establishmentsTypePropertyName) {
 	    this.establishmentsTypePropertyName = establishmentsTypePropertyName;
+	}
+
+	/**
+	 * Sets the name of the property containing the services.
+	 * 
+	 * @param servicePropertyName 
+	 * 				the property name containing the services to set
+	 */
+	public void setServicePropertyName(String servicePropertyName) {
+	    this.servicePropertyName = servicePropertyName;
 	}
 
 	/**
@@ -353,6 +370,14 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	@Override
 	public boolean hasPermissionOnEstablishmentsType(String establishmentType) {
 	    return filterPropertyContainsValue(establishmentsTypePropertyName, establishmentType);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.esco.indicators.services.auth.Authenticator#hasPermissionOnService(java.lang.String)
+	 */
+	@Override
+	public boolean hasPermissionOnService(String serviceName) {
+	    return filterPropertyContainsValue(servicePropertyName, serviceName);
 	}
 
 	/* (non-Javadoc)
