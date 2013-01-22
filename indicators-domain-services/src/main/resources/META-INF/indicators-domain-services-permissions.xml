@@ -82,6 +82,7 @@
                             <value>ESPECIAL_RESOURCES</value>
                             <value>E_SIDOC</value>
                             <value>SUM_DOCUMENTATION</value>
+                            <value>MY_ACCOUNT</value>
                             <value>ACCOUNT_MANAGEMENT</value>
                             <value>GROUP_MANAGEMENT</value>
                             <value>SUM_ADMINISTRATION</value>
@@ -162,9 +163,10 @@
                             <value>LOCAL_MAN</value>
                             <value>TV_SITE</value>
                             <value>SUM_DOCUMENTATION</value>
-                            <!--  <value>ACCOUNT_MANAGEMENT</value> -->
-                            <!--  <value>GROUP_MANAGEMENT</value> -->
-                            <!--  <value>SUM_ADMINISTRATION</value> -->
+                            <value>MY_ACCOUNT</value>
+                            <value>ACCOUNT_MANAGEMENT</value>
+                            <value>GROUP_MANAGEMENT</value>
+                            <value>SUM_ADMINISTRATION</value>
                         </set>
                     </entry>
                 </map>
@@ -232,6 +234,7 @@
                             <value>LOCAL_MAN</value>
                             <value>TV_SITE</value>
                             <value>SUM_DOCUMENTATION</value>
+                            <value>MY_ACCOUNT</value>
                             <value>ACCOUNT_MANAGEMENT</value>
                             <value>GROUP_MANAGEMENT</value>
                             <value>SUM_ADMINISTRATION</value>
@@ -303,6 +306,7 @@
                             <value>EDUMEDIA</value>
                             <value>TV_SITE</value>
                             <value>SUM_DOCUMENTATION</value>
+                            <value>MY_ACCOUNT</value>
                             <value>ACCOUNT_MANAGEMENT</value>
                             <value>GROUP_MANAGEMENT</value>
                             <value>SUM_ADMINISTRATION</value>
@@ -370,6 +374,7 @@
                             <value>ESPECIAL_RESOURCES</value>
                             <value>E_SIDOC</value>
                             <value>SUM_DOCUMENTATION</value>
+                            <value>MY_ACCOUNT</value>
                             <value>ACCOUNT_MANAGEMENT</value>
                             <value>GROUP_MANAGEMENT</value>
                             <value>SUM_ADMINISTRATION</value>
@@ -449,6 +454,7 @@
                             <value>LOCAL_MAN</value>
                             <value>TV_SITE</value>
                             <value>SUM_DOCUMENTATION</value>
+                            <value>MY_ACCOUNT</value>
                             <value>ACCOUNT_MANAGEMENT</value>
                             <value>GROUP_MANAGEMENT</value>
                             <value>SUM_ADMINISTRATION</value>
@@ -517,6 +523,7 @@
                             <value>LOCAL_MAN</value>
                             <value>TV_SITE</value>
                             <value>SUM_DOCUMENTATION</value>
+                            <value>MY_ACCOUNT</value>
                             <value>ACCOUNT_MANAGEMENT</value>
                             <value>GROUP_MANAGEMENT</value>
                             <value>SUM_ADMINISTRATION</value>
@@ -586,6 +593,7 @@
                             <value>EDUMEDIA</value>
                             <value>TV_SITE</value>
                             <value>SUM_DOCUMENTATION</value>
+                            <value>MY_ACCOUNT</value>
                             <value>ACCOUNT_MANAGEMENT</value>
                             <value>GROUP_MANAGEMENT</value>
                             <value>SUM_ADMINISTRATION</value>
