@@ -18,7 +18,7 @@
                     <c:forEach var="item" items="${establishmentsNames}">
                         <tr>
                             <td>
-                                <form:checkbox id="${item.value}" value="${item.value}" path="establishments" />
+                                <form:radiobutton id="${item.value}" value="${item.value}" path="establishments" />
                             </td>
                             <td>
                                 <form:label for="${item.value}" title="${item.label}" path="establishments">
