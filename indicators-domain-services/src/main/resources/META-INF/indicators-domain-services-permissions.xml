@@ -66,11 +66,7 @@
                             <value>LEA</value>
                             <value>STORAGE</value>
                             <value>YPAREO</value>
-                            <value>HELP_WORK</value>
                             <value>SUM_EDUCATION</value>
-                            <value>STUDENTS_MAIL</value>
-                            <value>ACADEMIC_MAIL</value>
-                            <value>AGRI_MAIL</value>
                             <value>ANNOUNCEMENT_PUBLICATION</value>
                             <value>ANNOUNCEMENT_READING</value>
                             <value>MAILING_LIST</value>
@@ -78,27 +74,13 @@
                             <value>GRR</value>
                             <value>INDICATORS</value>
                             <value>SUM_SERVICES</value>
-                            <value>WEB_FILE</value>
                             <value>ONISEP</value>
                             <value>ETOILE</value>
                             <value>SUM_GUIDE</value>
-                            <value>OBII</value>
-                            <value>LPC</value>
                             <value>TEXT_BOOK</value>
-                            <value>SCONET_SCORE</value>
-                            <value>GEPI</value>
-                            <value>NET_SCHOOL_LIFE</value>
-                            <value>SCONET_ABSENCE</value>
-                            <value>E_SERVICES</value>
                             <value>SUM_E_SERVICES</value>
-                            <value>CNS</value>
-                            <value>KNE</value>
-                            <value>ENCYCLOPEDIA</value>
                             <value>ESPECIAL_RESOURCES</value>
                             <value>E_SIDOC</value>
-                            <value>EDUMEDIA</value>
-                            <value>LOCAL_MAN</value>
-                            <value>TV_SITE</value>
                             <value>SUM_DOCUMENTATION</value>
                             <value>ACCOUNT_MANAGEMENT</value>
                             <value>GROUP_MANAGEMENT</value>
@@ -146,14 +128,11 @@
                     <entry key="services">
                         <set>
                             <value>MOODLE</value>
-                            <value>LEA</value>
                             <value>STORAGE</value>
-                            <value>YPAREO</value>
                             <value>HELP_WORK</value>
                             <value>SUM_EDUCATION</value>
                             <value>STUDENTS_MAIL</value>
                             <value>ACADEMIC_MAIL</value>
-                            <value>AGRI_MAIL</value>
                             <value>ANNOUNCEMENT_PUBLICATION</value>
                             <value>ANNOUNCEMENT_READING</value>
                             <value>MAILING_LIST</value>
@@ -226,13 +205,10 @@
                     <entry key="services">
                         <set>
                             <value>MOODLE</value>
-                            <value>LEA</value>
                             <value>STORAGE</value>
-                            <value>YPAREO</value>
                             <value>HELP_WORK</value>
                             <value>SUM_EDUCATION</value>
                             <value>STUDENTS_MAIL</value>
-                            <value>ACADEMIC_MAIL</value>
                             <value>AGRI_MAIL</value>
                             <value>ANNOUNCEMENT_PUBLICATION</value>
                             <value>ANNOUNCEMENT_READING</value>
@@ -241,18 +217,11 @@
                             <value>GRR</value>
                             <value>INDICATORS</value>
                             <value>SUM_SERVICES</value>
-                            <value>WEB_FILE</value>
                             <value>ONISEP</value>
                             <value>ETOILE</value>
                             <value>SUM_GUIDE</value>
-                            <value>OBII</value>
-                            <value>LPC</value>
                             <value>TEXT_BOOK</value>
-                            <value>SCONET_SCORE</value>
-                            <value>GEPI</value>
                             <value>NET_SCHOOL_LIFE</value>
-                            <value>SCONET_ABSENCE</value>
-                            <value>E_SERVICES</value>
                             <value>SUM_E_SERVICES</value>
                             <value>CNS</value>
                             <value>KNE</value>
@@ -304,30 +273,24 @@
                     <entry key="services">
                         <set>
                             <value>MOODLE</value>
-                            <value>LEA</value>
                             <value>STORAGE</value>
-                            <value>YPAREO</value>
                             <value>HELP_WORK</value>
                             <value>SUM_EDUCATION</value>
                             <value>STUDENTS_MAIL</value>
                             <value>ACADEMIC_MAIL</value>
-                            <value>AGRI_MAIL</value>
                             <value>ANNOUNCEMENT_PUBLICATION</value>
                             <value>ANNOUNCEMENT_READING</value>
-                            <value>MAILING_LIST</value>
                             <value>SUM_COMMUNICATION</value>
                             <value>GRR</value>
                             <value>INDICATORS</value>
                             <value>SUM_SERVICES</value>
                             <value>WEB_FILE</value>
                             <value>ONISEP</value>
-                            <value>ETOILE</value>
                             <value>SUM_GUIDE</value>
                             <value>OBII</value>
                             <value>LPC</value>
                             <value>TEXT_BOOK</value>
                             <value>SCONET_SCORE</value>
-                            <value>GEPI</value>
                             <value>NET_SCHOOL_LIFE</value>
                             <value>SCONET_ABSENCE</value>
                             <value>E_SERVICES</value>
@@ -338,7 +301,6 @@
                             <value>ESPECIAL_RESOURCES</value>
                             <value>E_SIDOC</value>
                             <value>EDUMEDIA</value>
-                            <value>LOCAL_MAN</value>
                             <value>TV_SITE</value>
                             <value>SUM_DOCUMENTATION</value>
                             <value>ACCOUNT_MANAGEMENT</value>
@@ -392,11 +354,7 @@
                             <value>LEA</value>
                             <value>STORAGE</value>
                             <value>YPAREO</value>
-                            <value>HELP_WORK</value>
                             <value>SUM_EDUCATION</value>
-                            <value>STUDENTS_MAIL</value>
-                            <value>ACADEMIC_MAIL</value>
-                            <value>AGRI_MAIL</value>
                             <value>ANNOUNCEMENT_PUBLICATION</value>
                             <value>ANNOUNCEMENT_READING</value>
                             <value>MAILING_LIST</value>
@@ -404,27 +362,13 @@
                             <value>GRR</value>
                             <value>INDICATORS</value>
                             <value>SUM_SERVICES</value>
-                            <value>WEB_FILE</value>
                             <value>ONISEP</value>
                             <value>ETOILE</value>
                             <value>SUM_GUIDE</value>
-                            <value>OBII</value>
-                            <value>LPC</value>
                             <value>TEXT_BOOK</value>
-                            <value>SCONET_SCORE</value>
-                            <value>GEPI</value>
-                            <value>NET_SCHOOL_LIFE</value>
-                            <value>SCONET_ABSENCE</value>
-                            <value>E_SERVICES</value>
                             <value>SUM_E_SERVICES</value>
-                            <value>CNS</value>
-                            <value>KNE</value>
-                            <value>ENCYCLOPEDIA</value>
                             <value>ESPECIAL_RESOURCES</value>
                             <value>E_SIDOC</value>
-                            <value>EDUMEDIA</value>
-                            <value>LOCAL_MAN</value>
-                            <value>TV_SITE</value>
                             <value>SUM_DOCUMENTATION</value>
                             <value>ACCOUNT_MANAGEMENT</value>
                             <value>GROUP_MANAGEMENT</value>
@@ -471,14 +415,11 @@
                     <entry key="services">
                         <set>
                             <value>MOODLE</value>
-                            <value>LEA</value>
                             <value>STORAGE</value>
-                            <value>YPAREO</value>
                             <value>HELP_WORK</value>
                             <value>SUM_EDUCATION</value>
                             <value>STUDENTS_MAIL</value>
                             <value>ACADEMIC_MAIL</value>
-                            <value>AGRI_MAIL</value>
                             <value>ANNOUNCEMENT_PUBLICATION</value>
                             <value>ANNOUNCEMENT_READING</value>
                             <value>MAILING_LIST</value>
@@ -549,13 +490,10 @@
                     <entry key="services">
                         <set>
                             <value>MOODLE</value>
-                            <value>LEA</value>
                             <value>STORAGE</value>
-                            <value>YPAREO</value>
                             <value>HELP_WORK</value>
                             <value>SUM_EDUCATION</value>
                             <value>STUDENTS_MAIL</value>
-                            <value>ACADEMIC_MAIL</value>
                             <value>AGRI_MAIL</value>
                             <value>ANNOUNCEMENT_PUBLICATION</value>
                             <value>ANNOUNCEMENT_READING</value>
@@ -564,18 +502,11 @@
                             <value>GRR</value>
                             <value>INDICATORS</value>
                             <value>SUM_SERVICES</value>
-                            <value>WEB_FILE</value>
                             <value>ONISEP</value>
                             <value>ETOILE</value>
                             <value>SUM_GUIDE</value>
-                            <value>OBII</value>
-                            <value>LPC</value>
                             <value>TEXT_BOOK</value>
-                            <value>SCONET_SCORE</value>
-                            <value>GEPI</value>
                             <value>NET_SCHOOL_LIFE</value>
-                            <value>SCONET_ABSENCE</value>
-                            <value>E_SERVICES</value>
                             <value>SUM_E_SERVICES</value>
                             <value>CNS</value>
                             <value>KNE</value>
@@ -625,30 +556,24 @@
                     <entry key="services">
                         <set>
                             <value>MOODLE</value>
-                            <value>LEA</value>
                             <value>STORAGE</value>
-                            <value>YPAREO</value>
                             <value>HELP_WORK</value>
                             <value>SUM_EDUCATION</value>
                             <value>STUDENTS_MAIL</value>
                             <value>ACADEMIC_MAIL</value>
-                            <value>AGRI_MAIL</value>
                             <value>ANNOUNCEMENT_PUBLICATION</value>
                             <value>ANNOUNCEMENT_READING</value>
-                            <value>MAILING_LIST</value>
                             <value>SUM_COMMUNICATION</value>
                             <value>GRR</value>
                             <value>INDICATORS</value>
                             <value>SUM_SERVICES</value>
                             <value>WEB_FILE</value>
                             <value>ONISEP</value>
-                            <value>ETOILE</value>
                             <value>SUM_GUIDE</value>
                             <value>OBII</value>
                             <value>LPC</value>
                             <value>TEXT_BOOK</value>
                             <value>SCONET_SCORE</value>
-                            <value>GEPI</value>
                             <value>NET_SCHOOL_LIFE</value>
                             <value>SCONET_ABSENCE</value>
                             <value>E_SERVICES</value>
@@ -659,7 +584,6 @@
                             <value>ESPECIAL_RESOURCES</value>
                             <value>E_SIDOC</value>
                             <value>EDUMEDIA</value>
-                            <value>LOCAL_MAN</value>
                             <value>TV_SITE</value>
                             <value>SUM_DOCUMENTATION</value>
                             <value>ACCOUNT_MANAGEMENT</value>
