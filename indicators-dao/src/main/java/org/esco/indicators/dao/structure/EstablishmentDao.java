@@ -95,7 +95,8 @@ public interface EstablishmentDao {
      * @param uais
      * 			The establishments uais.
      * @return
-     * 	a list containing the establishments having a uai equal to one of the specified <code>uais</code>.
+     * 	a list containing the establishments having a uai equal to one of the specified <code>uais</code>.<br/>
+     * 	an empty list if no establishment has been retrieved.
      */
     public List<Establishment> findEstablishmentByUais(List<String> uais);
     
