@@ -89,6 +89,27 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 	return establishment;
     }
 
+    //------------------------------------------------------------------------------ STATIC METHODS
+    
+    /* (non-Javadoc)
+     * @see org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsByUai(java.lang.String)
+     */
+    @Override
+    public List<Establishment> findEstablishmentsByUais(List<String> uais) {
+	// Final result
+	List<Establishment> establishments = new ArrayList<Establishment>();
+	
+	// Retrieval of the establishments by their UAI
+	for (String uai : uais) {
+	    Establishment establishment = findEstablishmentByUai(uai);
+	    if(establishment != null) {
+		establishments.add(establishment);
+	    }
+	}
+	
+	return establishments;
+    }
+
     /* (non-Javadoc)
      * @see org.esco.indicators.services.structure.EstablishmentService#findEstablishmentsByCountyNumber(java.lang.Integer)
      */

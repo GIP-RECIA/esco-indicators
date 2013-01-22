@@ -57,7 +57,10 @@
             class="org.esco.indicators.web.springmvc.validator.account.AccountValidator" />
             
 	<bean   id="establishmentAccountValidator" 
-	            class="org.esco.indicators.web.springmvc.validator.account.EstablishmentAccountValidator" />
+	        class="org.esco.indicators.web.springmvc.validator.account.EstablishmentAccountValidator" />
+	     
+   <bean   id="establishmentServiceValidator" 
+           class="org.esco.indicators.web.springmvc.validator.service.EstablishmentServiceValidator" />     
 	            
     <bean   id="basicServiceValidator" 
                 class="org.esco.indicators.web.springmvc.validator.service.BasicServiceValidator" />

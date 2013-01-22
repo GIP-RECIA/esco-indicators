@@ -253,29 +253,5 @@ public class FormServiceController extends BasicFormController {
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
 
-    /**
-     * Creates the form fields composed of the pair (jsp key, i18n) for the given jsp keys.<br/>
-     * The i18n put into the form field is the i18n associated to the jep key in the data form service.
-     * 
-     * @param jspKeys
-     * 			The jsp keys to associate to their respective i18n.
-     * 
-     * @return
-     * 	the jsp keys associated to their respective i18n.
-     */
-    private List<FormField> jspKeysToFormFields(List<String> jspKeys) {
-	// Final result
-	List<FormField> formFields = new ArrayList<FormField>();
-	
-	// Creates the form fields composed of (jsp key, i18n)
-	for (String jspKey : jspKeys) {
-	    String i18n = getDataFormService().getI18nKey(jspKey);
-	    FormField formField = new FormField(i18n, jspKey);
-	    formFields.add(formField);
-	}
-	
-	return formFields;
-    }
-    
     //------------------------------------------------------------------------------ STATIC METHODS
 }

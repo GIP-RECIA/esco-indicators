@@ -110,6 +110,17 @@ public interface EstablishmentService {
     public Establishment findEstablishmentByUai(String uai);
     
     /**
+     * Retrieves the establishments associated to the specified <code>uais</code>.
+     * 
+     * @param uais
+     *            The UAIs of the searched establishments.
+     *            
+     * @return the establishements associated to the <code>uais</code> if it has been retrieved.<br/>
+     *         <code>null</code> if no establishment has been retrieved.
+     */
+    public List<Establishment> findEstablishmentsByUais(List<String> uais);
+    
+    /**
      * Gets the UAI of the establishments located in the county and having one of the specified type.
      * 
      * @param countyNumber

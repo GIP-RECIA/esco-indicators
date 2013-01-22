@@ -53,7 +53,12 @@ public class EstablishmentAccountValidator implements Validator {
 	ValidationUtils.rejectIfEmpty(errors, DataFormConstants.ESTABLISHMENTS_TYPES, "error.form.establishmentsTypes.empty");
 	ValidationUtils.rejectIfEmpty(errors, DataFormConstants.USERS_PROFILES, "error.form.usersProfiles.empty");
 	ValidationUtils.rejectIfEmpty(errors, DataFormConstants.ESTABLISHMENTS, "error.form.establishments.empty");
-
+	String [] establishments = form.getEstablishments();
+	Integer maxEstablishments = FormValidationConstants.MAX_SELECTED_LOCAL_ESTABLISHMENTS;
+	if(establishments != null && establishments.length > 1) {
+    		errors.rejectValue(DataFormConstants.ESTABLISHMENTS, "error.form.establishments.maxValue", new Object [ ] { maxEstablishments }, "error.form.establishments.maxValue");
+	}
+	    
 	/////////////////////////////////////////
 	// Validation of :
 	//	- the end date field

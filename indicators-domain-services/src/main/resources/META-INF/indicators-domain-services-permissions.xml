@@ -43,6 +43,11 @@
                             <value>%1%</value>
                         </set>
                     </entry>
+	                <entry key="type">
+	                    <set>
+	                        <value>CFA</value>
+	                    </set>
+	                </entry>
                     <entry key="profiles">
                         <set>
                             <value>TEACHERS</value>
@@ -118,6 +123,16 @@
                             <value>%1%</value>
                         </set>
                     </entry>
+                    <entry key="type">
+                        <set>
+                            <value>LEN</value>
+                            <value>EREA</value>
+                            <value>LEGT</value>
+                            <value>LG</value>
+                            <value>LP</value>
+                            <value>LPO</value>
+                        </set>
+                    </entry>
                     <entry key="profiles">
                         <set>
                             <value>TEACHERS</value>
@@ -191,6 +206,13 @@
                             <value>%1%</value>
                         </set>
                     </entry>
+	                <entry key="type">
+	                    <set>
+	                        <value>LA</value>
+	                        <value>LEGTA</value>
+	                        <value>LPA</value>
+	                    </set>
+	                </entry>
                     <entry key="profiles">
                         <set>
                             <value>TEACHERS</value>
@@ -264,6 +286,11 @@
                             <value>%1%</value>
                         </set>
                     </entry>
+	                <entry key="type">
+	                    <set>
+	                        <value>COLLEGE</value>
+	                    </set>
+	                </entry>
                     <entry key="profiles">
 	                    <set>
 	                        <value>TEACHERS</value>
@@ -339,6 +366,9 @@
             class="org.esco.indicators.domain.beans.permission.GenericFilter">
         <property name="propertiesNamesAndValues">
             <map>
+                <entry key="superUser">
+                    <value>true</value>
+                </entry>
                 <entry key="type">
                     <set>
                         <value>CFA</value>
@@ -415,6 +445,9 @@
             class="org.esco.indicators.domain.beans.permission.GenericFilter">
         <property name="propertiesNamesAndValues">
             <map>
+                <entry key="superUser">
+                    <value>true</value>
+                </entry>
                 <entry key="type">
                     <set>
                         <value>LEN</value>
@@ -493,6 +526,9 @@
             class="org.esco.indicators.domain.beans.permission.GenericFilter">
         <property name="propertiesNamesAndValues">
             <map>
+                <entry key="superUser">
+                    <value>true</value>
+                </entry>
                 <entry key="type">
                     <set>
                         <value>LA</value>
@@ -568,6 +604,9 @@
             class="org.esco.indicators.domain.beans.permission.GenericFilter">
         <property name="propertiesNamesAndValues">
             <map>
+                <entry key="superUser">
+                    <value>true</value>
+                </entry>
                 <entry key="type">
                     <set>
                         <value>COLLEGE</value>

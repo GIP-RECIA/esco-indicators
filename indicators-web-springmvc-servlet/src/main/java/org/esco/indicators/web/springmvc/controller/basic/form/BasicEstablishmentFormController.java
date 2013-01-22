@@ -75,14 +75,27 @@ public abstract class BasicEstablishmentFormController extends BasicFormControll
     @Override
     @ModelAttribute("establishmentsItems")
     public List<String> populateEstablishments(HttpServletRequest request) {
-	// Establishment of the user
-	List<String> establishments = new ArrayList<String>();
-	
-	// Puts the UAI of the establishment
-	String establishmentUai = authenticator.getUser().getEstablishmentUAI();
-	establishments.add(establishmentUai);
- 	
-	return  establishments;
+	return  new ArrayList<String>(authenticator.getAllowedEstablishmentsUai());
+    }
+    
+    /**
+     * Populate the establishments names with form fields.<br/>
+     * Each form field has : 
+     * 	<ul>
+     * 		<li>As label : The establishment name</li>
+     * 		<li>As value : The establishment UAI</li>
+     * 	</ul>
+     * 
+     * @param request
+     * 			The request made by the user.
+     * 
+     * @return
+     * 	the form fields containing the names and UAIs of the establishments.
+     */
+    @ModelAttribute("establishmentsNames")
+    public List<FormField> populateEstablishmentsNames(HttpServletRequest request) {
+	List<String> establishmentsUai = new ArrayList<String>(authenticator.getAllowedEstablishmentsUai());
+	return getEstablishmentsFieldsByUai(establishmentsUai);
     }
     
     /* (non-Javadoc)
@@ -104,7 +117,30 @@ public abstract class BasicEstablishmentFormController extends BasicFormControll
 	return  formFields;
    }
     
+   
     //----------------------------------------------------------------------------- PRIVATE METHODS
-    
+   /**
+    * Gets the establishments list (in a FormField format) regarding to the given establishments UAI.
+    * 
+    * @param establishmentsUai
+    * 			The UAI of the establishments.
+    * 
+    * @return
+    * 		the list of form fields containing the establishments informations.<br/>
+    * 		an empty list if no establishments has been retrieved.
+    */
+   private List<FormField> getEstablishmentsFieldsByUai(List<String> establishmentsUai) {
+	// Retrieval of the establishments with the specified filters
+	List<Establishment> establishments = establishmentService.findEstablishmentsByUais(establishmentsUai);
+	
+	// Translate the establishments into form fields
+	List<FormField> formFields = new ArrayList<FormField>();
+	for (Establishment establishment : establishments) {
+	    FormField formField = new FormField(establishment.getName(), establishment.getUai());
+	    formFields.add(formField);
+	}
+	
+	return formFields;
+   }
     //------------------------------------------------------------------------------ STATIC METHODS
 }

@@ -6,6 +6,7 @@ package org.esco.indicators.services.auth;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -273,6 +274,15 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	}
 
 	/* (non-Javadoc)
+	 * @see org.esco.indicators.services.auth.Authenticator#getAllowedEstablishmentsUai()
+	 */
+	@Override
+	public Set<String> getAllowedEstablishmentsUai() {
+	    Set<String> allowedUais = getEstablishmentFilter().getPropertyValues(establishmentUaiPropertyName);
+	    return (allowedUais != null ? allowedUais : new HashSet<String>());
+	}
+
+	/* (non-Javadoc)
 	 * @see org.esco.indicators.services.auth.Authenticator#getEstablishmentFilter()
 	 */
 	@Override
@@ -370,6 +380,20 @@ public class AuthenticatorImpl implements Serializable, InitializingBean,
 	@Override
 	public boolean hasPermissionOnEstablishmentsType(String establishmentType) {
 	    return filterPropertyContainsValue(establishmentsTypePropertyName, establishmentType);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.esco.indicators.services.auth.Authenticator#hasPermissionOnMultipleEstablishments()
+	 */
+	@Override
+	public boolean hasPermissionOnMultipleEstablishmentsUai() {
+	    boolean hasMultiplePermissions = (getAllowedEstablishmentsUai().size() > 1);
+	    if(hasMultiplePermissions) {
+		LOGGER.debug("The user has permission on multiple estbalishments UAI");
+	    } else {
+		LOGGER.debug("The user does not have permission on multiple estbalishments UAI");
+	    }
+	    return hasMultiplePermissions;
 	}
 
 	/* (non-Javadoc)

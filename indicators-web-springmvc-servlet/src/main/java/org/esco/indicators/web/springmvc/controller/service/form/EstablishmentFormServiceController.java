@@ -3,6 +3,8 @@
  */
 package org.esco.indicators.web.springmvc.controller.service.form;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,16 +15,13 @@ import org.esco.indicators.domain.beans.form.BasicForm;
 import org.esco.indicators.domain.beans.form.FormField;
 import org.esco.indicators.domain.beans.form.ServiceForm;
 import org.esco.indicators.services.form.DataFormService;
+import org.esco.indicators.utils.constants.web.RequestParameters;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.web.springmvc.controller.basic.form.BasicEstablishmentFormController;
-import org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController;
-import org.esco.indicators.web.springmvc.validator.service.BasicServiceValidator;
-import org.esco.indicators.web.springmvc.validator.service.ServiceValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -115,7 +114,7 @@ public class EstablishmentFormServiceController extends BasicEstablishmentFormCo
      * 			the data form validator to set
      */
     @Autowired
-    @Qualifier("basicServiceValidator")
+    @Qualifier("establishmentServiceValidator")
     public void setFormValidator(Validator formValidator) {
 	this.formValidator = formValidator;
     }
@@ -135,6 +134,43 @@ public class EstablishmentFormServiceController extends BasicEstablishmentFormCo
 	servicesFields = keepAuthorizedServices(servicesFields);
 	return servicesFields;
     }
+    
+    /**
+    * Populate the posted (wanted) services field.<br/>
+    * This field is used to know which wanted services have been posted during the last form submission.
+    * 
+    * @param request
+    * 			The request made by the user.
+    * @return
+    * 		the last posted (wanted) services.
+    */
+   @ModelAttribute("postedServicesItems")
+   public List<FormField> populateWantedServices(HttpServletRequest request) {
+       ////////////////////////////////////////////////////
+       // Retrieval of services in the request
+       ////////////////////////////////////////////////////
+       // Retrieval of the posted services
+       String [] postedServices = request.getParameterValues(RequestParameters.WANTED_SERVICES);
+	// If at least one service has already been posted
+	if(postedServices != null && postedServices.length > 0) {
+	    LOGGER.debug("At least one service has been retrieved in the request parameters");
+	    List<String> services = new ArrayList<String>(Arrays.asList(postedServices));
+	    return jspKeysToFormFields(services);
+	}
+	
+	////////////////////////////////////////////////////
+	// Retrieval of services in the session
+	////////////////////////////////////////////////////
+       // Retrieval of the submitted form
+       ServiceForm form =  getSessionForm(request.getSession(), formSessionAttribute);
+       // Retrieval of the services
+       String [] formServices = ( form.getEstablishments() == null ? new String [0] : form.getWantedServices() );
+       if(formServices.length > 0) {
+	   LOGGER.debug("At least one service has been retrieved in the session");
+       }
+       List<String> services = new ArrayList<String>(Arrays.asList(formServices));
+       return jspKeysToFormFields(services);
+   }
     
     /**
      * Validates and processes the submitted form.
@@ -160,7 +196,7 @@ public class EstablishmentFormServiceController extends BasicEstablishmentFormCo
      * @see org.esco.indicators.web.springmvc.controller.basic.BasicController#getSessionForm(javax.servlet.http.HttpSession, java.lang.String)
      */
     @Override
-    protected BasicForm getSessionForm(HttpSession session, String formAttribute) {
+    protected ServiceForm getSessionForm(HttpSession session, String formAttribute) {
         // Retrieval of the form
         ServiceForm form = (ServiceForm) session.getAttribute(formAttribute);
         return (form == null ? new ServiceForm() : form);

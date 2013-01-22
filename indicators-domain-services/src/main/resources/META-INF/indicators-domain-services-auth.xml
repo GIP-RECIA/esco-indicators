@@ -14,7 +14,7 @@
         <property name="establishmentPermissionService" ref="establishmentPermissionService"/>
         <property name="establishmentService" ref="establishmentService"/>
         
-        <property name="superUserFilterPropertyName" value="type"/>
+        <property name="superUserFilterPropertyName" value="superUser"/>
         <property name="establishmentUaiPropertyName" value="uai"/>
         <property name="establishmentsTypePropertyName" value="type"/>
         <property name="servicePropertyName" value="services"/>

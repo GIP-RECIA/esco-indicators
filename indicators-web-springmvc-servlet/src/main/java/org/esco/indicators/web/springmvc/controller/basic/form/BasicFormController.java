@@ -149,12 +149,12 @@ public abstract class BasicFormController extends BasicController {
 	BasicForm aaForm = getSessionForm(request.getSession(), formSessionAttribute);
 	model.addAttribute(getFormName(), aaForm);
 	
-	// If the user is a super user display the super user form
+	// If the user is a super user, then display the super user form
 	if(authenticator.isSuperUser()) {
 	    return getSuperUserFormViewName();
 	}
 	
-	// If the user has the right to see the normal for for his current establishment
+	// If the user has the right to see the normal form for his current establishment
 	String establishmentUAI = authenticator.getUser().getEstablishmentUAI();
 	if(authenticator.hasPermissionOnEstablishment(establishmentUAI)) {
 	    return getUserFormViewName();
@@ -373,6 +373,29 @@ public abstract class BasicFormController extends BasicController {
 	return formFields;
     }
     
+    /**
+     * Creates the form fields composed of the pair (jsp key, i18n) for the given jsp keys.<br/>
+     * The i18n put into the form field is the i18n associated to the jep key in the data form service.
+     * 
+     * @param jspKeys
+     * 			The jsp keys to associate to their respective i18n.
+     * 
+     * @return
+     * 	the jsp keys associated to their respective i18n.
+     */
+    protected List<FormField> jspKeysToFormFields(List<String> jspKeys) {
+	// Final result
+	List<FormField> formFields = new ArrayList<FormField>();
+	
+	// Creates the form fields composed of (jsp key, i18n)
+	for (String jspKey : jspKeys) {
+	    String i18n = getDataFormService().getI18nKey(jspKey);
+	    FormField formField = new FormField(i18n, jspKey);
+	    formFields.add(formField);
+	}
+	
+	return formFields;
+    }
     
     /**
      * Only keeps the establishments types form fields authorized for the user.<br/>

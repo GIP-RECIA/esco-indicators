@@ -4,6 +4,7 @@
 package org.esco.indicators.services.auth;
 
 import java.util.List;
+import java.util.Set;
 
 import org.esco.indicators.domain.beans.people.User;
 import org.esco.indicators.domain.beans.permission.GenericFilter;
@@ -46,6 +47,18 @@ public interface Authenticator {
 	public GenericFilter getEstablishmentFilter();
 	
 	/**
+	 * Retrieves the UAI of the establishments that can be viewed by the authenticated
+	 * user.<br/>
+	 * 
+	 * The establishment filter is used to retrieve these informations.
+	 * 
+	 * @return
+	 * 	the set containing the allowed establishments UAI.
+	 * 	an empty set if no UAI has been retrieved.
+	 */
+	public Set<String> getAllowedEstablishmentsUai();
+
+	/**
 	 * Indicates if the authenticated user has the permission to see informations
 	 * on the establishment having the given UAI.<br/>
 	 * 
@@ -60,6 +73,22 @@ public interface Authenticator {
 	 * 	<code>false</code> in other cases.
 	 */
 	public boolean hasPermissionOnEstablishment(String establishmentUAI);
+	
+	/**
+	 * Indicates if the authenticated user has the permission to see informations
+	 * on more than one establishment UAI.<br/>
+	 * 
+	 * The establishment filter is used to know if the authenticated user has
+	 * permissions on more than one establishments, or not.
+	 * 
+	 * @param establishmentUAI
+	 * 			The UAI of the establishment.
+	 * 
+	 * @return
+	 * 	<code>true</code> if the authenticated user has the right to see informations on more than one establishment.<br/>
+	 * 	<code>false</code> in other cases.
+	 */
+	public boolean hasPermissionOnMultipleEstablishmentsUai();
 	
 	/**
 	 * Indicates if the authenticated user has the permission to see informations

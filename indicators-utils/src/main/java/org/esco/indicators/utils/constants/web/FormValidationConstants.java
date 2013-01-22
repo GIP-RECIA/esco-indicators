@@ -10,13 +10,15 @@ package org.esco.indicators.utils.constants.web;
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
 public class FormValidationConstants {
-
+    /** Maximum number of selected establishments */
+    public static final Integer MAX_SELECTED_ESTABLISHMENTS = 1000;
+    
+    /** Maximum number of selected establishments allowed in the non-super user forms */
+    public static final Integer MAX_SELECTED_LOCAL_ESTABLISHMENTS = 1;
+    
     /** Maximum number of selected users profiles when monitoring attendance is selected */
     public static final Integer MAX_SELECTED_PROFILES_MONITORING = 1;
     
     /** Maximum number of selected users profiles allowed in the service form */
     public static final Integer MAX_SELECTED_PROFILES_SERVICE_FORM = 1;
-    
-    /** Maximum number of selected establishments */
-    public static final Integer MAX_SELECTED_ESTABLISHMENTS = 1000;
 }
