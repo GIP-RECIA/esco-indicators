@@ -40,13 +40,13 @@ public class WhenActivatedEvent {
     private List<EntryValueRef> entryValuesToEnable;
     
     /** The county number to filter */
-    private List<String> filterCountyNumber;
+    private List<String> filtersCountyNumber;
     
     /** The establishment type to filter */
     private String filterEstablishmentType;
     
-    /** The user profile to filter */
-    private String filterUserProfile;
+    /** The user profiles to filter */
+    private List<String> filtersUserProfile;
     
     /** The service to filter */
     private String filterService;
@@ -97,18 +97,18 @@ public class WhenActivatedEvent {
      * 	the county number to filter.
      */
     @XmlElement(name = "filter-county-number")
-    public List<String> getFilterCountyNumber() {
-        return filterCountyNumber;
+    public List<String> getFiltersCountyNumber() {
+        return filtersCountyNumber;
     }
 
     /**
      * Sets the county number to filter.
      * 
-     * @param filterCountyNumber 
+     * @param filtersCountyNumber 
      * 			The county number (to filter) to set.
      */
-    public void setFilterCountyNumber(List<String> filterCountyNumber) {
-        this.filterCountyNumber = filterCountyNumber;
+    public void setFiltersCountyNumber(List<String> filtersCountyNumber) {
+        this.filtersCountyNumber = filtersCountyNumber;
     }
 
     /**
@@ -154,26 +154,37 @@ public class WhenActivatedEvent {
     }
     
     /**
-     * Gets the user profile to filter.
+     * Gets the first user profile to filter.
      * 
      * @return 
-     * 	the user profile to filter.
+     * 	the first user profile to filter.
+     */
+    public String getFilterUserProfile() {
+	List<String> filterList = getFiltersUserProfile();
+	return (filterList == null || filterList.isEmpty() ? null : filterList.get(0));
+    }
+    
+    /**
+     * Gets the user profiles to filter.
+     * 
+     * @return 
+     * 	the user profiles to filter.
      */
     @XmlElement(name = "filter-user-profile")
-    public String getFilterUserProfile() {
-        return filterUserProfile;
+    public List<String> getFiltersUserProfile() {
+        return filtersUserProfile;
     }
-
+    
     /**
-     * Sets the user profile to filter.
+     * Sets the user profiles to filter.
      * 
-     * @param filterUserProfile 
-     * 			the user profile (to filter) to set.
+     * @param filtersUserProfile 
+     * 			the user profiles (to filter) to set.
      */
-    public void setFilterUserProfile(String filterUserProfile) {
-        this.filterUserProfile = filterUserProfile;
+    public void setFiltersUserProfile(List<String> filtersUserProfile) {
+        this.filtersUserProfile = filtersUserProfile;
     }
-
+    
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /* (non-Javadoc)
      * @see java.lang.Object#hashCode()
@@ -184,7 +195,7 @@ public class WhenActivatedEvent {
 	int result = 1;
 	result = prime * result + ((entryValuesToDisable == null) ? 0 : entryValuesToDisable.hashCode());
 	result = prime * result + ((entryValuesToEnable == null) ? 0 : entryValuesToEnable.hashCode());
-	result = prime * result + ((filterCountyNumber == null) ? 0 : filterCountyNumber.hashCode());
+	result = prime * result + ((filtersCountyNumber == null) ? 0 : filtersCountyNumber.hashCode());
 	result = prime * result
 		+ ((filterEstablishmentType == null) ? 0 : filterEstablishmentType.hashCode());
 	return result;
@@ -212,10 +223,10 @@ public class WhenActivatedEvent {
 		return false;
 	} else if (!entryValuesToEnable.equals(other.entryValuesToEnable))
 	    return false;
-	if (filterCountyNumber == null) {
-	    if (other.filterCountyNumber != null)
+	if (filtersCountyNumber == null) {
+	    if (other.filtersCountyNumber != null)
 		return false;
-	} else if (!filterCountyNumber.equals(other.filterCountyNumber))
+	} else if (!filtersCountyNumber.equals(other.filtersCountyNumber))
 	    return false;
 	if (filterEstablishmentType == null) {
 	    if (other.filterEstablishmentType != null)

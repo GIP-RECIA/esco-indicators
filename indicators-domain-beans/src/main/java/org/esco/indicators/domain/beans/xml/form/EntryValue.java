@@ -221,7 +221,7 @@ public class EntryValue {
      * 	the county number to filter.
      */
     public String getCountyNumberToFilter() {
-	List<String> numbers =  getWhenActivatedEvent().getFilterCountyNumber();
+	List<String> numbers =  getWhenActivatedEvent().getFiltersCountyNumber();
 	return (numbers == null ? null : numbers.get(0));
     }
     
@@ -232,7 +232,7 @@ public class EntryValue {
      * 	the county numbers to filter.
      */
     public List<String> getCountyNumbersToFilter() {
-	return getWhenActivatedEvent().getFilterCountyNumber();
+	return getWhenActivatedEvent().getFiltersCountyNumber();
     }
     
     /**
