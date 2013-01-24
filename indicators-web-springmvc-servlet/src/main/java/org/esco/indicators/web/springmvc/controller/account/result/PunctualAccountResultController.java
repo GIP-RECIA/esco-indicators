@@ -71,7 +71,7 @@ public class PunctualAccountResultController extends BasicAccountResultControlle
         
         // Retrieval of the users profiles to filter
         List<String> checkedProfiles = new ArrayList<String>(Arrays.asList(aaForm.getUsersProfiles()));
-        List<String> usersProfilesToFilter = dataAccountFormService.getUsersProfilesToFilter(checkedProfiles);
+        List<String> usersProfilesToFilter = getDataFormService().getUsersProfilesToFilter(checkedProfiles);
         
         return usersProfilesToFilter;
     }

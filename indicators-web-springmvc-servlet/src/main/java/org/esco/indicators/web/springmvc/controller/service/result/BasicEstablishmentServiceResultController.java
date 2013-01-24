@@ -23,6 +23,7 @@ import org.esco.indicators.utils.classes.IntegerPair;
 import org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController;
 import org.esco.indicators.web.springmvc.controller.user.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 /**
@@ -35,14 +36,6 @@ public abstract class BasicEstablishmentServiceResultController extends BasicRes
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(BasicEstablishmentServiceResultController.class);
-    
-    /** Data form service providing information on the data from for the accounts */
-    @Autowired
-    protected DataFormService dataServiceFormService;
-    
-    /** Establishment service providing access to establishments data */
-    @Autowired
-    protected EstablishmentService establishmentService;
     
     /** Service providing access to result data */
     @Autowired
@@ -62,22 +55,18 @@ public abstract class BasicEstablishmentServiceResultController extends BasicRes
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController#getDataFormService()
+    /**
+     * Sets the data form service
+     * 
+     * @param dataFormService
+     * 			the data form service to set
      */
-    @Override
-    public DataFormService getDataFormService() {
-        return dataServiceFormService;
+    @Autowired
+    @Qualifier("dataServiceFormService")
+    public void setDataFormService(DataFormService dataFormService) {
+	this.dataFormService = dataFormService;
     }
-
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController#getEstablishmentService()
-     */
-    @Override
-    public EstablishmentService getEstablishmentService() {
-        return establishmentService;
-    }
-
+    
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**
      * Populates the establishment name.
@@ -123,7 +112,7 @@ public abstract class BasicEstablishmentServiceResultController extends BasicRes
         
 	// Retrieval of the wanted services
 	List<String> wantedServices = new ArrayList<String>(Arrays.asList(aaForm.getWantedServices()));
-	List<String> services = dataServiceFormService.getServicesToFilter(wantedServices);
+	List<String> services = getDataFormService().getServicesToFilter(wantedServices);
 	
         return services;
     }

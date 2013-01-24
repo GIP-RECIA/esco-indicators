@@ -96,7 +96,7 @@ public class EstablishmentAccountResultController extends PeriodicAccountResultD
 	// Retrieval of the i18n keys for the users profiles  to filter
 	List<String> allUsersProfiles = getAllUsersProfiles();
 	for (String userProfile : allUsersProfiles) {
-	    i18nKeysByJspKeys.put(userProfile, dataAccountFormService.getI18nKey(userProfile));
+	    i18nKeysByJspKeys.put(userProfile, getDataFormService().getI18nKey(userProfile));
 	}
 	
 	return i18nKeysByJspKeys;

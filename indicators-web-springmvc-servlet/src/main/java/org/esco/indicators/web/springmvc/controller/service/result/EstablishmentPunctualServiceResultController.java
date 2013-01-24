@@ -101,7 +101,7 @@ public class EstablishmentPunctualServiceResultController extends BasicEstablish
 	
 	// Create the detail rows for each user profile
 	for (String userProfile : userProfiles) {
-	    String userProfileToFilter = dataServiceFormService.getUserProfileToFilter(userProfile);
+	    String userProfileToFilter = getDataFormService().getUserProfileToFilter(userProfile);
 	    List<String> userProfilesToFilter = new ArrayList<String>();
 	    userProfilesToFilter.add(userProfileToFilter);
 	    List<ExtendedResultRow> extendedRows = resultServiceFormService.getPunctualMonthResultRows(establishmentUai, services, userProfilesToFilter, month, year);
@@ -141,7 +141,7 @@ public class EstablishmentPunctualServiceResultController extends BasicEstablish
 	
 	// Create the detail rows for each user profile
 	for (String userProfile : userProfiles) {
-	    String userProfileToFilter = dataServiceFormService.getUserProfileToFilter(userProfile);
+	    String userProfileToFilter = getDataFormService().getUserProfileToFilter(userProfile);
 	    List<String> userProfilesToFilter = new ArrayList<String>();
 	    userProfilesToFilter.add(userProfileToFilter);
 	    List<ExtendedResultRow> extendedRows = resultServiceFormService.getPunctualWeekResultRows(establishmentUai, services, userProfilesToFilter, week, year);

@@ -24,6 +24,7 @@ import org.esco.indicators.utils.constants.web.RequestParameters;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.utils.date.DateUtils;
 import org.esco.indicators.web.springmvc.controller.basic.BasicController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,10 @@ public abstract class BasicResultController extends BasicController {
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(BasicResultController.class);
 
+    /** Establishment service providing access to establishments data */
+    @Autowired
+    protected EstablishmentService establishmentService;
+    
     /** Name of the attribute used to retrieve the submitted form in the user session */
     protected String formSessionAttribute;
     
@@ -69,7 +74,9 @@ public abstract class BasicResultController extends BasicController {
      * @return
      * 	the establishment service
      */
-    public abstract EstablishmentService getEstablishmentService(); 
+    public EstablishmentService getEstablishmentService() {
+	return establishmentService;
+    }
     
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**

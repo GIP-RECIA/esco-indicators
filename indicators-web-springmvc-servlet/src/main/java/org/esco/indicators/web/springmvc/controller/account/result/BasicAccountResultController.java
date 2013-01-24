@@ -21,6 +21,7 @@ import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.utils.date.DateUtils;
 import org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,14 +36,6 @@ public abstract class BasicAccountResultController extends BasicResultController
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(BasicAccountResultController.class);
-    
-    /** Data form service providing information on the data from for the accounts */
-    @Autowired
-    protected DataFormService dataAccountFormService;
-    
-    /** Establishment service providing access to establishments data */
-    @Autowired
-    protected EstablishmentService establishmentService;
     
     /** Service providing access to result data */
     @Autowired
@@ -62,22 +55,18 @@ public abstract class BasicAccountResultController extends BasicResultController
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController#getDataFormService()
+    /**
+     * Sets the data form service
+     * 
+     * @param dataFormService
+     * 			the data form service to set
      */
-    @Override
-    public DataFormService getDataFormService() {
-        return dataAccountFormService;
+    @Autowired
+    @Qualifier("dataAccountFormService")
+    public void setDataFormService(DataFormService dataFormService) {
+	this.dataFormService = dataFormService;
     }
-
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController#getEstablishmentService()
-     */
-    @Override
-    public EstablishmentService getEstablishmentService() {
-        return establishmentService;
-    }
-
+    
     //------------------------------------------------------------------------------ PUBLIC METHODS
     
     /**
@@ -103,7 +92,7 @@ public abstract class BasicAccountResultController extends BasicResultController
 	
 	// Retrieval of the users profiles to filter
 	List<String> checkedProfiles = new ArrayList<String>(Arrays.asList(aaForm.getUsersProfiles()));
-	List<String> usersProfilesToFilter = dataAccountFormService.getUsersProfilesToFilter(checkedProfiles);
+	List<String> usersProfilesToFilter = getDataFormService().getUsersProfilesToFilter(checkedProfiles);
 	
 	// Retrieval of the dates
 	Date startDate = aaForm.getStartDate();
@@ -113,7 +102,7 @@ public abstract class BasicAccountResultController extends BasicResultController
 	String sumOnCounties = aaForm.getSumOnCounties();
 	if(sumOnCounties != null) {
 	    // Retrieval of the county numbers and types to filter
-	    List<String> countyNumbersToFilter = dataAccountFormService.getCountyNumbersToFilter(sumOnCounties);
+	    List<String> countyNumbersToFilter = getDataFormService().getCountyNumbersToFilter(sumOnCounties);
 	    List<String> establishmentsTypesToFilter = getDataFormService().getEstablishmentsTypesToFilter(establishmentsTypes);
 	    LOGGER.debug("The sum on counties has been asked. The result rows will concern the counties : " + countyNumbersToFilter + " and the establishments types : " + establishmentsTypesToFilter);
 	    return createSumOnCountiesResultRows(establishmentsTypes, countyNumbersToFilter, establishmentsTypesToFilter, usersProfilesToFilter, startDate, endDate);
