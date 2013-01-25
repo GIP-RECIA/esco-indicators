@@ -18,6 +18,10 @@ import org.esco.indicators.utils.date.DateUtils;
  * @since 2012/06/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
+/**
+ * @since  
+ * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
+ */
 public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionStatisticService {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
@@ -75,11 +79,11 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
     // WEEKLY STATISTICS
     ///////////////////////////////////////////////////////
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findWeeklyNumVisitorsAboveTreshold(java.lang.String, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findWeeklyNumVisitorsAboveTreshold(java.util.List, java.util.List, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
     public Integer findWeeklyNumVisitorsAboveTreshold(List<String> establishmentsUai, List<String> services,
-	    String userProfile, Integer treshold, Integer week, Integer year) {
+	    List<String> usersProfiles, Integer treshold, Integer week, Integer year) {
 	// Gets the start day and end day of the week
 	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
 	Date lastWeekDay = DateUtils.addDays(firstWeekDay, 6);
@@ -89,7 +93,7 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
 	//numVisitors = (numVisitors == null ? 0 : numVisitors);
 	
 	// Connections statistics
-	List<ServiceConnectionStatistic> statistics = serviceConnectionStatisticDao.findServiceConnectionStatistics(establishmentsUai, firstWeekDay, lastWeekDay, services, userProfile);
+	List<ServiceConnectionStatistic> statistics = serviceConnectionStatisticDao.findServiceConnectionStatistics(establishmentsUai, firstWeekDay, lastWeekDay, services, usersProfiles);
 	
 	// Calculates the number of users having made more than "treshold" connections
 	Integer numVisitors = 0;
@@ -104,11 +108,11 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findWeeklyNumVisitorsBelowTreshold(java.lang.String, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findWeeklyNumVisitorsBelowTreshold(java.util.List, java.util.List, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
     public Integer findWeeklyNumVisitorsBelowTreshold(List<String> establishmentsUai, List<String> services,
-	    String userProfile, Integer treshold, Integer week, Integer year) {
+	    List<String> usersProfiles, Integer treshold, Integer week, Integer year) {
 	// Gets the start day and end day of the week
 	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
 	Date lastWeekDay = DateUtils.addDays(firstWeekDay, 6);
@@ -118,7 +122,7 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
 	//numVisitors = (numVisitors == null ? 0 : numVisitors);
 	
 	// Connections statistics
-	List<ServiceConnectionStatistic> statistics = serviceConnectionStatisticDao.findServiceConnectionStatistics(establishmentsUai, firstWeekDay, lastWeekDay, services, userProfile);
+	List<ServiceConnectionStatistic> statistics = serviceConnectionStatisticDao.findServiceConnectionStatistics(establishmentsUai, firstWeekDay, lastWeekDay, services, usersProfiles);
 	
 	// Calculates the number of users having made more than "treshold" connections
 	Integer numVisitors = 0;
@@ -133,17 +137,17 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
     }
     
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findWeeklyNumVisits(java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findWeeklyNumVisits(java.util.List, java.util.List, java.util.List, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findWeeklyNumVisits(List<String> establishmentUai, List<String> services, String userProfile,
+    public Integer findWeeklyNumVisits(List<String> establishmentUai, List<String> services, List<String> usersProfiles,
 	    Integer week, Integer year) {
 	// Gets the start day and end day of the week
 	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
 	Date lastWeekDay = DateUtils.addDays(firstWeekDay, 6);
 	
 	// Number of visits
-	Integer numVisits = serviceConnectionStatisticDao.findNumVisits(establishmentUai, firstWeekDay, lastWeekDay, services, userProfile);
+	Integer numVisits = serviceConnectionStatisticDao.findNumVisits(establishmentUai, firstWeekDay, lastWeekDay, services, usersProfiles);
 	numVisits = (numVisits == null ? 0 : numVisits);
 	
 	return numVisits;
@@ -153,20 +157,16 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
     // MONTHLY STATISTICS
     ///////////////////////////////////////////////////////
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findMonthlyNumVisitorsAboveTreshold(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findMonthlyNumVisitorsAboveTreshold(java.util.List, java.util.List, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumVisitorsAboveTreshold(List<String> establishmentsUai, List<String> services, String userProfile, Integer treshold, Integer month, Integer year) {
+    public Integer findMonthlyNumVisitorsAboveTreshold(List<String> establishmentsUai, List<String> services, List<String> usersProfiles, Integer treshold, Integer month, Integer year) {
 	// Gets the start day and end day of the month
 	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
 	Date lastMonthDay = DateUtils.getLastMonthDay(month, year);
 	
-	// Number of visitors
-	//Integer numVisitors = serviceConnectionStatisticDao.findNumVisitorsAboveTreshold(establishmentsUai, firstMonthDay, lastMonthDay, services, userProfile, treshold); 
-	//numVisitors = (numVisitors == null ? 0 : numVisitors);
-	
 	// Connections statistics
-	List<ServiceConnectionStatistic> statistics = serviceConnectionStatisticDao.findServiceConnectionStatistics(establishmentsUai, firstMonthDay, lastMonthDay, services, userProfile);
+	List<ServiceConnectionStatistic> statistics = serviceConnectionStatisticDao.findServiceConnectionStatistics(establishmentsUai, firstMonthDay, lastMonthDay, services, usersProfiles);
 	
 	// Calculates the number of users having made more than "treshold" connections
 	Integer numVisitors = 0;
@@ -181,21 +181,17 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findMonthlyNumVisitorsBelowTreshold(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findMonthlyNumVisitorsBelowTreshold(java.util.List, java.util.List, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
     public Integer findMonthlyNumVisitorsBelowTreshold(List<String> establishmentsUai, List<String> services,
-	    String userProfile, Integer treshold, Integer month, Integer year) {
+	   List< String> usersProfiles, Integer treshold, Integer month, Integer year) {
 	// Gets the start day and end day of the month
 	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
 	Date lastMonthDay = DateUtils.getLastMonthDay(month, year);
 	
-	// Number of visitors
-	//Integer numVisitors = serviceConnectionStatisticDao.findNumVisitorsBelowTreshold(establishmentsUai, firstMonthDay, lastMonthDay, services, userProfile, treshold); 
-	//numVisitors = (numVisitors == null ? 0 : numVisitors);
-	
 	// Connections statistics
-	List<ServiceConnectionStatistic> statistics = serviceConnectionStatisticDao.findServiceConnectionStatistics(establishmentsUai, firstMonthDay, lastMonthDay, services, userProfile);
+	List<ServiceConnectionStatistic> statistics = serviceConnectionStatisticDao.findServiceConnectionStatistics(establishmentsUai, firstMonthDay, lastMonthDay, services, usersProfiles);
 	
 	// Calculates the number of users having made more than "treshold" connections
 	Integer numVisitors = 0;
@@ -210,17 +206,17 @@ public class ServiceConnectionStatisticServiceImpl implements ServiceConnectionS
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findMonthlyNumVisits(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.ServiceConnectionStatisticService#findMonthlyNumVisits(java.util.List, java.util.List, java.util.List, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumVisits(List<String> establishmentsUai, List<String> services, String userProfile,
+    public Integer findMonthlyNumVisits(List<String> establishmentsUai, List<String> services, List<String> usersProfiles,
 	    Integer month, Integer year) {
 	// Gets the start day and end day of the month
 	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
 	Date lastMonthDay = DateUtils.getLastMonthDay(month, year);
 	
 	// Number of visits
-	Integer numVisits = serviceConnectionStatisticDao.findNumVisits(establishmentsUai, firstMonthDay, lastMonthDay, services, userProfile);
+	Integer numVisits = serviceConnectionStatisticDao.findNumVisits(establishmentsUai, firstMonthDay, lastMonthDay, services, usersProfiles);
 	numVisits = (numVisits == null ? 0 : numVisits);
 	
 	return numVisits;

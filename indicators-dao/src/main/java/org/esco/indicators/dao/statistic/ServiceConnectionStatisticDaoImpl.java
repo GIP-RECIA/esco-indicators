@@ -21,6 +21,10 @@ import org.esco.indicators.utils.dao.QueryManager;
  * @since 2012/06/04
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
+/**
+ * @since  
+ * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
+ */
 public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStatisticDao {
     // ---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
@@ -123,11 +127,11 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.ServiceConnectionStatisticDao#findNumVisits(java.lang.String, java.util.Date, java.util.Date, java.lang.String, java.lang.String)
+     * @see org.esco.indicators.dao.statistic.ServiceConnectionStatisticDao#findNumVisits(java.util.List, java.util.Date, java.util.Date, java.util.List, java.util.List)
      */
     @Override
     public Integer findNumVisits(List<String> establishmentsUai, Date startDay, Date endDay, List<String> servicesNames,
-	    String userProfile) {
+	    List<String> usersProfiles) {
 	// Name of the query to execute
 	String namedQuery = "ServiceConnectionStatistic.findNumVisits";
 	
@@ -137,7 +141,7 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
 	parameters.put("startDate", startDay);
 	parameters.put("endDate", endDay);
 	parameters.put("serviceNameList", servicesNames);
-	parameters.put("userProfile", userProfile);
+	parameters.put("userProfileList", usersProfiles);
 
 	// Retrieval of the statistic
 	Long result = (Long) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
@@ -147,11 +151,11 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.ServiceConnectionStatisticDao#findServiceConnectionStatistics(java.util.List, java.util.Date, java.util.Date, java.util.List, java.lang.String)
+     * @see org.esco.indicators.dao.statistic.ServiceConnectionStatisticDao#findServiceConnectionStatistics(java.util.List, java.util.Date, java.util.Date, java.util.List, java.util.List)
      */
     @Override
     public List<ServiceConnectionStatistic> findServiceConnectionStatistics(List<String> establishmentsUai,
-            Date startDay, Date endDay, List<String> servicesNames, String userProfile) {
+            Date startDay, Date endDay, List<String> servicesNames, List<String> usersProfiles) {
 	// Name of the query to execute
 	String namedQuery = "ServiceConnectionStatistic.findServiceConnectionStatistics";
 	
@@ -161,7 +165,7 @@ public class ServiceConnectionStatisticDaoImpl implements ServiceConnectionStati
 	parameters.put("startDate", startDay);
 	parameters.put("endDate", endDay);
 	parameters.put("serviceNameList", servicesNames);
-	parameters.put("userProfile", userProfile);
+	parameters.put("userProfileList", usersProfiles);
 
 	// Retrieval of the statistics
 	List<Object> statistics = QueryManager.getResultList(entityManager, namedQuery, parameters);

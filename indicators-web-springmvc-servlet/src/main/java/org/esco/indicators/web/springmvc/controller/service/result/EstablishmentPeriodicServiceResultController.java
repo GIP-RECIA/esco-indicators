@@ -182,8 +182,8 @@ public class EstablishmentPeriodicServiceResultController extends BasicEstablish
 	
 	// Creation of result rows for each user profile and each period
 	for (String userProfile : userProfiles) {
-	    String userProfileToFilter = getDataFormService().getUserProfileToFilter(userProfile);
-	    List<ExtendedResultRow> rows = resultServiceFormService.getPeriodicMonthResultRows(establishmentsUai, services, userProfileToFilter, startMonth, startYear, endMonth, endYear);
+	    List<String> usersProfilesToFilter = getDataFormService().getUsersProfilesToFilter(userProfile);
+	    List<ExtendedResultRow> rows = resultServiceFormService.getPeriodicMonthResultRows(establishmentsUai, services, usersProfilesToFilter, startMonth, startYear, endMonth, endYear);
 	    resultRows.addAll(convertToDetailResultRows(rows, userProfile));
 	}
 	
@@ -235,8 +235,8 @@ public class EstablishmentPeriodicServiceResultController extends BasicEstablish
 	
 	// Creation of result rows for each user profile and each period
 	for (String userProfile : userProfiles) {
-	    String userProfileToFilter = getDataFormService().getUserProfileToFilter(userProfile);
-	    List<ExtendedResultRow> rows = resultServiceFormService.getPeriodicWeekResultRows(establishmentsUai, services, userProfileToFilter, startWeek, startYear, endWeek, endYear);
+	    List<String> usersProfilesToFilter = getDataFormService().getUsersProfilesToFilter(userProfile);
+	    List<ExtendedResultRow> rows = resultServiceFormService.getPeriodicWeekResultRows(establishmentsUai, services, usersProfilesToFilter, startWeek, startYear, endWeek, endYear);
 	    resultRows.addAll(convertToDetailResultRows(rows, userProfile));
 	}
 	

@@ -141,12 +141,12 @@ public class PeriodicAccountResultController extends BasicAccountResultControlle
 	    // If the only selected establishment type is : CFA
 	    Integer startWeek = DateUtils.getWeekOfYear(startDate);
 	    Integer endWeek = DateUtils.getWeekOfYear(endDate);
-	    return resultAccountFormService.getPeriodicWeekResultRows(establishmentsUai, userProfile, startWeek, startYear, endWeek, endYear);
+	    return resultAccountFormService.getPeriodicWeekResultRows(establishmentsUai, usersProfiles, startWeek, startYear, endWeek, endYear);
 	}
 			
 	Integer startMonth = DateUtils.getMonthOfYear(startDate);
 	Integer endMonth = DateUtils.getMonthOfYear(endDate);
-	return resultAccountFormService.getPeriodicMonthResultRows(establishmentsUai, userProfile, startMonth, startYear, endMonth, endYear);
+	return resultAccountFormService.getPeriodicMonthResultRows(establishmentsUai, usersProfiles, startMonth, startYear, endMonth, endYear);
     }
 
     /* (non-Javadoc)
@@ -156,9 +156,6 @@ public class PeriodicAccountResultController extends BasicAccountResultControlle
     protected List<BasicResultRow> createSumOnCountiesResultRows(List<String> checkedEstablishmentTypes,
 	    List<String> countyNumbers, List<String> establishmentsTypes, List<String> usersProfiles,
 	    Date startDate, Date endDate) {
-	// Retrieval of the only selected user profile
-	String userProfile = usersProfiles.get(0);
-	
 	// Retrieval of the start and end years
 	Integer startYear = DateUtils.getYear(startDate);
 	Integer endYear = DateUtils.getYear(endDate);
@@ -170,12 +167,12 @@ public class PeriodicAccountResultController extends BasicAccountResultControlle
 	    // If the only selected establishment type is : CFA
 	    Integer startWeek = DateUtils.getWeekOfYear(startDate);
 	    Integer endWeek = DateUtils.getWeekOfYear(endDate);
-	    return resultAccountFormService.getPeriodicWeekResultRows(countyNumbers, establishmentsTypes, userProfile, startWeek, startYear, endWeek, endYear);
+	    return resultAccountFormService.getPeriodicWeekResultRows(countyNumbers, establishmentsTypes, usersProfiles, startWeek, startYear, endWeek, endYear);
 	} 
 	
 	Integer startMonth = DateUtils.getMonthOfYear(startDate);
 	Integer endMonth = DateUtils.getMonthOfYear(endDate);
-	return resultAccountFormService.getPeriodicMonthResultRows(countyNumbers, establishmentsTypes, userProfile, startMonth, startYear, endMonth, endYear);
+	return resultAccountFormService.getPeriodicMonthResultRows(countyNumbers, establishmentsTypes, usersProfiles, startMonth, startYear, endMonth, endYear);
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS

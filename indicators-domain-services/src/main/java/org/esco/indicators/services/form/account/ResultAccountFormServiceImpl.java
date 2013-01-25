@@ -116,7 +116,9 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    BasicResultRow basicResultRow = new BasicResultRow();
 	    basicResultRow.setEstablishmentData(getEstablishmentData(uai));
 	    for (String profile : usersProfiles) {
-		PunctualAccountStatistic statistic = createPunctualWeekStatisticDataForUai(uai, profile, week, year);
+		List<String> userProfileList = new ArrayList<String>();
+		userProfileList.add(profile);
+		PunctualAccountStatistic statistic = createPunctualWeekStatisticDataForUai(uai, userProfileList, week, year);
 		basicResultRow.putStatisticData(profile, statistic);
 	    }
 	    basicResultRow.putStatisticData(ServicesConstants.GLOBAL_STATISTIC, createGlobalWeekStatisticDataForUai(uai, week, year));
@@ -146,7 +148,9 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    List<String> establishmentsUai = establishmentService.findEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
 	    if(!establishmentsUai.isEmpty()) {
         	    for(String profile : usersProfiles) {
-        		PunctualAccountStatistic statistic = createPunctualWeekStatisticData(establishmentsUai,  profile, week, year);
+        		List<String> userProfileList = new ArrayList<String>();
+        		userProfileList.add(profile);
+        		PunctualAccountStatistic statistic = createPunctualWeekStatisticData(establishmentsUai,  userProfileList, week, year);
         		basicResultRow.putStatisticData(profile, statistic);
         	    }
         	    basicResultRow.putStatisticData(ServicesConstants.GLOBAL_STATISTIC, createGlobalWeekStatisticDataForCounty(establishmentsUai, countyNumber, establishmentsTypes, week, year));
@@ -158,10 +162,10 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.form.ResultFormService#getWeeklyResultRows(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.form.account.ResultAccountFormService#getPeriodicWeekResultRows(java.util.List, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public List<BasicResultRow> getPeriodicWeekResultRows(List<String> establishmentsUai, String userProfile,
+    public List<BasicResultRow> getPeriodicWeekResultRows(List<String> establishmentsUai, List<String> usersProfiles,
             Integer startWeek, Integer startYear, Integer endWeek, Integer endYear) {
 	// Final result
 	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();
@@ -177,7 +181,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    BasicResultRow basicResultRow = new BasicResultRow();
 	    basicResultRow.setEstablishmentData(getEstablishmentData(uai));
 	    for (IntegerPair weekAndYear : weeksAndYears) {
-		PeriodicAccountStatistic statistic = createPeriodicWeekStatisticDataForUai(uai, userProfile, weekAndYear.getFirst(), weekAndYear.getSecond());
+		PeriodicAccountStatistic statistic = createPeriodicWeekStatisticDataForUai(uai, usersProfiles, weekAndYear.getFirst(), weekAndYear.getSecond());
 		basicResultRow.putStatisticData(weekAndYear, statistic);
 	    }
 	    rows.add(basicResultRow);
@@ -187,11 +191,11 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.form.account.ResultAccountFormService#getPeriodicWeekResultRows(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.form.account.ResultAccountFormService#getPeriodicWeekResultRows(java.util.List, java.util.List, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
     public List<BasicResultRow> getPeriodicWeekResultRows(List<String> countyNumbers,
-            List<String> establishmentsTypes, String userProfile, Integer startWeek, Integer startYear,
+            List<String> establishmentsTypes, List<String> usersProfiles, Integer startWeek, Integer startYear,
             Integer endWeek, Integer endYear) {
 	// Final result
 	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();
@@ -210,7 +214,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    List<String> establishmentsUai = establishmentService.findEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
 	    if(!establishmentsUai.isEmpty()) {
 		    for (IntegerPair weekAndYear : weeksAndYears) {
-        		PeriodicAccountStatistic statistic = createPeriodicWeekStatisticData(establishmentsUai,  userProfile, weekAndYear.getFirst(), weekAndYear.getSecond());
+        		PeriodicAccountStatistic statistic = createPeriodicWeekStatisticData(establishmentsUai,  usersProfiles, weekAndYear.getFirst(), weekAndYear.getSecond());
         		basicResultRow.putStatisticData(weekAndYear, statistic);
         	    }
         	    rows.add(basicResultRow);
@@ -221,11 +225,11 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
     }
     
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.form.account.ResultAccountFormService#getPeriodicWeekResultRowsWithTimeStats(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.form.account.ResultAccountFormService#getPeriodicWeekResultRowsWithTimeStats(java.util.List, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
     public List<BasicResultRow> getPeriodicWeekResultRowsWithTimeStats(List<String> establishmentsUai,
-            String userProfile, Integer startWeek, Integer startYear, Integer endWeek, Integer endYear) {
+            List<String> usersProfiles, Integer startWeek, Integer startYear, Integer endWeek, Integer endYear) {
 	// Final result
 	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();
 	
@@ -240,7 +244,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    BasicResultRow basicResultRow = new BasicResultRow();
 	    basicResultRow.setEstablishmentData(getEstablishmentData(uai));
 	    for (IntegerPair weekAndYear : weeksAndYears) {
-		PeriodicAccountStatistic statistic = createPeriodicWeekStatisticDataWithTimeStatsForUai(uai, userProfile, weekAndYear.getFirst(), weekAndYear.getSecond());
+		PeriodicAccountStatistic statistic = createPeriodicWeekStatisticDataWithTimeStatsForUai(uai, usersProfiles, weekAndYear.getFirst(), weekAndYear.getSecond());
 		basicResultRow.putStatisticData(weekAndYear, statistic);
 	    }
 	    rows.add(basicResultRow);
@@ -272,7 +276,9 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    BasicResultRow basicResultRow = new BasicResultRow();
 	    basicResultRow.setEstablishmentData(getEstablishmentData(uai));
 	    for (String profile : usersProfiles) {
-		PunctualAccountStatistic statistic = createPunctualMonthStatisticDataForUai(uai, profile, month, year);
+		List<String> userProfileList = new ArrayList<String>();
+		userProfileList.add(profile);
+		PunctualAccountStatistic statistic = createPunctualMonthStatisticDataForUai(uai, userProfileList, month, year);
 		basicResultRow.putStatisticData(profile, statistic);
 	    }
 	    basicResultRow.putStatisticData(ServicesConstants.GLOBAL_STATISTIC, createGlobalMonthStatisticDataForUai(uai, month, year));
@@ -302,7 +308,9 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    List<String> establishmentsUai = establishmentService.findEstablishmentsUaiByCounty(countyNumber, establishmentTypes);
 	    if(!establishmentsUai.isEmpty()) {
         	    for(String profile : usersProfiles) {
-        		PunctualAccountStatistic statistic = createPunctualMonthStatisticData(establishmentsUai,  profile, month, year);
+        		List<String> userProfileList = new ArrayList<String>();
+        		userProfileList.add(profile);
+        		PunctualAccountStatistic statistic = createPunctualMonthStatisticData(establishmentsUai,  userProfileList, month, year);
         		basicResultRow.putStatisticData(profile, statistic);
         	    }
         	    basicResultRow.putStatisticData(ServicesConstants.GLOBAL_STATISTIC, createGlobalMonthStatisticDataForCounty(establishmentsUai, countyNumber, establishmentTypes, month, year));
@@ -314,10 +322,10 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.form.ResultFormService#getMonthlyResultRows(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.form.account.ResultAccountFormService#getPeriodicMonthResultRows(java.util.List, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public List<BasicResultRow> getPeriodicMonthResultRows(List<String> establishmentsUai, String userProfile,
+    public List<BasicResultRow> getPeriodicMonthResultRows(List<String> establishmentsUai, List<String> usersProfiles,
             Integer startMonth, Integer startYear, Integer endMonth, Integer endYear) {
 	// Final result
 	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();
@@ -333,7 +341,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    BasicResultRow basicResultRow = new BasicResultRow();
 	    basicResultRow.setEstablishmentData(getEstablishmentData(uai));
 	    for (IntegerPair monthAndYear : monthsAndYears) {
-		PeriodicAccountStatistic statistic = createPeriodicMonthStatisticDataForUai(uai, userProfile, monthAndYear.getFirst(), monthAndYear.getSecond());
+		PeriodicAccountStatistic statistic = createPeriodicMonthStatisticDataForUai(uai, usersProfiles, monthAndYear.getFirst(), monthAndYear.getSecond());
 		basicResultRow.putStatisticData(monthAndYear, statistic);
 	    }
 	    rows.add(basicResultRow);
@@ -343,11 +351,11 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.form.account.ResultAccountFormService#getPeriodicMonthResultRows(java.util.List, java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.form.account.ResultAccountFormService#getPeriodicMonthResultRows(java.util.List, java.util.List, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
     public List<BasicResultRow> getPeriodicMonthResultRows(List<String> countyNumbers,
-            List<String> establishmentsTypes, String userProfile, Integer startMonth, Integer startYear,
+            List<String> establishmentsTypes, List<String> usersProfiles, Integer startMonth, Integer startYear,
             Integer endMonth, Integer endYear) {
 	// Final result
 	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();
@@ -366,7 +374,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    List<String> establishmentsUai = establishmentService.findEstablishmentsUaiByCounty(countyNumber, establishmentsTypes);
 	    if(!establishmentsUai.isEmpty()) {
 		    for (IntegerPair monthAndYear : monthsAndYears) {
-        		PeriodicAccountStatistic statistic = createPeriodicMonthStatisticData(establishmentsUai,  userProfile, monthAndYear.getFirst(), monthAndYear.getSecond());
+        		PeriodicAccountStatistic statistic = createPeriodicMonthStatisticData(establishmentsUai,  usersProfiles, monthAndYear.getFirst(), monthAndYear.getSecond());
         		basicResultRow.putStatisticData(monthAndYear, statistic);
         	    }
         	    rows.add(basicResultRow);
@@ -377,11 +385,11 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.form.account.ResultAccountFormService#getPeriodicMonthResultRowsWithTimeStats(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.form.account.ResultAccountFormService#getPeriodicMonthResultRowsWithTimeStats(java.util.List, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
     public List<BasicResultRow> getPeriodicMonthResultRowsWithTimeStats(List<String> establishmentsUai,
-	    String userProfile, Integer startMonth, Integer startYear, Integer endMonth, Integer endYear) {
+	    List<String> usersProfiles, Integer startMonth, Integer startYear, Integer endMonth, Integer endYear) {
 	// Final result
 	List<BasicResultRow> rows = new ArrayList<BasicResultRow>();
 	
@@ -396,7 +404,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
 	    BasicResultRow basicResultRow = new BasicResultRow();
 	    basicResultRow.setEstablishmentData(getEstablishmentData(uai));
 	    for (IntegerPair monthAndYear : monthsAndYears) {
-		PeriodicAccountStatistic statistic = createPeriodicMonthStatisticDataWithTimeStatsForUai(uai, userProfile, monthAndYear.getFirst(), monthAndYear.getSecond());
+		PeriodicAccountStatistic statistic = createPeriodicMonthStatisticDataWithTimeStatsForUai(uai, usersProfiles, monthAndYear.getFirst(), monthAndYear.getSecond());
 		basicResultRow.putStatisticData(monthAndYear, statistic);
 	    }
 	    rows.add(basicResultRow);
@@ -572,7 +580,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * Retrieves data and creates the statistic data for a specified :
      * <ul>
      * 	<li>establishment</li>
-     * 	<li>user profile</li>
+     * 	<li>users profiles</li>
      * 	<li>month</li>
      * 	<li>year</li>
      * </ul>
@@ -580,8 +588,8 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * 
      * @param establishmentUai
      * 			The UAI of the establishment.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param month
      * 			The number of the month in the year.
      * @param year
@@ -590,19 +598,19 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * @return
      * 	the statistic data.
      */
-    private PeriodicAccountStatistic createPeriodicMonthStatisticDataForUai(String establishmentUai, String userProfile,
+    private PeriodicAccountStatistic createPeriodicMonthStatisticDataForUai(String establishmentUai, List<String> usersProfiles,
 	    Integer month, Integer year) {
 	// Puts the estbalishment Uai into a list
 	List<String> establishmentsUai = new ArrayList<String>();
 	establishmentsUai.add(establishmentUai);
-	return createPeriodicMonthStatisticData(establishmentsUai, userProfile, month, year);
+	return createPeriodicMonthStatisticData(establishmentsUai, usersProfiles, month, year);
     }
     
     /**
      * Retrieves data and creates the statistic data for a specified :
      * <ul>
      * 	<li>establishments</li>
-     * 	<li>user profile</li>
+     * 	<li>users profiles</li>
      * 	<li>month</li>
      * 	<li>year</li>
      * </ul>
@@ -610,8 +618,8 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * 
      * @param establishmentsUai
      * 			The UAI of the establishments.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param month
      * 			The number of the month in the year.
      * @param year
@@ -620,13 +628,13 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * @return
      * 	the statistic data.
      */
-    private PeriodicAccountStatistic createPeriodicMonthStatisticData(List<String> establishmentsUai, String userProfile,
+    private PeriodicAccountStatistic createPeriodicMonthStatisticData(List<String> establishmentsUai, List<String> usersProfiles,
 	    Integer month, Integer year) {
 	// Creates the statistic for this punctual period
-	PunctualAccountStatistic punctualStatistic = createPunctualMonthStatisticData(establishmentsUai, userProfile, month, year);
+	PunctualAccountStatistic punctualStatistic = createPunctualMonthStatisticData(establishmentsUai, usersProfiles, month, year);
 	
 	// Gets the total number of visits made on this period
-	Integer numVisits = portalConnectionStatisticService.findMonthlyNumConnectionsByProfile(establishmentsUai, userProfile, month, year);
+	Integer numVisits = portalConnectionStatisticService.findMonthlyNumConnectionsByProfiles(establishmentsUai, usersProfiles, month, year);
 	
 	// Creates the final periodic statistic
 	Integer totalAccountNumber = punctualStatistic.getTotalAccountNumber();
@@ -644,8 +652,8 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * 
      * @param establishmentUai
      * 			The UAI of the establishment.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param month
      * 			The month in the year.
      * @param year
@@ -655,12 +663,12 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * 	the statistic data.
      */
     private PeriodicAccountStatistic createPeriodicMonthStatisticDataWithTimeStatsForUai(String establishmentUai,
-	    String userProfile, Integer month, Integer year) {
+	    List<String> usersProfiles, Integer month, Integer year) {
 	// Gets the periodic statistic
-	PeriodicAccountStatistic periodicStatistic = createPeriodicMonthStatisticDataForUai(establishmentUai, userProfile, month, year);
+	PeriodicAccountStatistic periodicStatistic = createPeriodicMonthStatisticDataForUai(establishmentUai, usersProfiles, month, year);
 	
 	// Gets the average duration connexion time
-	Float averageDurationTime = portalConnectionStatisticService.findMonthlyConnectionsAverageDurationByProfile(establishmentUai, userProfile, month, year);
+	Float averageDurationTime = portalConnectionStatisticService.findMonthlyConnectionsAverageDurationByProfiles(establishmentUai, usersProfiles, month, year);
 	periodicStatistic.setAverageDurationTime(averageDurationTime);
 	
 	return periodicStatistic;
@@ -670,35 +678,35 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * Retrieves data and creates the statistic data for a specified :
      * <ul>
      * 	<li>establishment</li>
-     * 	<li>user profile</li>
+     * 	<li>users profiles</li>
      * 	<li>month</li>
      * 	<li>year</li>
      * </ul>
      * This data DOES NOT contain the total number of visits.
      * 
      * @param establishmentUai
-     * 			The UAI of the establishment.
-     * @param userProfile
-     * 			The user profile.
+     * 			The UAI of the establishment
+     * @param usersProfiles
+     * 			The users profiles
      * @param month
-     * 			The number of the month in the year.
+     * 			The number of the month in the year
      * @param year
-     * 			The year.
+     * 			The year
      * 
      * @return
      * 	the statistic data.
      */
-    private PunctualAccountStatistic createPunctualMonthStatisticDataForUai(String establishmentUai, String userProfile, Integer month, Integer year) {
+    private PunctualAccountStatistic createPunctualMonthStatisticDataForUai(String establishmentUai, List<String> usersProfiles, Integer month, Integer year) {
 	List<String> establishmentsUai = new ArrayList<String>();
 	establishmentsUai .add(establishmentUai);
-	return createPunctualMonthStatisticData(establishmentsUai, userProfile, month, year);
+	return createPunctualMonthStatisticData(establishmentsUai, usersProfiles, month, year);
     }
     
     /**
      * Retrieves data and creates the statistic data for a specified :
      * <ul>
      * 	<li>establishments</li>
-     * 	<li>user profile</li>
+     * 	<li>users profiles</li>
      * 	<li>month</li>
      * 	<li>year</li>
      * </ul>
@@ -706,8 +714,8 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * 
      * @param establishmentsUai
      * 			The UAI of the establishments.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param month
      * 			The number of the month in the year.
      * @param year
@@ -716,17 +724,17 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * @return
      * 	the statistic data.
      */
-    private PunctualAccountStatistic createPunctualMonthStatisticData(List<String> establishmentsUai, String userProfile, Integer month, Integer year) {
+    private PunctualAccountStatistic createPunctualMonthStatisticData(List<String> establishmentsUai, List<String> usersProfiles, Integer month, Integer year) {
 	// Retrieval of the total account number
-	Integer totalAccountNumber = accountStatisticService.findMonthlyTotalNumAccountsForProfile(establishmentsUai, userProfile, month, year);
+	Integer totalAccountNumber = accountStatisticService.findMonthlyTotalNumAccountsForProfiles(establishmentsUai, usersProfiles, month, year);
 	
 	// Retrieval of the number of activated accounts
-	Integer numActivatedAccounts = accountStatisticService.findMonthlyNumActivatedAccountsForProfile(establishmentsUai, userProfile, month, year);
+	Integer numActivatedAccounts = accountStatisticService.findMonthlyNumActivatedAccountsForProfiles(establishmentsUai, usersProfiles, month, year);
 	
 	// Retrieval of the statistics visitors with a number of portal connections below / above a treshold
 	Integer treshold = ServicesConstants.NUM_CONNECTIONS_TRESHOLD;
-	Integer numVisitorsAboveTreshold = portalConnectionStatisticService.findMonthlyNumVisitorsAboveTresholdByProfile(establishmentsUai, userProfile, month, year, treshold);
-	Integer numVisitorsBelowTreshold = portalConnectionStatisticService.findMonthlyNumVisitorsBelowTresholdByProfile(establishmentsUai, userProfile, month, year, treshold);
+	Integer numVisitorsAboveTreshold = portalConnectionStatisticService.findMonthlyNumVisitorsAboveTresholdByProfiles(establishmentsUai, usersProfiles, month, year, treshold);
+	Integer numVisitorsBelowTreshold = portalConnectionStatisticService.findMonthlyNumVisitorsBelowTresholdByProfiles(establishmentsUai, usersProfiles, month, year, treshold);
 	
 	// Creation of the statistic data
 	PunctualAccountStatistic data = new PunctualAccountStatistic(totalAccountNumber, numActivatedAccounts, numVisitorsBelowTreshold, numVisitorsAboveTreshold);
@@ -748,8 +756,8 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * 
      * @param establishmentsUai
      * 			The UAI of the establishments.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param week
      * 			The week in the year.
      * @param year
@@ -759,12 +767,12 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * 	the statistic data.
      */
     private PeriodicAccountStatistic createPeriodicWeekStatisticData(List<String> establishmentsUai,
-            String userProfile, Integer week, Integer year) {
+            List<String> usersProfiles, Integer week, Integer year) {
 	// Creates the statistic for this punctual period
-	PunctualAccountStatistic punctualStatistic = createPunctualWeekStatisticData(establishmentsUai, userProfile, week, year);
+	PunctualAccountStatistic punctualStatistic = createPunctualWeekStatisticData(establishmentsUai, usersProfiles, week, year);
 	
 	// Gets the total number of visits made on this period
-	Integer numVisits = portalConnectionStatisticService.findWeeklyNumConnectionsByProfile(establishmentsUai, userProfile, week, year);
+	Integer numVisits = portalConnectionStatisticService.findWeeklyNumConnectionsByProfiles(establishmentsUai, usersProfiles, week, year);
 	
 	// Creates the final periodic statistic
 	Integer totalAccountNumber = punctualStatistic.getTotalAccountNumber();
@@ -780,7 +788,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      *  Retrieves data and creates the statistic data for a specified :
      * <ul>
      * 	<li>establishment</li>
-     * 	<li>user profile</li>
+     * 	<li>users profiles</li>
      * 	<li>week</li>
      * 	<li>year</li>
      * </ul>
@@ -789,22 +797,22 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * 
      * @param establishmentUai
      * 			The UAI of the establishment.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles
      * @param week
-     * 			The week in the year.
+     * 			The week in the year
      * @param year
-     * 			The year.
+     * 			The year
      * 
      * @return
      * 	the statistic data.
      */
     private PeriodicAccountStatistic createPeriodicWeekStatisticDataForUai(String establishmentUai,
-            String userProfile, Integer week, Integer year) {
+            List<String> usersProfiles, Integer week, Integer year) {
 	// Puts the establishment UAI into a list
 	List<String> establishmentsUai = new ArrayList<String>();
 	establishmentsUai.add(establishmentUai);
-	return createPeriodicWeekStatisticData(establishmentsUai, userProfile, week, year);
+	return createPeriodicWeekStatisticData(establishmentsUai, usersProfiles, week, year);
     }
     
     /**
@@ -813,8 +821,8 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * 
      * @param establishmentUai
      * 			The UAI of the establishment.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param week
      * 			The week in the year.
      * @param year
@@ -824,12 +832,12 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * 	the statistic data.
      */
     private PeriodicAccountStatistic createPeriodicWeekStatisticDataWithTimeStatsForUai(String establishmentUai,
-            String userProfile, Integer week, Integer year) {
+            List<String> usersProfiles, Integer week, Integer year) {
 	// Gets the periodic statistic
-	PeriodicAccountStatistic periodicStatistic = createPeriodicWeekStatisticDataForUai(establishmentUai, userProfile, week, year);
+	PeriodicAccountStatistic periodicStatistic = createPeriodicWeekStatisticDataForUai(establishmentUai, usersProfiles, week, year);
 	
 	// Gets the average duration connexion time
-	Float averageDurationTime = portalConnectionStatisticService.findWeeklyConnectionsAverageDurationByProfile(establishmentUai, userProfile, week, year);
+	Float averageDurationTime = portalConnectionStatisticService.findWeeklyConnectionsAverageDurationByProfiles(establishmentUai, usersProfiles, week, year);
 	periodicStatistic.setAverageDurationTime(averageDurationTime);
 	
 	return periodicStatistic;
@@ -839,7 +847,7 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      *  Retrieves data and creates the statistic data for a specified :
      * <ul>
      * 	<li>establishments</li>
-     * 	<li>user profile</li>
+     * 	<li>users profiles</li>
      * 	<li>week</li>
      * 	<li>year</li>
      * </ul>
@@ -848,8 +856,8 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * 
      * @param establishmentsUai
      * 			The UAI of the establishments.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param week
      * 			The week in the year.
      * @param year
@@ -859,17 +867,17 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * 	the statistic data.
      */
     private PunctualAccountStatistic createPunctualWeekStatisticData(List<String> establishmentsUai,
-            String userProfile, Integer week, Integer year) {
+            List<String> usersProfiles, Integer week, Integer year) {
 	// Retrieval of the total account number
-	Integer totalAccountNumber = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentsUai, userProfile, week, year);
+	Integer totalAccountNumber = accountStatisticService.findWeeklyTotalNumAccountsForProfiles(establishmentsUai, usersProfiles, week, year);
 	
 	// Retrieval of the number of activated accounts
-	Integer numActivatedAccounts = accountStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentsUai, userProfile, week, year);
+	Integer numActivatedAccounts = accountStatisticService.findWeeklyNumActivatedAccountsForProfiles(establishmentsUai, usersProfiles, week, year);
 	
 	// Retrieval of the statistics visitors with a number of portal connections below / above a treshold
 	Integer treshold = ServicesConstants.NUM_CONNECTIONS_TRESHOLD;
-	Integer numVisitorsAboveTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsAboveTresholdByProfile(establishmentsUai, userProfile, week, year, treshold);
-	Integer numVisitorsBelowTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTresholdByProfile(establishmentsUai, userProfile, week, year, treshold);
+	Integer numVisitorsAboveTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsAboveTresholdByProfiles(establishmentsUai, usersProfiles, week, year, treshold);
+	Integer numVisitorsBelowTreshold = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTresholdByProfiles(establishmentsUai, usersProfiles, week, year, treshold);
 	
 	// Creation of the statistic data
 	PunctualAccountStatistic data = new PunctualAccountStatistic(totalAccountNumber, numActivatedAccounts, numVisitorsBelowTreshold, numVisitorsAboveTreshold);
@@ -881,29 +889,29 @@ public class ResultAccountFormServiceImpl implements ResultAccountFormService {
      * Retrieves data and creates the statistic data for a specified :
      * <ul>
      * 	<li>establishment</li>
-     * 	<li>user profile</li>
+     * 	<li>users profiles</li>
      * 	<li>week</li>
      * 	<li>year</li>
      * </ul>
      * 
      * @param establishmentUai
-     * 			The UAI of the establishment.
-     * @param userProfile
-     * 			The user profile.
+     * 			The UAI of the establishment
+     * @param usersProfiles
+     * 			The users profiles
      * @param week
-     * 			The number of the week in the year.
+     * 			The number of the week in the year
      * @param year
-     * 			The year.
+     * 			The year
      * 
      * @return
      * 	the statistic data.
      */
-    private PunctualAccountStatistic createPunctualWeekStatisticDataForUai(String establishmentUai, String userProfile, Integer week, Integer year) {
+    private PunctualAccountStatistic createPunctualWeekStatisticDataForUai(String establishmentUai, List<String> usersProfiles, Integer week, Integer year) {
 	// Put the establishment UAI into a list
 	List<String> establishmentsUai = new ArrayList<String>();
 	establishmentsUai.add(establishmentUai);
 	
-	return createPunctualWeekStatisticData(establishmentsUai, userProfile, week, year);
+	return createPunctualWeekStatisticData(establishmentsUai, usersProfiles, week, year);
     }
     
     /**

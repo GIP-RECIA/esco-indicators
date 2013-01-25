@@ -56,10 +56,10 @@ public class PunctualServiceResultController extends BasicServiceResultControlle
     //--------------------------------------------------------------------------- PROTECTED METHODS
     
     /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.service.result.BasicServiceResultController#createResultRows(java.util.List, java.util.List, java.util.List, java.lang.String, java.util.Date, java.util.Date)
+     * @see org.esco.indicators.web.springmvc.controller.service.result.BasicServiceResultController#createEstablishmentsResultRows(java.util.List, java.util.List, java.util.List, java.util.List, java.util.Date, java.util.Date)
      */
     @Override
-    protected List<ExtendedResultRow> createEstablishmentsResultRows( List<String> establishmentsTypes, List<String> establishmentsUai, List<String> services, String userProfile, Date startDate, Date endDate) {
+    protected List<ExtendedResultRow> createEstablishmentsResultRows( List<String> establishmentsTypes, List<String> establishmentsUai, List<String> services, List<String> usersProfiles, Date startDate, Date endDate) {
 	// Retrieval of the year
 	Integer year = DateUtils.getYear(startDate);
 	
@@ -69,20 +69,20 @@ public class PunctualServiceResultController extends BasicServiceResultControlle
 	) {
 	    // If the only selected establishment type is : CFA
 	    Integer week = DateUtils.getWeekOfYear(startDate);
-	    return resultServiceFormService.getPunctualWeekResultRows(establishmentsUai, services, userProfile, week, year);
+	    return resultServiceFormService.getPunctualWeekResultRows(establishmentsUai, services, usersProfiles, week, year);
 	} 
 	
 	Integer month = DateUtils.getMonthOfYear(startDate);
-	return resultServiceFormService.getPunctualMonthResultRows(establishmentsUai, services, userProfile, month, year);
+	return resultServiceFormService.getPunctualMonthResultRows(establishmentsUai, services, usersProfiles, month, year);
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.service.result.BasicServiceResultController#createSumOnCountiesResultRows(java.util.List, java.util.List, java.util.List, java.util.List, java.lang.String, java.util.Date, java.util.Date)
+     * @see org.esco.indicators.web.springmvc.controller.service.result.BasicServiceResultController#createSumOnCountiesResultRows(java.util.List, java.util.List, java.util.List, java.util.List, java.util.List, java.util.Date, java.util.Date)
      */
     @Override
     protected List<ExtendedResultRow> createSumOnCountiesResultRows(List<String> checkedEstablishmentTypes,
 	    List<String> countyNumbers, List<String> establishmentsTypes, List<String> services,
-	    String userProfile, Date startDate, Date endDate) {
+	    List<String> usersProfiles, Date startDate, Date endDate) {
 	// Retrieval of the year
 	Integer year = DateUtils.getYear(startDate);
 	
@@ -92,11 +92,11 @@ public class PunctualServiceResultController extends BasicServiceResultControlle
 	) {
 	    // If the only selected establishment type is : CFA
 	    Integer week = DateUtils.getWeekOfYear(startDate);
-	    return resultServiceFormService.getPunctualWeekResultRows(countyNumbers, establishmentsTypes, services, userProfile, week, year);
+	    return resultServiceFormService.getPunctualWeekResultRows(countyNumbers, establishmentsTypes, services, usersProfiles, week, year);
 	} 
 	
 	Integer month = DateUtils.getMonthOfYear(startDate);
-	return resultServiceFormService.getPunctualMonthResultRows(countyNumbers, establishmentsTypes, services, userProfile, month, year);
+	return resultServiceFormService.getPunctualMonthResultRows(countyNumbers, establishmentsTypes, services, usersProfiles, month, year);
     }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS

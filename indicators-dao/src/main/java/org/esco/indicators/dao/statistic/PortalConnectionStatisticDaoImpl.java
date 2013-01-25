@@ -51,20 +51,17 @@ public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatist
     // WEEKLY STATISTICS
     ///////////////////////////////////////////////////////
     
-    /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findWeeklyConnectionsAverageDurationByProfile(java.lang.String, java.sql.Date, java.lang.String)
-     */
     @Override
-    public Float findWeeklyConnectionsAverageDurationByProfile(String establishmentUai, Date firstWeekDay,
-            String userProfile) {
+    public Float findWeeklyConnectionsAverageDurationByProfiles(String establishmentUai, Date firstWeekDay,
+            List<String> usersProfiles) {
 	// Name of the query to execute
-	String namedQuery = "WeeklyPortalConnectionStatistic.findConnectionsAverageDurationByProfile";
+	String namedQuery = "WeeklyPortalConnectionStatistic.findConnectionsAverageDurationByProfiles";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
 	parameters.put("establishmentUai", establishmentUai);
 	parameters.put("firstWeekDay", firstWeekDay);
-	parameters.put("userProfile", userProfile);
+	parameters.put("userProfileList", usersProfiles);
 	
 	// Retrieval of the result
 	Double result = (Double) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
@@ -83,16 +80,16 @@ public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatist
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findWeeklyNumConnectionsByProfile(java.util.List, java.sql.Date, java.lang.String)
+     * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findWeeklyNumConnectionsByProfiles(java.util.List, java.sql.Date, java.util.List)
      */
     @Override
-    public Integer findWeeklyNumConnectionsByProfile(List<String> establishmentsUai, Date firstWeekDay,
-	    String userProfile) {
+    public Integer findWeeklyNumConnectionsByProfiles(List<String> establishmentsUai, Date firstWeekDay,
+	    List<String> usersProfiles) {
 	// Final result : number of connections
 	Integer numConnections = 0;
 	
 	// Computation of the number of connections
-	List<WeeklyPortalConnectionStatistic> statistics = findWeeklyStatisticsByProfile(establishmentsUai, firstWeekDay, userProfile);
+	List<WeeklyPortalConnectionStatistic> statistics = findWeeklyStatisticsByProfiles(establishmentsUai, firstWeekDay, usersProfiles);
 	for (WeeklyPortalConnectionStatistic statistic : statistics) {
 	    Integer numUsers = statistic.getNumUsers();
 	    Integer numConn = statistic.getNumConnections();
@@ -125,19 +122,19 @@ public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatist
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findWeeklyNumVisitorsAboveTreshold(java.lang.String, java.util.Date, java.lang.String, java.lang.Integer)
+     * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findWeeklyNumVisitorsAboveTresholdByProfiles(java.util.List, java.sql.Date, java.util.List, java.lang.Integer)
      */
     @Override
-    public Integer findWeeklyNumVisitorsAboveTresholdByProfile(List<String> establishmentsUai, Date firstWeekDay,
-            String userProfile, Integer treshold) {
+    public Integer findWeeklyNumVisitorsAboveTresholdByProfiles(List<String> establishmentsUai, Date firstWeekDay,
+            List<String> usersProfiles, Integer treshold) {
         // Name of the query to execute
-	String namedQuery = "WeeklyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfile";
+	String namedQuery = "WeeklyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfiles";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
 	parameters.put("establishmentUaiList", establishmentsUai);
 	parameters.put("firstWeekDay", firstWeekDay);
-	parameters.put("userProfile", userProfile);
+	parameters.put("userProfileList", usersProfiles);
 	parameters.put("treshold", treshold);
 	
 	// Retrieval of the result
@@ -170,19 +167,19 @@ public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatist
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findWeeklyNumVisitorsBelowTreshold(java.lang.String, java.util.Date, java.lang.String, java.lang.Integer)
+     * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findWeeklyNumVisitorsBelowTresholdByProfiles(java.util.List, java.sql.Date, java.util.List, java.lang.Integer)
      */
     @Override
-    public Integer findWeeklyNumVisitorsBelowTresholdByProfile(List<String> establishmentsUai, Date firstWeekDay,
-            String userProfile, Integer treshold) {
+    public Integer findWeeklyNumVisitorsBelowTresholdByProfiles(List<String> establishmentsUai, Date firstWeekDay,
+            List<String> usersProfiles, Integer treshold) {
         // Name of the query to execute
-	String namedQuery = "WeeklyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfile";
+	String namedQuery = "WeeklyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfiles";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
 	parameters.put("establishmentUaiList", establishmentsUai);
 	parameters.put("firstWeekDay", firstWeekDay);
-	parameters.put("userProfile", userProfile);
+	parameters.put("userProfileList", usersProfiles);
 	parameters.put("treshold", treshold);
 	
 	// Retrieval of the result
@@ -196,19 +193,19 @@ public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatist
     // MONTHLY STATISTICS
     ///////////////////////////////////////////////////////
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findMonthlyConnectionsAverageDurationByProfile(java.lang.String, java.sql.Date, java.lang.String)
+     * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findMonthlyConnectionsAverageDurationByProfiles(java.lang.String, java.sql.Date, java.util.List)
      */
     @Override
-    public Float findMonthlyConnectionsAverageDurationByProfile(String establishmentUai,
-            Date firstMonthDay, String userProfile) {
+    public Float findMonthlyConnectionsAverageDurationByProfiles(String establishmentUai,
+            Date firstMonthDay, List<String> usersProfiles) {
 	// Name of the query to execute
-	String namedQuery = "MonthlyPortalConnectionStatistic.findConnectionsAverageDurationByProfile";
+	String namedQuery = "MonthlyPortalConnectionStatistic.findConnectionsAverageDurationByProfiles";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
 	parameters.put("establishmentUai", establishmentUai);
 	parameters.put("firstMonthDay", firstMonthDay);
-	parameters.put("userProfile", userProfile);
+	parameters.put("userProfileList", usersProfiles);
 	
 	// Retrieval of the result
 	Double result = (Double) QueryManager.getSingleResult(entityManager, namedQuery, parameters);
@@ -218,16 +215,16 @@ public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatist
     }
     
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findMonthlyNumConnectionsByProfile(java.util.List, java.sql.Date, java.lang.String)
+     * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findMonthlyNumConnectionsByProfiles(java.util.List, java.sql.Date, java.util.List)
      */
     @Override
-    public Integer findMonthlyNumConnectionsByProfile(List<String> establishmentsUai, Date firstMonthDay,
-	    String userProfile) {
+    public Integer findMonthlyNumConnectionsByProfiles(List<String> establishmentsUai, Date firstMonthDay,
+	    List<String> usersProfiles) {
 	// Final result : number of connections
 	Integer numConnections = 0;
 	
 	// Computation of the number of connections
-	List<MonthlyPortalConnectionStatistic> statistics = findMonthlyStatisticsByProfile(establishmentsUai, firstMonthDay, userProfile);
+	List<MonthlyPortalConnectionStatistic> statistics = findMonthlyStatisticsByProfiles(establishmentsUai, firstMonthDay, usersProfiles);
 	for (MonthlyPortalConnectionStatistic statistic : statistics) {
 	    Integer numUsers = statistic.getNumUsers();
 	    Integer numConn = statistic.getNumConnections();
@@ -260,19 +257,19 @@ public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatist
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findMonthlyNumVisitorsAboveTreshold(java.lang.String, java.util.Date, java.lang.String, java.lang.Integer)
+     * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findMonthlyNumVisitorsAboveTresholdByProfiles(java.util.List, java.sql.Date, java.util.List, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumVisitorsAboveTresholdByProfile(List<String> establishmentsUai, Date firstMonthDay,
-            String userProfile, Integer treshold) {
+    public Integer findMonthlyNumVisitorsAboveTresholdByProfiles(List<String> establishmentsUai, Date firstMonthDay,
+            List<String> usersProfiles, Integer treshold) {
         // Name of the query to execute
-	String namedQuery = "MonthlyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfile";
+	String namedQuery = "MonthlyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfiles";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
 	parameters.put("establishmentUaiList", establishmentsUai);
 	parameters.put("firstMonthDay", firstMonthDay);
-	parameters.put("userProfile", userProfile);
+	parameters.put("userProfileList", usersProfiles);
 	parameters.put("treshold", treshold);
 	
 	// Retrieval of the result
@@ -305,19 +302,19 @@ public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatist
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findMonthlyNumVisitorsBelowTreshold(java.lang.String, java.util.Date, java.lang.String, java.lang.Integer)
+     * @see org.esco.indicators.dao.statistic.PortalConnectionStatisticDao#findMonthlyNumVisitorsBelowTresholdByProfiles(java.util.List, java.sql.Date, java.util.List, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumVisitorsBelowTresholdByProfile(List<String> establishmentUai, Date firstMonthDay,
-            String userProfile, Integer treshold) {
+    public Integer findMonthlyNumVisitorsBelowTresholdByProfiles(List<String> establishmentUai, Date firstMonthDay,
+            List<String> usersProfiles, Integer treshold) {
         // Name of the query to execute
-	String namedQuery = "MonthlyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfile";
+	String namedQuery = "MonthlyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfiles";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
 	parameters.put("establishmentUaiList", establishmentUai);
 	parameters.put("firstMonthDay", firstMonthDay);
-	parameters.put("userProfile", userProfile);
+	parameters.put("userProfileList", usersProfiles);
 	parameters.put("treshold", treshold);
 	
 	// Retrieval of the result
@@ -343,22 +340,22 @@ public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatist
      *            The UAI of the establishments concerned by the statistics.
      * @param firstWeekDay
      *            The first day of the week associated to the statistics.
-     * @param userProfile
-     *            The user profile concerned by the statistics.
+     * @param usersProfiles
+     *            The users profiles concerned by the statistics.
      * @return 
      * 	the list of statistics on the connections made on the portal.<br/>
      *         an empty list if no statistic has been retrieved.
      */
-    private List<WeeklyPortalConnectionStatistic> findWeeklyStatisticsByProfile(List<String> establishmentsUai, Date firstWeekDay,
-	    String userProfile) {
+    private List<WeeklyPortalConnectionStatistic> findWeeklyStatisticsByProfiles(List<String> establishmentsUai, Date firstWeekDay,
+	    List<String> usersProfiles) {
 	// Name of the query to execute
-	String namedQuery = "WeeklyPortalConnectionStatistic.findStatisticsByProfile";
+	String namedQuery = "WeeklyPortalConnectionStatistic.findStatisticsByProfiles";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
 	parameters.put("establishmentUaiList", establishmentsUai);
 	parameters.put("firstWeekDay", firstWeekDay);
-	parameters.put("userProfile", userProfile);
+	parameters.put("userProfileList", usersProfiles);
 	
 	// Retrieval of the result
 	List<WeeklyPortalConnectionStatistic> result = new ArrayList<WeeklyPortalConnectionStatistic>();
@@ -375,30 +372,30 @@ public class PortalConnectionStatisticDaoImpl implements PortalConnectionStatist
     // MONTHLY STATISTICS
     ///////////////////////////////////////////////////////
     /**
-     * Retrieves the statistics on connections made on the portal for the specified user profile
-     * <code>userprofile</code> and the specified establishments UAI <code>establishmentsUai</code>.<br/>
+     * Retrieves the statistics on connections made on the portal for the specified users profiles
+     * <code>usersProfiles</code> and the specified establishments UAI <code>establishmentsUai</code>.<br/>
      * This statistics only concerns the month beggining with the day <code>firstMonthDay</code>.<br/>
      * 
      * @param establishmentsUai
      *            The UAI of the establishments concerned by the statistics.
      * @param firstMonthDay
      *            The first day of the week associated to the statistics.
-     * @param userProfile
-     *            The user profile concerned by the statistics.
+     * @param usersProfiles
+     *            The users profiles concerned by the statistics.
      * @return 
      * 	the list of statistics on the connections made on the portal.<br/>
      *         an empty list if no statistic has been retrieved.
      */
-    private List<MonthlyPortalConnectionStatistic> findMonthlyStatisticsByProfile(List<String> establishmentsUai, Date firstMonthDay,
-	    String userProfile) {
+    private List<MonthlyPortalConnectionStatistic> findMonthlyStatisticsByProfiles(List<String> establishmentsUai, Date firstMonthDay,
+	    List<String> usersProfiles) {
 	// Name of the query to execute
-	String namedQuery = "MonthlyPortalConnectionStatistic.findStatisticsByProfile";
+	String namedQuery = "MonthlyPortalConnectionStatistic.findStatisticsByProfiles";
 	
 	// Setting of the parameters
 	Parameters parameters = new Parameters();
 	parameters.put("establishmentUaiList", establishmentsUai);
 	parameters.put("firstMonthDay", firstMonthDay);
-	parameters.put("userProfile", userProfile);
+	parameters.put("userProfileList", usersProfiles);
 	
 	// Retrieval of the result
 	List<MonthlyPortalConnectionStatistic> result = new ArrayList<MonthlyPortalConnectionStatistic>();

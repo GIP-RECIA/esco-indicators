@@ -29,11 +29,11 @@ import org.apache.log4j.Logger;
 @Entity
 @NamedQueries({    
     @NamedQuery(
-	    name = "EspecialMonthlyPortalConnectionStatistic.findConnectionsAverageDurationByProfile",
+	    name = "EspecialMonthlyPortalConnectionStatistic.findConnectionsAverageDurationByProfiles",
 	    query = "SELECT SUM(empcs.averageDuration * empcs.numConnections) / SUM(empcs.numConnections) FROM EspecialMonthlyPortalConnectionStatistic empcs"
 	    	+ " WHERE empcs.establishmentUai = :establishmentUai"
 		+ " AND empcs.firstMonthDay = :firstMonthDay"
-		+ " AND empcs.userProfile = :userProfile"
+		+ " AND empcs.userProfile IN ( :userProfileList )"
     	    ),
     @NamedQuery(
 	    name = "EspecialMonthlyPortalConnectionStatistic.findNumConnections",
@@ -42,10 +42,10 @@ import org.apache.log4j.Logger;
 		+ " AND empcs.firstMonthDay = :firstMonthDay"
     	    ),
     @NamedQuery(
-	    name = "EspecialMonthlyPortalConnectionStatistic.findNumConnectionsByProfile",
+	    name = "EspecialMonthlyPortalConnectionStatistic.findNumConnectionsByProfiles",
 	    query = "SELECT SUM(empcs.numConnections) FROM EspecialMonthlyPortalConnectionStatistic empcs"
 	    	+ " WHERE empcs.establishmentUai IN ( :establishmentUaiList )"
-		+ " AND empcs.firstMonthDay = :firstMonthDay AND empcs.userProfile = :userProfile"
+		+ " AND empcs.firstMonthDay = :firstMonthDay AND empcs.userProfile IN ( :userProfileList )"
     	    ),
      @NamedQuery(
  	    name = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsBelowTreshold",
@@ -55,11 +55,11 @@ import org.apache.log4j.Logger;
 		+ " AND empcs.numConnections <= :treshold"
 	    ),
     @NamedQuery(
-	    name = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfile",
+	    name = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfiles",
 	    query = "SELECT COUNT( DISTINCT empcs.userUid ) FROM EspecialMonthlyPortalConnectionStatistic empcs"
 		+ " WHERE empcs.establishmentUai IN ( :establishmentUaiList )"
 		+ " AND empcs.firstMonthDay = :firstMonthDay" 
-		+ " AND empcs.userProfile = :userProfile"
+		+ " AND empcs.userProfile IN ( :userProfileList )"
 		+ " AND empcs.numConnections <= :treshold"
 	    ),
     @NamedQuery(
@@ -70,11 +70,11 @@ import org.apache.log4j.Logger;
 		+ " AND empcs.numConnections > :treshold"
 	    ),
     @NamedQuery(
-	name = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfile",
+	name = "EspecialMonthlyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfiles",
 	query = "SELECT COUNT( DISTINCT empcs.userUid ) FROM EspecialMonthlyPortalConnectionStatistic empcs"
 		+ " WHERE empcs.establishmentUai IN ( :establishmentUaiList )"
 		+ " AND empcs.firstMonthDay = :firstMonthDay" 
-		+ " AND empcs.userProfile = :userProfile"
+		+ " AND empcs.userProfile IN ( :userProfileList )"
 		+ " AND empcs.numConnections > :treshold"
 	    )
 })

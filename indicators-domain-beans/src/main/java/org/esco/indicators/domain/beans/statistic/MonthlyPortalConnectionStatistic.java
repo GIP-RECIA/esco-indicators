@@ -28,17 +28,17 @@ import org.apache.log4j.Logger;
 @Entity
 @NamedQueries({    
     @NamedQuery(
-	    name = "MonthlyPortalConnectionStatistic.findConnectionsAverageDurationByProfile",
+	    name = "MonthlyPortalConnectionStatistic.findConnectionsAverageDurationByProfiles",
 	    query = "SELECT SUM(mpcs.numUsers * mpcs.numConnections * mpcs.averageDuration) / SUM(mpcs.numUsers * mpcs.numConnections) FROM MonthlyPortalConnectionStatistic mpcs"
 	    	+ " WHERE mpcs.establishmentUai =  :establishmentUai"
 		+ " AND mpcs.firstMonthDay = :firstMonthDay " 
-	    	+ " AND mpcs.userProfile = :userProfile"
+	    	+ " AND mpcs.userProfile IN ( :userProfileList )"
 	    ),
     @NamedQuery(
-	    name = "MonthlyPortalConnectionStatistic.findStatisticsByProfile",
+	    name = "MonthlyPortalConnectionStatistic.findStatisticsByProfiles",
 	    query = "SELECT mpcs FROM MonthlyPortalConnectionStatistic mpcs"
 	    	+ " WHERE mpcs.establishmentUai IN ( :establishmentUaiList )"
-		+ " AND mpcs.firstMonthDay = :firstMonthDay AND mpcs.userProfile = :userProfile"
+		+ " AND mpcs.firstMonthDay = :firstMonthDay AND mpcs.userProfile IN ( :userProfileList )"
 	    ),
     @NamedQuery(
 	    name = "MonthlyPortalConnectionStatistic.findNumVisitorsBelowTreshold",
@@ -48,11 +48,11 @@ import org.apache.log4j.Logger;
 		+ " AND mpcs.numConnections <= :treshold"
 	    ),
     @NamedQuery(
-	    name = "MonthlyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfile",
+	    name = "MonthlyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfiles",
 	    query = "SELECT SUM(mpcs.numUsers) FROM MonthlyPortalConnectionStatistic mpcs"
 	    	+ " WHERE mpcs.establishmentUai IN ( :establishmentUaiList )"
 		+ " AND mpcs.firstMonthDay = :firstMonthDay "
-	    	+ " AND mpcs.userProfile = :userProfile"
+	    	+ " AND mpcs.userProfile IN ( :userProfileList )"
 		+ " AND mpcs.numConnections <= :treshold"
 	    ),
     @NamedQuery(
@@ -63,11 +63,11 @@ import org.apache.log4j.Logger;
 		+ " AND mpcs.numConnections > :treshold"
 	    ),
     @NamedQuery(
-	name = "MonthlyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfile",
+	name = "MonthlyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfiles",
 	query = "SELECT SUM(mpcs.numUsers) FROM MonthlyPortalConnectionStatistic mpcs"
 		+ " WHERE mpcs.establishmentUai IN ( :establishmentUaiList )"
 		+ " AND mpcs.firstMonthDay = :firstMonthDay "
-		+ " AND mpcs.userProfile = :userProfile"
+		+ " AND mpcs.userProfile IN ( :userProfileList )"
 		+ " AND mpcs.numConnections > :treshold"
 	    ) 
 })

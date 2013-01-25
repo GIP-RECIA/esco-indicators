@@ -91,8 +91,8 @@ public interface ResultAccountFormService {
      * 
      * @param establishmentsUai
      * 			The UAI of the establishments.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param startWeek
      * 			The number of the beginning week (in the beginning year).
      * @param startYear
@@ -105,7 +105,7 @@ public interface ResultAccountFormService {
      * @return
      * 	the result rows containing establishment data, and statistics data, for each period of one week in each establishment.
      */
-    public List<BasicResultRow> getPeriodicWeekResultRows(List<String> establishmentsUai, String userProfile, Integer startWeek, Integer startYear, Integer endWeek, Integer endYear);
+    public List<BasicResultRow> getPeriodicWeekResultRows(List<String> establishmentsUai, List<String> usersProfiles, Integer startWeek, Integer startYear, Integer endWeek, Integer endYear);
     
     /**
      * Gets the result rows containing aggregated data on establishments and users profiles.<br/>
@@ -124,8 +124,8 @@ public interface ResultAccountFormService {
      * 			The numbers of the counties containing the establishments aggregated.
      * @param establishmentsTypes
      * 			The types of the establishments aggregated.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param startWeek
      * 			The number of the beginning week (in the beginning year).
      * @param startYear
@@ -139,7 +139,7 @@ public interface ResultAccountFormService {
      * 	the result rows containing county data, and statistics data, for each period of one week in each county.
      */
     public List<BasicResultRow> getPeriodicWeekResultRows(List<String> countyNumbers,
-            List<String> establishmentsTypes, String userProfile, Integer startWeek, Integer startYear,
+            List<String> establishmentsTypes, List<String> usersProfiles, Integer startWeek, Integer startYear,
             Integer endWeek, Integer endYear);
 
     /**
@@ -148,25 +148,25 @@ public interface ResultAccountFormService {
      * The statistics of the result rows contain informations on visits time.
      * 
      * @param establishmentsUai
-     * 			The UAI of the establishments.
+     * 			The UAI of the establishments
      * @param establishmentsTypes
-     * 			The types of the establishments aggregated.
-     * @param userProfile
-     * 			The user profile.
+     * 			The types of the establishments aggregated
+     * @param usersProfiles
+     * 			The users profiles
      * @param startWeek
-     * 			The number of the beginning week (in the beginning year).
+     * 			The number of the beginning week (in the beginning year)
      * @param startYear
-     * 			The beginning year.
+     * 			The beginning year
      * @param endWeek
-     * 			The number of the finishing week (in the finishing year).
+     * 			The number of the finishing week (in the finishing year)
      * @param endYear
-     * 			The number of the finishing year.
+     * 			The number of the finishing year
      * 
      * @return
      * 	the result rows containing county data, and statistics data, for each period of one week in each establishment.
      */
     public List<BasicResultRow> getPeriodicWeekResultRowsWithTimeStats(List<String> establishmentsUai,
-            String userProfile, Integer startWeek, Integer startYear, Integer endWeek, Integer endYear);
+            List<String> usersProfiles, Integer startWeek, Integer startYear, Integer endWeek, Integer endYear);
 
     ///////////////////////////////////////////////////////
     // MONTHLY RESULTS
@@ -239,22 +239,22 @@ public interface ResultAccountFormService {
      * For more informations on the result row content, see {@link BasicResultRow}.
      * 
      * @param establishmentsUai
-     * 			The UAI of the establishments.
-     * @param userProfile
-     * 			The user profile.
+     * 			The UAI of the establishments
+     * @param usersProfiles
+     * 			The users profiles
      * @param startMonth
-     * 			The number of the beginning month (in the beginning year).
+     * 			The number of the beginning month (in the beginning year)
      * @param startYear
-     * 			The beginning year.
+     * 			The beginning year
      * @param endMonth
-     * 			The number of the finishing month (in the finishing year).
+     * 			The number of the finishing month (in the finishing year)
      * @param endYear
-     * 			The number of the finishing year.
+     * 			The number of the finishing year
      * 
      * @return
      * 	the result rows containing establishment data, and statistics data, for each period of one month in each establishment.
      */
-    public List<BasicResultRow> getPeriodicMonthResultRows(List<String> establishmentsUai, String userProfile, Integer startMonth, Integer startYear, Integer endMonth, Integer endYear);
+    public List<BasicResultRow> getPeriodicMonthResultRows(List<String> establishmentsUai, List<String> usersProfiles, Integer startMonth, Integer startYear, Integer endMonth, Integer endYear);
 
     /**
      * Gets the result rows containing aggregated data on establishments and users profiles.<br/>
@@ -273,8 +273,8 @@ public interface ResultAccountFormService {
      * 			The numbers of the counties containing the establishments aggregated.
      * @param establishmentsTypes
      * 			The types of the establishments aggregated.
-          * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param startMonth
      * 			The number of the beginning month (in the beginning year).
      * @param startYear
@@ -288,7 +288,7 @@ public interface ResultAccountFormService {
      * 	the result rows containing county data, and statistics data, for each period of one month in each county.
      */
     public List<BasicResultRow> getPeriodicMonthResultRows(List<String> countyNumbers,
-	    List<String> establishmentsTypes, String userProfile, Integer startMonth, Integer startYear,
+	    List<String> establishmentsTypes, List<String> usersProfiles, Integer startMonth, Integer startYear,
 	    Integer endMonth, Integer endYear);
     
     /**
@@ -297,24 +297,24 @@ public interface ResultAccountFormService {
      * The statistics of the result rows contain informations on visits time.
      * 
      * @param establishmentsUai
-     * 			The UAI of the establishments.
+     * 			The UAI of the establishments
      * @param establishmentsTypes
-     * 			The types of the establishments aggregated.
-     * @param userProfile
-     * 			The user profile.
+     * 			The types of the establishments aggregated
+     * @param usersProfiles
+     * 			The users profiles
      * @param startMonth
-     * 			The number of the beginning month (in the beginning year).
+     * 			The number of the beginning month (in the beginning year)
      * @param startYear
-     * 			The beginning year.
+     * 			The beginning year
      * @param endMonth
-     * 			The number of the finishing month (in the finishing year).
+     * 			The number of the finishing month (in the finishing year)
      * @param endYear
-     * 			The number of the finishing year.
+     * 			The number of the finishing year
      * 
      * @return
      * 	the result rows containing county data, and statistics data, for each period of one month in each establishment.
      */
     public List<BasicResultRow> getPeriodicMonthResultRowsWithTimeStats(List<String> establishmentsUai,
-            String userProfile, Integer startMonth, Integer startYear, Integer endMonth, Integer endYear);
+            List<String> usersProfiles, Integer startMonth, Integer startYear, Integer endMonth, Integer endYear);
     
 }

@@ -39,26 +39,6 @@ public interface AccountStatisticService {
     /**
      * Retrieves the number of activated accounts in the specified establishments for the specified <code>week</code>
      * of the specified <code>year</code>.<br/>
-     * The activated accounts have to be associated to the specified user profile.
-     *  
-     * @param establishmentsUai
-     * 			The UAI of the establishments associated to the statistic to retrieve.
-     * @param userProfile
-     * 			The user profile associated to the statistic to retrieve.
-     * @param week
-     * 			The week number of the statistic to retrieve.
-     * @param year
-     * 			The year of the statistic to retrieve.
-     * 
-     * @return
-     * 	The number of activated accounts in the establishments in the week.<br/>
-     * 	The number 0 if no data has been retrieved in this period.
-     */
-    public Integer findWeeklyNumActivatedAccountsForProfile(List<String> establishmentsUai, String userProfile, Integer week, Integer year);
-    
-    /**
-     * Retrieves the number of activated accounts in the specified establishments for the specified <code>week</code>
-     * of the specified <code>year</code>.<br/>
      * The activated accounts have to be associated to one of the specified users profiles.
      *  
      * @param establishmentsUai
@@ -97,12 +77,12 @@ public interface AccountStatisticService {
     /**
      * Retrieves the total number of accounts present in the specified establishments for the specified <code>week</code>
      * of the specified <code>year</code>.<br/>
-     * This total of accounts only concerns the account associated to the specified <code>userProfile</code>.
+     * This total of accounts only concerns the accounts associated to one of the specified <code>userProfile</code>.
      *  
      * @param establishmentsUai
      * 			The UAI of the establishments associated to the statistic to retrieve.
-     * @param userProfile
-     * 			The user profile associated to the statistic to retrieve.
+     * @param usersProfiles
+     * 			The users profiles associated to the statistic to retrieve.
      * @param week
      * 			The week number of the statistic to retrieve.
      * @param year
@@ -112,7 +92,7 @@ public interface AccountStatisticService {
      * 	The total number of activated accounts in the establishments in the week.<br/>
      * 	The number 0 if no data has been retrieved in this period.
      */
-    public Integer findWeeklyTotalNumAccountsForProfile(List<String> establishmentsUai, String userProfile, Integer week, Integer year);
+    public Integer findWeeklyTotalNumAccountsForProfiles(List<String> establishmentsUai, List<String> usersProfiles, Integer week, Integer year);
     
     
     ///////////////////////////////////////////////////////
@@ -139,12 +119,12 @@ public interface AccountStatisticService {
     /**
      * Retrieves the number of activated accounts in the specified establishments for the specified <code>month</code>
      * of the specified <code>year</code>.<br/>
-     * The activated accounts have to be associated to the specified user profile.
+     * The activated accounts have to be associated to one of the specified users profiles.
      *  
      * @param establishmentsUai
      * 			The UAI of the establishments associated to the statistic to retrieve.
-     * @param userProfile
-     * 			The user profile associated to the statistic to retrieve.
+     * @param usersProfiles
+     * 			The users profiles associated to the statistic to retrieve.
      * @param month
      * 			The month number of the statistic to retrieve.
      * @param year
@@ -154,7 +134,7 @@ public interface AccountStatisticService {
      * 	The number of activated accounts in the establishments in the month.<br/>
      * 	The number 0 if no data has been retrieved in this period.
      */
-    public Integer findMonthlyNumActivatedAccountsForProfile(List<String> establishmentsUai, String userProfile, Integer month, Integer year);
+    public Integer findMonthlyNumActivatedAccountsForProfiles(List<String> establishmentsUai, List<String> usersProfiles, Integer month, Integer year);
     
     /**
      * Retrieves the number of activated accounts in the specified establishment for the specified <code>month</code>
@@ -200,8 +180,8 @@ public interface AccountStatisticService {
      *  
      * @param establishmentsUai
      * 			The UAI of the establishments associated to the statistic to retrieve.
-     * @param userProfile
-     * 			The user profile associated to the statistic to retrieve.
+     * @param usersProfiles
+     * 			The users profiles associated to the statistic to retrieve.
      * @param month
      * 			The week number of the statistic to retrieve.
      * @param year
@@ -211,6 +191,6 @@ public interface AccountStatisticService {
      * 	The total number of activated accounts in the establishments in the month.<br/>
      * 	The number 0 if no data has been retrieved in this period.
      */
-    public Integer findMonthlyTotalNumAccountsForProfile(List<String> establishmentsUai, String userProfile, Integer month, Integer year);
+    public Integer findMonthlyTotalNumAccountsForProfiles(List<String> establishmentsUai, List<String> usersProfiles, Integer month, Integer year);
 
 }

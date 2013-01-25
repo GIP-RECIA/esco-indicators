@@ -90,8 +90,11 @@ public class ProfileLinkDaoImpl implements ProfileLinkDao {
 	return totalNumLinkedAccounts;
     }
 
+    /* (non-Javadoc)
+     * @see org.esco.indicators.dao.profile.ProfileLinkDao#findTotalNumLinkedAccountsForProfiles(java.util.List, java.util.List, java.sql.Date, java.sql.Date)
+     */
     @Override
-    public Integer findTotalNumLinkedAccountsForProfile(List<String> establishmentsUai, String userProfile, Date startDate,
+    public Integer findTotalNumLinkedAccountsForProfiles(List<String> establishmentsUai, List<String> usesrProfiles, Date startDate,
 	    Date endDate) {
 	// Name of the query to execute
 	String namedQuery = "ProfileLink.findTotalNumLinkedAccountsForProfile";
@@ -99,7 +102,7 @@ public class ProfileLinkDaoImpl implements ProfileLinkDao {
 	// Parameters setting
 	Parameters parameters = new Parameters();
 	parameters.put("establishmentUaiList", establishmentsUai);
-	parameters.put("userProfile", userProfile);
+	parameters.put("userProfileList", usesrProfiles);
 	parameters.put("linkStart", startDate);
 	parameters.put("linkEnd", endDate);
 	

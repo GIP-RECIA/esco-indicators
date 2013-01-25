@@ -59,12 +59,12 @@ public interface ProfileLinkDao {
     
     /**
      * Retrieves the total number of accounts that were linked to the establishments in the period (delimited by the start date and end date).<br/>
-     * The accounts have to be associated to the specified user profile.
+     * The accounts have to be associated to one of the specified users profiles.
      * 
      * @param establishmentsUai
      * 			The UAI of the establishments.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param startDate
      * 			The start date of the period.
      * @param endDate
@@ -74,6 +74,6 @@ public interface ProfileLinkDao {
      * 	the total number of accounts linked to the establishments in the specified period.<br/>
      * 	<code>null</code> if no data has been retrieved.
      */
-    public Integer findTotalNumLinkedAccountsForProfile(List<String> establishmentsUai, String userProfile, Date startDate, Date endDate);
+    public Integer findTotalNumLinkedAccountsForProfiles(List<String> establishmentsUai, List<String> usersProfiles, Date startDate, Date endDate);
 
 }

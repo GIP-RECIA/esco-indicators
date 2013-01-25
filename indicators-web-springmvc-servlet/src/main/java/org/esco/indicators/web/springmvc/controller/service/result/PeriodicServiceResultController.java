@@ -108,10 +108,10 @@ public class PeriodicServiceResultController extends BasicServiceResultControlle
     
     //----------------------------------------------------------------------------- PROTECTED METHODS
     /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.service.result.BasicServiceResultController#createResultRows(java.util.List, java.util.List, java.util.List, java.lang.String, java.util.Date, java.util.Date)
+     * @see org.esco.indicators.web.springmvc.controller.service.result.BasicServiceResultController#createEstablishmentsResultRows(java.util.List, java.util.List, java.util.List, java.util.List, java.util.Date, java.util.Date)
      */
     @Override
-    protected List<ExtendedResultRow> createEstablishmentsResultRows( List<String> establishmentsTypes, List<String> establishmentsUai, List<String> services, String userProfile, Date startDate, Date endDate) {
+    protected List<ExtendedResultRow> createEstablishmentsResultRows( List<String> establishmentsTypes, List<String> establishmentsUai, List<String> services, List<String> usersProfiles, Date startDate, Date endDate) {
 	// Retrieval of the start and end years
 	Integer startYear = DateUtils.getYear(startDate);
 	Integer endYear = DateUtils.getYear(endDate);
@@ -123,19 +123,19 @@ public class PeriodicServiceResultController extends BasicServiceResultControlle
 	    // If the only selected establishment type is : CFA
 	    Integer startWeek = DateUtils.getWeekOfYear(startDate);
 	    Integer endWeek = DateUtils.getWeekOfYear(endDate);
-	    return resultServiceFormService.getPeriodicWeekResultRows(establishmentsUai, services, userProfile, startWeek, startYear, endWeek, endYear);
+	    return resultServiceFormService.getPeriodicWeekResultRows(establishmentsUai, services, usersProfiles, startWeek, startYear, endWeek, endYear);
 	}
 
 	Integer startMonth = DateUtils.getMonthOfYear(startDate);
 	Integer endMonth = DateUtils.getMonthOfYear(endDate);
-	return resultServiceFormService.getPeriodicMonthResultRows(establishmentsUai, services, userProfile, startMonth, startYear, endMonth, endYear);
+	return resultServiceFormService.getPeriodicMonthResultRows(establishmentsUai, services, usersProfiles, startMonth, startYear, endMonth, endYear);
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.service.result.BasicServiceResultController#createSumOnCountiesResultRows(java.util.List, java.util.List, java.util.List, java.util.List, java.lang.String, java.util.Date, java.util.Date)
+     * @see org.esco.indicators.web.springmvc.controller.service.result.BasicServiceResultController#createSumOnCountiesResultRows(java.util.List, java.util.List, java.util.List, java.util.List, java.util.List, java.util.Date, java.util.Date)
      */
     @Override
-    protected List<ExtendedResultRow> createSumOnCountiesResultRows( List<String> checkedEstablishmentTypes, List<String> countyNumbers, List<String> establishmentsTypes, List<String> services, String userProfile, Date startDate, Date endDate) {
+    protected List<ExtendedResultRow> createSumOnCountiesResultRows( List<String> checkedEstablishmentTypes, List<String> countyNumbers, List<String> establishmentsTypes, List<String> services, List<String> usersProfiles, Date startDate, Date endDate) {
 		// Retrieval of the start and end years
 		Integer startYear = DateUtils.getYear(startDate);
 		Integer endYear = DateUtils.getYear(endDate);
@@ -147,12 +147,12 @@ public class PeriodicServiceResultController extends BasicServiceResultControlle
 		    // If the only selected establishment type is : CFA
 		    Integer startWeek = DateUtils.getWeekOfYear(startDate);
 		    Integer endWeek = DateUtils.getWeekOfYear(endDate);
-		    return resultServiceFormService.getPeriodicWeekResultRows(countyNumbers, establishmentsTypes, services, userProfile, startWeek, startYear, endWeek, endYear);
+		    return resultServiceFormService.getPeriodicWeekResultRows(countyNumbers, establishmentsTypes, services, usersProfiles, startWeek, startYear, endWeek, endYear);
 		}
 
 		Integer startMonth = DateUtils.getMonthOfYear(startDate);
 		Integer endMonth = DateUtils.getMonthOfYear(endDate);
-		return resultServiceFormService.getPeriodicMonthResultRows(countyNumbers, establishmentsTypes, services, userProfile, startMonth, startYear, endMonth, endYear);
+		return resultServiceFormService.getPeriodicMonthResultRows(countyNumbers, establishmentsTypes, services, usersProfiles, startMonth, startYear, endMonth, endYear);
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS

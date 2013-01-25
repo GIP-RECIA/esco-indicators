@@ -54,7 +54,7 @@ import org.apache.log4j.Logger;
 		    	+ " WHERE pl.establishmentUai IN ( :establishmentUaiList )"
 			+ " AND pl.linkStart <= :linkStart"
 			+ " AND (pl.linkEnd >= :linkEnd OR pl.linkEnd IS NULL)"
-			+ " AND (pl.userProfile = :userProfile)"
+			+ " AND (pl.userProfile IN ( :userProfileList ) )"
 	    )
 })
 @Table(name = "acommeprofil")

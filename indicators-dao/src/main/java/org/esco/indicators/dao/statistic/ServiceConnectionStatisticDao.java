@@ -90,7 +90,7 @@ public interface ServiceConnectionStatisticDao extends StatisticDao {
     public Integer findNumVisitorsBelowTreshold(List<String> establishmentsUai, Date startDay, Date endDay, List<String> servicesNames, String userProfile, Integer treshold);
     
     /**
-     * Retrieves the number of visits made on the service for the specified <code>userProfile</code> in the specified <code>establishmentUai</code>.<br/>
+     * Retrieves the number of visits made on the service for the specified <code>usersProfiles</code> in the specified <code>establishmentUai</code>.<br/>
      * This number of visits only concerns the period beginning with the day <code>startDay</code> and ending with the day <code>endDay</code>.<br/>
      * 
      * @param establishmentsUai
@@ -101,17 +101,17 @@ public interface ServiceConnectionStatisticDao extends StatisticDao {
      * 			The end day of the period associated to the statistic.
      * @param servicesNames
      * 			The names of the services of the statistic to retrieve.
-     * @param userProfile
-     * 			The user profile of the statistic to retrieve.
+     * @param usersProfiles
+     * 			The users profiles of the statistic to retrieve.
      * 
      * @return
      * 	the number of visits made on the service during the specified period.<br/>
      * 	<code>null</code> if no statistic has been retrieved.
      */
-    public Integer findNumVisits(List<String> establishmentsUai, Date startDay, Date endDay, List<String> servicesNames, String userProfile);
+    public Integer findNumVisits(List<String> establishmentsUai, Date startDay, Date endDay, List<String> servicesNames, List<String> usersProfiles);
 
     /**
-     * Retrieves the statistics on the <code>servicesNames</code>  for the specified <code>userProfile</code> in the specified <code>establishmentUai</code>.<br/>
+     * Retrieves the statistics on the <code>servicesNames</code>  for the specified <code>usersProfiles</code> in the specified <code>establishmentUai</code>.<br/>
      * These statistics only concerns the period beginning with the day <code>startDay</code> and ending with the day <code>endDay</code>.
      * 
      * @param establishmentsUai
@@ -122,13 +122,13 @@ public interface ServiceConnectionStatisticDao extends StatisticDao {
      * 			The end day of the period associated to the statistic.
      * @param servicesNames
      * 			The names of the services of the statistic to retrieve.
-     * @param userProfile
-     * 			The user profile of the statistic to retrieve.
+     * @param usersProfiles
+     * 			The users profiles of the statistic to retrieve.
      * 
      * @return
      * 	the statistics made on the services during the specified period.<br/>
      * 	<code>null</code> if no statistic has been retrieved.
      */
-    public List<ServiceConnectionStatistic> findServiceConnectionStatistics(List<String> establishmentsUai, Date startDay, Date endDay, List<String> servicesNames, String userProfile);
+    public List<ServiceConnectionStatistic> findServiceConnectionStatistics(List<String> establishmentsUai, Date startDay, Date endDay, List<String> servicesNames, List<String> usersProfiles);
 
 }

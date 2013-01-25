@@ -42,8 +42,8 @@ public interface ResultServiceFormService {
      * 			The UAI of the establishments.
      * @param services
      * 			The services.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param startWeek
      * 			The number of the beginning week (in the beginning year).
      * @param startYear
@@ -57,7 +57,7 @@ public interface ResultServiceFormService {
      * 	the result rows containing establishment data, and statistics data, for each period of one week in each establishment.
      */
     public List<ExtendedResultRow> getPeriodicWeekResultRows(List<String> establishmentsUai,
-	    List<String> services, String userProfile, Integer startWeek, Integer startYear, Integer endWeek,
+	    List<String> services, List<String> usersProfiles, Integer startWeek, Integer startYear, Integer endWeek,
 	    Integer endYear);
     
     /**
@@ -83,8 +83,8 @@ public interface ResultServiceFormService {
      * 			The establishments types.
      * @param services
      * 			The services.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param startWeek
      * 			The number of the beginning week (in the beginning year).
      * @param startYear
@@ -98,11 +98,11 @@ public interface ResultServiceFormService {
      * 	the result rows containing county data, and statistics data, for each period of one week in each county.
      */
     public List<ExtendedResultRow> getPeriodicWeekResultRows(List<String> countyNumbers,
-            List<String> establishmentsTypes, List<String> services, String userProfile, Integer startWeek,
+            List<String> establishmentsTypes, List<String> services, List<String> usersProfiles, Integer startWeek,
             Integer startYear, Integer endWeek, Integer endYear);
 
     /**
-     * Gets the result rows containing the data on the establishements, the services and the user profile.<br/>
+     * Gets the result rows containing the data on the establishements, the services and the users profiles.<br/>
      * These data only concern the specified <code>week</code> of the specified <code>year</code>.<br/>
      * Each result row is associated to one establishment, and contained two kinds of data :
      * <ul>
@@ -116,8 +116,8 @@ public interface ResultServiceFormService {
      * 			The UAI of the establishements.
      * @param services
      * 			The services.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param week
      * 			The week number.
      * @param year
@@ -126,7 +126,7 @@ public interface ResultServiceFormService {
      * @return
      * 	the result rows containing establishment data, and statistics data, for each user profile in each establishment.
      */
-    public List<ExtendedResultRow> getPunctualWeekResultRows(List<String> establishmentsUai, List<String> services, String userProfile, Integer week, Integer year);
+    public List<ExtendedResultRow> getPunctualWeekResultRows(List<String> establishmentsUai, List<String> services, List<String> usersProfiles, Integer week, Integer year);
 
     /**
      * Gets the result rows containing the data on the establishement, the services and the user profiles.<br/>
@@ -156,7 +156,7 @@ public interface ResultServiceFormService {
     public List<ExtendedResultRow> getPunctualWeekResultRows(String establishmentUai, List<String> services, List<String> userProfiles, Integer week, Integer year);
     
     /**
-     * Gets the result rows containing the data on the establishements, the services and the user profile.<br/>
+     * Gets the result rows containing the data on the establishements, the services and the users profiles.<br/>
      * The data on the establishments are aggregated by county numbers.<br/>
      * These data only concern the specified <code>week</code> of the specified <code>year</code>.<br/>
      * Each result row is associated to one establishment, and contained two kinds of data :
@@ -173,8 +173,8 @@ public interface ResultServiceFormService {
      * 			The establishments types.
      * @param services
      * 			The services.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param week
      * 			The week number.
      * @param year
@@ -184,7 +184,7 @@ public interface ResultServiceFormService {
      * 	the result rows containing county data, and statistics data, for each user profile in each county.
      */
     public List<ExtendedResultRow> getPunctualWeekResultRows(List<String> countyNumbers,
-            List<String> establishmentsTypes, List<String> services, String userProfile, Integer week,
+            List<String> establishmentsTypes, List<String> services, List<String> usersProfiles, Integer week,
             Integer year);
 
     ///////////////////////////////////////////////////////
@@ -210,8 +210,8 @@ public interface ResultServiceFormService {
      * 			The UAI of the establishments.
      * @param services
      * 			The services.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param startMonth
      * 			The number of the beginning month (in the beginning year).
      * @param startYear
@@ -225,7 +225,7 @@ public interface ResultServiceFormService {
      * 	the result rows containing establishment data, and statistics data, for each period of one month in each establishment.
      */
     public List<ExtendedResultRow> getPeriodicMonthResultRows(List<String> establishmentsUai,
-	    List<String> services, String userProfile, Integer startMonth, Integer startYear, Integer endMonth,
+	    List<String> services, List<String> usersProfiles, Integer startMonth, Integer startYear, Integer endMonth,
 	    Integer endYear);
     
     /**
@@ -251,8 +251,8 @@ public interface ResultServiceFormService {
      * 			The establishments types.
      * @param services
      * 			The services.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param startMonth
      * 			The number of the beginning month (in the beginning year).
      * @param startYear
@@ -266,7 +266,7 @@ public interface ResultServiceFormService {
      * 	the result rows containing county data, and statistics data, for each period of one month in each county.
      */
     public List<ExtendedResultRow> getPeriodicMonthResultRows(List<String> countyNumbers,
-            List<String> establishmentsTypes, List<String> services, String userProfile, Integer startMonth,
+            List<String> establishmentsTypes, List<String> services, List<String> usersProfiles, Integer startMonth,
             Integer startYear, Integer endMonth, Integer endYear);
 
     /**
@@ -284,8 +284,8 @@ public interface ResultServiceFormService {
      * 			The UAI of the establishements.
      * @param services
      * 			The services.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param month
      * 			The month number.
      * @param year
@@ -294,7 +294,7 @@ public interface ResultServiceFormService {
      * @return
      * 	the result rows containing establishment data, and statistics data, for each user profile in each establishment.
      */
-    public List<ExtendedResultRow> getPunctualMonthResultRows(List<String> establishmentsUai,  List<String> services, String userProfile, Integer month, Integer year);
+    public List<ExtendedResultRow> getPunctualMonthResultRows(List<String> establishmentsUai,  List<String> services, List<String> usersProfiles, Integer month, Integer year);
     
     /**
      * Gets the result rows containing the data on the establishement and the user profiles.<br/>
@@ -324,7 +324,7 @@ public interface ResultServiceFormService {
     public List<ExtendedResultRow> getPunctualMonthResultRows(String establishmentUai,  List<String> services, List<String> userProfiles, Integer month, Integer year);
 
     /**
-     * Gets the result rows containing the data on the establishements, the services and the user profile.<br/>
+     * Gets the result rows containing the data on the establishements, the services and the users profiles.<br/>
      * The data on the establishments are aggregated by county numbers.<br/>
      * These data only concern the specified <code>month</code> of the specified <code>year</code>.<br/>
      * Each result row is associated to one establishment, and contained two kinds of data :
@@ -341,8 +341,8 @@ public interface ResultServiceFormService {
      * 			The establishments types.
      * @param services
      * 			The services.
-     * @param userProfile
-     * 			The user profile.
+     * @param usersProfiles
+     * 			The users profiles.
      * @param month
      * 			The month number.
      * @param year
@@ -352,7 +352,7 @@ public interface ResultServiceFormService {
      * 	the result rows containing county data, and statistics data, for each user profile in each county.
      */
     public List<ExtendedResultRow> getPunctualMonthResultRows(List<String> countyNumbers,
-	    List<String> establishmentsTypes, List<String> services, String userProfile, Integer month,
+	    List<String> establishmentsTypes, List<String> services, List<String> usersProfiles, Integer month,
 	    Integer year);
 
 }

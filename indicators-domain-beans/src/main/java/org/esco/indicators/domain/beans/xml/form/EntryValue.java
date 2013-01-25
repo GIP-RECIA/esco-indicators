@@ -259,12 +259,21 @@ public class EntryValue {
      * Gets the user profile to filter when this entry value has been selected.
      * 
      * @return 
-     * 	the establishment type to filter.
+     * 	the user profile to filter.
      */
     public String getUserProfileToFilter() {
 	return getWhenActivatedEvent().getFilterUserProfile();
     }
     
+    /**
+     * Gets the users profiles to filter when this entry value has been selected.
+     * 
+     * @return 
+     * 	the users profiles to filter.
+     */
+    public List<String> getUsersProfilesToFilter() {
+	return getWhenActivatedEvent().getFiltersUserProfile();
+    }
     
     
     //------------------------------------------------------------------------------ PUBLIC METHODS

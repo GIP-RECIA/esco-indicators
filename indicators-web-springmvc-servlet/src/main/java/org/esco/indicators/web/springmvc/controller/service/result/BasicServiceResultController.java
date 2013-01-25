@@ -121,7 +121,7 @@ public abstract class BasicServiceResultController extends BasicResultController
 	
 	// Retrieval of the users profiles to filter
 	List<String> checkedProfiles = new ArrayList<String>(Arrays.asList(serviceForm.getUsersProfiles()));
-	String userProfileToFilter = getDataFormService().getUsersProfilesToFilter(checkedProfiles).get(0);
+	List<String> usersProfilesToFilter = getDataFormService().getUsersProfilesToFilter(checkedProfiles);
 	
 	// Retrieval of the start date and end date
 	Date startDate = serviceForm.getStartDate();
@@ -138,13 +138,13 @@ public abstract class BasicServiceResultController extends BasicResultController
 	    List<String> countyNumbersToFilter = getDataFormService().getCountyNumbersToFilter(sumOnCounties);
 	    List<String> establishmentsTypesToFilter = getDataFormService().getEstablishmentsTypesToFilter(establishmentsTypes);
 	    LOGGER.debug("The sum on counties has been asked. The result rows will concern the counties : " + countyNumbersToFilter + " and the establishments types : " + establishmentsTypesToFilter);
-	    return createSumOnCountiesResultRows(establishmentsTypes, countyNumbersToFilter, establishmentsTypesToFilter, services, userProfileToFilter, startDate, endDate);
+	    return createSumOnCountiesResultRows(establishmentsTypes, countyNumbersToFilter, establishmentsTypesToFilter, services, usersProfilesToFilter, startDate, endDate);
 	}
 	
 	// Retrieval of the establishments uai
 	List<String> establishmentsUai = new ArrayList<String>(Arrays.asList(serviceForm.getEstablishments()));
 	LOGGER.debug("The sum on counties has not been asked. The result rows will concern the establishments : " + establishmentsUai);
-	return createEstablishmentsResultRows(establishmentsTypes, establishmentsUai, services, userProfileToFilter, startDate, endDate);
+	return createEstablishmentsResultRows(establishmentsTypes, establishmentsUai, services, usersProfilesToFilter, startDate, endDate);
     }
     
     /**
@@ -195,8 +195,8 @@ public abstract class BasicServiceResultController extends BasicResultController
      * 			The UAI of the establishments.
      * @param services
      * 			The services concerned by the statistics.
-     * @param userProfile
-     * 			The user profile concerned by the statistics.
+     * @param usersProfiles
+     * 			The users profiles concerned by the statistics.
      * @param startDate
      * 			The start date of the statistics.
      * @param endDate
@@ -205,7 +205,7 @@ public abstract class BasicServiceResultController extends BasicResultController
      * @return
      * 	the result rows containing the data to display.
      */
-    protected abstract List<ExtendedResultRow> createEstablishmentsResultRows( List<String> establishmentsTypes, List<String> establishmentsUai, List<String> services, String userProfile, Date startDate, Date endDate);
+    protected abstract List<ExtendedResultRow> createEstablishmentsResultRows( List<String> establishmentsTypes, List<String> establishmentsUai, List<String> services, List<String> usersProfiles, Date startDate, Date endDate);
 
     /**
      * Creates the result rows; each result row containing the following data :
@@ -232,8 +232,8 @@ public abstract class BasicServiceResultController extends BasicResultController
      * 			The types of the establishments concerned by the statistics.
      * @param services
      * 			The services concerned by the statistics.
-     * @param userProfile
-     * 			The user profile concerned by the statistics.
+     * @param usersProfiles
+     * 			The users profiles concerned by the statistics.
      * @param startDate
      * 			The start date of the statistics.
      * @param endDate
@@ -242,7 +242,7 @@ public abstract class BasicServiceResultController extends BasicResultController
      * @return
      * 	the result rows containing the data to display.
      */
-    protected abstract List<ExtendedResultRow> createSumOnCountiesResultRows( List<String> checkedEstablishmentTypes, List<String> countyNumbers, List<String> establishmentsTypes, List<String> services, String userProfile, Date startDate, Date endDate);
+    protected abstract List<ExtendedResultRow> createSumOnCountiesResultRows( List<String> checkedEstablishmentTypes, List<String> countyNumbers, List<String> establishmentsTypes, List<String> services, List<String> usersProfiles, Date startDate, Date endDate);
     
     //--------------------------------------------------------------------------- PROTECTED METHODS
     

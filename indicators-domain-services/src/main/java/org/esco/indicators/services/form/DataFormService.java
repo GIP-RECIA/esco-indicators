@@ -160,15 +160,15 @@ public interface DataFormService {
     public List<String> getServicesToFilter(List<String> checkedJspKeys);
     
     /**
-     * Gets the user profile to filter when the specified JSP key is checked in the user view.
+     * Gets the users profiles to filter when the specified JSP key is checked in the user view.
      * 
      * @param jspKey
      * 			The JSP key to test.
      * @return
-     * 	the user profile to filter.<br/>
+     * 	the users profiles to filter.<br/>
      * 	<code>null</code> if no user profile has to be filtered.
      */
-    public String getUserProfileToFilter(String jspKey);
+    public List<String> getUsersProfilesToFilter(String jspKey);
     
     /**
      * Gets the users profiles to filter when the specified JSP keys are checked in the user view.

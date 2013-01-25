@@ -27,17 +27,17 @@ import org.apache.log4j.Logger;
 @Entity
 @NamedQueries({    
     @NamedQuery(
-	    name = "WeeklyPortalConnectionStatistic.findConnectionsAverageDurationByProfile",
+	    name = "WeeklyPortalConnectionStatistic.findConnectionsAverageDurationByProfiles",
 	    query = "SELECT SUM(wpcs.numUsers * wpcs.numConnections * wpcs.averageDuration) / SUM(wpcs.numUsers * wpcs.numConnections) FROM  WeeklyPortalConnectionStatistic wpcs"
 		    	+ " WHERE wpcs.establishmentUai =  :establishmentUai"
 			+ " AND wpcs.firstWeekDay = :firstWeekDay " 
-		    	+ " AND wpcs.userProfile = :userProfile"
+		    	+ " AND wpcs.userProfile IN ( :userProfile )"
 	    ),
     @NamedQuery(
-	    name = "WeeklyPortalConnectionStatistic.findStatisticsByProfile",
+	    name = "WeeklyPortalConnectionStatistic.findStatisticsByProfiles",
 	    query = "SELECT wpcs FROM WeeklyPortalConnectionStatistic wpcs"
 	    	+ " WHERE wpcs.establishmentUai IN ( :establishmentUaiList )"
-		+ " AND wpcs.firstWeekDay = :firstWeekDay AND wpcs.userProfile = :userProfile"
+		+ " AND wpcs.firstWeekDay = :firstWeekDay AND wpcs.userProfile IN ( :userProfileList )"
 	    ),
     @NamedQuery(
 	    name = "WeeklyPortalConnectionStatistic.findNumVisitorsBelowTreshold",
@@ -47,11 +47,11 @@ import org.apache.log4j.Logger;
 		+ " AND wpcs.numConnections <= :treshold"
 	    ),	    
     @NamedQuery(
-	    name = "WeeklyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfile",
+	    name = "WeeklyPortalConnectionStatistic.findNumVisitorsBelowTresholdByProfiles",
 	    query = "SELECT SUM(wpcs.numUsers) FROM WeeklyPortalConnectionStatistic wpcs"
 	    	+ " WHERE wpcs.establishmentUai IN ( :establishmentUaiList )"
 		+ " AND wpcs.firstWeekDay = :firstWeekDay "
-	    	+ " AND wpcs.userProfile = :userProfile"
+	    	+ " AND wpcs.userProfile IN ( :userProfileList )"
 		+ " AND wpcs.numConnections <= :treshold"
 	    ),
     @NamedQuery(
@@ -62,11 +62,11 @@ import org.apache.log4j.Logger;
 		+ " AND wpcs.numConnections > :treshold"
 	),
     @NamedQuery(
-	name = "WeeklyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfile",
+	name = "WeeklyPortalConnectionStatistic.findNumVisitorsAboveTresholdByProfiles",
 	query = "SELECT SUM(wpcs.numUsers) FROM WeeklyPortalConnectionStatistic wpcs"
 		+ " WHERE wpcs.establishmentUai IN ( :establishmentUaiList )"
 		+ " AND wpcs.firstWeekDay = :firstWeekDay "
-		+ " AND wpcs.userProfile = :userProfile"
+		+ " AND wpcs.userProfile IN ( :userProfileList )"
 		+ " AND wpcs.numConnections > :treshold"
 	) 
 })

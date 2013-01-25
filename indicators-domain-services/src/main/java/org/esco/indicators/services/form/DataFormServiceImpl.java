@@ -259,13 +259,13 @@ public class DataFormServiceImpl implements DataFormService {
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.form.DataFormService#getuserProfileToFilter(java.lang.String)
+     * @see org.esco.indicators.services.form.DataFormService#getUsersProfilesToFilter(java.lang.String)
      */
     @Override
-    public String getUserProfileToFilter(String jspKey) {
+    public List<String> getUsersProfilesToFilter(String jspKey) {
 	// Retrieval of the entry value
 	EntryValue entryValue = dataFormProvider.getEntryValueByJspKey(jspKey);
-	return entryValue.getUserProfileToFilter();
+	return entryValue.getUsersProfilesToFilter();
     }
 
     /* (non-Javadoc)
@@ -278,9 +278,9 @@ public class DataFormServiceImpl implements DataFormService {
 	
 	// Retrieval of the establishments types to filter
 	for (String jspKey : checkedJspKeys) {
-	    String userProfile = getUserProfileToFilter(jspKey);
-	    if(userProfile != null) {
-		usersProfiles.add(userProfile);
+	    List<String> profiles = getUsersProfilesToFilter(jspKey);
+	    if(profiles != null) {
+		usersProfiles.addAll(profiles);
 	    }
 	}
 	

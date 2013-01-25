@@ -182,9 +182,7 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
 	// Creation of result rows : one result row per establishment and user profile
 	List<DetailResultRow> resultRows = new ArrayList<DetailResultRow>();
 	for (String userProfile : usersProfiles) {
-	    String userProfileToFilter = getDataFormService().getUserProfileToFilter(userProfile);
-	    List<String> usersProfilesToFilter = new ArrayList<String>();
-	    usersProfilesToFilter.add(userProfileToFilter);
+	    List<String> usersProfilesToFilter = getDataFormService().getUsersProfilesToFilter(userProfile);
 	    List<BasicResultRow> basicResultRows = createEstablishmentsResultRows(establishmentsTypes, establishmentsUai, usersProfilesToFilter, startDate, endDate);
 	    resultRows.addAll(convertToDetailResultRows(basicResultRows, userProfile));
 	}
@@ -234,9 +232,7 @@ public class PeriodicAccountResultDetailController extends PeriodicAccountResult
 	// Creation of result rows : one result user profile
 	List<DetailResultRow> resultRows = new ArrayList<DetailResultRow>();
 	for (String userProfile : usersProfiles) {
-	    String userProfileToFilter = getDataFormService().getUserProfileToFilter(userProfile);
-	    List<String> usersProfilesToFilter = new ArrayList<String>();
-	    usersProfilesToFilter.add(userProfileToFilter);
+	    List<String> usersProfilesToFilter = getDataFormService().getUsersProfilesToFilter(userProfile);
 	    List<BasicResultRow> basicResultRows = createSumOnCountiesResultRows(checkedEstablishmentsTypes, countyNumbers, establishmentsTypesToFilter, usersProfilesToFilter, startDate, endDate);
 	    resultRows.addAll(convertToDetailResultRows(basicResultRows, userProfile));
 	}

@@ -55,14 +55,14 @@ import org.apache.log4j.Logger;
 	    name = "ServiceConnectionStatistic.findNumVisits",
 	    query = "SELECT SUM(scs.numConnections) FROM ServiceConnectionStatistic scs"
 	    		+ " WHERE scs.establishmentUai IN ( :establishmentUaiList )"
-	    		+ " AND scs.serviceName IN ( :serviceNameList ) AND scs.userProfile = :userProfile"
+	    		+ " AND scs.serviceName IN ( :serviceNameList ) AND scs.userProfile IN ( :userProfileList )"
 	    		+ " AND scs.day BETWEEN :startDate AND :endDate"
 	    ),
   @NamedQuery(
 	   name = "ServiceConnectionStatistic.findServiceConnectionStatistics",
 	   query = "SELECT scs FROM ServiceConnectionStatistic scs"
 	  		+ " WHERE scs.establishmentUai IN ( :establishmentUaiList )"
-	    		+ " AND scs.serviceName IN ( :serviceNameList ) AND scs.userProfile = :userProfile"
+	    		+ " AND scs.serviceName IN ( :serviceNameList ) AND scs.userProfile IN ( :userProfileList )"
 	    		+ " AND scs.day BETWEEN :startDate AND :endDate"
 	    )
 })

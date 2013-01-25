@@ -8,10 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.esco.indicators.domain.beans.result.BasicResultRow;
 import org.esco.indicators.domain.beans.result.DetailResultRow;
 import org.esco.indicators.domain.beans.result.ExtendedResultRow;
-import org.esco.indicators.utils.classes.IntegerPair;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.utils.date.DateUtils;
@@ -101,9 +99,7 @@ public class EstablishmentPunctualServiceResultController extends BasicEstablish
 	
 	// Create the detail rows for each user profile
 	for (String userProfile : userProfiles) {
-	    String userProfileToFilter = getDataFormService().getUserProfileToFilter(userProfile);
-	    List<String> userProfilesToFilter = new ArrayList<String>();
-	    userProfilesToFilter.add(userProfileToFilter);
+	    List<String> userProfilesToFilter = getDataFormService().getUsersProfilesToFilter(userProfile);
 	    List<ExtendedResultRow> extendedRows = resultServiceFormService.getPunctualMonthResultRows(establishmentUai, services, userProfilesToFilter, month, year);
 	    detailResultRows.addAll(convertToDetailResultRows(extendedRows, userProfile));
 	}
@@ -141,9 +137,7 @@ public class EstablishmentPunctualServiceResultController extends BasicEstablish
 	
 	// Create the detail rows for each user profile
 	for (String userProfile : userProfiles) {
-	    String userProfileToFilter = getDataFormService().getUserProfileToFilter(userProfile);
-	    List<String> userProfilesToFilter = new ArrayList<String>();
-	    userProfilesToFilter.add(userProfileToFilter);
+	    List<String> userProfilesToFilter = getDataFormService().getUsersProfilesToFilter(userProfile);
 	    List<ExtendedResultRow> extendedRows = resultServiceFormService.getPunctualWeekResultRows(establishmentUai, services, userProfilesToFilter, week, year);
 	    detailResultRows.addAll(convertToDetailResultRows(extendedRows, userProfile));
 	}

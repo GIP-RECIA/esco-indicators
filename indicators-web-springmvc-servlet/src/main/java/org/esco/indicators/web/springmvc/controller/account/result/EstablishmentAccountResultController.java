@@ -148,9 +148,6 @@ public class EstablishmentAccountResultController extends PeriodicAccountResultD
      */
     @Override
     protected List<BasicResultRow> createEstablishmentsResultRows( List<String> establishmentsTypes, List<String> establishmentsUai, List<String> usersProfiles, Date startDate, Date endDate) {
-	// Retrieval of the only selected user profile
-	String userProfile = usersProfiles.get(0);
-	
 	// Retrieval of the start and end years
 	Integer startYear = DateUtils.getYear(startDate);
 	Integer endYear = DateUtils.getYear(endDate);
@@ -162,12 +159,12 @@ public class EstablishmentAccountResultController extends PeriodicAccountResultD
 	    // If the only selected establishment type is : CFA
 	    Integer startWeek = DateUtils.getWeekOfYear(startDate);
 	    Integer endWeek = DateUtils.getWeekOfYear(endDate);
-	    return resultAccountFormService.getPeriodicWeekResultRowsWithTimeStats(establishmentsUai, userProfile, startWeek, startYear, endWeek, endYear);
+	    return resultAccountFormService.getPeriodicWeekResultRowsWithTimeStats(establishmentsUai, usersProfiles, startWeek, startYear, endWeek, endYear);
 	}
 			
 	Integer startMonth = DateUtils.getMonthOfYear(startDate);
 	Integer endMonth = DateUtils.getMonthOfYear(endDate);
-	return resultAccountFormService.getPeriodicMonthResultRowsWithTimeStats(establishmentsUai, userProfile, startMonth, startYear, endMonth, endYear);
+	return resultAccountFormService.getPeriodicMonthResultRowsWithTimeStats(establishmentsUai, usersProfiles, startMonth, startYear, endMonth, endYear);
     }
     
     //----------------------------------------------------------------------------- PRIVATE METHODS

@@ -102,22 +102,22 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
     ///////////////////////////////////////////////////////
     
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyConnectionsAverageDurationByProfile(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyConnectionsAverageDurationByProfiles(java.lang.String, java.util.List, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Float findWeeklyConnectionsAverageDurationByProfile(String establishmentUai, String userProfile,
+    public Float findWeeklyConnectionsAverageDurationByProfiles(String establishmentUai, List<String> usersProfiles,
             Integer week, Integer year) {
 	// Get the SQL date corresponding to the first day of the week for the year
 	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
 	
 	// Retrieval of the average duration time of connections for the especial users
 	Float especialAverageDurationTime = especialPortalConnectionStatisticDao
-		.findWeeklyConnectionsAverageDurationByProfile(establishmentUai, firstWeekDay, userProfile);
+		.findWeeklyConnectionsAverageDurationByProfiles(establishmentUai, firstWeekDay, usersProfiles);
 	especialAverageDurationTime = (especialAverageDurationTime != null ? especialAverageDurationTime : 0 );
 	
 	// Average duration time of connections for the normal users
 	Float normalAverageDurationTime = portalConnectionStatisticDao
-		.findWeeklyConnectionsAverageDurationByProfile(establishmentUai, firstWeekDay, userProfile);
+		.findWeeklyConnectionsAverageDurationByProfiles(establishmentUai, firstWeekDay, usersProfiles);
 	normalAverageDurationTime = (normalAverageDurationTime != null ? normalAverageDurationTime : 0 );
 	
 	// Pus the establishment Uai into a list for the methods calls
@@ -125,11 +125,11 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
 	establishmentsUai.add(establishmentUai);
 	
 	// Retrieval of the number of connections for the especials users
-	Integer especialNumConnections = especialPortalConnectionStatisticDao.findWeeklyNumConnectionsByProfile(establishmentsUai, firstWeekDay, userProfile);
+	Integer especialNumConnections = especialPortalConnectionStatisticDao.findWeeklyNumConnectionsByProfiles(establishmentsUai, firstWeekDay, usersProfiles);
 	especialNumConnections = (especialNumConnections != null ? especialNumConnections : 0 );
 	
 	// Retrieval of the number of connections for the normal users
-	Integer normalNumConnections = portalConnectionStatisticDao.findWeeklyNumConnectionsByProfile(establishmentsUai, firstWeekDay, userProfile);
+	Integer normalNumConnections = portalConnectionStatisticDao.findWeeklyNumConnectionsByProfiles(establishmentsUai, firstWeekDay, usersProfiles);
 	normalNumConnections = (normalNumConnections != null ? normalNumConnections : 0 );
 	
 	// Final average time
@@ -138,21 +138,21 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
     }
     
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumConnectionsByProfile(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumConnectionsByProfiles(java.util.List, java.util.List, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findWeeklyNumConnectionsByProfile(List<String> establishmentsUai, String userProfile,
+    public Integer findWeeklyNumConnectionsByProfiles(List<String> establishmentsUai, List<String> usersProfiles,
 	    Integer week, Integer year) {
 	// Get the SQL date corresponding to the first day of the week for the year
 	Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
 	
 	// Number of connections for the especial users
 	Integer especialNumConnections = especialPortalConnectionStatisticDao
-		.findWeeklyNumConnectionsByProfile(establishmentsUai, firstWeekDay, userProfile);
+		.findWeeklyNumConnectionsByProfiles(establishmentsUai, firstWeekDay, usersProfiles);
 	
 	// Number of connections for the normal users
 	Integer normalNumConnections = portalConnectionStatisticDao
-		.findWeeklyNumConnectionsByProfile(establishmentsUai, firstWeekDay, userProfile);
+		.findWeeklyNumConnectionsByProfiles(establishmentsUai, firstWeekDay, usersProfiles);
 	
 	// Final number of connections
 	Integer numConnections = especialNumConnections + normalNumConnections;
@@ -187,35 +187,35 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
 
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumVisitorsAboveTreshold(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumVisitorsAboveTresholdByProfiles(java.lang.String, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findWeeklyNumVisitorsAboveTresholdByProfile(String establishmentUai, String userProfile,
+    public Integer findWeeklyNumVisitorsAboveTresholdByProfiles(String establishmentUai, List<String> usersProfiles,
             Integer week, Integer year, Integer treshold) {
         // Put the establishment UAI into a list
 	List<String> establishmentsUai = new ArrayList<String>();
 	establishmentsUai.add(establishmentUai);
         
-        return findWeeklyNumVisitorsAboveTresholdByProfile(establishmentsUai, userProfile, week, year, treshold);
+        return findWeeklyNumVisitorsAboveTresholdByProfiles(establishmentsUai, usersProfiles, week, year, treshold);
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumVisitorsAboveTresholdByProfile(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumVisitorsAboveTresholdByProfiles(java.util.List, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findWeeklyNumVisitorsAboveTresholdByProfile(List<String> establishmentsUai,
-            String userProfile, Integer week, Integer year, Integer treshold) {
+    public Integer findWeeklyNumVisitorsAboveTresholdByProfiles(List<String> establishmentsUai,
+            List<String> usersProfiles, Integer week, Integer year, Integer treshold) {
         // Get the SQL date corresponding to the first day of the week for the year
         Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
         
         // Number of visitors for the especial users
         Integer especialNumVisitors = especialPortalConnectionStatisticDao
-        	.findWeeklyNumVisitorsAboveTresholdByProfile(establishmentsUai, firstWeekDay, userProfile, treshold);
+        	.findWeeklyNumVisitorsAboveTresholdByProfiles(establishmentsUai, firstWeekDay, usersProfiles, treshold);
         especialNumVisitors = (especialNumVisitors == null ? 0 : especialNumVisitors);
         
         // Number of visitors for the normal users
         Integer normalNumVisitors = portalConnectionStatisticDao
-        	.findWeeklyNumVisitorsAboveTresholdByProfile(establishmentsUai, firstWeekDay, userProfile, treshold);
+        	.findWeeklyNumVisitorsAboveTresholdByProfiles(establishmentsUai, firstWeekDay, usersProfiles, treshold);
         normalNumVisitors = (normalNumVisitors == null ? 0 : normalNumVisitors);
         
         // Final number of visitors
@@ -252,36 +252,35 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
 
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumConnectionsBelowTreshold(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumVisitorsBelowTresholdByProfiles(java.lang.String, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findWeeklyNumVisitorsBelowTresholdByProfile(String establishmentUai, String userProfile,
+    public Integer findWeeklyNumVisitorsBelowTresholdByProfiles(String establishmentUai, List<String> usersProfiles,
             Integer week, Integer year, Integer treshold) {
         // Put the establishment UAI into a list
 	List<String> establishmentsUai = new ArrayList<String>();
 	establishmentsUai.add(establishmentUai);
 	
-        return findWeeklyNumVisitorsBelowTresholdByProfile(establishmentsUai, userProfile, week, year, treshold);
+        return findWeeklyNumVisitorsBelowTresholdByProfiles(establishmentsUai, usersProfiles, week, year, treshold);
     }
 
-
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumVisitorsBelowTresholdByProfile(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findWeeklyNumVisitorsBelowTresholdByProfiles(java.util.List, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findWeeklyNumVisitorsBelowTresholdByProfile(List<String> establishmentsUai,
-            String userProfile, Integer week, Integer year, Integer treshold) {
+    public Integer findWeeklyNumVisitorsBelowTresholdByProfiles(List<String> establishmentsUai,
+            List<String> usersProfiles, Integer week, Integer year, Integer treshold) {
         // Get the SQL date corresponding to the first day of the week for the year
         Date firstWeekDay = DateUtils.getFirstWeekDay(week, year);
         
         // Number of visitors for the especial users
         Integer especialNumVisitors = especialPortalConnectionStatisticDao
-        	.findWeeklyNumVisitorsBelowTresholdByProfile(establishmentsUai, firstWeekDay, userProfile, treshold);
+        	.findWeeklyNumVisitorsBelowTresholdByProfiles(establishmentsUai, firstWeekDay, usersProfiles, treshold);
         especialNumVisitors = (especialNumVisitors == null ? 0 : especialNumVisitors);
         
         // Number of visitors for the normal users
         Integer normalNumVisitors = portalConnectionStatisticDao
-        	.findWeeklyNumVisitorsBelowTresholdByProfile(establishmentsUai, firstWeekDay, userProfile, treshold);
+        	.findWeeklyNumVisitorsBelowTresholdByProfiles(establishmentsUai, firstWeekDay, usersProfiles, treshold);
         normalNumVisitors = (normalNumVisitors == null ? 0 : normalNumVisitors);
         
         // Final number of visitors
@@ -296,22 +295,22 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
     ///////////////////////////////////////////////////////
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findMonthlyConnectionsAverageDurationByProfile(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findMonthlyConnectionsAverageDurationByProfiles(java.lang.String, java.util.List, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Float findMonthlyConnectionsAverageDurationByProfile(String establishmentUai, String userProfile,
+    public Float findMonthlyConnectionsAverageDurationByProfiles(String establishmentUai, List<String> usersProfiles,
             Integer month, Integer year) {
 	// Get the SQL date corresponding to the first day of the month for the year
 	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
 	
 	// Retrieval of the average duration time of connections for the especial users
 	Float especialAverageDurationTime = especialPortalConnectionStatisticDao
-		.findMonthlyConnectionsAverageDurationByProfile(establishmentUai, firstMonthDay, userProfile);
+		.findMonthlyConnectionsAverageDurationByProfiles(establishmentUai, firstMonthDay, usersProfiles);
 	especialAverageDurationTime = (especialAverageDurationTime != null ? especialAverageDurationTime : 0 );
 	
 	// Average duration time of connections for the normal users
 	Float normalAverageDurationTime = portalConnectionStatisticDao
-		.findMonthlyConnectionsAverageDurationByProfile(establishmentUai, firstMonthDay, userProfile);
+		.findMonthlyConnectionsAverageDurationByProfiles(establishmentUai, firstMonthDay, usersProfiles);
 	normalAverageDurationTime = (normalAverageDurationTime != null ? normalAverageDurationTime : 0 );
 	
 	// Pus the establishment Uai into a list for the methods calls
@@ -319,11 +318,11 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
 	establishmentsUai.add(establishmentUai);
 	
 	// Retrieval of the number of connections for the especials users
-	Integer especialNumConnections = especialPortalConnectionStatisticDao.findMonthlyNumConnectionsByProfile(establishmentsUai, firstMonthDay, userProfile);
+	Integer especialNumConnections = especialPortalConnectionStatisticDao.findMonthlyNumConnectionsByProfiles(establishmentsUai, firstMonthDay, usersProfiles);
 	especialNumConnections = (especialNumConnections != null ? especialNumConnections : 0 );
 	
 	// Retrieval of the number of connections for the normal users
-	Integer normalNumConnections = portalConnectionStatisticDao.findMonthlyNumConnectionsByProfile(establishmentsUai, firstMonthDay, userProfile);
+	Integer normalNumConnections = portalConnectionStatisticDao.findMonthlyNumConnectionsByProfiles(establishmentsUai, firstMonthDay, usersProfiles);
 	normalNumConnections = (normalNumConnections != null ? normalNumConnections : 0 );
 	
 	// Final average time
@@ -332,21 +331,21 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findMonthlyNumConnectionsByProfile(java.util.List, java.lang.String, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findMonthlyNumConnectionsByProfiles(java.util.List, java.util.List, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumConnectionsByProfile(List<String> establishmentsUai, String userProfile,
+    public Integer findMonthlyNumConnectionsByProfiles(List<String> establishmentsUai, List<String> usersProfiles,
 	    Integer month, Integer year) {
 	// Get the SQL date corresponding to the first day of the month for the year
 	Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
 	
 	// Number of connections for the especial users
 	Integer especialNumConnections = especialPortalConnectionStatisticDao
-		.findMonthlyNumConnectionsByProfile(establishmentsUai, firstMonthDay, userProfile);
+		.findMonthlyNumConnectionsByProfiles(establishmentsUai, firstMonthDay, usersProfiles);
 	
 	// Number of connections for the normal users
 	Integer normalNumConnections = portalConnectionStatisticDao
-		.findMonthlyNumConnectionsByProfile(establishmentsUai, firstMonthDay, userProfile);
+		.findMonthlyNumConnectionsByProfiles(establishmentsUai, firstMonthDay, usersProfiles);
 	
 	// Final number of connections
 	Integer numConnections = especialNumConnections + normalNumConnections;
@@ -382,22 +381,22 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
 
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findMonthlyNumVisitorsAboveTreshold(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findMonthlyNumVisitorsAboveTresholdByProfiles(java.util.List, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumVisitorsAboveTresholdByProfile(List<String> establishmentsUai, String userProfile,
+    public Integer findMonthlyNumVisitorsAboveTresholdByProfiles(List<String> establishmentsUai, List<String> usersProfiles,
 	    Integer month, Integer year, Integer treshold) {
         // Get the SQL date corresponding to the first day of the week for the year
         Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
         
         // Number of visitors for the especial users
         Integer especialNumVisitors = especialPortalConnectionStatisticDao
-        	.findMonthlyNumVisitorsAboveTresholdByProfile(establishmentsUai, firstMonthDay, userProfile, treshold);
+        	.findMonthlyNumVisitorsAboveTresholdByProfiles(establishmentsUai, firstMonthDay, usersProfiles, treshold);
         especialNumVisitors = (especialNumVisitors == null ? 0 : especialNumVisitors);
         
         // Number of visitors for the normal users
         Integer normalNumVisitors = portalConnectionStatisticDao
-        	.findMonthlyNumVisitorsAboveTresholdByProfile(establishmentsUai, firstMonthDay, userProfile, treshold);
+        	.findMonthlyNumVisitorsAboveTresholdByProfiles(establishmentsUai, firstMonthDay, usersProfiles, treshold);
         normalNumVisitors = (normalNumVisitors == null ? 0 : normalNumVisitors);
         
         // Final number of visitors
@@ -432,22 +431,22 @@ public class PortalConnectionStatisticServiceImpl implements PortalConnectionSta
     }
 
     /* (non-Javadoc)
-     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findMonthlyNumVisitorsBelowTreshold(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     * @see org.esco.indicators.services.statistic.PortalConnectionStatisticService#findMonthlyNumVisitorsBelowTresholdByProfiles(java.util.List, java.util.List, java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public Integer findMonthlyNumVisitorsBelowTresholdByProfile(List<String> establishmentsUai, String userProfile,
+    public Integer findMonthlyNumVisitorsBelowTresholdByProfiles(List<String> establishmentsUai, List<String> usersProfiles,
 	    Integer month, Integer year, Integer treshold) {
         // Get the SQL date corresponding to the first day of the week for the year
         Date firstMonthDay = DateUtils.getFirstMonthDay(month, year);
         
         // Number of visitors for the especial users
         Integer especialNumVisitors = especialPortalConnectionStatisticDao
-        	.findMonthlyNumVisitorsBelowTresholdByProfile(establishmentsUai, firstMonthDay, userProfile, treshold);
+        	.findMonthlyNumVisitorsBelowTresholdByProfiles(establishmentsUai, firstMonthDay, usersProfiles, treshold);
         especialNumVisitors = (especialNumVisitors == null ? 0 : especialNumVisitors);
         
         // Number of visitors for the normal users
         Integer normalNumVisitors = portalConnectionStatisticDao
-        	.findMonthlyNumVisitorsBelowTresholdByProfile(establishmentsUai, firstMonthDay, userProfile, treshold);
+        	.findMonthlyNumVisitorsBelowTresholdByProfiles(establishmentsUai, firstMonthDay, usersProfiles, treshold);
         normalNumVisitors = (normalNumVisitors == null ? 0 : normalNumVisitors);
         
         // Final number of connections
