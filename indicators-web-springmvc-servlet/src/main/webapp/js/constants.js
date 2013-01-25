@@ -77,7 +77,8 @@ USERS_PROFILES.values       = new Array( "usersProfiles.EMPLOYERS",
                                          "usersProfiles.STUDENTS",
                                          "usersProfiles.TEACHERS",
                                          "usersProfiles.STAFF",
-                                         "usersProfiles.STAFF_COLLECTIVITY" );
+                                         "usersProfiles.STAFF_COLLECTIVITY",
+                                         "usersProfiles.SUM_PROFILES" );
 
 ///////////////////////////////////////
 // SPINNER OPTIONS
