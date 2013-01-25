@@ -297,14 +297,13 @@ public interface ResultServiceFormService {
     public List<ExtendedResultRow> getPunctualMonthResultRows(List<String> establishmentsUai,  List<String> services, List<String> usersProfiles, Integer month, Integer year);
     
     /**
-     * Gets the result rows containing the data on the establishement and the user profiles.<br/>
+     * Gets the result row containing the data on the establishement and the users profiles.<br/>
      * These data only concern the specified <code>month</code> of the specified <code>year</code>.<br/>
-     * Each result row is associated to one establishment, and contained two kinds of data :
+     * The result row is associated to one establishment, and contained two kinds of data :
      * <ul>
      * 	<li>The establishment data</li>
-     * 	<li>The statistic data  (number of active accounts,...) indexed by user profile</li>
+     * 	<li>The statistic data  (number of active accounts,...)</li>
      * </ul>
-     * In fact, in each result row, there is one statistic data per user profile.<br/>
      * For more informations on the result row content, see {@link BasicResultRow}.
      * 
      * @param establishmentUai
@@ -312,16 +311,16 @@ public interface ResultServiceFormService {
      * @param services
      * 			The services.
      * @param userProfiles
-     * 			The user profiles.
+     * 			The users profiles.
      * @param month
      * 			The month number.
      * @param year
      * 			The year.
      * 
      * @return
-     * 	the result rows containing establishment data, and statistics data, for each user profile in the establishment.
+     * 	the result rows containing establishment data, and statistics data, for the users profiles in the establishment.
      */
-    public List<ExtendedResultRow> getPunctualMonthResultRows(String establishmentUai,  List<String> services, List<String> userProfiles, Integer month, Integer year);
+    public ExtendedResultRow getPunctualMonthResultRow(String establishmentUai,  List<String> services, List<String> userProfiles, Integer month, Integer year);
 
     /**
      * Gets the result rows containing the data on the establishements, the services and the users profiles.<br/>

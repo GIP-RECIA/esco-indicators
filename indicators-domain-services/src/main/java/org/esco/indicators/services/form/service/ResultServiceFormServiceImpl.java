@@ -392,27 +392,14 @@ public class ResultServiceFormServiceImpl implements ResultServiceFormService {
      * @see org.esco.indicators.services.form.service.ResultServiceFormService#getPunctualMonthResultRows(java.lang.String, java.util.List, java.util.List, java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public List<ExtendedResultRow> getPunctualMonthResultRows(String establishmentUai, List<String> services,
+    public ExtendedResultRow getPunctualMonthResultRow(String establishmentUai, List<String> services,
             List<String> userProfiles, Integer month, Integer year) {
-	// Final result
-	List<ExtendedResultRow> rows = new ArrayList<ExtendedResultRow>();
-	
-	// For each county number :
-	//	Creation of the corresponding result row
-	//	Addition of the user profile in the result row
-	//	Addition of the statistic data in the result row (for each service)
-	for(String userProfile : userProfiles) {
-	    List<String> userProfileList = new ArrayList<String>();
-	    userProfileList.add(userProfile);
-	    ExtendedResultRow resultRow = createMonthlyExtendedResultRow(establishmentUai, userProfileList, month, year);
-    	    for(String service : services) {
-    		ServiceStatistic statistic = createPunctualMonthStatisticData(establishmentUai, service, userProfileList, month, year);
-    		resultRow.putStatisticData(service, statistic);
-    	    }
-    	    rows.add(resultRow);
-	}
-	
-        return rows;
+	ExtendedResultRow resultRow = createMonthlyExtendedResultRow(establishmentUai, userProfiles, month, year);
+    	for(String service : services) {
+    	    ServiceStatistic statistic = createPunctualMonthStatisticData(establishmentUai, service, userProfiles, month, year);
+    	    resultRow.putStatisticData(service, statistic);
+    	}
+        return resultRow;
     }
 
     //----------------------------------------------------------------------------- PRIVATE METHODS
