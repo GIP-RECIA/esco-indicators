@@ -67,7 +67,10 @@ public class PortalConnectionStatisticServiceTest {
 	establishmentsUai.add(establishmentUai);
 	
 	String userProfile = "Teacher";
-	Integer actual = portalConnectionStatisticService.findWeeklyNumConnectionsByProfile(establishmentsUai, userProfile, weekNumber, year);
+	List<String> usersProfiles = new ArrayList<String>();
+	usersProfiles.add(userProfile);
+	
+	Integer actual = portalConnectionStatisticService.findWeeklyNumConnectionsByProfiles(establishmentsUai, usersProfiles, weekNumber, year);
 	
 	Assert.assertEquals(expected, actual);
     }
@@ -99,10 +102,14 @@ public class PortalConnectionStatisticServiceTest {
 	Integer year = 2012;
 	Integer weekNumber = 22;
 	String establishmentUai = "0453456A";
+	
 	String userProfile = "Teacher";
+	List<String> usersProfiles = new ArrayList<String>();
+	usersProfiles.add(userProfile);
+	
 	Integer treshold = 8;
 	
-	Integer actual = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTresholdByProfile(establishmentUai, userProfile, weekNumber, year, treshold);
+	Integer actual = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTresholdByProfiles(establishmentUai, usersProfiles, weekNumber, year, treshold);
 	
 	Assert.assertEquals(expected, actual);
     }
@@ -134,10 +141,14 @@ public class PortalConnectionStatisticServiceTest {
 	Integer year = 2012;
 	Integer weekNumber = 22;
 	String establishmentUai = "0453456A";
+	
 	String userProfile = "Teacher";
+	List<String> usersProfiles = new ArrayList<String>();
+	usersProfiles.add(userProfile);
+	
 	Integer treshold = 12;
 	
-	Integer actual = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTresholdByProfile(establishmentUai, userProfile, weekNumber, year, treshold);
+	Integer actual = portalConnectionStatisticService.findWeeklyNumVisitorsBelowTresholdByProfiles(establishmentUai, usersProfiles, weekNumber, year, treshold);
 	
 	Assert.assertEquals(expected, actual);
     }
@@ -171,8 +182,12 @@ public class PortalConnectionStatisticServiceTest {
 	
 	Integer year = 2012;
 	Integer month = 05;
+	
 	String userProfile = "Teacher";
-	Integer actual = portalConnectionStatisticService.findMonthlyNumConnectionsByProfile(establishmentsUai, userProfile, month, year);
+	List<String> usersProfiles = new ArrayList<String>();
+	usersProfiles.add(userProfile);
+	
+	Integer actual = portalConnectionStatisticService.findMonthlyNumConnectionsByProfiles(establishmentsUai, usersProfiles, month, year);
 	
 	Assert.assertEquals(expected, actual);
     }

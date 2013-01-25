@@ -10,6 +10,7 @@ import java.util.List;
 import junit.framework.Assert;
 
 import org.esco.indicators.utils.date.DateUtils;
+import org.hibernate.mapping.Array;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +59,14 @@ public class AccountStatisticServiceTest {
 	String establishmentUai = "0453456A";
 	List<String> establishmentsUai = new ArrayList<String>();
 	establishmentsUai.add(establishmentUai);
+	
 	String userProfile = "Teacher";
+	List<String> usersProfiles = new ArrayList<String>();
+	usersProfiles.add(userProfile);
+	
 	Integer week = 12;
 	Integer year = 2011;
-	Integer actual  = accountStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentsUai, userProfile, week, year);
+	Integer actual  = accountStatisticService.findWeeklyNumActivatedAccountsForProfiles(establishmentsUai, usersProfiles, week, year);
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -83,10 +88,14 @@ public class AccountStatisticServiceTest {
 	String establishmentUai = "0453456A";
 	List<String> establishmentsUai = new ArrayList<String>();
 	establishmentsUai.add(establishmentUai);
+	
 	String userProfile = "Teacher";
+	List<String> usersProfiles = new ArrayList<String>();
+	usersProfiles.add(userProfile);
+	
 	Integer week = 6;
 	Integer year = 2012;
-	Integer actual  = accountStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentsUai, userProfile, week, year);
+	Integer actual  = accountStatisticService.findWeeklyNumActivatedAccountsForProfiles(establishmentsUai, usersProfiles, week, year);
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -108,10 +117,14 @@ public class AccountStatisticServiceTest {
 	String establishmentUai = "0453456A";
 	List<String> establishmentsUai = new ArrayList<String>();
 	establishmentsUai.add(establishmentUai);
+	
 	String userProfile = "Teacher";
+	List<String> usersProfiles = new ArrayList<String>();
+	usersProfiles.add(userProfile);
+	
 	Integer week = 6;
 	Integer year = 2002;
-	Integer actual  = accountStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentsUai, userProfile, week, year);
+	Integer actual  = accountStatisticService.findWeeklyNumActivatedAccountsForProfiles(establishmentsUai, usersProfiles, week, year);
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -133,10 +146,14 @@ public class AccountStatisticServiceTest {
 	String establishmentUai = "0888888A";
 	List<String> establishmentsUai = new ArrayList<String>();
 	establishmentsUai.add(establishmentUai);
+	
 	String userProfile = "FakeProfile";
+	List<String> usersProfiles = new ArrayList<String>();
+	usersProfiles.add(userProfile);
+	
 	Integer week = 6;
 	Integer year = 2012;
-	Integer actual  = accountStatisticService.findWeeklyNumActivatedAccountsForProfile(establishmentsUai, userProfile, week, year);
+	Integer actual  = accountStatisticService.findWeeklyNumActivatedAccountsForProfiles(establishmentsUai, usersProfiles, week, year);
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -161,8 +178,12 @@ public class AccountStatisticServiceTest {
 	establishmentsUai.add(establishmentUai);
 	Integer week = 6;
 	Integer year = 2012;
+	
 	String userProfile = "Teacher";
-	Integer actual  = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentsUai, userProfile, week, year);
+	List<String> usersProfiles = new ArrayList<String>();
+	usersProfiles.add(userProfile);
+	
+	Integer actual  = accountStatisticService.findWeeklyTotalNumAccountsForProfiles(establishmentsUai, usersProfiles, week, year);
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -186,8 +207,12 @@ public class AccountStatisticServiceTest {
 	establishmentsUai.add(establishmentUai);
 	Integer week = 38;
 	Integer year = 2011;
+	
 	String userProfile = "Teacher";
-	Integer actual  = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentsUai, userProfile, week, year);
+	List<String> usersProfiles = new ArrayList<String>();
+	usersProfiles.add(userProfile);
+	
+	Integer actual  = accountStatisticService.findWeeklyTotalNumAccountsForProfiles(establishmentsUai, usersProfiles, week, year);
 	
 	// Test
 	Assert.assertEquals(expected, actual);
@@ -211,8 +236,12 @@ public class AccountStatisticServiceTest {
 	establishmentsUai.add(establishmentUai);
 	Integer week = 01;
 	Integer year = 2002;
+	
 	String userProfile = "Teacher";
-	Integer actual  = accountStatisticService.findWeeklyTotalNumAccountsForProfile(establishmentsUai, userProfile, week, year);
+	List<String> usersProfiles = new ArrayList<String>();
+	usersProfiles.add(userProfile);
+	
+	Integer actual  = accountStatisticService.findWeeklyTotalNumAccountsForProfiles(establishmentsUai, usersProfiles, week, year);
 	
 	// Test
 	Assert.assertEquals(expected, actual);
