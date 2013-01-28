@@ -278,21 +278,25 @@ public abstract class BasicFormController extends BasicController {
     */
    @ModelAttribute("estbalishmentsTypesItems")
    public List<FormField> populateEstablishmentsTypes(HttpServletRequest request) {
-	return getEntryFormFields(DataFormConstants.ESTABLISHMENTS_TYPES);
+	List<FormField> establishmentsTypes = getEntryFormFields(DataFormConstants.ESTABLISHMENTS_TYPES);
+	establishmentsTypes = keepAuthorizedEstablishmentsTypes(establishmentsTypes);
+	return establishmentsTypes;
    }
        
    /**
-    * Populate the "lycees"  types field.
+    * Populate the "la"  types field.
     * 
     * @param request
     * 			The request made by the user.
     * @return
-    * 	the available values for the "lycees"  types field.
+    * 		the available values for the "la"  types field.
     */
    @ModelAttribute("laTypesItems")
    public List<FormField> populateLaTypes(HttpServletRequest request) {
-	return getEntryFormFields(DataFormConstants.LA_TYPES);
-   }    
+	List<FormField> laTypes = getEntryFormFields(DataFormConstants.LA_TYPES);
+	laTypes = keepAuthorizedEstablishmentsTypes(laTypes);
+	return laTypes;
+   }  
    
    /**
     * Populate the "lycees agricoles"  types field.
@@ -300,11 +304,13 @@ public abstract class BasicFormController extends BasicController {
     * @param request
     * 			The request made by the user.
     * @return
-    * 	the available values for the "lycees agricoles"  types field.
+    * 		the available values for the "lycees agricoles"  types field.
     */
    @ModelAttribute("lyceesTypesItems")
    public List<FormField> populateLyceesTypes(HttpServletRequest request) {
-	return getEntryFormFields(DataFormConstants.LYCEES_TYPES);
+	List<FormField> lyceesTypes = getEntryFormFields(DataFormConstants.LYCEES_TYPES);
+	lyceesTypes = keepAuthorizedEstablishmentsTypes(lyceesTypes);
+	return lyceesTypes;
    }
        
    /**

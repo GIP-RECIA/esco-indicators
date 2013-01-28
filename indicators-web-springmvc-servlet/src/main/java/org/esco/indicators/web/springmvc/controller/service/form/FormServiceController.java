@@ -90,54 +90,6 @@ public class FormServiceController extends BasicFormController {
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**
-     * Populate the establishments types field.
-     * 
-     * @param request
-     * 			The request made by the user.
-     * @return
-     * 	the available values for the establishments types field.
-     */
-    @Override
-    @ModelAttribute("estbalishmentsTypesItems")
-    public List<FormField> populateEstablishmentsTypes(HttpServletRequest request) {
- 	List<FormField> establishmentsTypes = getEntryFormFields(DataFormConstants.ESTABLISHMENTS_TYPES);
- 	establishmentsTypes = keepAuthorizedEstablishmentsTypes(establishmentsTypes);
- 	return establishmentsTypes;
-    }
-    
-    /**
-     * Populate the "lycees"  types field.
-     * 
-     * @param request
-     * 			The request made by the user.
-     * @return
-     * 	the available values for the "lycees"  types field.
-     */
-    @Override
-    @ModelAttribute("laTypesItems")
-    public List<FormField> populateLaTypes(HttpServletRequest request) {
- 	List<FormField> laTypes = getEntryFormFields(DataFormConstants.LA_TYPES);
- 	laTypes = keepAuthorizedEstablishmentsTypes(laTypes);
- 	return laTypes;
-    }    
-    
-    /**
-     * Populate the "lycees agricoles"  types field.
-     * 
-     * @param request
-     * 			The request made by the user.
-     * @return
-     * 	the available values for the "lycees agricoles"  types field.
-     */
-    @Override
-    @ModelAttribute("lyceesTypesItems")
-    public List<FormField> populateLyceesTypes(HttpServletRequest request) {
- 	List<FormField> lyceesTypes = getEntryFormFields(DataFormConstants.LYCEES_TYPES);
- 	lyceesTypes = keepAuthorizedEstablishmentsTypes(lyceesTypes);
- 	return lyceesTypes;
-    }
-    
-    /**
      * Populate the available services field.
      * 
      * @param request
