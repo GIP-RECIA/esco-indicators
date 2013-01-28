@@ -3,7 +3,6 @@
  */
 package org.esco.indicators.web.springmvc.controller.download;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
@@ -11,7 +10,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.SocketException;
 import java.util.HashMap;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
@@ -22,8 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.sun.mail.iap.ByteArray;
 
 /**
  * Controller used to send data to download to the user.

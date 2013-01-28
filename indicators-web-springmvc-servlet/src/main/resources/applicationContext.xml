@@ -68,9 +68,6 @@
     <bean   id="serviceValidator" 
             class="org.esco.indicators.web.springmvc.validator.service.ServiceValidator" />            
             
-    <bean   id="userController" 
-            class="org.esco.indicators.web.springmvc.controller.user.UserController" />
-            
     <bean   id="welcomeController"
             class="org.esco.indicators.web.springmvc.controller.WelcomeController"
             scope="session">

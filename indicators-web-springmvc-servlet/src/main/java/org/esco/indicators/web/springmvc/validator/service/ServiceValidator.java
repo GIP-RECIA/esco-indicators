@@ -3,17 +3,11 @@
  */
 package org.esco.indicators.web.springmvc.validator.service;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.ServiceForm;
 import org.esco.indicators.utils.constants.web.FormValidationConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
-import org.esco.indicators.utils.list.ListUtils;
-import org.esco.indicators.web.springmvc.validator.basic.BasicValidator;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 
 /**
  * Validator of the {@link ServiceForm}.

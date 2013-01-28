@@ -3,17 +3,12 @@
  */
 package org.esco.indicators.web.springmvc.validator.account;
 
-import javax.xml.crypto.Data;
-
 import org.apache.log4j.Logger;
 import org.esco.indicators.domain.beans.form.AccountActivationForm;
 import org.esco.indicators.utils.constants.web.FormValidationConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.web.springmvc.validator.basic.BasicValidator;
-import org.hibernate.classic.Validatable;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.Validator;
 
 /**
  * Validator of the {@link AccountActivationForm}.
