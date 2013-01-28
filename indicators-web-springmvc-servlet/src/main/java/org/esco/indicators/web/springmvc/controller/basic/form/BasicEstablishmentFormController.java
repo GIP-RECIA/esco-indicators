@@ -33,20 +33,34 @@ public abstract class BasicEstablishmentFormController extends BasicFormControll
     
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
-     * Constructor of the {@link BasicEstablishmentFormController} class.
+     * Constructor of the {@link BasicEstablishmentFormController}.
      * 
      * @param formSessionAttribute
      * 			The name of the attribute used to store the submitted form in the user session.
+     * @param formName
+     * 			The name of the form associated to the controller
+     * @param userFormViewName
+     * 			The name of the form view to display to a normal user
+     * @param superUserFormViewName
+     * 			The name of the form view to display to a super user
+     * @param successViewName
+     * 			The name of the form view to display on form validation success
+     * @param failureViewName 
+     * 			The name of the form view to display on form validation failure
      */
-    public BasicEstablishmentFormController(String formSessionAttribute) {
-	super(formSessionAttribute);
+    public BasicEstablishmentFormController(String formSessionAttribute, String formName,
+	    String userFormViewName, String superUserFormViewName, String successViewName,
+	    String failureViewName) {
+	super(formSessionAttribute, formName, userFormViewName, superUserFormViewName, successViewName,
+		failureViewName);
     }
+    
+    
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
 
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
-    
     /* (non-Javadoc)
      * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#populateCounties(javax.servlet.http.HttpServletRequest)
      */

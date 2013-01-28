@@ -40,50 +40,10 @@ public class EstablishmentFormAccountController extends BasicEstablishmentFormCo
      * Default constructor of the {@link EstablishmentFormAccountController} class.
      */
     public EstablishmentFormAccountController() {
-	super(SessionConstants.ACCOUNT_FORM_ATTR);
+	super(SessionConstants.ACCOUNT_FORM_ATTR, "accountactivationform", "establishment-form-accounts", "establishment-form-accounts", "redirect:establishment-accounts-activations-result", "establishment-form-accounts");
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getFailureViewName(org.esco.indicators.domain.beans.form.BasicForm)
-     */
-    @Override
-    public String getFailureViewName(BasicForm unvalidForm) {
-        return "establishment-form-accounts";
-    }
-
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getFormName()
-     */
-    @Override
-    public String getFormName() {
-        return "accountactivationform";
-    }
-
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getSuccessViewName(org.esco.indicators.domain.beans.form.BasicForm)
-     */
-    @Override
-    public String getSuccessViewName(BasicForm validForm) {
-	return "redirect:establishment-accounts-activations-result";
-    }
-
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getSuperUserFormViewName()
-     */
-    @Override
-    public String getSuperUserFormViewName() {
-        return "establishment-form-accounts";
-    }
-
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getUserFormViewName()
-     */
-    @Override
-    public String getUserFormViewName() {
-        return "establishment-form-accounts";
-    }
-
     /**
      * Sets the data form service
      * 

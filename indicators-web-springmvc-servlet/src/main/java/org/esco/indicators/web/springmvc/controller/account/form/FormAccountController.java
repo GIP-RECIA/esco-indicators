@@ -44,26 +44,10 @@ public class FormAccountController extends BasicFormController  {
      * Default constructor of the {@link FormAccountController} class.
      */
     public FormAccountController() {
-	super(SessionConstants.ACCOUNT_FORM_ATTR);
+	super(SessionConstants.ACCOUNT_FORM_ATTR, "accountactivationform", "redirect:establishment-accounts-activations", "form-accounts", null, "form-accounts");
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getFailureViewName(org.esco.indicators.domain.beans.form.BasicForm)
-     */
-    @Override
-    public String getFailureViewName(BasicForm unvalidForm) {
-        return "form-accounts";
-    }
-
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getFormName()
-     */
-    @Override
-    public String getFormName() {
-        return "accountactivationform";
-    }
-
     /* (non-Javadoc)
      * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getSuccessViewName(org.esco.indicators.domain.beans.form.BasicForm)
      */
@@ -74,22 +58,6 @@ public class FormAccountController extends BasicFormController  {
 	    return "redirect:accounts-activations-attendance-result";
 	}
 	return "redirect:accounts-activations-monitoring-attendance-result";
-    }
-
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getSuperUserFormViewName()
-     */
-    @Override
-    public String getSuperUserFormViewName() {
-        return "form-accounts";
-    }
-
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getUserFormViewName()
-     */
-    @Override
-    public String getUserFormViewName() {
-        return "redirect:establishment-accounts-activations";
     }
 
     /**

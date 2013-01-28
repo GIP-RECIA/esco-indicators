@@ -19,6 +19,7 @@ import org.esco.indicators.utils.constants.web.RequestParameters;
 import org.esco.indicators.utils.constants.web.SessionConstants;
 import org.esco.indicators.utils.constants.xml.DataFormConstants;
 import org.esco.indicators.web.springmvc.controller.basic.BasicController;
+import org.omg.PortableInterceptor.SUCCESSFUL;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
@@ -49,16 +50,46 @@ public abstract class BasicFormController extends BasicController {
     /** Validator used for the form validation */
     protected Validator formValidator;
     
+    /** The name of the form associated to the controller */
+    protected String formName;
+    
+    /** The name of the form view to display to a normal user */
+    protected String userFormViewName;
+    
+    /** The name of the form view to display to a super user */
+    protected String superUserFormViewName;
+    
+    /** The name of the form view to display on form validation success */
+    protected String successViewName;
+    
+    /** The name of the form view to display on form validation failure */
+    protected String failureViewName;
+    
     //-------------------------------------------------------------------------------- CONSTRUCTORS
     /**
      * Constructor of the {@link BasicFormController}.
      * 
      * @param formSessionAttribute
      * 			The name of the attribute used to store the submitted form in the user session.
+     * @param formName
+     * 			The name of the form associated to the controller
+     * @param userFormViewName
+     * 			The name of the form view to display to a normal user
+     * @param superUserFormViewName
+     * 			The name of the form view to display to a super user
+     * @param successViewName
+     * 			The name of the form view to display on form validation success
+     * @param failureViewName 
+     * 			The name of the form view to display on form validation failure
      */
-    public BasicFormController(String formSessionAttribute) {
+    public BasicFormController(String formSessionAttribute, String formName, String userFormViewName, String superUserFormViewName, String successViewName, String failureViewName) {
 	super();
 	this.formSessionAttribute = formSessionAttribute;
+	this.formName = formName;
+	this.userFormViewName = userFormViewName;
+	this.superUserFormViewName = superUserFormViewName;
+	this.successViewName = successViewName;
+	this.failureViewName = failureViewName;
     }
     
     //--------------------------------------------------------------------------- GETTERS / SETTERS
@@ -83,7 +114,9 @@ public abstract class BasicFormController extends BasicController {
      * @return
      * 	the name of the failure view
      */
-    public abstract String getFailureViewName(BasicForm unvalidForm);
+    public String getFailureViewName(BasicForm unvalidForm) {
+	return failureViewName;
+    }
     
     /**
      * Gets the name of the form used for the ModelMap.
@@ -91,7 +124,9 @@ public abstract class BasicFormController extends BasicController {
      * @return
      * 	the name of the form
      */
-    public abstract String getFormName();
+    public String getFormName() {
+	return formName;
+    }
     
     /**
      * Gets the name of the view name to use when the form validation is a success.<br/>
@@ -103,7 +138,9 @@ public abstract class BasicFormController extends BasicController {
      * @return
      * 	the name of the success view
      */
-    public abstract String getSuccessViewName(BasicForm validForm);
+    public String getSuccessViewName(BasicForm validForm) {
+	return successViewName;
+    }
     
     /**
      * Gets the name of the form view used for a super user.<br/>
@@ -111,7 +148,9 @@ public abstract class BasicFormController extends BasicController {
      * @return
      * 	the name of the form view for a super user
      */
-    public abstract String getSuperUserFormViewName();
+    public String getSuperUserFormViewName() {
+	return superUserFormViewName;
+    }
     
     /**
      * Gets the name of the form view used for a normal user.<br/>
@@ -120,7 +159,9 @@ public abstract class BasicFormController extends BasicController {
      * @return
      * 	the name of the form view for a normal user
      */
-    public abstract String getUserFormViewName();
+    public String getUserFormViewName(){
+	return userFormViewName;
+    }
     
     /**
      * Gets the validator of the form.

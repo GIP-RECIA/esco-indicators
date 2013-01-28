@@ -48,42 +48,10 @@ public class FormServiceController extends BasicFormController {
      * Default constructor of the {@link FormServiceController} class.
      */
     public FormServiceController() {
-	super(SessionConstants.SERVICE_FORM_ATTR);
+	super(SessionConstants.SERVICE_FORM_ATTR, "serviceform", "redirect:establishment-services", "form-services", null, "form-services");
     }
     
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getFailureViewName(org.esco.indicators.domain.beans.form.BasicForm)
-     */
-    @Override
-    public String getFailureViewName(BasicForm unvalidForm) {
-        return "form-services";
-    }
-
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getFormName()
-     */
-    @Override
-    public String getFormName() {
-        return "serviceform";
-    }
-
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getUserFormViewName()
-     */
-    @Override
-    public String getUserFormViewName() {
-        return "redirect:establishment-services";
-    }
-
-    /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getSuperUserFormViewName()
-     */
-    @Override
-    public String getSuperUserFormViewName() {
-        return "form-services";
-    }
-
     /* (non-Javadoc)
      * @see org.esco.indicators.web.springmvc.controller.basic.form.BasicFormController#getSuccessViewName(org.esco.indicators.domain.beans.form.BasicForm)
      */

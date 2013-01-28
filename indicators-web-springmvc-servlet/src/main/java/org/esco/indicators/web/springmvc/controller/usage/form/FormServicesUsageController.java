@@ -31,7 +31,7 @@ public class FormServicesUsageController  extends BasicFormController {
      * Default constructor of the {@link FormServicesUsageController} class.
      */
     public FormServicesUsageController() {
-	super(SessionConstants.SERVICE_USAGE_FORM_ATTR);
+	super(SessionConstants.SERVICE_USAGE_FORM_ATTR, null, null, null, null, null);
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
