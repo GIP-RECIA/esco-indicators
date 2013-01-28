@@ -57,30 +57,6 @@ public class EstablishmentPeriodicServiceResultController extends BasicEstablish
     //------------------------------------------------------------------------------ PUBLIC METHODS
     
     /**
-     * Populate the end date field.
-     * 
-     * @param request
-     * 			The request made by the user.
-     * @return
-     * 	the submitted value for the end date field.
-     */
-    @ModelAttribute("endDateItem")
-    public String populateEndDate(HttpServletRequest request) {
-        // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), formSessionAttribute)) {
-            return null;
-        }
-        
-        // Retrieval of the submitted monitoring type value
-        ServiceForm aaForm = (ServiceForm) getSessionForm(request.getSession(), formSessionAttribute);
-        
-        // Retrieval of the end date
-        String endDate = aaForm.getEndDatePicker();
-        
-        return endDate;
-    }
-    
-    /**
      * Populate the field containing the list of the periods used to index the statistic data in the sub rows.<br/>
      * 
      * @param request

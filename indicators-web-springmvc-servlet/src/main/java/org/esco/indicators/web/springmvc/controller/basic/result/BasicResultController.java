@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.esco.indicators.domain.beans.form.AccountActivationForm;
 import org.esco.indicators.domain.beans.form.BasicForm;
 import org.esco.indicators.domain.beans.form.ServiceForm;
 import org.esco.indicators.domain.beans.structure.Establishment;
@@ -280,6 +281,30 @@ public abstract class BasicResultController extends BasicController {
         String startDate = form.getStartDatePicker();
         
         return startDate;
+    }
+    
+    /**
+     * Populate the end date field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the submitted value for the end date field.
+     */
+    @ModelAttribute("endDateItem")
+    public String populateEndDate(HttpServletRequest request) {
+        // Checks if the there is a valid submitted form to process
+        if(!containsForm(request.getSession(), formSessionAttribute)) {
+            return null;
+        }
+        
+        // Retrieval of the submitted monitoring type value
+        BasicForm aaForm = getSessionForm(request.getSession(), formSessionAttribute);
+        
+        // Retrieval of the end date
+        String endDate = aaForm.getEndDatePicker();
+        
+        return endDate;
     }
 
     /**
