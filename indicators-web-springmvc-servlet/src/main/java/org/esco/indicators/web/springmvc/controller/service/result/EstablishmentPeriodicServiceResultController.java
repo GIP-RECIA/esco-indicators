@@ -56,42 +56,17 @@ public class EstablishmentPeriodicServiceResultController extends BasicEstablish
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
     
-    /**
-     * Populate the field containing the list of the periods used to index the statistic data in the sub rows.<br/>
-     * 
-     * @param request
-     * 			The request made by the user.
-     * @return
-     * 	the list of the periods used to index the statistic data.
-     */
-    @ModelAttribute("statisticPeriodsItems")
-    public List<IntegerPair> populatePeriods(HttpServletRequest request) {
-        // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), formSessionAttribute)) {
-            return null;
-        }
-        
-        // Retrieval of the submitted monitoring type value
-        ServiceForm aaForm = (ServiceForm) getSessionForm(request.getSession(), formSessionAttribute);
-        
-	// Retrieval of the establishments types
-	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(aaForm.getEstablishmentsTypes()));
-	
-        // Retrieval of the start and end date
-        Date startDate = aaForm.getStartDate();
-        Date endDate = aaForm.getEndDate();
-        
-        return getStatisticPeriods(establishmentsTypes, startDate, endDate);
-    }
-    
     //----------------------------------------------------------------------------- PROTECTED METHODS
     /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.service.result.BasicEstablishmentServiceResultController#createEstablishmentResultRows(java.util.List, java.lang.String, java.util.List, java.util.List, java.util.Date, java.util.Date)
+     * @see org.esco.indicators.web.springmvc.controller.service.result.BasicEstablishmentServiceResultController#createEstablishmentsResultRows(java.util.List, java.util.List, java.util.List, java.util.List, java.util.Date, java.util.Date)
      */
     @Override
-    protected List<DetailResultRow> createEstablishmentResultRows(List<String> establishmentsTypes,
-	    String establishmentUai, List<String> services, List<String> userProfiles, Date startDate,
+    protected List<DetailResultRow> createEstablishmentsResultRows(List<String> establishmentsTypes,
+	    List<String> establishmentsUai, List<String> services, List<String> userProfiles, Date startDate,
 	    Date endDate) {
+	// Retrieval of the establishment
+	String establishmentUai = establishmentsUai.get(0);
+	
 	// Retrieval of the start and end years
 	Integer startYear = DateUtils.getYear(startDate);
 	Integer endYear = DateUtils.getYear(endDate);

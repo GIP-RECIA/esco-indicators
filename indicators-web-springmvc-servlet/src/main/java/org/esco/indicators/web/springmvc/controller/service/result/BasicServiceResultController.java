@@ -11,23 +11,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.esco.indicators.domain.beans.form.AccountActivationForm;
 import org.esco.indicators.domain.beans.form.ServiceForm;
 import org.esco.indicators.domain.beans.result.ExtendedResultRow;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.services.form.service.ResultServiceFormService;
-import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.classes.IntegerPair;
-import org.esco.indicators.utils.constants.web.SessionConstants;
-import org.esco.indicators.utils.constants.xml.DataFormConstants;
-import org.esco.indicators.utils.date.DateUtils;
-import org.esco.indicators.web.springmvc.controller.account.result.PeriodicAccountResultController;
 import org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController;
+import org.esco.indicators.web.springmvc.controller.user.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Basic controller handling the requests on the page displaying the results of the services.<br/>
@@ -107,7 +100,7 @@ public abstract class BasicServiceResultController extends BasicResultController
      * 	the data rows of the table used to display the result of the submitted form.
      */
     @ModelAttribute("tableRowsItems")
-    public List<ExtendedResultRow> populateTableRows(HttpServletRequest request) {
+    public List<? extends ExtendedResultRow> populateTableRows(HttpServletRequest request) {
 	// Checks if the there is a valid submitted form to process
 	if(!containsForm(request.getSession(), formSessionAttribute)) {
 	    return null;
@@ -172,6 +165,7 @@ public abstract class BasicServiceResultController extends BasicResultController
         return i18nKeys;
     }
 
+    //--------------------------------------------------------------------------- PROTECTED METHODS
     /**
      * Creates the result rows; each result row containing the following data :
      * <ul>
@@ -205,7 +199,7 @@ public abstract class BasicServiceResultController extends BasicResultController
      * @return
      * 	the result rows containing the data to display.
      */
-    protected abstract List<ExtendedResultRow> createEstablishmentsResultRows( List<String> establishmentsTypes, List<String> establishmentsUai, List<String> services, List<String> usersProfiles, Date startDate, Date endDate);
+    protected abstract List<? extends ExtendedResultRow> createEstablishmentsResultRows( List<String> establishmentsTypes, List<String> establishmentsUai, List<String> services, List<String> usersProfiles, Date startDate, Date endDate);
 
     /**
      * Creates the result rows; each result row containing the following data :
@@ -243,8 +237,6 @@ public abstract class BasicServiceResultController extends BasicResultController
      * 	the result rows containing the data to display.
      */
     protected abstract List<ExtendedResultRow> createSumOnCountiesResultRows( List<String> checkedEstablishmentTypes, List<String> countyNumbers, List<String> establishmentsTypes, List<String> services, List<String> usersProfiles, Date startDate, Date endDate);
-    
-    //--------------------------------------------------------------------------- PROTECTED METHODS
     
     //----------------------------------------------------------------------------- PRIVATE METHODS
     

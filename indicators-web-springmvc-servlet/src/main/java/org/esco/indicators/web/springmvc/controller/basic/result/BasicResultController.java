@@ -129,6 +129,30 @@ public abstract class BasicResultController extends BasicController {
     }
 
     /**
+     * Populate the end date field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the submitted value for the end date field.
+     */
+    @ModelAttribute("endDateItem")
+    public String populateEndDate(HttpServletRequest request) {
+        // Checks if the there is a valid submitted form to process
+        if(!containsForm(request.getSession(), formSessionAttribute)) {
+            return null;
+        }
+        
+        // Retrieval of the submitted monitoring type value
+        BasicForm aaForm = getSessionForm(request.getSession(), formSessionAttribute);
+        
+        // Retrieval of the end date
+        String endDate = aaForm.getEndDatePicker();
+        
+        return endDate;
+    }
+    
+    /**
      * Populate the establishments types field.
      * 
      * @param request
@@ -147,30 +171,6 @@ public abstract class BasicResultController extends BasicController {
         List<String> i18nKeys = getI18nKeys(jspKeys);
         
         return i18nKeys;
-    }
-    
-    /**
-     * Populates a map that contained the users profilesto filter and their i18n keys.<br/>
-     * The keys of this map are : the users profiles to filter.
-     * 
-     * @param request
-     * 			The request made by the user.
-     * 
-     * @return
-     * 	a map containing the JSP keys associated to their i18n keys.
-     */
-    @ModelAttribute("i18nUsersProfiles")
-    public Map<String, String> populateUsersProfilesI18nKeys(HttpServletRequest request) {
-	// Final result
-	Map<String, String> i18nKeysByJspKeys = new HashMap<String, String>();
-	
-	// Retrieval of the i18n keys for the users profiles  to filter
-	List<String> allUsersProfiles = getAllUsersProfiles();
-	for (String userProfile : allUsersProfiles) {
-	    i18nKeysByJspKeys.put(userProfile, getDataFormService().getI18nKey(userProfile));
-	}
-	
-	return i18nKeysByJspKeys;
     }
     
     /**
@@ -197,30 +197,6 @@ public abstract class BasicResultController extends BasicController {
     }
 
     /**
-     * Populate the 'lycees' types field.
-     * 
-     * @param request
-     * 			The request made by the user.
-     * @return
-     * 	the submitted values for the 'lycees' types field.
-     */
-    @ModelAttribute("lyceesTypesItems")
-    public List<String> populateLyceesTypes(HttpServletRequest request) {
-        // Retrieval of the submitted monitoring type value
-        BasicForm form =  getSessionForm(request.getSession(), formSessionAttribute);
-        
-        // Retrieval of the i18n key
-        String [] lyceesTypes = form.getLyceesTypes();
-        List<String> i18nKeys = null;
-        if(lyceesTypes != null) {
-        	List<String> jspKeys = new ArrayList<String>(Arrays.asList(lyceesTypes));
-        	i18nKeys = getI18nKeys(jspKeys);
-        }
-        
-        return i18nKeys;
-    }
-
-    /**
      * Populate the 'la' types field.
      * 
      * @param request
@@ -235,6 +211,30 @@ public abstract class BasicResultController extends BasicController {
         
         // Retrieval of the i18n key
         String [] lyceesTypes = form.getLaTypes();
+        List<String> i18nKeys = null;
+        if(lyceesTypes != null) {
+        	List<String> jspKeys = new ArrayList<String>(Arrays.asList(lyceesTypes));
+        	i18nKeys = getI18nKeys(jspKeys);
+        }
+        
+        return i18nKeys;
+    }
+
+    /**
+     * Populate the 'lycees' types field.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the submitted values for the 'lycees' types field.
+     */
+    @ModelAttribute("lyceesTypesItems")
+    public List<String> populateLyceesTypes(HttpServletRequest request) {
+        // Retrieval of the submitted monitoring type value
+        BasicForm form =  getSessionForm(request.getSession(), formSessionAttribute);
+        
+        // Retrieval of the i18n key
+        String [] lyceesTypes = form.getLyceesTypes();
         List<String> i18nKeys = null;
         if(lyceesTypes != null) {
         	List<String> jspKeys = new ArrayList<String>(Arrays.asList(lyceesTypes));
@@ -265,6 +265,34 @@ public abstract class BasicResultController extends BasicController {
     }
 
     /**
+     * Populate the field containing the list of the periods used to index the statistic data in the sub rows.<br/>
+     * 
+     * @param request
+     * 			The request made by the user.
+     * @return
+     * 	the list of the periods used to index the statistic data.
+     */
+    @ModelAttribute("statisticPeriodsItems")
+    public List<IntegerPair> populatePeriods(HttpServletRequest request) {
+        // Checks if the there is a valid submitted form to process
+        if(!containsForm(request.getSession(), formSessionAttribute)) {
+            return null;
+        }
+        
+        // Retrieval of the submitted monitoring type value
+        BasicForm form = getSessionForm(request.getSession(), formSessionAttribute);
+        
+        // Retrieval of the establishments types
+        List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(form.getEstablishmentsTypes()));
+        
+        // Retrieval of the start and end date
+        Date startDate = form.getStartDate();
+        Date endDate = form.getEndDate();
+        
+        return getStatisticPeriods(establishmentsTypes, startDate, endDate);
+    }
+
+    /**
      * Populate the start date field.
      * 
      * @param request
@@ -283,30 +311,6 @@ public abstract class BasicResultController extends BasicController {
         return startDate;
     }
     
-    /**
-     * Populate the end date field.
-     * 
-     * @param request
-     * 			The request made by the user.
-     * @return
-     * 	the submitted value for the end date field.
-     */
-    @ModelAttribute("endDateItem")
-    public String populateEndDate(HttpServletRequest request) {
-        // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), formSessionAttribute)) {
-            return null;
-        }
-        
-        // Retrieval of the submitted monitoring type value
-        BasicForm aaForm = getSessionForm(request.getSession(), formSessionAttribute);
-        
-        // Retrieval of the end date
-        String endDate = aaForm.getEndDatePicker();
-        
-        return endDate;
-    }
-
     /**
      * Populate the sum on counties field.
      * 
@@ -350,8 +354,31 @@ public abstract class BasicResultController extends BasicController {
         
         return i18nKeys;
     }
-
     
+    /**
+     * Populates a map that contained the users profilesto filter and their i18n keys.<br/>
+     * The keys of this map are : the users profiles to filter.
+     * 
+     * @param request
+     * 			The request made by the user.
+     * 
+     * @return
+     * 	a map containing the JSP keys associated to their i18n keys.
+     */
+    @ModelAttribute("i18nUsersProfiles")
+    public Map<String, String> populateUsersProfilesI18nKeys(HttpServletRequest request) {
+        // Final result
+        Map<String, String> i18nKeysByJspKeys = new HashMap<String, String>();
+        
+        // Retrieval of the i18n keys for the users profiles  to filter
+        List<String> allUsersProfiles = getAllUsersProfiles();
+        for (String userProfile : allUsersProfiles) {
+            i18nKeysByJspKeys.put(userProfile, getDataFormService().getI18nKey(userProfile));
+        }
+        
+        return i18nKeysByJspKeys;
+    }
+
     //--------------------------------------------------------------------------- PROTECTED METHODS
     /**
      * Gets the JSP keys corresponding to all the available users profiles.

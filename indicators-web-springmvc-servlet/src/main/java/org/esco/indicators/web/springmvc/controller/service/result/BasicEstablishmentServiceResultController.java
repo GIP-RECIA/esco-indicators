@@ -11,16 +11,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.esco.indicators.domain.beans.form.AccountActivationForm;
 import org.esco.indicators.domain.beans.form.ServiceForm;
 import org.esco.indicators.domain.beans.result.DetailResultRow;
 import org.esco.indicators.domain.beans.result.ExtendedResultRow;
 import org.esco.indicators.domain.beans.structure.Establishment;
 import org.esco.indicators.services.form.DataFormService;
 import org.esco.indicators.services.form.service.ResultServiceFormService;
-import org.esco.indicators.services.structure.EstablishmentService;
 import org.esco.indicators.utils.classes.IntegerPair;
-import org.esco.indicators.web.springmvc.controller.basic.result.BasicResultController;
 import org.esco.indicators.web.springmvc.controller.user.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,7 +29,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
  * @since  2012/11/05
  * @author GIP RECIA - Kevin Frapin <kevin.frapin@recia.fr>
  */
-public abstract class BasicEstablishmentServiceResultController extends BasicResultController {
+public abstract class BasicEstablishmentServiceResultController extends BasicServiceResultController {
     //---------------------------------------------------------------------------------- ATTRIBUTES
     /** Logger of the class */
     private static final Logger LOGGER = Logger.getLogger(BasicEstablishmentServiceResultController.class);
@@ -55,17 +52,6 @@ public abstract class BasicEstablishmentServiceResultController extends BasicRes
     }
 
     //--------------------------------------------------------------------------- GETTERS / SETTERS
-    /**
-     * Sets the data form service
-     * 
-     * @param dataFormService
-     * 			the data form service to set
-     */
-    @Autowired
-    @Qualifier("dataServiceFormService")
-    public void setDataFormService(DataFormService dataFormService) {
-	this.dataFormService = dataFormService;
-    }
     
     //------------------------------------------------------------------------------ PUBLIC METHODS
     /**
@@ -125,6 +111,7 @@ public abstract class BasicEstablishmentServiceResultController extends BasicRes
      * @return
      * 	the data rows of the table used to display the result of the submitted form.
      */
+    @Override
     @ModelAttribute("tableRowsItems")
     public List<DetailResultRow> populateTableRows(HttpServletRequest request) {
 	// Checks if the there is a valid submitted form to process
@@ -153,32 +140,9 @@ public abstract class BasicEstablishmentServiceResultController extends BasicRes
 	// Retrieval of the establishment uai
 	String establishmentUai = getEstablishmentUai(request);
 	LOGGER.debug("The result rows will concern the establishment : [" + establishmentUai + "]");
-	return createEstablishmentResultRows(establishmentsTypes, establishmentUai, services, authorizedProfiles, startDate, endDate);
-    }
-    
-    /**
-     * Populate the field containing the list of i18n keys for the wanted services.<br/>
-     * 
-     * @param request
-     * 			The request made by the user.
-     * @return
-     * 	the list of the keys used to index the statistic data.
-     */
-    @ModelAttribute("wantedServicesItems")
-    public List<String> populateWantedServices(HttpServletRequest request) {
-        // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), formSessionAttribute)) {
-            return null;
-        }
-        
-        // Retrieval of the submitted monitoring type value
-        ServiceForm aaForm = (ServiceForm) getSessionForm(request.getSession(), formSessionAttribute);
-        
-        // Retrieval of the wanted services
-        List<String> wantedServices = new ArrayList<String>(Arrays.asList(aaForm.getWantedServices()));
-        List<String> i18nKeys = getI18nKeys(wantedServices);
-        
-        return i18nKeys;
+	List<String> establishmentsUai = new ArrayList<String>();
+	establishmentsUai.add(establishmentUai);
+	return createEstablishmentsResultRows(establishmentsTypes, establishmentsUai, services, authorizedProfiles, startDate, endDate);
     }
     
     //--------------------------------------------------------------------------- PROTECTED METHODS
@@ -207,42 +171,21 @@ public abstract class BasicEstablishmentServiceResultController extends BasicRes
 	return detailResultRows;
     }
     
-    /**
-     * Creates the result rows; each result row containing the following data :
-     * <ul>
-     * 	<li>The user profile</li>
-     * 	<li>The statistic data (number of connections,...)</li>
-     * </ul>
-     * 
-     * The statistic data are indexed by a {@link String} or an {@link IntegerPair}.<br/>
-     * When the statistics are punctual, the index is a string and represents : the name of a service.<br/>
-     * When the statistics are periodic, the index is an Integer pair containing : 
-     * <ul>
-     * 	<li>First value : the number of a week / month</li>
-     * 	<li>Second value : the year of the week</li>
-     * </ul>
-     * The periods (week/month and year) represented by the pairs are extracted from the original period
-     * specified by the <code>startDate</code> and the <code>endDate</code>.
-     * 
-     * @param establishmentsTypes
-     * 			The types of the establishments.
-     * @param establishmentUai
-     * 			The UAI of the establishment.
-     * @param services
-     * 			The services concerned by the statistics.
-     * @param userProfiles
-     * 			The user profiles concerned by the statistics.
-     * @param startDate
-     * 			The start date of the statistics.
-     * @param endDate
-     * 			The end date of the statistics (can be <code>null</code>).
-     * 
-     * @return
-     * 	the result rows containing the data to display.
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.service.result.BasicServiceResultController#createEstablishmentsResultRows(java.util.List, java.util.List, java.util.List, java.util.List, java.util.Date, java.util.Date)
      */
-    protected abstract List<DetailResultRow> createEstablishmentResultRows( List<String> establishmentsTypes, String establishmentUai, List<String> services, List<String> userProfiles, Date startDate, Date endDate);
+    @Override
+    protected abstract List<DetailResultRow> createEstablishmentsResultRows( List<String> establishmentsTypes,  List<String> establishmentsUai, List<String> services, List<String> userProfiles, Date startDate, Date endDate);
 
-    
+
+    /* (non-Javadoc)
+     * @see org.esco.indicators.web.springmvc.controller.service.result.BasicServiceResultController#createSumOnCountiesResultRows(java.util.List, java.util.List, java.util.List, java.util.List, java.util.List, java.util.Date, java.util.Date)
+     */
+    @Override
+    protected List<ExtendedResultRow> createSumOnCountiesResultRows( List<String> checkedEstablishmentTypes, List<String> countyNumbers, List<String> establishmentsTypes, List<String> services, List<String> usersProfiles, Date startDate, Date endDate) {
+	return null;
+    }
+ 
     //----------------------------------------------------------------------------- PRIVATE METHODS
     
     //------------------------------------------------------------------------------ STATIC METHODS

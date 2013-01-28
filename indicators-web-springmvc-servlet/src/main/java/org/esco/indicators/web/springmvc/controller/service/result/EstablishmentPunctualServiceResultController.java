@@ -46,12 +46,15 @@ public class EstablishmentPunctualServiceResultController extends BasicEstablish
     
     //--------------------------------------------------------------------------- PROTECTED METHODS
     /* (non-Javadoc)
-     * @see org.esco.indicators.web.springmvc.controller.service.result.BasicEstablishmentServiceResultController#createEstablishmentResultRows(java.util.List, java.lang.String, java.util.List, java.util.List, java.util.Date, java.util.Date)
+     * @see org.esco.indicators.web.springmvc.controller.service.result.BasicEstablishmentServiceResultController#createEstablishmentsResultRows(java.util.List, java.util.List, java.util.List, java.util.List, java.util.Date, java.util.Date)
      */
     @Override
-    protected List<DetailResultRow> createEstablishmentResultRows(List<String> establishmentsTypes,
-	    String establishmentUai, List<String> services, List<String> userProfiles, Date startDate,
+    protected List<DetailResultRow> createEstablishmentsResultRows(List<String> establishmentsTypes,
+	    List<String> establishmentsUai, List<String> services, List<String> userProfiles, Date startDate,
 	    Date endDate) {
+	// Retrieval of the establishment
+	String establishmentUai = establishmentsUai.get(0);
+	
 	// Retrieval of the year
 	Integer year = DateUtils.getYear(startDate);
 	

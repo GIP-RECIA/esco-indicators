@@ -53,33 +53,6 @@ public class PeriodicServiceResultController extends BasicServiceResultControlle
     //--------------------------------------------------------------------------- GETTERS / SETTERS
 
     //------------------------------------------------------------------------------ PUBLIC METHODS
-    /**
-     * Populate the field containing the list of the periods used to index the statistic data in the sub rows.<br/>
-     * 
-     * @param request
-     * 			The request made by the user.
-     * @return
-     * 	the list of the periods used to index the statistic data.
-     */
-    @ModelAttribute("statisticPeriodsItems")
-    public List<IntegerPair> populatePeriods(HttpServletRequest request) {
-        // Checks if the there is a valid submitted form to process
-        if(!containsForm(request.getSession(), formSessionAttribute)) {
-            return null;
-        }
-        
-        // Retrieval of the submitted monitoring type value
-        ServiceForm aaForm = (ServiceForm) getSessionForm(request.getSession(), formSessionAttribute);
-        
-	// Retrieval of the establishments types
-	List<String> establishmentsTypes = new ArrayList<String>(Arrays.asList(aaForm.getEstablishmentsTypes()));
-	
-        // Retrieval of the start and end date
-        Date startDate = aaForm.getStartDate();
-        Date endDate = aaForm.getEndDate();
-        
-        return getStatisticPeriods(establishmentsTypes, startDate, endDate);
-    }
     
     //----------------------------------------------------------------------------- PROTECTED METHODS
     /* (non-Javadoc)
