@@ -166,6 +166,24 @@ public class DateUtils {
     }
     
     /**
+     * Gets the SQL date corresponding to the specified <code>week</code> of the <code>year</code>.<br/>
+     * The constructed date corresponds to the last day of the specified <code>week</code> of the specified <code>year</code>.
+     * 
+     * @param week
+     * 			The week number.
+     * @param year
+     * 			The year.
+     * @return
+     * 	the SQL date corresponding to the last day of the <code>week</code> of the <code>year</code>.
+     */
+    public static Date getLastWeekDay(Integer week, Integer year) {
+	// Get the first week day
+	Date firstWeekDay = getFirstWeekDay(week, year);
+	// Return the last week day
+	return DateUtils.addDays(firstWeekDay, 6);
+    }
+    
+    /**
      * Returns the month (in the year) of a date.
      * 
      * @param date
