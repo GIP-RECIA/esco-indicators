@@ -31,7 +31,7 @@ import org.apache.log4j.Logger;
 	    query = "SELECT SUM(wpcs.numUsers * wpcs.numConnections * wpcs.averageDuration) / SUM(wpcs.numUsers * wpcs.numConnections) FROM  WeeklyPortalConnectionStatistic wpcs"
 		    	+ " WHERE wpcs.establishmentUai =  :establishmentUai"
 			+ " AND wpcs.firstWeekDay = :firstWeekDay " 
-		    	+ " AND wpcs.userProfile IN ( :userProfile )"
+		    	+ " AND wpcs.userProfile IN ( :userProfileList )"
 	    ),
     @NamedQuery(
 	    name = "WeeklyPortalConnectionStatistic.findStatisticsByProfiles",
