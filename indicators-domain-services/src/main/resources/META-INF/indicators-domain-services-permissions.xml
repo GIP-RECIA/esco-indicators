@@ -73,6 +73,7 @@
                             <value>MAILING_LIST</value>
                             <value>SUM_COMMUNICATION</value>
                             <value>GRR</value>
+                            <value>GLPI</value>
                             <value>INDICATORS</value>
                             <value>SUM_SERVICES</value>
                             <value>ONISEP</value>
@@ -141,6 +142,7 @@
                             <value>MAILING_LIST</value>
                             <value>SUM_COMMUNICATION</value>
                             <value>GRR</value>
+                            <value>GLPI</value>
                             <value>INDICATORS</value>
                             <value>SUM_SERVICES</value>
                             <value>WEB_FILE</value>
@@ -220,6 +222,7 @@
                             <value>MAILING_LIST</value>
                             <value>SUM_COMMUNICATION</value>
                             <value>GRR</value>
+                            <value>GLPI</value>
                             <value>INDICATORS</value>
                             <value>SUM_SERVICES</value>
                             <value>ONISEP</value>
@@ -369,6 +372,7 @@
                             <value>MAILING_LIST</value>
                             <value>SUM_COMMUNICATION</value>
                             <value>GRR</value>
+                            <value>GLPI</value>
                             <value>INDICATORS</value>
                             <value>SUM_SERVICES</value>
                             <value>ONISEP</value>
@@ -436,6 +440,7 @@
                             <value>MAILING_LIST</value>
                             <value>SUM_COMMUNICATION</value>
                             <value>GRR</value>
+                            <value>GLPI</value>
                             <value>INDICATORS</value>
                             <value>SUM_SERVICES</value>
                             <value>WEB_FILE</value>
@@ -513,6 +518,7 @@
                             <value>MAILING_LIST</value>
                             <value>SUM_COMMUNICATION</value>
                             <value>GRR</value>
+                            <value>GLPI</value>
                             <value>INDICATORS</value>
                             <value>SUM_SERVICES</value>
                             <value>ONISEP</value>
