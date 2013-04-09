@@ -58,7 +58,6 @@
                             <value>STAFF_COLLECTIVITY</value>
                             <value>MASTER_CRAFTSMEN</value>
                             <value>EMPLOYERS</value>
-                            <value>SUM_PROFILES</value>
                         </set>
                     </entry>
                     <entry key="services">
@@ -126,7 +125,6 @@
                             <value>RELATIVES</value>
                             <value>TEACHERS</value>
                             <value>STAFF_COLLECTIVITY</value>
-                            <value>SUM_PROFILES</value>
                         </set>
                     </entry>
                     <entry key="services">
@@ -206,7 +204,6 @@
                             <value>RELATIVES</value>
                             <value>TEACHERS</value>
                             <value>STAFF_COLLECTIVITY</value>
-                            <value>SUM_PROFILES</value>
                         </set>
                     </entry>
                     <entry key="services">
@@ -277,7 +274,6 @@
 	                        <value>RELATIVES</value>
 	                        <value>TEACHERS</value>
 	                        <value>STAFF_COLLECTIVITY</value>
-	                        <value>SUM_PROFILES</value>
 	                    </set>
 	                </entry>
                     <entry key="services">
