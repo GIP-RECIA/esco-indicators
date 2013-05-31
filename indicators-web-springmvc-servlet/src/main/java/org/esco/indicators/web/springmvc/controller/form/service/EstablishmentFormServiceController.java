@@ -132,7 +132,7 @@ public class EstablishmentFormServiceController extends BasicEstablishmentFormCo
        // Retrieval of the submitted form
        ServiceForm form =  getSessionForm(request.getSession(), formSessionAttribute);
        // Retrieval of the services
-       String [] formServices = ( form.getEstablishments() == null ? new String [0] : form.getWantedServices() );
+       String [] formServices = ( form.getWantedServices() == null ? new String [0] : form.getWantedServices() );
        if(formServices.length > 0) {
 	   LOGGER.debug("At least one service has been retrieved in the session");
        }
