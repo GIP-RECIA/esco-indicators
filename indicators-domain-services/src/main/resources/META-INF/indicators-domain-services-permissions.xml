@@ -31,7 +31,7 @@
     -->
     <bean   id="localCfaEstablishmentViewPermission"
             class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
-            <property name="patternToMatch" value="cfa:Applications:Indicateurs:[\p{L} [0-9]]+_([0-9]+[A-Z])"/>
+            <property name="patternToMatch" value="cfa:Applications:Indicateurs:[^_:]+_([0-9]+[A-Z])"/>
             <property name="patternFilter" ref="localCfaPatternFilter"/>
     </bean>
     <bean   id="localCfaPatternFilter"
@@ -95,7 +95,7 @@
     
     <bean   id="localEscoEstablishmentViewPermission"
             class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
-            <property name="patternToMatch" value="esco:Applications:Indicateurs:[\p{L} [0-9]]+_([0-9]+[A-Z])"/>
+            <property name="patternToMatch" value="esco:Applications:Indicateurs:[^_:]+_([0-9]+[A-Z])"/>
             <property name="patternFilter" ref="localEscoPatternFilter"/>
     </bean>
     <bean   id="localEscoPatternFilter"
@@ -177,7 +177,7 @@
     
     <bean   id="localAgriEstablishmentViewPermission"
             class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
-            <property name="patternToMatch" value="agri:Applications:Indicateurs:[\p{L} [0-9]]+_([0-9]+[A-Z])"/>
+            <property name="patternToMatch" value="agri:Applications:Indicateurs:[^_:]+_([0-9]+[A-Z])"/>
             <property name="patternFilter" ref="localAgriPatternFilter"/>
     </bean>
     <bean   id="localAgriPatternFilter"
@@ -249,7 +249,7 @@
     
     <bean   id="localClg37EstablishmentViewPermission"
             class="org.esco.indicators.domain.beans.permission.EstablishmentViewPermission">
-            <property name="patternToMatch" value="clg37:Applications:Indicateurs:[\p{L} [0-9]]+_([0-9]+[A-Z])"/>
+            <property name="patternToMatch" value="clg37:Applications:Indicateurs:[^_:]+_([0-9]+[A-Z])"/>
             <property name="patternFilter" ref="localClg37PatternFilter"/>
     </bean>
     <bean   id="localClg37PatternFilter"
