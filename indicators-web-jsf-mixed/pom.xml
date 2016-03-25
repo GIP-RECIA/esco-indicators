@@ -6,7 +6,6 @@
         <groupId>org.esco</groupId>
         <version>1.0.0-0</version>
     </parent>
-    <groupId>org.esco</groupId>
     <artifactId>indicators-web-jsf-mixed</artifactId>
     <packaging>war</packaging>
     <build>
@@ -126,7 +125,7 @@
                 <resources>
                     <resource>
                         <directory>src/main/resources</directory>
-						<filtering>true</filtering>
+                        <filtering>true</filtering>
                     </resource>
                 </resources>
                 <defaultGoal>package</defaultGoal>
@@ -203,7 +202,7 @@
         <dependency>
             <groupId>org.esco</groupId>
             <artifactId>indicators-domain-services</artifactId>
-            <version>1.0.0-0</version>
+            <version>${project.version}</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>

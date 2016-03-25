@@ -6,6 +6,16 @@
     <version>1.0.0-0</version>
     <packaging>pom</packaging>
     <description>An Blank Application to start your project</description>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.2.2</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <repositories>
         <repository>
             <id>esup-snapshots</id>
@@ -57,7 +67,7 @@
                 <version>2.3.2</version>
                 <configuration>
                     <source>1.6</source>
-                    <target>1.6</target>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -101,8 +111,11 @@
         </plugins>
     </build>
     <properties>
-        <esupcommons.version>0.2.8</esupcommons.version>
+        <esupcommons.version>0.3.2</esupcommons.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <springframework.version>3.0.6.RELEASE</springframework.version>
+        <java.cas.client.version>3.4.1</java.cas.client.version>
+        <junit.version>4.12</junit.version>
     </properties>
   <modules>
     <module>indicators-dao</module>

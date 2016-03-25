@@ -6,16 +6,15 @@
         <groupId>org.esco</groupId>
         <version>1.0.0-0</version>
     </parent>
-    <groupId>org.esco</groupId>
     <artifactId>indicators-web-springmvc-portlet</artifactId>
     <packaging>war</packaging>
     <build>
-    	<plugins>
-	    	<plugin>
-		        <artifactId>maven-war-plugin</artifactId>
-		        <version>2.1</version>
-		        <configuration>
-		        	<webResources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <webResources>
                         <resource>
                             <filtering>true</filtering>
                             <directory>src/main/webapp</directory>
@@ -24,10 +23,10 @@
                             </includes>
                         </resource>
                     </webResources>
-		            <warName>${project.parent.artifactId}</warName>
-		        </configuration>
-		    </plugin>
-	    </plugins>
+                    <warName>${project.parent.artifactId}</warName>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
     <dependencies>
         <dependency>
@@ -92,7 +91,7 @@
         <dependency>
             <groupId>org.esco</groupId>
             <artifactId>indicators-domain-services</artifactId>
-            <version>1.0.0-0</version>
+            <version>${project.parent.version}</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>

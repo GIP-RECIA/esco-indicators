@@ -6,7 +6,6 @@
         <groupId>org.esco</groupId>
         <version>1.0.0-0</version>
     </parent>
-    <groupId>org.esco</groupId>
     <artifactId>indicators-web-jsf-servlet</artifactId>
     <packaging>war</packaging>
     <description>couche d'acces aux donnees</description>
@@ -27,14 +26,14 @@
             </resource>
         </resources>
         <plugins>
-	    	<plugin>
-		        <artifactId>maven-war-plugin</artifactId>
-		        <version>2.1</version>
-		        <configuration>
-		            <warName>${project.parent.artifactId}</warName>
-		        </configuration>
-		    </plugin>
-	    </plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <warName>${project.parent.artifactId}</warName>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
     <dependencies>
         <dependency>
@@ -61,7 +60,7 @@
         <dependency>
             <groupId>org.esco</groupId>
             <artifactId>indicators-domain-services</artifactId>
-            <version>1.0.0-0</version>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
     <properties>

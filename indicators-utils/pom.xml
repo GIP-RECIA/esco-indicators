@@ -6,7 +6,6 @@
         <groupId>org.esco</groupId>
         <version>1.0.0-0</version>
     </parent>
-    <groupId>org.esco</groupId>
     <artifactId>indicators-utils</artifactId>
     <description>couche utilitaire</description>
     <dependencies>
@@ -23,16 +22,16 @@
             <version>${esupcommons.version}</version>
         </dependency>
         <dependency>
-		    <groupId>joda-time</groupId>
-		    <artifactId>joda-time</artifactId>
-		    <version>2.1</version>
-		</dependency>
-		
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.1</version>
+        </dependency>
+
         <!-- Test dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.2</version>
+            <version>${junit.version}</version>
             <type>jar</type>
             <scope>test</scope>
         </dependency>
